@@ -28,7 +28,6 @@ package de.mwolff.commons.command;
 
 import static org.junit.Assert.assertEquals;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +41,7 @@ import de.mwolff.commons.command.samplecommands.PriorityThreeTestCommand;
 import de.mwolff.commons.command.samplecommands.PriorityTwoTestCommand;
 import de.mwolff.commons.command.samplecommands.SimpleTestCommand;
 
-public class DefaultCommandTest {
+public class ExampleCommandTest {
 
     /*
      * Simplest example. Put all commands in a container and execute it. All
