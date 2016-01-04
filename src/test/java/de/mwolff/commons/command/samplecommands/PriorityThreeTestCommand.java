@@ -23,28 +23,41 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package de.mwolff.commons.command;
+package de.mwolff.commons.command.samplecommands;
 
-/**
- * Exception which works with this framework.
- *
- */
-@SuppressWarnings("serial")
-public class CommandException extends Exception {
-    
-    public CommandException() {
-        super();
+import de.mwolff.commons.command.GenericContext;
+import de.mwolff.commons.command.iface.Command;
+
+public class PriorityThreeTestCommand<T extends GenericContext> implements Command<T> {
+
+    @Override
+    public void execute(T context) {
+        context.put("PriorityThreeTestCommand", "PriorityThreeTestCommand");
+        String priorString = context.getAsString("priority");
+        if ("NullObject".equals(priorString)) {
+            priorString = "";
+        }
+        priorString += "3-";
+        context.put("priority", priorString);
     }
-     
-    public CommandException(final String message) {
-        super(message);
+
+    @Override
+    public boolean executeAsChain(T context) {
+        String priorString = context.getAsString("priority");
+        priorString += "C-";
+        context.put("priority", priorString);
+        return false;
     }
-    
-    public CommandException(String message, Throwable cause) {
-        super(message, cause);
-    }
-    
-    public CommandException(Throwable cause) {
-        super(cause);
-    }
+
+	@Override
+	public String executeAsProcess(String startCommand, T context) {
+		return null;
+	}
+
+	@Override
+	public String getProcessID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

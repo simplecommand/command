@@ -25,6 +25,8 @@
  */
 package de.mwolff.commons.command;
 
+import de.mwolff.commons.command.iface.Context;
+
 /**
  * Simple context interface for pass values across commands.
  */

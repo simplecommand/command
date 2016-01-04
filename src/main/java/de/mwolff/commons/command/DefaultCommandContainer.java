@@ -29,6 +29,11 @@ import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
 
+import de.mwolff.commons.command.iface.Command;
+import de.mwolff.commons.command.iface.CommandContainer;
+import de.mwolff.commons.command.iface.CommandException;
+import de.mwolff.commons.command.iface.Context;
+
 /**
  * CommandContainer that holds Command-objects. Should have the same behavior as
  * a command (Composite Pattern).
@@ -49,7 +54,7 @@ public class DefaultCommandContainer<T extends Context> implements CommandContai
     });
 
     /**
-     * @see de.mwolff.commons.command.CommandContainer#addCommand(de.mwolff.commons.command.Command)
+     * @see de.mwolff.commons.command.iface.CommandContainer#addCommand(de.mwolff.commons.command.iface.Command)
      */
     @Override
     public void addCommand(Command<T> command) {
@@ -57,8 +62,8 @@ public class DefaultCommandContainer<T extends Context> implements CommandContai
     }
 
     /**
-     * @see de.mwolff.commons.command.CommandContainer#addCommand(int,
-     *      de.mwolff.commons.command.Command)
+     * @see de.mwolff.commons.command.iface.CommandContainer#addCommand(int,
+     *      de.mwolff.commons.command.iface.Command)
      */
     @Override
     public void addCommand(int priority, Command<T> command) {
@@ -66,7 +71,7 @@ public class DefaultCommandContainer<T extends Context> implements CommandContai
     }
 
     /**
-     * @see de.mwolff.commons.command.Command#execute(de.mwolff.commons.command.Context)
+     * @see de.mwolff.commons.command.iface.Command#execute(de.mwolff.commons.command.iface.Context)
      */
     @Override
     public void execute(T context) throws CommandException {
@@ -76,7 +81,7 @@ public class DefaultCommandContainer<T extends Context> implements CommandContai
     }
 
     /**
-     * @see de.mwolff.commons.command.Command#executeAsChain(de.mwolff.commons.command.Context)
+     * @see de.mwolff.commons.command.iface.Command#executeAsChain(de.mwolff.commons.command.iface.Context)
      */
     @Override
     public boolean executeAsChain(T context) {
@@ -91,7 +96,7 @@ public class DefaultCommandContainer<T extends Context> implements CommandContai
     }
 
     /**
-     * @see de.mwolff.commons.command.Command#executeAsProcess(de.mwolff.commons.command.Context)
+     * @see de.mwolff.commons.command.iface.Command#executeAsProcess(de.mwolff.commons.command.iface.Context)
      */
     @Override
     public String executeAsProcess(String startCommand, T context) {

@@ -23,13 +23,16 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package de.mwolff.commons.command;
+package de.mwolff.commons.command.iface;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
+
+import de.mwolff.commons.command.DefaultContext;
+import de.mwolff.commons.command.GenericContext;
 
 public class ContextTest {
 

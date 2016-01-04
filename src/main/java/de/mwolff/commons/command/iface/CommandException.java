@@ -23,19 +23,28 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package de.mwolff.commons.command;
+package de.mwolff.commons.command.iface;
 
-public class ProcessTestCommandEnd <T extends GenericContext> extends DefaultCommand<T> {
-
-	public ProcessTestCommandEnd(String processID) {
-		super(processID);
-	}
-
-	@Override
-	public String executeAsProcess(String startCommand, T context) {
-		String result = context.getAsString("result");
-		result += this.processID + " - ";
-		context.put("result", result);
-		return super.executeAsProcess("", context);
-	}
+/**
+ * Exception which works with this framework.
+ *
+ */
+@SuppressWarnings("serial")
+public class CommandException extends Exception {
+    
+    public CommandException() {
+        super();
+    }
+     
+    public CommandException(final String message) {
+        super(message);
+    }
+    
+    public CommandException(String message, Throwable cause) {
+        super(message, cause);
+    }
+    
+    public CommandException(Throwable cause) {
+        super(cause);
+    }
 }

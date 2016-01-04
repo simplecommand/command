@@ -23,13 +23,23 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package de.mwolff.commons.command;
+package de.mwolff.commons.command.iface;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+
+import de.mwolff.commons.command.DefaultCommand;
+import de.mwolff.commons.command.DefaultContext;
+import de.mwolff.commons.command.GenericContext;
+import de.mwolff.commons.command.iface.Command;
+import de.mwolff.commons.command.samplecommands.ExceptionCommand;
+import de.mwolff.commons.command.samplecommands.PriorityOneTestCommand;
+import de.mwolff.commons.command.samplecommands.PriorityThreeTestCommand;
+import de.mwolff.commons.command.samplecommands.PriorityTwoTestCommand;
+import de.mwolff.commons.command.samplecommands.SimpleTestCommand;
 
 public class CommandTest {
 

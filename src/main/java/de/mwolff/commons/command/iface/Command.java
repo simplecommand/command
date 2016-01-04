@@ -23,38 +23,42 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package de.mwolff.commons.command;
+package de.mwolff.commons.command.iface;
 
-public class PriorityThreeTestCommand<T extends GenericContext> implements Command<T> {
+/**
+ * Command interface for the command framework. Commands may act with generic
+ * command contexts.
+ */
+public interface Command<T extends Context> {
 
-    @Override
-    public void execute(T context) {
-        context.put("PriorityThreeTestCommand", "PriorityThreeTestCommand");
-        String priorString = context.getAsString("priority");
-        if ("NullObject".equals(priorString)) {
-            priorString = "";
-        }
-        priorString += "3-";
-        context.put("priority", priorString);
-    }
+    /**
+     * Executes the command.
+     * 
+     * @param context
+     */
+    void execute(T context) throws CommandException;
 
-    @Override
-    public boolean executeAsChain(T context) {
-        String priorString = context.getAsString("priority");
-        priorString += "C-";
-        context.put("priority", priorString);
-        return false;
-    }
+    /**
+     * Executes a command as a chain. Best way to execute a command chain is to
+     * execute it as a chain because exceptions are automatically handled.
+     *
+     * @param context
+     * @return False if there was an error or true if the task is completed.
+     */
+    boolean executeAsChain(T context);
 
-	@Override
-	public String executeAsProcess(String startCommand, T context) {
-		return null;
-	}
+    /**
+     * Execute a command as a process. The result is the decision which process
+     * step should be executed next.
+     * 
+     * @return The next process step to execute.
+     */
+    String executeAsProcess(String startCommand, T context);
 
-	@Override
-	public String getProcessID() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+    /**
+     * Gets the process ID of the command.
+     * 
+     * @return The process ID
+     */
+    String getProcessID();
 }

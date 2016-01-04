@@ -29,6 +29,12 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import de.mwolff.commons.command.iface.CommandContainer;
+import de.mwolff.commons.command.samplecommands.PriorityOneTestCommand;
+import de.mwolff.commons.command.samplecommands.PriorityThreeTestCommand;
+import de.mwolff.commons.command.samplecommands.PriorityTwoTestCommand;
+import de.mwolff.commons.command.samplecommands.SimpleTestCommand;
+
 public class DefaultCommandContainerTest {
 
     /*
