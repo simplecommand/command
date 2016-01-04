@@ -25,7 +25,7 @@
  */
 package de.mwolff.command.chainbuilder;
 
-import de.mwolff.commons.command.Context;
+import de.mwolff.commons.command.iface.Context;
 
 /**
  * A chain builder interface to build chains via a configuration file.

@@ -23,43 +23,20 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package de.mwolff.commons.command;
+package de.mwolff.commons.command.samplecommands;
 
-public class PriorityOneTestCommand<T extends GenericContext> implements Command<T> {
+import de.mwolff.commons.command.DefaultCommand;
+import de.mwolff.commons.command.GenericContext;
 
-    @Override
-    public void execute(T context) {
-        if (context != DefaultContext.NULLCONTEXT) {
-            context.put("PriorityOneTestCommand", "PriorityOneTestCommand");
-            String priorString = context.getAsString("priority");
-            if ("NullObject".equals(priorString)) {
-                priorString = "";
-            }
-            priorString += "1-";
-            context.put("priority", priorString);
-        }
-    }
+public class ProcessTestCommandStart <T extends GenericContext> extends DefaultCommand<T> {
 
-    @Override
-    public boolean executeAsChain(T context) {
-        String priorString = context.getAsString("priority");
-        if ("NullObject".equals(priorString)) {
-            priorString = "";
-        }
-        priorString += "A-";
-        context.put("priority", priorString);
-        return true;
-    }
+	public ProcessTestCommandStart(String processID) {
+		super(processID);
+	}
 
 	@Override
 	public String executeAsProcess(String startCommand, T context) {
-		return null;
+		context.put("result", this.processID + " - ");
+		return "Next";
 	}
-
-	@Override
-	public String getProcessID() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

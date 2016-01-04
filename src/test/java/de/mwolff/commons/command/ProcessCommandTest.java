@@ -29,6 +29,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import de.mwolff.commons.command.samplecommands.ProcessTestCommandEnd;
+import de.mwolff.commons.command.samplecommands.ProcessTestCommandStart;
+
 public class ProcessCommandTest {
 
 	@Test

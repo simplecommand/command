@@ -27,6 +27,10 @@ package de.mwolff.commons.command;
 
 import org.apache.log4j.Logger;
 
+import de.mwolff.commons.command.iface.Command;
+import de.mwolff.commons.command.iface.CommandException;
+import de.mwolff.commons.command.iface.Context;
+
 /**
  * Default implementation for a command. You may use <code>executeAsChain</code>
  * for all executions of the <code>command</code> or
@@ -56,15 +60,15 @@ public class DefaultCommand<T extends Context> implements Command<T> {
     }
 
     /**
-     * @see de.mwolff.commons.command.Command#execute(de.mwolff.commons.command.Context)
+     * @see de.mwolff.commons.command.iface.Command#execute(de.mwolff.commons.command.iface.Context)
      */
     @Override
     public void execute(T context) throws CommandException {
-        // has to be implemented
+       // to be implemented
     }
 
     /**
-     * @see de.mwolff.commons.command.Command#executeAsChain(de.mwolff.commons.command.Context)
+     * @see de.mwolff.commons.command.iface.Command#executeAsChain(de.mwolff.commons.command.iface.Context)
      */
     @Override
     public boolean executeAsChain(T context) {
@@ -79,7 +83,7 @@ public class DefaultCommand<T extends Context> implements Command<T> {
     }
 
     /**
-     * @see de.mwolff.commons.command.Command#executeAsProcess(de.mwolff.commons.command.Context)
+     * @see de.mwolff.commons.command.iface.Command#executeAsProcess(de.mwolff.commons.command.iface.Context)
      */
     @Override
     public String executeAsProcess(String startCommand, T context) {

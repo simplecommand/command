@@ -22,7 +22,7 @@
     License along with this library; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
- */package de.mwolff.commons.command;
+ */package de.mwolff.commons.command.iface;
 
 //@formatter:off
 import static org.junit.Assert.*;
@@ -30,6 +30,8 @@ import static org.hamcrest.Matchers.*;
 //@formatter:on
 
 import org.junit.Test;
+
+import de.mwolff.commons.command.iface.CommandException;
 
 public class CommandExceptionTest {
     

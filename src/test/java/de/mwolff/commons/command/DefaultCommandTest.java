@@ -34,8 +34,14 @@ import java.util.List;
 import org.junit.Test;
 
 import de.mwolff.command.chainbuilder.InjectionChainBuilder;
+import de.mwolff.commons.command.iface.Command;
+import de.mwolff.commons.command.iface.CommandContainer;
+import de.mwolff.commons.command.samplecommands.PriorityOneTestCommand;
+import de.mwolff.commons.command.samplecommands.PriorityThreeTestCommand;
+import de.mwolff.commons.command.samplecommands.PriorityTwoTestCommand;
+import de.mwolff.commons.command.samplecommands.SimpleTestCommand;
 
-public class ExampleCommandTest {
+public class DefaultCommandTest {
 
     /*
      * Simplest example. Put all commands in a container and execute it. All

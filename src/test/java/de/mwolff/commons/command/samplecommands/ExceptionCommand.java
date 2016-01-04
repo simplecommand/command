@@ -23,7 +23,12 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package de.mwolff.commons.command;
+package de.mwolff.commons.command.samplecommands;
+
+import de.mwolff.commons.command.DefaultCommand;
+import de.mwolff.commons.command.GenericContext;
+import de.mwolff.commons.command.iface.Command;
+import de.mwolff.commons.command.iface.CommandException;
 
 public class ExceptionCommand<T extends GenericContext> extends DefaultCommand<T>implements Command<T> {
 

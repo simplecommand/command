@@ -23,36 +23,34 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package de.mwolff.commons.command;
+package de.mwolff.commons.command.samplecommands;
 
-public class SimpleTestCommand<T extends GenericContext> implements Command<T> {
+import de.mwolff.commons.command.DefaultContext;
+import de.mwolff.commons.command.GenericContext;
+import de.mwolff.commons.command.iface.Command;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see de.mwolff.commons.command.Command#execute()
-     */
+public class PriorityOneTestCommand<T extends GenericContext> implements Command<T> {
+
     @Override
     public void execute(T context) {
-        context.put("SimpleTestCommand", "SimpleTestCommand");
-        String priorString = context.getAsString("priority");
-        if ("NullObject".equals(priorString)) {
-            priorString = "";
+        if (context != DefaultContext.NULLCONTEXT) {
+            context.put("PriorityOneTestCommand", "PriorityOneTestCommand");
+            String priorString = context.getAsString("priority");
+            if ("NullObject".equals(priorString)) {
+                priorString = "";
+            }
+            priorString += "1-";
+            context.put("priority", priorString);
         }
-        priorString += "S-";
-        context.put("priority", priorString);
     }
 
     @Override
     public boolean executeAsChain(T context) {
-        if (context == DefaultContext.NULLCONTEXT) {
-            return true;
-        }
         String priorString = context.getAsString("priority");
         if ("NullObject".equals(priorString)) {
             priorString = "";
         }
-        priorString += "S-";
+        priorString += "A-";
         context.put("priority", priorString);
         return true;
     }

@@ -23,32 +23,53 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package de.mwolff.command.chainbuilder;
+package de.mwolff.commons.command.samplecommands;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Assert;
-import org.junit.Test;
-
-import de.mwolff.command.chainbuilder.InjectionChainBuilder;
 import de.mwolff.commons.command.DefaultContext;
 import de.mwolff.commons.command.GenericContext;
 import de.mwolff.commons.command.iface.Command;
-import de.mwolff.commons.command.samplecommands.ExceptionCommand;
 
-public class InjectionChainBuilderTest {
+public class SimpleTestCommand<T extends GenericContext> implements Command<T> {
 
-    @Test
-    public void testSpringChainBuilder() throws Exception {
-        final InjectionChainBuilder<GenericContext> builder = new InjectionChainBuilder<GenericContext>();
-        final List<Command<GenericContext>> commandList = new ArrayList<Command<GenericContext>>();
-        final GenericContext context = new DefaultContext();
-        final Command<GenericContext> command = new ExceptionCommand<GenericContext>();
-        commandList.add(command);
-        builder.setCommands(commandList);
-        final boolean result = builder.executeAsChain(context);
-        Assert.assertFalse(result);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.mwolff.commons.command.Command#execute()
+     */
+    @Override
+    public void execute(T context) {
+        context.put("SimpleTestCommand", "SimpleTestCommand");
+        String priorString = context.getAsString("priority");
+        if ("NullObject".equals(priorString)) {
+            priorString = "";
+        }
+        priorString += "S-";
+        context.put("priority", priorString);
     }
+
+    @Override
+    public boolean executeAsChain(T context) {
+        if (context == DefaultContext.NULLCONTEXT) {
+            return true;
+        }
+        String priorString = context.getAsString("priority");
+        if ("NullObject".equals(priorString)) {
+            priorString = "";
+        }
+        priorString += "S-";
+        context.put("priority", priorString);
+        return true;
+    }
+
+	@Override
+	public String executeAsProcess(String startCommand, T context) {
+		return null;
+	}
+
+	@Override
+	public String getProcessID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

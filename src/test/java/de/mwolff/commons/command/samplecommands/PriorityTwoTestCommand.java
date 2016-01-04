@@ -23,7 +23,11 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package de.mwolff.commons.command;
+package de.mwolff.commons.command.samplecommands;
+
+import de.mwolff.commons.command.DefaultContext;
+import de.mwolff.commons.command.GenericContext;
+import de.mwolff.commons.command.iface.Command;
 
 public class PriorityTwoTestCommand<T extends GenericContext> implements Command<T> {
 

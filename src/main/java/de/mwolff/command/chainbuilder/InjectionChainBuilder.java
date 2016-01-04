@@ -28,10 +28,10 @@ package de.mwolff.command.chainbuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.mwolff.commons.command.Command;
-import de.mwolff.commons.command.CommandContainer;
-import de.mwolff.commons.command.Context;
 import de.mwolff.commons.command.DefaultCommandContainer;
+import de.mwolff.commons.command.iface.Command;
+import de.mwolff.commons.command.iface.CommandContainer;
+import de.mwolff.commons.command.iface.Context;
 
 /**
  * Generic chain builder for configuration with the spring framework.
@@ -50,7 +50,7 @@ public class InjectionChainBuilder<T extends Context> implements ChainBuilder<T>
     }
 
     /**
-     * @see de.mwolff.command.chainbuilder.ChainBuilder#executeAsChain(de.mwolff.commons.command.Context)
+     * @see de.mwolff.command.chainbuilder.ChainBuilder#executeAsChain(de.mwolff.commons.command.iface.Context)
      */
     @Override
     public boolean executeAsChain(final T context) {
