@@ -23,7 +23,7 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package de.mwolff.commons.command;
+package de.mwolff.command.chainbuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +32,12 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import de.mwolff.command.chainbuilder.InjectionChainBuilder;
+import de.mwolff.commons.command.Command;
+import de.mwolff.commons.command.DefaultContext;
+import de.mwolff.commons.command.ExceptionCommand;
+import de.mwolff.commons.command.GenericContext;
 
-public class ChainBuilderTest {
+public class InjectionChainBuilderTest {
 
     @Test
     public void testSpringChainBuilder() throws Exception {

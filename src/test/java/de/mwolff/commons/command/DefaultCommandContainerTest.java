@@ -29,7 +29,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class CommandContainerTest {
+public class DefaultCommandContainerTest {
 
     /*
      * Remark: Adding commands without priority will mark all with priority 0.
