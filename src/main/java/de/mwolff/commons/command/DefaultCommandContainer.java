@@ -111,10 +111,7 @@ public class DefaultCommandContainer<T extends Context> implements CommandContai
 
         String next = command.executeAsProcess(startCommand, context);
 
-        if ("End".equals(next))
-            return "End";
-
-        return executeAsProcess(next, context);
+       return executeAsProcess(next, context);
     }
 
     @Override
