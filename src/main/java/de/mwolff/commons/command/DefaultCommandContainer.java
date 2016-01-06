@@ -82,9 +82,9 @@ public class DefaultCommandContainer<T extends Context> implements CommandContai
         for (final Command<T> command : commandList.values()) {
             try {
                 command.execute(context);
-            } catch (Throwable throwable) {
+            } catch (Exception exception) {
                 // Just log, do nothing else
-                LOG.error("Error while executing chain.", throwable);
+                LOG.error("Error while executing chain.", exception);
             }
         }
     }
@@ -124,6 +124,10 @@ public class DefaultCommandContainer<T extends Context> implements CommandContai
             return null;
 
         String next = command.executeAsProcess(startCommand, context);
+        
+        if (next == null) {
+            return null;
+        }
 
         return executeAsProcess(next, context);
     }

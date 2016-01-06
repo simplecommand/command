@@ -28,7 +28,6 @@ package de.mwolff.commons.command.samplecommands;
 import de.mwolff.commons.command.DefaultCommand;
 import de.mwolff.commons.command.DefaultContext;
 import de.mwolff.commons.command.GenericContext;
-import de.mwolff.commons.command.iface.Command;
 
 public class SimpleTestCommand<T extends GenericContext> extends DefaultCommand<T> {
 

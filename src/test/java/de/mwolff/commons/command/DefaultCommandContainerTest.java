@@ -112,4 +112,14 @@ public class DefaultCommandContainerTest {
         assertEquals("S-", priorString);
 
     }
+    
+    // Remark: Should work if no command is inserted
+    @Test
+    public void testExecuteWithNullCommands() throws Exception {
+        final GenericContext context = new DefaultContext();
+        final CommandContainer<GenericContext> commandContainer = new DefaultCommandContainer<GenericContext>();
+        String result = commandContainer.executeAsProcess(null, context);
+        assertEquals(null, result);
+        
+    }
 }
