@@ -25,11 +25,12 @@
  */
 package de.mwolff.commons.command;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
 import de.mwolff.commons.command.iface.CommandContainer;
+import de.mwolff.commons.command.samplecommands.ExceptionCommand;
 import de.mwolff.commons.command.samplecommands.PriorityOneTestCommand;
 import de.mwolff.commons.command.samplecommands.PriorityThreeTestCommand;
 import de.mwolff.commons.command.samplecommands.PriorityTwoTestCommand;
@@ -96,6 +97,19 @@ public class DefaultCommandContainerTest {
         assertEquals("S-1-2-3-", priorString);
         mixedList.executeAsChain(context);
         priorString = context.getAsString("priority");
-        assertEquals("S-1-2-3-S-A-B-C-", priorString);
+        assertEquals("S-1-2-3-S-S-A-B-C-", priorString);
+    }
+    
+    // Remark: Even ExceptionCommand throws an exception SimpleTextCommand is executed
+    @Test
+    public void testChainWithError() throws Exception {
+        final GenericContext context = new DefaultContext();
+        final CommandContainer<GenericContext> commandContainer = new DefaultCommandContainer<GenericContext>();
+        commandContainer.addCommand(1, new ExceptionCommand<GenericContext>());
+        commandContainer.addCommand(2, new SimpleTestCommand<GenericContext>());
+        commandContainer.execute(context);
+        String priorString = context.getAsString("priority");
+        assertEquals("S-", priorString);
+
     }
 }

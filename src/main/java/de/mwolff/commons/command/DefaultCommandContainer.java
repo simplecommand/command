@@ -29,6 +29,8 @@ import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.log4j.Logger;
+
 import de.mwolff.commons.command.iface.Command;
 import de.mwolff.commons.command.iface.CommandContainer;
 import de.mwolff.commons.command.iface.CommandException;
@@ -39,6 +41,8 @@ import de.mwolff.commons.command.iface.Context;
  * a command (Composite Pattern).
  */
 public class DefaultCommandContainer<T extends Context> implements CommandContainer<T> {
+
+    private static final Logger LOG = Logger.getLogger(DefaultCommandContainer.class);
 
     private final Map<Integer, Command<T>> commandList = new TreeMap<Integer, Command<T>>(new Comparator<Integer>() {
         @Override
@@ -76,7 +80,12 @@ public class DefaultCommandContainer<T extends Context> implements CommandContai
     @Override
     public void execute(T context) throws CommandException {
         for (final Command<T> command : commandList.values()) {
-            command.execute(context);
+            try {
+                command.execute(context);
+            } catch (Throwable throwable) {
+                // Just log, do nothing else
+                LOG.error("Error while executing chain.", throwable);
+            }
         }
     }
 
@@ -116,7 +125,7 @@ public class DefaultCommandContainer<T extends Context> implements CommandContai
 
         String next = command.executeAsProcess(startCommand, context);
 
-       return executeAsProcess(next, context);
+        return executeAsProcess(next, context);
     }
 
     @Override

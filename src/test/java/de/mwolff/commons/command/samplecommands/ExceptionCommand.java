@@ -34,8 +34,8 @@ public class ExceptionCommand<T extends GenericContext> extends DefaultCommand<T
 
     @Override
     public void execute(T context) throws CommandException {
+        super.execute(context);
         context.put("executed", "true");
-        throw new CommandException();
-
+        throw new CommandException("Method is not implemented yet.");
     }
 }

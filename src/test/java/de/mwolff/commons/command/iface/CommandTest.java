@@ -29,12 +29,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
-import de.mwolff.commons.command.DefaultCommand;
 import de.mwolff.commons.command.DefaultContext;
 import de.mwolff.commons.command.GenericContext;
-import de.mwolff.commons.command.iface.Command;
 import de.mwolff.commons.command.samplecommands.ExceptionCommand;
 import de.mwolff.commons.command.samplecommands.PriorityOneTestCommand;
 import de.mwolff.commons.command.samplecommands.PriorityThreeTestCommand;
@@ -42,6 +42,9 @@ import de.mwolff.commons.command.samplecommands.PriorityTwoTestCommand;
 import de.mwolff.commons.command.samplecommands.SimpleTestCommand;
 
 public class CommandTest {
+
+    @Rule
+    public ExpectedException thrown= ExpectedException.none();
 
     @Test
     public void testCommandInterface() throws Exception {
@@ -110,9 +113,4 @@ public class CommandTest {
         assertFalse(defaultCommand.executeAsChain(DefaultContext.NULLCONTEXT));
     }
 
-    @Test
-    public void testDefaultCommandAsChainTrue() throws Exception {
-        final DefaultCommand<GenericContext> defaultCommand = new DefaultCommand<GenericContext>();
-        assertTrue(defaultCommand.executeAsChain(DefaultContext.NULLCONTEXT));
-    }
 }

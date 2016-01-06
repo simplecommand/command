@@ -25,15 +25,14 @@
  */
 package de.mwolff.commons.command.samplecommands;
 
+import de.mwolff.commons.command.DefaultCommand;
 import de.mwolff.commons.command.DefaultContext;
 import de.mwolff.commons.command.GenericContext;
 import de.mwolff.commons.command.iface.Command;
 
-public class SimpleTestCommand<T extends GenericContext> implements Command<T> {
+public class SimpleTestCommand<T extends GenericContext> extends DefaultCommand<T> {
 
     /*
-     * (non-Javadoc)
-     * 
      * @see de.mwolff.commons.command.Command#execute()
      */
     @Override
@@ -49,6 +48,7 @@ public class SimpleTestCommand<T extends GenericContext> implements Command<T> {
 
     @Override
     public boolean executeAsChain(T context) {
+        super.executeAsChain(context);
         if (context == DefaultContext.NULLCONTEXT) {
             return true;
         }
@@ -68,7 +68,6 @@ public class SimpleTestCommand<T extends GenericContext> implements Command<T> {
 
 	@Override
 	public String getProcessID() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

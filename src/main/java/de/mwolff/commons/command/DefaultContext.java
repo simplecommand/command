@@ -44,7 +44,6 @@ public class DefaultContext implements GenericContext {
     private final Map<String, Object> genericMap = new HashMap<String, Object>();
 
     /**
-     * (non-Javadoc)
      * 
      * @see de.mwolff.commons.command.GenericContext#put(java.lang.String,
      *      java.lang.Object)
@@ -55,7 +54,6 @@ public class DefaultContext implements GenericContext {
     }
 
     /**
-     * (non-Javadoc)
      * 
      * @see de.mwolff.commons.command.GenericContext#get(java.lang.String)
      */
@@ -65,7 +63,6 @@ public class DefaultContext implements GenericContext {
     }
 
     /**
-     * (non-Javadoc)
      * 
      * @see de.mwolff.commons.command.GenericContext#getAsString(java.lang.String)
      */

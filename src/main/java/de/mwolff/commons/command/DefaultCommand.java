@@ -87,7 +87,6 @@ public class DefaultCommand<T extends Context> implements Command<T> {
      */
     @Override
     public String executeAsProcess(String startCommand, T context) {
-        // has to be implemented
         return null;
     }
 
