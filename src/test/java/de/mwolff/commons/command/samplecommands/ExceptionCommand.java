@@ -38,4 +38,10 @@ public class ExceptionCommand<T extends GenericContext> extends DefaultCommand<T
         context.put("executed", "true");
         throw new CommandException("Method is not implemented yet.");
     }
+
+//    public boolean executeAsChain(T context) throws CommandException {
+//        super.execute(context);
+//        context.put("executed", "true");
+//        throw new CommandException("Method is not implemented yet.");
+//    }
 }

@@ -53,7 +53,7 @@ public class InjectionChainBuilder<T extends Context> implements ChainBuilder<T>
      * @see de.mwolff.command.chainbuilder.ChainBuilder#executeAsChain(de.mwolff.commons.command.iface.Context)
      */
     @Override
-    public boolean executeAsChain(final T context) {
+    public boolean executeAsChain(final T context)  {
         return buildChain().executeAsChain(context);
     }
 

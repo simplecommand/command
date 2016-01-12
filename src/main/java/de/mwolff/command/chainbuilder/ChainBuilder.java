@@ -25,6 +25,7 @@
  */
 package de.mwolff.command.chainbuilder;
 
+import de.mwolff.commons.command.iface.CommandException;
 import de.mwolff.commons.command.iface.Context;
 
 /**
@@ -39,5 +40,5 @@ public interface ChainBuilder<T extends Context> {
      *            An implementation of a context
      * @return True if all commands returned true.
      */
-    boolean executeAsChain(final T context);
+    boolean executeAsChain(final T context) throws CommandException;
 }
