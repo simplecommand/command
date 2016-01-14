@@ -73,17 +73,26 @@ public class XMLChainBuilderTest {
 		assertThat(commands.isEmpty(), is(true));
 	}
 
-	@Test
-	public void oneExceptionCommandInserted() throws Exception {
-		XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
-		DefaultContext context = new DefaultContext();
-		xmlChainBuilder.setXmlFileName("/commandChainOneComandException.xml");
-		xmlChainBuilder.executeAsChain(context);
-		@SuppressWarnings("unchecked")
-		final List<Command<Context>> commands = (List<Command<Context>>) ReflectionTestUtils
-				.getField(xmlChainBuilder, "commands");
-		assertThat(commands, notNullValue());
-		assertThat(commands.isEmpty(), is(false));
-		assertThat(commands.size(), is(1));
-	}
+    @Test
+    public void oneExceptionCommandInserted() throws Exception {
+        XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
+        DefaultContext context = new DefaultContext();
+        xmlChainBuilder.setXmlFileName("/commandChainOneComandException.xml");
+        xmlChainBuilder.executeAsChain(context);
+        @SuppressWarnings("unchecked")
+        final List<Command<Context>> commands = (List<Command<Context>>) ReflectionTestUtils
+                .getField(xmlChainBuilder, "commands");
+        assertThat(commands, notNullValue());
+        assertThat(commands.isEmpty(), is(false));
+        assertThat(commands.size(), is(1));
+    }
+
+    @Test
+    public void invalidCommandInserted() throws Exception {
+        thrown.expect(CommandException.class);
+        XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
+        DefaultContext context = new DefaultContext();
+        xmlChainBuilder.setXmlFileName("/invalidCommandChain.xml.xml");
+        xmlChainBuilder.executeAsChain(context);
+    }
 }

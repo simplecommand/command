@@ -48,6 +48,10 @@ public class XMLChainBuilder<T extends Context> implements ChainBuilder<T> {
 		return commandContainer;
 	}
 
+	public void setXmlFileName(String xmlFileName) {
+	    this.xmlFileName = xmlFileName;
+	}
+
 	@SuppressWarnings("unchecked")
 	private void createCommandOutOfXML(Document document)
 			throws CommandException, Exception {
@@ -92,8 +96,5 @@ public class XMLChainBuilder<T extends Context> implements ChainBuilder<T> {
 		return document;
 	}
 
-	public void setXmlFileName(String xmlFileName) {
-		this.xmlFileName = xmlFileName;
-	}
 
 }
