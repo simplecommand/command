@@ -55,22 +55,29 @@ public class XMLChainBuilder<T extends Context> implements ChainBuilder<T> {
 	@SuppressWarnings("unchecked")
 	private void createCommandOutOfXML(Document document)
 			throws CommandException, Exception {
+		
 		List<Element> list = document.selectNodes("//commandchain/command");
 
 		if (!list.isEmpty()) {
-			for (Iterator<Element> iter = list.iterator(); iter.hasNext();) {
-				Element element = iter.next();
-				for (Iterator<Attribute> iter1 = element.attributeIterator(); iter1
+			for (Iterator<Element> elementIterator = list.iterator(); elementIterator.hasNext();) {
+				Element element = elementIterator.next();
+				for (Iterator<Attribute> attributeIterator = element.attributeIterator(); attributeIterator
 						.hasNext();) {
-					Attribute attribute = iter1.next();
+					Attribute attribute = attributeIterator.next();
 					String name = attribute.getValue();
-					Command<Context> command = null;
-					command = (Command<Context>) Class.forName(name)
-							.newInstance();
-					commands.add(command);
+					createAndAddCommand(name);
 				}
 			}
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	private void createAndAddCommand(String name)
+			throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+		Command<Context> command = null;
+		command = (Command<Context>) Class.forName(name)
+				.newInstance();
+		commands.add(command);
 	}
 
 	private Document createXMLStream(SAXReader reader, String resource)
