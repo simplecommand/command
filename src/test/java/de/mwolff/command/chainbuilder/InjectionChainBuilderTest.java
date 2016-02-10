@@ -25,7 +25,8 @@
  */
 package de.mwolff.command.chainbuilder;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +34,6 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import de.mwolff.command.chainbuilder.InjectionChainBuilder;
-import de.mwolff.commons.command.DefaultCommandContainer;
 import de.mwolff.commons.command.DefaultContext;
 import de.mwolff.commons.command.GenericContext;
 import de.mwolff.commons.command.iface.Command;

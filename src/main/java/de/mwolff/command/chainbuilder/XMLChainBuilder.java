@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -18,6 +19,9 @@ import de.mwolff.commons.command.iface.CommandException;
 import de.mwolff.commons.command.iface.Context;
 
 public class XMLChainBuilder<T extends Context>  implements ChainBuilder<T>{
+	
+    private static final Logger LOG = Logger.getLogger(XMLChainBuilder.class);
+
 
 	private List<Command<Context>> commands = new ArrayList<Command<Context>>();
 	private String xmlFileName;
@@ -35,19 +39,33 @@ public class XMLChainBuilder<T extends Context>  implements ChainBuilder<T>{
 	
 	@Override
 	public void execute(T context) throws CommandException {
-		// TODO Auto-generated method stub
-		
+		try {
+			buildChain().execute(context);
+		} catch (Exception e) {
+            // Just log, do nothing else
+            LOG.error("Error while executing chain.", e);
+
+		}
 	}
 
 	@Override
 	public String executeAsProcess(String startCommand, T context) {
-		// TODO Auto-generated method stub
+		/*
+		try {
+			return buildChain().executeAsProcess(startCommand, context);
+		} catch (CommandException e) {
+            // Just log, do nothing else
+            LOG.error("Error while executing chain.", e);
+		} catch (Exception e) {
+            // Just log, do nothing else
+            LOG.error("Error while executing chain.", e);
+		}
+		*/
 		return null;
 	}
 
 	@Override
 	public String getProcessID() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

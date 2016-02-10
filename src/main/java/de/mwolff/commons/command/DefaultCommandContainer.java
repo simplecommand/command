@@ -78,7 +78,7 @@ public class DefaultCommandContainer<T extends Context> implements CommandContai
      * @see de.mwolff.commons.command.iface.Command#execute(de.mwolff.commons.command.iface.Context)
      */
     @Override
-    public void execute(T context) throws CommandException {
+    public void execute(T context)  {
         for (final Command<T> command : commandList.values()) {
             try {
                 command.execute(context);
