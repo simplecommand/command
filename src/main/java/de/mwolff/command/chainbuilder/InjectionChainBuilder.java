@@ -31,6 +31,7 @@ import java.util.List;
 import de.mwolff.commons.command.DefaultCommandContainer;
 import de.mwolff.commons.command.iface.Command;
 import de.mwolff.commons.command.iface.CommandContainer;
+import de.mwolff.commons.command.iface.CommandException;
 import de.mwolff.commons.command.iface.Context;
 
 /**
@@ -49,6 +50,22 @@ public class InjectionChainBuilder<T extends Context> implements ChainBuilder<T>
         this.commands = commands;
     }
 
+
+    /**
+     * Builder method.
+     * 
+     * @return
+     */
+    @Override
+    public CommandContainer<T> buildChain() {
+
+        final CommandContainer<T> commandContainer = new DefaultCommandContainer<T>();
+        for (final Command<T> command : commands) {
+            commandContainer.addCommand(command);
+        }
+        return commandContainer;
+    }
+
     /**
      * @see de.mwolff.command.chainbuilder.ChainBuilder#executeAsChain(de.mwolff.commons.command.iface.Context)
      */
@@ -58,16 +75,23 @@ public class InjectionChainBuilder<T extends Context> implements ChainBuilder<T>
     }
 
     /**
-     * Builder method.
-     * 
-     * @return
+     * @see de.mwolff.commons.command.iface.Command#execute(de.mwolff.commons.command.iface.Context)
      */
-    private CommandContainer<T> buildChain() {
+    @Override
+	public void execute(T context) throws CommandException {
+        buildChain().execute(context);
+	}
 
-        final CommandContainer<T> commandContainer = new DefaultCommandContainer<T>();
-        for (final Command<T> command : commands) {
-            commandContainer.addCommand(command);
-        }
-        return commandContainer;
-    }
+    /**
+     * @see de.mwolff.commons.command.iface.Command#executeAsProcess(java.lang.String, de.mwolff.commons.command.iface.Context)
+     */
+	@Override
+	public String executeAsProcess(String startCommand, T context) {
+		return buildChain().executeAsProcess(startCommand, context);
+	}
+
+	@Override
+	public String getProcessID() {
+		return null;
+	}
 }

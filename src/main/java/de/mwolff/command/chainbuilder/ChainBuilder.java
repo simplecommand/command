@@ -25,20 +25,19 @@
  */
 package de.mwolff.command.chainbuilder;
 
+import de.mwolff.commons.command.iface.Command;
+import de.mwolff.commons.command.iface.CommandContainer;
 import de.mwolff.commons.command.iface.CommandException;
 import de.mwolff.commons.command.iface.Context;
 
 /**
- * A chain builder interface to build chains via a configuration file.
+ * A chain builder interface to build chains via configuration.
  */
-public interface ChainBuilder<T extends Context> {
+public interface ChainBuilder<T extends Context> extends Command<T> {
 
-    /**
-     * Executes the chain build by this builder.
-     *
-     * @param context
-     *            An implementation of a context
-     * @return True if all commands returned true.
-     */
-    boolean executeAsChain(final T context) throws CommandException;
+	/**
+	 * Factory method to build the chain.
+	 * @return A <code>CommandContainer</code> that holds all <code>Command</code>-Objects.
+	 */
+	CommandContainer<T> buildChain() throws CommandException, Exception;
 }

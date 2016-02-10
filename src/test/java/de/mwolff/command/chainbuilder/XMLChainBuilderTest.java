@@ -89,10 +89,10 @@ public class XMLChainBuilderTest {
 
     @Test
     public void invalidCommandInserted() throws Exception {
-        thrown.expect(CommandException.class);
         XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
         DefaultContext context = new DefaultContext();
         xmlChainBuilder.setXmlFileName("/invalidCommandChain.xml.xml");
-        xmlChainBuilder.executeAsChain(context);
+        boolean result = xmlChainBuilder.executeAsChain(context);
+        assertThat(result, is(false));
     }
 }

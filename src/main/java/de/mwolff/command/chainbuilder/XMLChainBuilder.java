@@ -17,23 +17,43 @@ import de.mwolff.commons.command.iface.CommandContainer;
 import de.mwolff.commons.command.iface.CommandException;
 import de.mwolff.commons.command.iface.Context;
 
-public class XMLChainBuilder<T extends Context> implements ChainBuilder<T> {
+public class XMLChainBuilder<T extends Context>  implements ChainBuilder<T>{
 
 	private List<Command<Context>> commands = new ArrayList<Command<Context>>();
 	private String xmlFileName;
 
 	@Override
-	public boolean executeAsChain(T context) throws CommandException {
+	public boolean executeAsChain(T context) {
 		CommandContainer<T> chain = null;
 		try {
 			chain = buildChain();
 		} catch (Exception e) {
-			throw new CommandException(e.getMessage());
+			return false;
 		}
 		return chain.executeAsChain(context);
 	}
+	
+	@Override
+	public void execute(T context) throws CommandException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String executeAsProcess(String startCommand, T context) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getProcessID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	@SuppressWarnings("unchecked")
+	@Override
 	public CommandContainer<T> buildChain() throws CommandException, Exception {
 
 		String resource = xmlFileName;
@@ -66,8 +86,7 @@ public class XMLChainBuilder<T extends Context> implements ChainBuilder<T> {
 					Attribute attribute = attributeIterator.next();
 					String name = attribute.getValue();
 					createAndAddCommand(name);
-				}
-			}
+				}			}
 		}
 	}
 
@@ -102,6 +121,4 @@ public class XMLChainBuilder<T extends Context> implements ChainBuilder<T> {
 		}
 		return document;
 	}
-
-
 }
