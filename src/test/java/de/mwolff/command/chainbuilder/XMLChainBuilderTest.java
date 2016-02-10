@@ -135,4 +135,13 @@ public class XMLChainBuilderTest {
 		*/
 
 	}
+
+	@Test
+	public void testExecuteAsProcessMethodForBuilderWIthException() throws Exception {
+		XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
+		DefaultContext context = new DefaultContext();
+		xmlChainBuilder.setXmlFileName("notExists.xml");
+		xmlChainBuilder.execute(context);
+		assertNull(xmlChainBuilder.getProcessID());
+	}
 }
