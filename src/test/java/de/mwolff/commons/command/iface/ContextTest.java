@@ -67,7 +67,8 @@ public class ContextTest {
     @Test
     public void testNullContext() throws Exception {
         final GenericContext nullContext = DefaultContext.NULLCONTEXT;
-        Assert.assertNull(nullContext);
+        nullContext.put("myKey", "myValue");
+        Assert.assertEquals("myValue", nullContext.getAsString("myKey"));
     }
 
     @Test

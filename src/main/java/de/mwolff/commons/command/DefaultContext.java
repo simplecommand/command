@@ -36,7 +36,7 @@ public class DefaultContext implements GenericContext {
     /**
      * A null context to execute commands without a context.
      */
-    public static final GenericContext NULLCONTEXT = null;
+    public static final GenericContext NULLCONTEXT = new DefaultContext();
 
     /**
      * A generic map storing the key/value pairs.
