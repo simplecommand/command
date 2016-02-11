@@ -1,10 +1,10 @@
 /**
     Simple Command Framework.
- 
+
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
     Download: https://github.com/simplecommand/SimpleCommandFramework
-       
+
 
     Copyright (C) 2015 neusta software development
 
@@ -28,17 +28,17 @@ package de.mwolff.commons.command.samplecommands;
 import de.mwolff.commons.command.DefaultCommand;
 import de.mwolff.commons.command.GenericContext;
 
-public class ProcessTestCommandEnd <T extends GenericContext> extends DefaultCommand<T> {
+public class ProcessTestCommandEnd<T extends GenericContext> extends DefaultCommand<T> {
 
-	public ProcessTestCommandEnd(String processID) {
-		super(processID);
-	}
+    public ProcessTestCommandEnd(String processID) {
+        super(processID);
+    }
 
-	@Override
-	public String executeAsProcess(String startCommand, T context) {
-		String result = context.getAsString("result");
-		result += this.processID + " - ";
-		context.put("result", result);
-		return super.executeAsProcess("", context);
-	}
+    @Override
+    public String executeAsProcess(String startCommand, T context) {
+        String result = context.getAsString("result");
+        result += processID + " - ";
+        context.put("result", result);
+        return super.executeAsProcess("", context);
+    }
 }

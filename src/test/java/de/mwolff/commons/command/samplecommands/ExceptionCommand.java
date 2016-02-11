@@ -1,10 +1,10 @@
 /**
     Simple Command Framework.
- 
+
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
     Download: https://github.com/simplecommand/SimpleCommandFramework
-       
+
 
     Copyright (C) 2015 neusta software development
 
@@ -30,7 +30,7 @@ import de.mwolff.commons.command.GenericContext;
 import de.mwolff.commons.command.iface.Command;
 import de.mwolff.commons.command.iface.CommandException;
 
-public class ExceptionCommand<T extends GenericContext> extends DefaultCommand<T>implements Command<T> {
+public class ExceptionCommand<T extends GenericContext> extends DefaultCommand<T> implements Command<T> {
 
     @Override
     public void execute(T context) throws CommandException {
@@ -39,9 +39,9 @@ public class ExceptionCommand<T extends GenericContext> extends DefaultCommand<T
         throw new CommandException("Method is not implemented yet.");
     }
 
-//    public boolean executeAsChain(T context) throws CommandException {
-//        super.execute(context);
-//        context.put("executed", "true");
-//        throw new CommandException("Method is not implemented yet.");
-//    }
+    // public boolean executeAsChain(T context) throws CommandException {
+    // super.execute(context);
+    // context.put("executed", "true");
+    // throw new CommandException("Method is not implemented yet.");
+    // }
 }

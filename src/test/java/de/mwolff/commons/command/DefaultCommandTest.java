@@ -1,8 +1,7 @@
 package de.mwolff.commons.command;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
-
+import org.hamcrest.Matchers;
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -13,38 +12,36 @@ import de.mwolff.commons.command.samplecommands.ExceptionCommand;
 import de.mwolff.commons.command.samplecommands.SimpleTestCommand;
 
 public class DefaultCommandTest {
-    
-    @Rule
-    public ExpectedException thrown= ExpectedException.none();
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void getProcessIDTest() throws Exception {
-        DefaultCommand<Context> defaultCommand = new DefaultCommand<Context>("myProcessID");
-        String id = defaultCommand.getProcessID();
-        assertThat(id, is("myProcessID"));
+        final DefaultCommand<Context> defaultCommand = new DefaultCommand<Context>("myProcessID");
+        final String id = defaultCommand.getProcessID();
+        Assert.assertThat(id, Matchers.is("myProcessID"));
     }
-    
+
     @Test
     public void executeTest() throws Exception {
-        ExceptionCommand<GenericContext> exceptionCommand = new ExceptionCommand<GenericContext>();
-        GenericContext defaultContext = new DefaultContext();
+        final ExceptionCommand<GenericContext> exceptionCommand = new ExceptionCommand<GenericContext>();
+        final GenericContext defaultContext = new DefaultContext();
         thrown.expect(CommandException.class);
         thrown.expectMessage("Method is not implemented yet.");
         exceptionCommand.execute(defaultContext);
     }
-    
+
     @Test
     public void executeAsChainReturnsFalse() throws Exception {
-        ExceptionCommand<GenericContext> defaultCommand = new ExceptionCommand<GenericContext>();
-        assertThat(defaultCommand.executeAsChain(DefaultContext.NULLCONTEXT), is(false));
+        final ExceptionCommand<GenericContext> defaultCommand = new ExceptionCommand<GenericContext>();
+        Assert.assertThat(defaultCommand.executeAsChain(DefaultContext.NULLCONTEXT), Matchers.is(false));
     }
-    
+
     @Test
     public void executeAsChainReturnsTrue() throws Exception {
-        SimpleTestCommand<GenericContext> simpleTestCommand = new SimpleTestCommand<GenericContext>();
-        assertThat(simpleTestCommand.executeAsChain(DefaultContext.NULLCONTEXT), is(true));
+        final SimpleTestCommand<GenericContext> simpleTestCommand = new SimpleTestCommand<GenericContext>();
+        Assert.assertThat(simpleTestCommand.executeAsChain(DefaultContext.NULLCONTEXT), Matchers.is(true));
     }
-    
-    
+
 }

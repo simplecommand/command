@@ -1,10 +1,10 @@
 /**
     Simple Command Framework.
- 
+
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
     Download: https://github.com/simplecommand/SimpleCommandFramework
-       
+
 
     Copyright (C) 2015 neusta software development
 
@@ -39,7 +39,7 @@ import de.mwolff.commons.command.iface.Context;
 public class DefaultCommand<T extends Context> implements Command<T> {
 
     private static final Logger LOG = Logger.getLogger(DefaultCommand.class);
-    protected String processID;
+    protected String            processID;
 
     /** Constructor with process ID */
     public DefaultCommand(String processID) {
@@ -64,7 +64,7 @@ public class DefaultCommand<T extends Context> implements Command<T> {
      */
     @Override
     public void execute(T context) throws CommandException {
-       // to be implemented
+        // to be implemented
     }
 
     /**
@@ -76,7 +76,7 @@ public class DefaultCommand<T extends Context> implements Command<T> {
         try {
             execute(context);
         } catch (final Exception e) {
-            LOG.info("Chain is aborted.", e);
+            DefaultCommand.LOG.info("Chain is aborted.", e);
             result = false;
         }
         return result;

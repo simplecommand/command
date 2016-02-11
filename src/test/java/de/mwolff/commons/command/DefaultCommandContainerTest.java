@@ -1,10 +1,10 @@
 /**
     Simple Command Framework.
- 
+
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
     Download: https://github.com/simplecommand/SimpleCommandFramework
-       
+
 
     Copyright (C) 2015 neusta software development
 
@@ -25,8 +25,7 @@
  */
 package de.mwolff.commons.command;
 
-import static org.junit.Assert.*;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 import de.mwolff.commons.command.iface.CommandContainer;
@@ -51,10 +50,10 @@ public class DefaultCommandContainerTest {
         commandContainer.addCommand(new PriorityThreeTestCommand<GenericContext>());
         commandContainer.execute(context);
         String priorString = context.getAsString("priority");
-        assertEquals("1-2-3-", priorString);
+        Assert.assertEquals("1-2-3-", priorString);
         commandContainer.executeAsChain(context);
         priorString = context.getAsString("priority");
-        assertEquals("1-2-3-A-B-C-", priorString);
+        Assert.assertEquals("1-2-3-A-B-C-", priorString);
     }
 
     /*
@@ -70,10 +69,10 @@ public class DefaultCommandContainerTest {
         commandContainer.addCommand(1, new PriorityTwoTestCommand<GenericContext>());
         commandContainer.execute(context);
         String priorString = context.getAsString("priority");
-        assertEquals("1-2-3-", priorString);
+        Assert.assertEquals("1-2-3-", priorString);
         commandContainer.executeAsChain(context);
         priorString = context.getAsString("priority");
-        assertEquals("1-2-3-A-B-C-", priorString);
+        Assert.assertEquals("1-2-3-A-B-C-", priorString);
     }
 
     /*
@@ -94,13 +93,14 @@ public class DefaultCommandContainerTest {
 
         mixedList.execute(context);
         String priorString = context.getAsString("priority");
-        assertEquals("S-1-2-3-", priorString);
+        Assert.assertEquals("S-1-2-3-", priorString);
         mixedList.executeAsChain(context);
         priorString = context.getAsString("priority");
-        assertEquals("S-1-2-3-S-S-A-B-C-", priorString);
+        Assert.assertEquals("S-1-2-3-S-S-A-B-C-", priorString);
     }
-    
-    // Remark: Even ExceptionCommand throws an exception SimpleTextCommand is executed
+
+    // Remark: Even ExceptionCommand throws an exception SimpleTextCommand is
+    // executed
     @Test
     public void testChainWithError() throws Exception {
         final GenericContext context = new DefaultContext();
@@ -108,18 +108,18 @@ public class DefaultCommandContainerTest {
         commandContainer.addCommand(1, new ExceptionCommand<GenericContext>());
         commandContainer.addCommand(2, new SimpleTestCommand<GenericContext>());
         commandContainer.execute(context);
-        String priorString = context.getAsString("priority");
-        assertEquals("S-", priorString);
+        final String priorString = context.getAsString("priority");
+        Assert.assertEquals("S-", priorString);
 
     }
-    
+
     // Remark: Should work if no command is inserted
     @Test
     public void testExecuteWithNullCommands() throws Exception {
         final GenericContext context = new DefaultContext();
         final CommandContainer<GenericContext> commandContainer = new DefaultCommandContainer<GenericContext>();
-        String result = commandContainer.executeAsProcess(null, context);
-        assertEquals(null, result);
-        
+        final String result = commandContainer.executeAsProcess(null, context);
+        Assert.assertEquals(null, result);
+
     }
 }

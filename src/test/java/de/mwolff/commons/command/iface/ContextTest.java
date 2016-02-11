@@ -1,10 +1,10 @@
 /**
     Simple Command Framework.
- 
+
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
     Download: https://github.com/simplecommand/SimpleCommandFramework
-       
+
 
     Copyright (C) 2015 neusta software development
 
@@ -25,10 +25,7 @@
  */
 package de.mwolff.commons.command.iface;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 import de.mwolff.commons.command.DefaultContext;
@@ -36,46 +33,46 @@ import de.mwolff.commons.command.GenericContext;
 
 public class ContextTest {
 
-    private static final String INTEGER_VALUE = "IntegerValue";
-    private static final String STRING_VALUE = "StringValue";
+    private static final String  INTEGER_VALUE = "IntegerValue";
+    private static final String  STRING_VALUE  = "StringValue";
 
-    private final GenericContext context = new DefaultContext();
+    private final GenericContext context       = new DefaultContext();
 
     @Test
     public void testContextInterface() throws Exception {
-        assertNotNull(context);
+        Assert.assertNotNull(context);
     }
 
     @Test
     public void testPutGetContext() throws Exception {
-        context.put(STRING_VALUE, STRING_VALUE);
-        final String stringValue = (String) context.get(STRING_VALUE);
-        assertEquals(STRING_VALUE, stringValue);
+        context.put(ContextTest.STRING_VALUE, ContextTest.STRING_VALUE);
+        final String stringValue = (String) context.get(ContextTest.STRING_VALUE);
+        Assert.assertEquals(ContextTest.STRING_VALUE, stringValue);
     }
 
     @Test
     public void testGet() throws Exception {
-        context.put(INTEGER_VALUE, Integer.valueOf(42));
-        final Integer integerValue = (Integer) context.get(INTEGER_VALUE);
-        assertEquals(Integer.valueOf(42), integerValue);
+        context.put(ContextTest.INTEGER_VALUE, Integer.valueOf(42));
+        final Integer integerValue = (Integer) context.get(ContextTest.INTEGER_VALUE);
+        Assert.assertEquals(Integer.valueOf(42), integerValue);
     }
 
     @Test
     public void testGetAsString() throws Exception {
-        context.put(STRING_VALUE, STRING_VALUE);
-        final String stringValue = context.getAsString(STRING_VALUE);
-        assertEquals(STRING_VALUE, stringValue);
+        context.put(ContextTest.STRING_VALUE, ContextTest.STRING_VALUE);
+        final String stringValue = context.getAsString(ContextTest.STRING_VALUE);
+        Assert.assertEquals(ContextTest.STRING_VALUE, stringValue);
     }
 
     @Test
     public void testNullContext() throws Exception {
         final GenericContext nullContext = DefaultContext.NULLCONTEXT;
-        assertNull(nullContext);
+        Assert.assertNull(nullContext);
     }
 
     @Test
     public void testNullValue() throws Exception {
         final Object value = context.getAsString("null");
-        assertNotNull(value);
+        Assert.assertNotNull(value);
     }
 }

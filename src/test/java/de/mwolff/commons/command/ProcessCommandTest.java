@@ -1,10 +1,10 @@
 /**
     Simple Command Framework.
- 
+
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
     Download: https://github.com/simplecommand/SimpleCommandFramework
-       
+
 
     Copyright (C) 2015 neusta software development
 
@@ -25,8 +25,7 @@
  */
 package de.mwolff.commons.command;
 
-import static org.junit.Assert.*;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 import de.mwolff.commons.command.samplecommands.ProcessTestCommandEnd;
@@ -34,44 +33,48 @@ import de.mwolff.commons.command.samplecommands.ProcessTestCommandStart;
 
 public class ProcessCommandTest {
 
-	@Test
-	public void executeAsProcessSimpleTest() throws Exception {
-		ProcessTestCommandStart<GenericContext> processTestStartCommand = new ProcessTestCommandStart<GenericContext>("Start");
-		GenericContext context = new DefaultContext();
-		String result = processTestStartCommand.executeAsProcess("", context);
-		String processflow = context.getAsString("result");
-		assertEquals("Start - ", processflow);
-		assertEquals("Next", result);
-	}
-	
-	@Test
-	public void getProcessNameTest() throws Exception {
-		ProcessTestCommandStart<GenericContext> processTestStartCommand = new ProcessTestCommandStart<GenericContext>("Start");
-		String result = processTestStartCommand.getProcessID();
-		assertEquals("Start", result);
-	}
-	
-	@Test
-	public void executeTwoSimpleProcessesInARow() throws Exception {
-		GenericContext context = new DefaultContext();
-		ProcessTestCommandStart<GenericContext> processTestStartCommand = new ProcessTestCommandStart<GenericContext>("Start");
-		ProcessTestCommandEnd<GenericContext> processTestEndCommand = new ProcessTestCommandEnd<GenericContext>("Next");
-		DefaultCommandContainer<GenericContext> container = new DefaultCommandContainer<GenericContext>();
-		container.addCommand(processTestStartCommand);
-		container.addCommand(processTestEndCommand);
-		container.executeAsProcess("Start", context);
-		String processflow = context.getAsString("result");
-		assertEquals("Start - Next - ", processflow);
-	}
+    @Test
+    public void executeAsProcessSimpleTest() throws Exception {
+        final ProcessTestCommandStart<GenericContext> processTestStartCommand = new ProcessTestCommandStart<GenericContext>(
+                "Start");
+        final GenericContext context = new DefaultContext();
+        final String result = processTestStartCommand.executeAsProcess("", context);
+        final String processflow = context.getAsString("result");
+        Assert.assertEquals("Start - ", processflow);
+        Assert.assertEquals("Next", result);
+    }
 
-	@Test
-	public void processANullContainer() throws Exception {
-		GenericContext context = new DefaultContext();
-		DefaultCommandContainer<GenericContext> container = new DefaultCommandContainer<GenericContext>();
-		String result = container.executeAsProcess("Start", context);
-		assertNull(result);
-		result = container.getProcessID();
-		assertNull(result);
-	}
-	
+    @Test
+    public void getProcessNameTest() throws Exception {
+        final ProcessTestCommandStart<GenericContext> processTestStartCommand = new ProcessTestCommandStart<GenericContext>(
+                "Start");
+        final String result = processTestStartCommand.getProcessID();
+        Assert.assertEquals("Start", result);
+    }
+
+    @Test
+    public void executeTwoSimpleProcessesInARow() throws Exception {
+        final GenericContext context = new DefaultContext();
+        final ProcessTestCommandStart<GenericContext> processTestStartCommand = new ProcessTestCommandStart<GenericContext>(
+                "Start");
+        final ProcessTestCommandEnd<GenericContext> processTestEndCommand = new ProcessTestCommandEnd<GenericContext>(
+                "Next");
+        final DefaultCommandContainer<GenericContext> container = new DefaultCommandContainer<GenericContext>();
+        container.addCommand(processTestStartCommand);
+        container.addCommand(processTestEndCommand);
+        container.executeAsProcess("Start", context);
+        final String processflow = context.getAsString("result");
+        Assert.assertEquals("Start - Next - ", processflow);
+    }
+
+    @Test
+    public void processANullContainer() throws Exception {
+        final GenericContext context = new DefaultContext();
+        final DefaultCommandContainer<GenericContext> container = new DefaultCommandContainer<GenericContext>();
+        String result = container.executeAsProcess("Start", context);
+        Assert.assertNull(result);
+        result = container.getProcessID();
+        Assert.assertNull(result);
+    }
+
 }

@@ -1,10 +1,10 @@
 /**
     Simple Command Framework.
- 
+
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
     Download: https://github.com/simplecommand/SimpleCommandFramework
-       
+
 
     Copyright (C) 2015 neusta software development
 
@@ -25,10 +25,7 @@
  */
 package de.mwolff.commons.command.iface;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -44,14 +41,14 @@ import de.mwolff.commons.command.samplecommands.SimpleTestCommand;
 public class CommandTest {
 
     @Rule
-    public ExpectedException thrown= ExpectedException.none();
+    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void testCommandInterface() throws Exception {
         final GenericContext context = new DefaultContext();
         final Command<GenericContext> command = new SimpleTestCommand<GenericContext>();
         command.execute(context);
-        assertEquals("SimpleTestCommand", context.getAsString("SimpleTestCommand"));
+        Assert.assertEquals("SimpleTestCommand", context.getAsString("SimpleTestCommand"));
     }
 
     @Test
@@ -59,13 +56,13 @@ public class CommandTest {
         final GenericContext context = new DefaultContext();
         Command<GenericContext> command = new PriorityOneTestCommand<GenericContext>();
         command.execute(context);
-        assertEquals("PriorityOneTestCommand", context.getAsString("PriorityOneTestCommand"));
+        Assert.assertEquals("PriorityOneTestCommand", context.getAsString("PriorityOneTestCommand"));
         command = new PriorityTwoTestCommand<GenericContext>();
         command.execute(context);
-        assertEquals("PriorityTwoTestCommand", context.getAsString("PriorityTwoTestCommand"));
+        Assert.assertEquals("PriorityTwoTestCommand", context.getAsString("PriorityTwoTestCommand"));
         command = new PriorityThreeTestCommand<GenericContext>();
         command.execute(context);
-        assertEquals("PriorityThreeTestCommand", context.getAsString("PriorityThreeTestCommand"));
+        Assert.assertEquals("PriorityThreeTestCommand", context.getAsString("PriorityThreeTestCommand"));
     }
 
     @Test
@@ -73,7 +70,7 @@ public class CommandTest {
         final GenericContext context = new DefaultContext();
         final Command<GenericContext> command = new PriorityTwoTestCommand<GenericContext>();
         command.execute(context);
-        assertEquals("PriorityTwoTestCommand", context.getAsString("PriorityTwoTestCommand"));
+        Assert.assertEquals("PriorityTwoTestCommand", context.getAsString("PriorityTwoTestCommand"));
     }
 
     @Test
@@ -81,21 +78,21 @@ public class CommandTest {
         final GenericContext context = new DefaultContext();
         final Command<GenericContext> command = new PriorityThreeTestCommand<GenericContext>();
         command.execute(context);
-        assertEquals("PriorityThreeTestCommand", context.getAsString("PriorityThreeTestCommand"));
+        Assert.assertEquals("PriorityThreeTestCommand", context.getAsString("PriorityThreeTestCommand"));
     }
 
     @Test
     public void testCommandWithResult() throws Exception {
         final Command<GenericContext> command = new SimpleTestCommand<GenericContext>();
         final boolean result = command.executeAsChain(DefaultContext.NULLCONTEXT);
-        assertTrue(result);
+        Assert.assertTrue(result);
     }
 
     @Test
     public void testException() throws Exception {
         final Command<DefaultContext> command = new ExceptionCommand<DefaultContext>();
         final DefaultContext context = new DefaultContext();
-        assertFalse(command.executeAsChain(context));
+        Assert.assertFalse(command.executeAsChain(context));
     }
 
     @Test
@@ -104,13 +101,13 @@ public class CommandTest {
         final DefaultContext context = new DefaultContext();
         command.executeAsChain(context);
         final String result = context.getAsString("executed");
-        assertEquals("true", result);
+        Assert.assertEquals("true", result);
     }
 
     @Test
     public void testDefaultCommandAsChainFalse() throws Exception {
         final ExceptionCommand<GenericContext> defaultCommand = new ExceptionCommand<GenericContext>();
-        assertFalse(defaultCommand.executeAsChain(DefaultContext.NULLCONTEXT));
+        Assert.assertFalse(defaultCommand.executeAsChain(DefaultContext.NULLCONTEXT));
     }
 
 }

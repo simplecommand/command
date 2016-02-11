@@ -1,10 +1,10 @@
 /**
     Simple Command Framework.
- 
+
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
     Download: https://github.com/simplecommand/SimpleCommandFramework
-       
+
 
     Copyright (C) 2015 neusta software development
 
@@ -26,12 +26,10 @@
 
 package de.mwolff.commons.command;
 
-import static org.junit.Assert.assertEquals;
-
-
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import de.mwolff.command.chainbuilder.InjectionChainBuilder;
@@ -69,7 +67,7 @@ public class CommandIntegrationTest {
         container.addCommand(new PriorityOneTestCommand<GenericContext>());
         container.addCommand(new PriorityTwoTestCommand<GenericContext>());
         container.execute(context);
-        assertEquals("1-2-", context.getAsString("priority"));
+        Assert.assertEquals("1-2-", context.getAsString("priority"));
     }
 
     /*
@@ -84,7 +82,7 @@ public class CommandIntegrationTest {
         container.addCommand(2, new PriorityOneTestCommand<GenericContext>());
         container.addCommand(1, new PriorityTwoTestCommand<GenericContext>());
         container.execute(context);
-        assertEquals("2-1-3-", context.getAsString("priority"));
+        Assert.assertEquals("2-1-3-", context.getAsString("priority"));
     }
 
     /*
@@ -105,7 +103,7 @@ public class CommandIntegrationTest {
 
         mixedList.execute(context);
         final String priorString = context.getAsString("priority");
-        assertEquals("S-1-2-3-", priorString);
+        Assert.assertEquals("S-1-2-3-", priorString);
     }
 
     /*
@@ -127,7 +125,7 @@ public class CommandIntegrationTest {
 
         mixedList.executeAsChain(context);
         final String priorString = context.getAsString("priority");
-        assertEquals("S-S-A-B-C-", priorString);
+        Assert.assertEquals("S-S-A-B-C-", priorString);
     }
 
     /**
@@ -160,6 +158,6 @@ public class CommandIntegrationTest {
         final GenericContext context = new DefaultContext();
         builder.executeAsChain(context);
         final String priorString = context.getAsString("priority");
-        assertEquals("A-B-", priorString);
+        Assert.assertEquals("A-B-", priorString);
     }
 }

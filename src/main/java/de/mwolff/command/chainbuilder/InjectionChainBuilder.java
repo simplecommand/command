@@ -1,10 +1,10 @@
 /**
     Simple Command Framework.
- 
+
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
     Download: https://github.com/simplecommand/SimpleCommandFramework
-       
+
 
     Copyright (C) 2015 neusta software development
 
@@ -50,10 +50,9 @@ public class InjectionChainBuilder<T extends Context> implements ChainBuilder<T>
         this.commands = commands;
     }
 
-
     /**
      * Builder method.
-     * 
+     *
      * @return
      */
     @Override
@@ -70,7 +69,7 @@ public class InjectionChainBuilder<T extends Context> implements ChainBuilder<T>
      * @see de.mwolff.command.chainbuilder.ChainBuilder#executeAsChain(de.mwolff.commons.command.iface.Context)
      */
     @Override
-    public boolean executeAsChain(final T context)  {
+    public boolean executeAsChain(final T context) {
         return buildChain().executeAsChain(context);
     }
 
@@ -78,20 +77,21 @@ public class InjectionChainBuilder<T extends Context> implements ChainBuilder<T>
      * @see de.mwolff.commons.command.iface.Command#execute(de.mwolff.commons.command.iface.Context)
      */
     @Override
-	public void execute(T context) throws CommandException {
+    public void execute(T context) throws CommandException {
         buildChain().execute(context);
-	}
+    }
 
     /**
-     * @see de.mwolff.commons.command.iface.Command#executeAsProcess(java.lang.String, de.mwolff.commons.command.iface.Context)
+     * @see de.mwolff.commons.command.iface.Command#executeAsProcess(java.lang.String,
+     *      de.mwolff.commons.command.iface.Context)
      */
-	@Override
-	public String executeAsProcess(String startCommand, T context) {
-		return buildChain().executeAsProcess(startCommand, context);
-	}
+    @Override
+    public String executeAsProcess(String startCommand, T context) {
+        return buildChain().executeAsProcess(startCommand, context);
+    }
 
-	@Override
-	public String getProcessID() {
-		return null;
-	}
+    @Override
+    public String getProcessID() {
+        return null;
+    }
 }
