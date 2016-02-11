@@ -49,11 +49,18 @@ public class XMLChainBuilderTest {
         final XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
         final DefaultContext context = new DefaultContext();
         xmlChainBuilder.setXmlFileName("/commandChainOneComandSimple.xml");
+<<<<<<< HEAD
         boolean returnvalue = xmlChainBuilder.executeAsChain(context);
         @SuppressWarnings("unchecked")
         final List<Command<Context>> commands = (List<Command<Context>>) ReflectionTestUtils.getField(xmlChainBuilder,
                 "commands");
         Assert.assertThat(returnvalue, Matchers.is(true));
+=======
+        xmlChainBuilder.executeAsChain(context);
+        @SuppressWarnings("unchecked")
+        final List<Command<Context>> commands = (List<Command<Context>>) ReflectionTestUtils.getField(xmlChainBuilder,
+                "commands");
+>>>>>>> refs/remotes/origin/master
         Assert.assertThat(commands, Matchers.notNullValue());
         Assert.assertThat(commands.isEmpty(), Matchers.is(false));
         Assert.assertThat(commands.size(), Matchers.is(1));
@@ -64,11 +71,18 @@ public class XMLChainBuilderTest {
         final XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
         final DefaultContext context = new DefaultContext();
         xmlChainBuilder.setXmlFileName("/commandChainEmpty.xml");
+<<<<<<< HEAD
         boolean returnvalue = xmlChainBuilder.executeAsChain(context);
         @SuppressWarnings("unchecked")
         final List<Command<Context>> commands = (List<Command<Context>>) ReflectionTestUtils.getField(xmlChainBuilder,
                 "commands");
         Assert.assertThat(returnvalue, Matchers.is(true));
+=======
+        xmlChainBuilder.executeAsChain(context);
+        @SuppressWarnings("unchecked")
+        final List<Command<Context>> commands = (List<Command<Context>>) ReflectionTestUtils.getField(xmlChainBuilder,
+                "commands");
+>>>>>>> refs/remotes/origin/master
         Assert.assertThat(commands, Matchers.notNullValue());
         Assert.assertThat(commands.isEmpty(), Matchers.is(true));
     }
@@ -78,11 +92,18 @@ public class XMLChainBuilderTest {
         final XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
         final DefaultContext context = new DefaultContext();
         xmlChainBuilder.setXmlFileName("/commandChainOneComandException.xml");
+<<<<<<< HEAD
         boolean returnvalue = xmlChainBuilder.executeAsChain(context);
         @SuppressWarnings("unchecked")
         final List<Command<Context>> commands = (List<Command<Context>>) ReflectionTestUtils.getField(xmlChainBuilder,
                 "commands");
         Assert.assertThat(returnvalue, Matchers.is(false));
+=======
+        xmlChainBuilder.executeAsChain(context);
+        @SuppressWarnings("unchecked")
+        final List<Command<Context>> commands = (List<Command<Context>>) ReflectionTestUtils.getField(xmlChainBuilder,
+                "commands");
+>>>>>>> refs/remotes/origin/master
         Assert.assertThat(commands, Matchers.notNullValue());
         Assert.assertThat(commands.isEmpty(), Matchers.is(false));
         Assert.assertThat(commands.size(), Matchers.is(1));
