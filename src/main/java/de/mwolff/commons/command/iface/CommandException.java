@@ -1,10 +1,10 @@
 /**
     Simple Command Framework.
- 
+
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
     Download: https://github.com/simplecommand/SimpleCommandFramework
-       
+
 
     Copyright (C) 2015 neusta software development
 
@@ -31,19 +31,19 @@ package de.mwolff.commons.command.iface;
  */
 @SuppressWarnings("serial")
 public class CommandException extends Exception {
-    
+
     public CommandException() {
         super();
     }
-     
+
     public CommandException(final String message) {
         super(message);
     }
-    
+
     public CommandException(String message, Throwable cause) {
         super(message, cause);
     }
-    
+
     public CommandException(Throwable cause) {
         super(cause);
     }

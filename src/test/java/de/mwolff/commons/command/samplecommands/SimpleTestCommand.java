@@ -1,10 +1,10 @@
 /**
     Simple Command Framework.
- 
+
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
     Download: https://github.com/simplecommand/SimpleCommandFramework
-       
+
 
     Copyright (C) 2015 neusta software development
 
@@ -60,14 +60,14 @@ public class SimpleTestCommand<T extends GenericContext> extends DefaultCommand<
         return true;
     }
 
-	@Override
-	public String executeAsProcess(String startCommand, T context) {
-		return null;
-	}
+    @Override
+    public String executeAsProcess(String startCommand, T context) {
+        return null;
+    }
 
-	@Override
-	public String getProcessID() {
-		return null;
-	}
+    @Override
+    public String getProcessID() {
+        return null;
+    }
 
 }

@@ -1,10 +1,10 @@
 /**
     Simple Command Framework.
- 
+
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
     Download: https://github.com/simplecommand/SimpleCommandFramework
-       
+
 
     Copyright (C) 2015 neusta software development
 
@@ -34,7 +34,7 @@ public interface GenericContext extends Context {
 
     /**
      * Saves an object to the key.
-     * 
+     *
      * @param key
      * @param value
      */
@@ -42,7 +42,7 @@ public interface GenericContext extends Context {
 
     /**
      * Returns the object of the given key.
-     * 
+     *
      * @param key
      * @return
      */
@@ -50,7 +50,7 @@ public interface GenericContext extends Context {
 
     /**
      * Returns the object of the given key as String.
-     * 
+     *
      * @param key
      * @return
      */

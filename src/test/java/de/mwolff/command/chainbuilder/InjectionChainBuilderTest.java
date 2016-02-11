@@ -1,10 +1,10 @@
 /**
     Simple Command Framework.
- 
+
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
     Download: https://github.com/simplecommand/SimpleCommandFramework
-       
+
 
     Copyright (C) 2015 neusta software development
 
@@ -24,9 +24,6 @@
     USA
  */
 package de.mwolff.command.chainbuilder;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,9 +53,9 @@ public class InjectionChainBuilderTest {
         final boolean result = builder.executeAsChain(context);
         Assert.assertFalse(result);
     }
-    
+
     @Test
-	public void testExecuteMethodForBuilder() throws Exception {
+    public void testExecuteMethodForBuilder() throws Exception {
         final InjectionChainBuilder<GenericContext> builder = new InjectionChainBuilder<GenericContext>();
         final List<Command<GenericContext>> commandList = new ArrayList<Command<GenericContext>>();
         final GenericContext context = new DefaultContext();
@@ -68,24 +65,26 @@ public class InjectionChainBuilderTest {
         commandList.add(command);
         builder.setCommands(commandList);
         builder.execute(context);
-        assertEquals("1-2-", context.getAsString("priority"));
-	}
-    
+        Assert.assertEquals("1-2-", context.getAsString("priority"));
+    }
+
     @Test
-	public void testExecuteAsProcessMethodForBuilder() throws Exception {
+    public void testExecuteAsProcessMethodForBuilder() throws Exception {
         final InjectionChainBuilder<GenericContext> builder = new InjectionChainBuilder<GenericContext>();
         final List<Command<GenericContext>> commandList = new ArrayList<Command<GenericContext>>();
-		GenericContext context = new DefaultContext();
-		ProcessTestCommandStart<GenericContext> processTestStartCommand = new ProcessTestCommandStart<GenericContext>("Start");
-		ProcessTestCommandEnd<GenericContext> processTestEndCommand = new ProcessTestCommandEnd<GenericContext>("Next");
-		commandList.add(processTestStartCommand);
-		commandList.add(processTestEndCommand);
+        final GenericContext context = new DefaultContext();
+        final ProcessTestCommandStart<GenericContext> processTestStartCommand = new ProcessTestCommandStart<GenericContext>(
+                "Start");
+        final ProcessTestCommandEnd<GenericContext> processTestEndCommand = new ProcessTestCommandEnd<GenericContext>(
+                "Next");
+        commandList.add(processTestStartCommand);
+        commandList.add(processTestEndCommand);
         builder.setCommands(commandList);
-		builder.executeAsProcess("Start", context);
-		String processflow = context.getAsString("result");
-		assertEquals("Start - Next - ", processflow);
-		assertNull(builder.getProcessID());
-		
-	}
+        builder.executeAsProcess("Start", context);
+        final String processflow = context.getAsString("result");
+        Assert.assertEquals("Start - Next - ", processflow);
+        Assert.assertNull(builder.getProcessID());
+
+    }
 
 }
