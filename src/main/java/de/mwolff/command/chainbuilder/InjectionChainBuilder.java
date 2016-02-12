@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mwolff.commons.command.DefaultCommandContainer;
+import de.mwolff.commons.command.iface.ChainBuilder;
 import de.mwolff.commons.command.iface.Command;
 import de.mwolff.commons.command.iface.CommandContainer;
 import de.mwolff.commons.command.iface.CommandException;
@@ -66,7 +67,7 @@ public class InjectionChainBuilder<T extends Context> implements ChainBuilder<T>
     }
 
     /**
-     * @see de.mwolff.command.chainbuilder.ChainBuilder#executeAsChain(de.mwolff.commons.command.iface.Context)
+     * @see de.mwolff.commons.command.iface.ChainBuilder#executeAsChain(de.mwolff.commons.command.iface.Context)
      */
     @Override
     public boolean executeAsChain(final T context) {

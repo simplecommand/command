@@ -11,6 +11,7 @@ import org.junit.rules.ExpectedException;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import de.mwolff.commons.command.DefaultContext;
+import de.mwolff.commons.command.iface.ChainBuilder;
 import de.mwolff.commons.command.iface.Command;
 import de.mwolff.commons.command.iface.CommandException;
 import de.mwolff.commons.command.iface.Context;
