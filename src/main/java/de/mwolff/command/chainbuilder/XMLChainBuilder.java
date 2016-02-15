@@ -101,19 +101,18 @@ public class XMLChainBuilder<T extends Context> implements ChainBuilder<T> {
         for (@SuppressWarnings("unchecked")
         final Iterator<Attribute> attributeIterator = element.attributeIterator(); attributeIterator.hasNext();) {
             final Attribute attribute = attributeIterator.next();
-            final String value = attribute.getValue();
-            final String name = attribute.getName();
 
-            if (attribute.getName().equals("class"))
+            if ("class".equals(attribute.getName())) {
                 try {
-                    command = createAndAddCommand(value);
+                    command = createAndAddCommand(attribute.getValue());
                 } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
                     LOG.error(e);
                     throw new CommandException("Error creating class via reflection out of xml definition.", e);
                 }
+            }
 
-            if (attribute.getName().equals("processid")) {
-                command.setProcessID(value);
+            if ("processid".equals(attribute.getName())) {
+                command.setProcessID(attribute.getValue());
             }
 
         }
