@@ -77,7 +77,7 @@ public class ProcessCommandTest {
         result = container.getProcessID();
         Assert.assertNull(result);
     }
-    
+
     @Test
     public void processMoreCompicated() throws Exception {
         final DefaultCommandContainer<GenericContext> container = new DefaultCommandContainer<GenericContext>();
@@ -88,7 +88,7 @@ public class ProcessCommandTest {
         final String processflow = context.getAsString("result");
         Assert.assertNull(result);
         Assert.assertEquals("Start - Next - Start - Next - ", processflow);
-        
+
     }
 
 }

@@ -39,7 +39,7 @@ import de.mwolff.commons.command.samplecommands.PriorityTwoTestCommand;
 import de.mwolff.commons.command.samplecommands.SimpleTestCommand;
 
 public class DefaultCommandContainerTest {
-    
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -128,7 +128,7 @@ public class DefaultCommandContainerTest {
         Assert.assertEquals(null, result);
 
     }
-    
+
     @Test
     public void testsetProcessID() throws Exception {
         thrown.expect(IllegalArgumentException.class);

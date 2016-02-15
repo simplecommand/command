@@ -7,19 +7,18 @@ import de.mwolff.commons.command.iface.CommandException;
 
 public class ProcessTestCommandNext<T extends GenericContext> extends DefaultCommand<T> {
 
-    
     public ProcessTestCommandNext() {
         super();
     }
-    
+
     /**
      * Constructor.
+     * 
      * @param processID
      */
     public ProcessTestCommandNext(String processID) {
         super(processID);
     }
-
 
     @Override
     public void execute(T context) throws CommandException {
@@ -33,7 +32,7 @@ public class ProcessTestCommandNext<T extends GenericContext> extends DefaultCom
 
     @Override
     public String executeAsProcess(String startCommand, T context) {
-        
+
         // Decision: The first time we redirect to Start, otherwise we end it.
         String result = context.getAsString("result");
         result += processID + " - ";
@@ -45,7 +44,7 @@ public class ProcessTestCommandNext<T extends GenericContext> extends DefaultCom
             context.put("counter", counter);
             return "Start";
 
-        } 
+        }
         return "";
     }
 

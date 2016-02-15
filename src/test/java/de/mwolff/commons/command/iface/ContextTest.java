@@ -33,10 +33,10 @@ import de.mwolff.commons.command.GenericContext;
 
 public class ContextTest {
 
-    private static final String  INTEGER_VALUE = "IntegerValue";
-    private static final String  STRING_VALUE  = "StringValue";
+    private static final String INTEGER_VALUE = "IntegerValue";
+    private static final String STRING_VALUE = "StringValue";
 
-    private final GenericContext context       = new DefaultContext();
+    private final GenericContext context = new DefaultContext();
 
     @Test
     public void testContextInterface() throws Exception {

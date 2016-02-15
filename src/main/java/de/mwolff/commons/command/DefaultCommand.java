@@ -39,7 +39,7 @@ import de.mwolff.commons.command.iface.Context;
 public class DefaultCommand<T extends Context> implements Command<T> {
 
     private static final Logger LOG = Logger.getLogger(DefaultCommand.class);
-    protected String            processID;
+    protected String processID;
 
     /** Constructor with process ID */
     public DefaultCommand(String processID) {

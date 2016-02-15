@@ -29,7 +29,7 @@ import de.mwolff.commons.command.DefaultCommand;
 import de.mwolff.commons.command.GenericContext;
 
 public class ProcessTestCommandStart<T extends GenericContext> extends DefaultCommand<T> {
-    
+
     public ProcessTestCommandStart() {
         super();
     }
@@ -47,5 +47,5 @@ public class ProcessTestCommandStart<T extends GenericContext> extends DefaultCo
         result += processID + " - ";
         context.put("result", result);
         return "Next";
-   }
+    }
 }

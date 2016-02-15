@@ -41,7 +41,7 @@ public class DefaultContext implements GenericContext {
     /**
      * A generic map storing the key/value pairs.
      */
-    private final Map<String, Object>  genericMap  = new HashMap<String, Object>();
+    private final Map<String, Object> genericMap = new HashMap<String, Object>();
 
     /**
      *

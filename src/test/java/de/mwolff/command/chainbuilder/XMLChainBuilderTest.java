@@ -146,7 +146,7 @@ public class XMLChainBuilderTest {
         xmlChainBuilder.execute(context);
         Assert.assertNull(xmlChainBuilder.getProcessID());
     }
- 
+
     @Test
     public void testsetProcessID() throws Exception {
         thrown.expect(IllegalArgumentException.class);
@@ -154,5 +154,5 @@ public class XMLChainBuilderTest {
         final XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
         xmlChainBuilder.setProcessID("something");
     }
-   
+
 }

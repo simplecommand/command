@@ -21,10 +21,10 @@ import de.mwolff.commons.command.iface.Context;
 
 public class XMLChainBuilder<T extends Context> implements ChainBuilder<T> {
 
-    private static final Logger          LOG      = Logger.getLogger(XMLChainBuilder.class);
+    private static final Logger LOG = Logger.getLogger(XMLChainBuilder.class);
 
     private final List<Command<Context>> commands = new ArrayList<Command<Context>>();
-    private String                       xmlFileName;
+    private String xmlFileName;
 
     @Override
     public boolean executeAsChain(T context) {
@@ -99,24 +99,23 @@ public class XMLChainBuilder<T extends Context> implements ChainBuilder<T> {
     private void extractElement(final Element element) throws CommandException {
         Command<Context> command = null;
         for (@SuppressWarnings("unchecked")
-        final Iterator<Attribute> attributeIterator = element.attributeIterator(); attributeIterator
-                .hasNext();) {
+        final Iterator<Attribute> attributeIterator = element.attributeIterator(); attributeIterator.hasNext();) {
             final Attribute attribute = attributeIterator.next();
             final String value = attribute.getValue();
             final String name = attribute.getName();
 
-            if (attribute.getName().equals("class")) 
-            try {
-                command = createAndAddCommand(value);
-            } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-                LOG.error(e);
-                throw new CommandException("Error creating class via reflection out of xml definition.", e);
-            }
-            
+            if (attribute.getName().equals("class"))
+                try {
+                    command = createAndAddCommand(value);
+                } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+                    LOG.error(e);
+                    throw new CommandException("Error creating class via reflection out of xml definition.", e);
+                }
+
             if (attribute.getName().equals("processid")) {
                 command.setProcessID(value);
             }
-            
+
         }
     }
 
