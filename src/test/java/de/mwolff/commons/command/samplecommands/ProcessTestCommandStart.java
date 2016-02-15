@@ -36,7 +36,12 @@ public class ProcessTestCommandStart<T extends GenericContext> extends DefaultCo
 
     @Override
     public String executeAsProcess(String startCommand, T context) {
-        context.put("result", processID + " - ");
+        String result = context.getAsString("result");
+        if (result.equals("NullObject")) {
+            result = "";
+        }
+        result += processID + " - ";
+        context.put("result", result);
         return "Next";
-    }
+   }
 }

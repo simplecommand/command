@@ -29,6 +29,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import de.mwolff.commons.command.samplecommands.ProcessTestCommandEnd;
+import de.mwolff.commons.command.samplecommands.ProcessTestCommandNext;
 import de.mwolff.commons.command.samplecommands.ProcessTestCommandStart;
 
 public class ProcessCommandTest {
@@ -75,6 +76,19 @@ public class ProcessCommandTest {
         Assert.assertNull(result);
         result = container.getProcessID();
         Assert.assertNull(result);
+    }
+    
+    @Test
+    public void processMoreCompicated() throws Exception {
+        final DefaultCommandContainer<GenericContext> container = new DefaultCommandContainer<GenericContext>();
+        container.addCommand(new ProcessTestCommandStart<GenericContext>("Start"));
+        container.addCommand(new ProcessTestCommandNext<GenericContext>("Next"));
+        GenericContext context = new DefaultContext();
+        String result = container.executeAsProcess("Start", context);
+        final String processflow = context.getAsString("result");
+        Assert.assertNull(result);
+        Assert.assertEquals("Start - Next - Start - Next - ", processflow);
+        
     }
 
 }
