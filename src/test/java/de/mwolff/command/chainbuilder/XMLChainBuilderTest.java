@@ -121,7 +121,11 @@ public class XMLChainBuilderTest {
         final XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
         final DefaultContext context = new DefaultContext();
         xmlChainBuilder.setXmlFileName("/commandChainProcess.xml");
-        Assert.assertNull(xmlChainBuilder.executeAsProcess("Start", context));
+        String result = xmlChainBuilder.executeAsProcess("Start", context);
+        Assert.assertNull(result);
+        final String processflow = context.getAsString("result");
+        Assert.assertEquals("Start - Next - Start - Next - ", processflow);
+
     }
 
     @Test
@@ -132,4 +136,6 @@ public class XMLChainBuilderTest {
         xmlChainBuilder.execute(context);
         Assert.assertNull(xmlChainBuilder.getProcessID());
     }
+    
+    
 }

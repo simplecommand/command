@@ -6,6 +6,11 @@ import de.mwolff.commons.command.iface.Command;
 import de.mwolff.commons.command.iface.CommandException;
 
 public class ProcessTestCommandNext<T extends GenericContext> extends DefaultCommand<T> {
+
+    
+    public ProcessTestCommandNext() {
+        super();
+    }
     
     /**
      * Constructor.

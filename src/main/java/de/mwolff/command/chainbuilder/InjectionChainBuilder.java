@@ -95,4 +95,8 @@ public class InjectionChainBuilder<T extends Context> implements ChainBuilder<T>
     public String getProcessID() {
         return null;
     }
+
+    @Override
+    public void setProcessID(String processID) {
+    }
 }

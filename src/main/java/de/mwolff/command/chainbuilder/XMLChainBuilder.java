@@ -51,7 +51,12 @@ public class XMLChainBuilder<T extends Context> implements ChainBuilder<T> {
 
     @Override
     public String executeAsProcess(String startCommand, T context) {
-        return null;
+        try {
+            return buildChain().executeAsProcess(startCommand, context);
+        } catch (CommandException e) {
+            LOG.error(e);
+            return null;
+        }
     }
 
     @Override
@@ -92,25 +97,36 @@ public class XMLChainBuilder<T extends Context> implements ChainBuilder<T> {
     }
 
     private void extractElement(final Element element) throws CommandException {
+        Command<Context> command = null;
         for (@SuppressWarnings("unchecked")
         final Iterator<Attribute> attributeIterator = element.attributeIterator(); attributeIterator
                 .hasNext();) {
             final Attribute attribute = attributeIterator.next();
-            final String name = attribute.getValue();
+            final String value = attribute.getValue();
+            final String name = attribute.getName();
+
+            if (attribute.getName().equals("class")) 
             try {
-                createAndAddCommand(name);
+                command = createAndAddCommand(value);
             } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+                LOG.error(e);
                 throw new CommandException("Error creating class via reflection out of xml definition.", e);
             }
+            
+            if (attribute.getName().equals("processid")) {
+                command.setProcessID(value);
+            }
+            
         }
     }
 
     @SuppressWarnings("unchecked")
-    private void createAndAddCommand(String name)
+    private Command<Context> createAndAddCommand(String name)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         Command<Context> command;
         command = (Command<Context>) Class.forName(name).newInstance();
         commands.add(command);
+        return command;
     }
 
     private Document createXMLStream(SAXReader reader, String resource) throws CommandException {
@@ -132,5 +148,11 @@ public class XMLChainBuilder<T extends Context> implements ChainBuilder<T> {
             throw new CommandException("XML Document could not created", e);
         }
         return document;
+    }
+
+    @Override
+    public void setProcessID(String processID) {
+        // TODO Auto-generated method stub
+        
     }
 }

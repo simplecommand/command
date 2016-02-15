@@ -66,4 +66,10 @@ public class PriorityOneTestCommand<T extends GenericContext> implements Command
         return null;
     }
 
+    @Override
+    public void setProcessID(String processID) {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

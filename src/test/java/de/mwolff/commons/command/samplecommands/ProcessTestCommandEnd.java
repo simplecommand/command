@@ -29,6 +29,11 @@ import de.mwolff.commons.command.DefaultCommand;
 import de.mwolff.commons.command.GenericContext;
 
 public class ProcessTestCommandEnd<T extends GenericContext> extends DefaultCommand<T> {
+    
+    public ProcessTestCommandEnd() {
+        super();
+    }
+
 
     public ProcessTestCommandEnd(String processID) {
         super(processID);

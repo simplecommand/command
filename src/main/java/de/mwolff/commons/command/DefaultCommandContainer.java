@@ -143,4 +143,10 @@ public class DefaultCommandContainer<T extends Context> implements CommandContai
     public String getProcessID() {
         return null;
     }
+
+    @Override
+    public void setProcessID(String processID) {
+        // TODO Auto-generated method stub
+        
+    }
 }

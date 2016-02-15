@@ -59,6 +59,14 @@ public class DefaultCommand<T extends Context> implements Command<T> {
         return this.processID;
     }
 
+    @Override
+    /**
+     * @see de.mwolff.commons.command.Command#getProcessID()
+     */
+    public void setProcessID(final String processID) {
+        this.processID = processID;
+    }
+
     /**
      * @see de.mwolff.commons.command.iface.Command#execute(de.mwolff.commons.command.iface.Context)
      */

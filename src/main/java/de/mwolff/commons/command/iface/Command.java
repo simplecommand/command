@@ -61,4 +61,10 @@ public interface Command<T extends Context> {
      * @return The process ID
      */
     String getProcessID();
+
+    /**
+     * Sets the process ID of the comand
+     * @param processID
+     */
+    void setProcessID(String processID);
 }
