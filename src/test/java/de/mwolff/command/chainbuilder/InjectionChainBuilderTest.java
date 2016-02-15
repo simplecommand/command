@@ -29,11 +29,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
+import de.mwolff.commons.command.DefaultCommandContainer;
 import de.mwolff.commons.command.DefaultContext;
 import de.mwolff.commons.command.GenericContext;
 import de.mwolff.commons.command.iface.Command;
+import de.mwolff.commons.command.iface.CommandContainer;
 import de.mwolff.commons.command.samplecommands.ExceptionCommand;
 import de.mwolff.commons.command.samplecommands.PriorityOneTestCommand;
 import de.mwolff.commons.command.samplecommands.PriorityTwoTestCommand;
@@ -41,6 +45,9 @@ import de.mwolff.commons.command.samplecommands.ProcessTestCommandEnd;
 import de.mwolff.commons.command.samplecommands.ProcessTestCommandStart;
 
 public class InjectionChainBuilderTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void testSpringChainBuilder() throws Exception {
@@ -84,7 +91,13 @@ public class InjectionChainBuilderTest {
         final String processflow = context.getAsString("result");
         Assert.assertEquals("Start - Next - ", processflow);
         Assert.assertNull(builder.getProcessID());
-
     }
 
+    @Test
+    public void testsetProcessID() throws Exception {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("ProcessID cannot be set on Container.");
+        final InjectionChainBuilder<GenericContext> builder = new InjectionChainBuilder<GenericContext>();
+        builder.setProcessID("something");
+    }
 }

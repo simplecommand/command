@@ -26,9 +26,12 @@
 package de.mwolff.commons.command;
 
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import de.mwolff.commons.command.iface.CommandContainer;
+import de.mwolff.commons.command.iface.CommandException;
 import de.mwolff.commons.command.samplecommands.ExceptionCommand;
 import de.mwolff.commons.command.samplecommands.PriorityOneTestCommand;
 import de.mwolff.commons.command.samplecommands.PriorityThreeTestCommand;
@@ -36,6 +39,9 @@ import de.mwolff.commons.command.samplecommands.PriorityTwoTestCommand;
 import de.mwolff.commons.command.samplecommands.SimpleTestCommand;
 
 public class DefaultCommandContainerTest {
+    
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     /*
      * Remark: Adding commands without priority will mark all with priority 0.
@@ -121,5 +127,13 @@ public class DefaultCommandContainerTest {
         final String result = commandContainer.executeAsProcess(null, context);
         Assert.assertEquals(null, result);
 
+    }
+    
+    @Test
+    public void testsetProcessID() throws Exception {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("ProcessID cannot be set on Container.");
+        final CommandContainer<GenericContext> commandContainer = new DefaultCommandContainer<GenericContext>();
+        commandContainer.setProcessID("something");
     }
 }

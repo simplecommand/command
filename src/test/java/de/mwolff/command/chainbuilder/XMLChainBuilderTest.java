@@ -11,6 +11,7 @@ import org.junit.rules.ExpectedException;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import de.mwolff.commons.command.DefaultContext;
+import de.mwolff.commons.command.GenericContext;
 import de.mwolff.commons.command.iface.ChainBuilder;
 import de.mwolff.commons.command.iface.Command;
 import de.mwolff.commons.command.iface.CommandException;
@@ -125,6 +126,15 @@ public class XMLChainBuilderTest {
         Assert.assertNull(result);
         final String processflow = context.getAsString("result");
         Assert.assertEquals("Start - Next - Start - Next - ", processflow);
+    }
+
+    @Test
+    public void testExecuteAsProcessWithException() throws Exception {
+        final XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
+        final DefaultContext context = new DefaultContext();
+        xmlChainBuilder.setXmlFileName("/commandChainProcessNotExists.xml");
+        String result = xmlChainBuilder.executeAsProcess("Start", context);
+        Assert.assertNull(result);
 
     }
 
@@ -136,6 +146,13 @@ public class XMLChainBuilderTest {
         xmlChainBuilder.execute(context);
         Assert.assertNull(xmlChainBuilder.getProcessID());
     }
-    
-    
+ 
+    @Test
+    public void testsetProcessID() throws Exception {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("ProcessID cannot be set on Container.");
+        final XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
+        xmlChainBuilder.setProcessID("something");
+    }
+   
 }

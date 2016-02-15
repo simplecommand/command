@@ -41,27 +41,27 @@ import de.mwolff.commons.command.iface.Context;
  */
 public class DefaultCommandContainer<T extends Context> implements CommandContainer<T> {
 
-    private static final Logger            LOG         = Logger.getLogger(DefaultCommandContainer.class);
+    private static final Logger LOG = Logger.getLogger(DefaultCommandContainer.class);
 
     private final Map<Integer, Command<T>> commandList = new TreeMap<Integer, Command<T>>(new Comparator<Integer>() {
-                                                           @Override
-                                                           public int compare(Integer o1, Integer o2) {
-                                                               // First wins if
-                                                               // there are two
-                                                               // commands with
-                                                               // the same
-                                                               // priority
-                                                               if (o1.intValue() >= o2.intValue()) {
-                                                                   return 1;
-                                                               } else {
-                                                                   return -1;
-                                                               }                                                               // returning
-                                                                                                                               // 0
-                                                                                                                               // would
-                                                                                                                               // merge
-                                                                                                                               // keys
-                                                           }
-                                                       });
+        @Override
+        public int compare(Integer o1, Integer o2) {
+            // First wins if
+            // there are two
+            // commands with
+            // the same
+            // priority
+            if (o1.intValue() >= o2.intValue()) {
+                return 1;
+            } else {
+                return -1;
+            } // returning
+              // 0
+              // would
+              // merge
+              // keys
+        }
+    });
 
     /**
      * @see de.mwolff.commons.command.iface.CommandContainer#addCommand(de.mwolff.commons.command.iface.Command)
@@ -146,7 +146,6 @@ public class DefaultCommandContainer<T extends Context> implements CommandContai
 
     @Override
     public void setProcessID(String processID) {
-        // TODO Auto-generated method stub
-        
+        throw new IllegalArgumentException("ProcessID cannot be set on Container.");
     }
 }

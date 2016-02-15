@@ -152,7 +152,6 @@ public class XMLChainBuilder<T extends Context> implements ChainBuilder<T> {
 
     @Override
     public void setProcessID(String processID) {
-        // TODO Auto-generated method stub
-        
+        throw new IllegalArgumentException("ProcessID cannot be set on Container.");
     }
 }
