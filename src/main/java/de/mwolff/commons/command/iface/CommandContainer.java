@@ -48,4 +48,12 @@ public interface CommandContainer<T extends Context> extends Command<T> {
      * @param command
      */
     void addCommand(int priority, Command<T> command);
+
+    /**
+     * Gets the command with the certain processID.
+     * 
+     * @param processID
+     * @return The command with the certain processID
+     */
+    Command<T> getCommandByProcessID(String processID);
 }

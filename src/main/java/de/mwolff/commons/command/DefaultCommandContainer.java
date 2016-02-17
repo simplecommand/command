@@ -108,15 +108,9 @@ public class DefaultCommandContainer<T extends Context> implements CommandContai
     @Override
     public String executeAsProcess(String startCommand, T context) {
 
-        Command<T> command = null;
+        Command<T> command;
 
-        for (final Command<T> actcommand : commandList.values()) {
-            final String processID = actcommand.getProcessID();
-            if (processID.equals(startCommand)) {
-                command = actcommand;
-                break;
-            }
-        }
+        command = getCommandByProcessID(startCommand);
 
         if (command == null) {
             return null;
@@ -130,6 +124,21 @@ public class DefaultCommandContainer<T extends Context> implements CommandContai
 
         // Recursion until next == null
         return executeAsProcess(next, context);
+    }
+
+    @Override
+    public Command<T> getCommandByProcessID(String proceddID) {
+
+        Command<T> command = null;
+
+        for (final Command<T> actcommand : commandList.values()) {
+            final String actualProcessId = actcommand.getProcessID();
+            if (actualProcessId.equals(proceddID)) {
+                command = actcommand;
+                break;
+            }
+        }
+        return command;
     }
 
     @Override

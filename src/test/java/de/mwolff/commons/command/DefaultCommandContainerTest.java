@@ -25,17 +25,22 @@
  */
 package de.mwolff.commons.command;
 
+import static org.junit.Assert.*;
+
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import de.mwolff.commons.command.iface.Command;
 import de.mwolff.commons.command.iface.CommandContainer;
 import de.mwolff.commons.command.iface.CommandException;
 import de.mwolff.commons.command.samplecommands.ExceptionCommand;
 import de.mwolff.commons.command.samplecommands.PriorityOneTestCommand;
 import de.mwolff.commons.command.samplecommands.PriorityThreeTestCommand;
 import de.mwolff.commons.command.samplecommands.PriorityTwoTestCommand;
+import de.mwolff.commons.command.samplecommands.ProcessTestCommandNext;
+import de.mwolff.commons.command.samplecommands.ProcessTestCommandStart;
 import de.mwolff.commons.command.samplecommands.SimpleTestCommand;
 
 public class DefaultCommandContainerTest {
@@ -135,5 +140,17 @@ public class DefaultCommandContainerTest {
         thrown.expectMessage("ProcessID cannot be set on Container.");
         final CommandContainer<GenericContext> commandContainer = new DefaultCommandContainer<GenericContext>();
         commandContainer.setProcessID("something");
+    }
+
+    @Test
+    public void testGetCommandWithProcessID() throws Exception {
+        final GenericContext context = new DefaultContext();
+        final CommandContainer<GenericContext> commandContainer = new DefaultCommandContainer<GenericContext>();
+        Command<GenericContext> search = new ProcessTestCommandStart<GenericContext>("StartCommand");
+        commandContainer.addCommand(1, search);
+        commandContainer.addCommand(2, new ProcessTestCommandNext<GenericContext>("NextCommand"));
+
+        Command<GenericContext> found = commandContainer.getCommandByProcessID("StartCommand");
+        Assert.assertSame(found, search);
     }
 }

@@ -50,6 +50,6 @@ public class ProcessTestCommandEnd<T extends GenericContext> extends AbstractDef
     @Override
     public void execute(T context) throws CommandException {
         // Do nothing
-        
+
     }
 }

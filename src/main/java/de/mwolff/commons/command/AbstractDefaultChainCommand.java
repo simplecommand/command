@@ -32,13 +32,14 @@ import de.mwolff.commons.command.iface.CommandException;
 import de.mwolff.commons.command.iface.Context;
 
 /**
- * Default implementation for a command. You may use <code>executeAsChain</code>
- * for all executions of the <code>command</code> or
+ * Default implementation for a chain-command. You may use
+ * <code>executeAsChain</code> for all executions of the <code>command</code> or
  * <code>commandContainer</code>.
  */
 public abstract class AbstractDefaultChainCommand<T extends Context> implements Command<T> {
 
     private static final Logger LOG = Logger.getLogger(AbstractDefaultChainCommand.class);
+
     protected String processID;
 
     /** Constructor with process ID */
