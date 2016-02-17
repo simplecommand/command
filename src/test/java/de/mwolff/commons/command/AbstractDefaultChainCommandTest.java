@@ -11,17 +11,10 @@ import de.mwolff.commons.command.iface.Context;
 import de.mwolff.commons.command.samplecommands.ExceptionCommand;
 import de.mwolff.commons.command.samplecommands.SimpleTestCommand;
 
-public class DefaultCommandTest {
+public class AbstractDefaultChainCommandTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
-    @Test
-    public void getProcessIDTest() throws Exception {
-        final DefaultCommand<Context> defaultCommand = new DefaultCommand<Context>("myProcessID");
-        final String id = defaultCommand.getProcessID();
-        Assert.assertThat(id, Matchers.is("myProcessID"));
-    }
 
     @Test
     public void executeTest() throws Exception {

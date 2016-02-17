@@ -25,10 +25,11 @@
  */
 package de.mwolff.commons.command.samplecommands;
 
-import de.mwolff.commons.command.DefaultCommand;
+import de.mwolff.commons.command.AbstractDefaultChainCommand;
 import de.mwolff.commons.command.GenericContext;
+import de.mwolff.commons.command.iface.CommandException;
 
-public class ProcessTestCommandEnd<T extends GenericContext> extends DefaultCommand<T> {
+public class ProcessTestCommandEnd<T extends GenericContext> extends AbstractDefaultChainCommand<T> {
 
     public ProcessTestCommandEnd() {
         super();
@@ -44,5 +45,11 @@ public class ProcessTestCommandEnd<T extends GenericContext> extends DefaultComm
         result += processID + " - ";
         context.put("result", result);
         return super.executeAsProcess("", context);
+    }
+
+    @Override
+    public void execute(T context) throws CommandException {
+        // Do nothing
+        
     }
 }

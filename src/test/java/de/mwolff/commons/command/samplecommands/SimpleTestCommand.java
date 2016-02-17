@@ -25,11 +25,11 @@
  */
 package de.mwolff.commons.command.samplecommands;
 
-import de.mwolff.commons.command.DefaultCommand;
+import de.mwolff.commons.command.AbstractDefaultChainCommand;
 import de.mwolff.commons.command.DefaultContext;
 import de.mwolff.commons.command.GenericContext;
 
-public class SimpleTestCommand<T extends GenericContext> extends DefaultCommand<T> {
+public class SimpleTestCommand<T extends GenericContext> extends AbstractDefaultChainCommand<T> {
 
     /*
      * @see de.mwolff.commons.command.Command#execute()

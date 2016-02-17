@@ -36,18 +36,18 @@ import de.mwolff.commons.command.iface.Context;
  * for all executions of the <code>command</code> or
  * <code>commandContainer</code>.
  */
-public class DefaultCommand<T extends Context> implements Command<T> {
+public abstract class AbstractDefaultChainCommand<T extends Context> implements Command<T> {
 
-    private static final Logger LOG = Logger.getLogger(DefaultCommand.class);
+    private static final Logger LOG = Logger.getLogger(AbstractDefaultChainCommand.class);
     protected String processID;
 
     /** Constructor with process ID */
-    public DefaultCommand(String processID) {
+    public AbstractDefaultChainCommand(String processID) {
         this.processID = processID;
     }
 
     /** Default constructor */
-    public DefaultCommand() {
+    public AbstractDefaultChainCommand() {
         super();
     }
 
@@ -71,9 +71,7 @@ public class DefaultCommand<T extends Context> implements Command<T> {
      * @see de.mwolff.commons.command.iface.Command#execute(de.mwolff.commons.command.iface.Context)
      */
     @Override
-    public void execute(T context) throws CommandException {
-        // to be implemented
-    }
+    public abstract void execute(T context) throws CommandException;
 
     /**
      * @see de.mwolff.commons.command.iface.Command#executeAsChain(de.mwolff.commons.command.iface.Context)
@@ -84,7 +82,7 @@ public class DefaultCommand<T extends Context> implements Command<T> {
         try {
             execute(context);
         } catch (final Exception e) {
-            DefaultCommand.LOG.info("Chain is aborted.", e);
+            AbstractDefaultChainCommand.LOG.info("Chain is aborted.", e);
             result = false;
         }
         return result;

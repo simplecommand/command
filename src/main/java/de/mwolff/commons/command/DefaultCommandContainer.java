@@ -46,20 +46,12 @@ public class DefaultCommandContainer<T extends Context> implements CommandContai
     private final Map<Integer, Command<T>> commandList = new TreeMap<Integer, Command<T>>(new Comparator<Integer>() {
         @Override
         public int compare(Integer o1, Integer o2) {
-            // First wins if
-            // there are two
-            // commands with
-            // the same
-            // priority
+            // First wins if there are two commands with the same priority
             if (o1.intValue() >= o2.intValue()) {
                 return 1;
             } else {
                 return -1;
-            } // returning
-              // 0
-              // would
-              // merge
-              // keys
+            } // returning 0 would merge keys
         }
     });
 
@@ -136,6 +128,7 @@ public class DefaultCommandContainer<T extends Context> implements CommandContai
             return null;
         }
 
+        // Recursion until next == null
         return executeAsProcess(next, context);
     }
 

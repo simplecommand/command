@@ -1,11 +1,11 @@
 package de.mwolff.commons.command.samplecommands;
 
-import de.mwolff.commons.command.DefaultCommand;
+import de.mwolff.commons.command.AbstractDefaultChainCommand;
 import de.mwolff.commons.command.GenericContext;
 import de.mwolff.commons.command.iface.Command;
 import de.mwolff.commons.command.iface.CommandException;
 
-public class ProcessTestCommandNext<T extends GenericContext> extends DefaultCommand<T> {
+public class ProcessTestCommandNext<T extends GenericContext> extends AbstractDefaultChainCommand<T> {
 
     public ProcessTestCommandNext() {
         super();
@@ -22,7 +22,6 @@ public class ProcessTestCommandNext<T extends GenericContext> extends DefaultCom
 
     @Override
     public void execute(T context) throws CommandException {
-        super.execute(context);
     }
 
     @Override
