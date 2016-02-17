@@ -33,11 +33,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import de.mwolff.commons.command.DefaultCommandContainer;
 import de.mwolff.commons.command.DefaultContext;
 import de.mwolff.commons.command.GenericContext;
 import de.mwolff.commons.command.iface.Command;
-import de.mwolff.commons.command.iface.CommandContainer;
 import de.mwolff.commons.command.samplecommands.ExceptionCommand;
 import de.mwolff.commons.command.samplecommands.PriorityOneTestCommand;
 import de.mwolff.commons.command.samplecommands.PriorityTwoTestCommand;

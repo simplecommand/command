@@ -25,8 +25,6 @@
  */
 package de.mwolff.commons.command;
 
-import static org.junit.Assert.*;
-
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -34,7 +32,6 @@ import org.junit.rules.ExpectedException;
 
 import de.mwolff.commons.command.iface.Command;
 import de.mwolff.commons.command.iface.CommandContainer;
-import de.mwolff.commons.command.iface.CommandException;
 import de.mwolff.commons.command.samplecommands.ExceptionCommand;
 import de.mwolff.commons.command.samplecommands.PriorityOneTestCommand;
 import de.mwolff.commons.command.samplecommands.PriorityThreeTestCommand;
@@ -144,7 +141,6 @@ public class DefaultCommandContainerTest {
 
     @Test
     public void testGetCommandWithProcessID() throws Exception {
-        final GenericContext context = new DefaultContext();
         final CommandContainer<GenericContext> commandContainer = new DefaultCommandContainer<GenericContext>();
         Command<GenericContext> search = new ProcessTestCommandStart<GenericContext>("StartCommand");
         commandContainer.addCommand(1, search);

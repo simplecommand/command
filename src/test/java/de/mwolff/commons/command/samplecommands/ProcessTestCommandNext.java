@@ -2,7 +2,6 @@ package de.mwolff.commons.command.samplecommands;
 
 import de.mwolff.commons.command.AbstractDefaultChainCommand;
 import de.mwolff.commons.command.GenericContext;
-import de.mwolff.commons.command.iface.Command;
 import de.mwolff.commons.command.iface.CommandException;
 
 public class ProcessTestCommandNext<T extends GenericContext> extends AbstractDefaultChainCommand<T> {
