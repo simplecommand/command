@@ -26,15 +26,30 @@
 package de.mwolff.commons.command.iface;
 
 /**
- * A chain builder interface to build chains via configuration.
+ * Command interface for the command framework. Commands may act with generic
+ * command contexts.
  */
-public interface ChainBuilder<T extends Context> extends Command<T>, ProcessCommand<T>, ChainCommand<T> {
+public interface ProcessCommand<T extends Context> extends Command<T>{
 
     /**
-     * Factory method to build the chain.
+     * Execute a command as a process. The result is the decision which process
+     * step should be executed next.
      *
-     * @return A <code>CommandContainer</code> that holds all
-     *         <code>Command</code>-Objects.
+     * @return The next process step to execute. Null stops the process.
      */
-    CommandContainer<T> buildChain() throws CommandException;
+    String executeAsProcess(String startCommand, T context);
+
+    /**
+     * Gets the process ID of the command.
+     *
+     * @return The process ID
+     */
+    String getProcessID();
+
+    /**
+     * Sets the process ID of the command
+     * 
+     * @param processID
+     */
+    void setProcessID(String processID);
 }

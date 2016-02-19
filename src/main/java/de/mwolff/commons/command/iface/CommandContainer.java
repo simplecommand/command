@@ -28,7 +28,7 @@ package de.mwolff.commons.command.iface;
 /**
  * Interface of a command container.
  */
-public interface CommandContainer<T extends Context> extends Command<T> {
+public interface CommandContainer<T extends Context> extends Command<T>, ChainCommand<T>, ProcessCommand<T> {
 
     /**
      * Adds a <code>Command</code> to the list. Because a

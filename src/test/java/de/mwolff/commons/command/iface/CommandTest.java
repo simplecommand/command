@@ -83,21 +83,21 @@ public class CommandTest {
 
     @Test
     public void testCommandWithResult() throws Exception {
-        final Command<GenericContext> command = new SimpleTestCommand<GenericContext>();
+        final ChainCommand<GenericContext> command = new SimpleTestCommand<GenericContext>();
         final boolean result = command.executeAsChain(DefaultContext.NULLCONTEXT);
         Assert.assertTrue(result);
     }
 
     @Test
     public void testException() throws Exception {
-        final Command<DefaultContext> command = new ExceptionCommand<DefaultContext>();
+        final ChainCommand<DefaultContext> command = new ExceptionCommand<DefaultContext>();
         final DefaultContext context = new DefaultContext();
         Assert.assertFalse(command.executeAsChain(context));
     }
 
     @Test
     public void testDefaultBehaviorWithException() throws Exception {
-        final Command<DefaultContext> command = new ExceptionCommand<DefaultContext>();
+        final ChainCommand<DefaultContext> command = new ExceptionCommand<DefaultContext>();
         final DefaultContext context = new DefaultContext();
         command.executeAsChain(context);
         final String result = context.getAsString("executed");

@@ -25,11 +25,11 @@
  */
 package de.mwolff.commons.command.samplecommands;
 
-import de.mwolff.commons.command.AbstractDefaultChainCommand;
+import de.mwolff.commons.command.AbstractDefaultProcessCommand;
 import de.mwolff.commons.command.GenericContext;
 import de.mwolff.commons.command.iface.CommandException;
 
-public class ProcessTestCommandEnd<T extends GenericContext> extends AbstractDefaultChainCommand<T> {
+public class ProcessTestCommandEnd<T extends GenericContext> extends AbstractDefaultProcessCommand<T> {
 
     public ProcessTestCommandEnd() {
         super();

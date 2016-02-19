@@ -28,8 +28,9 @@ package de.mwolff.commons.command.samplecommands;
 import de.mwolff.commons.command.AbstractDefaultChainCommand;
 import de.mwolff.commons.command.DefaultContext;
 import de.mwolff.commons.command.GenericContext;
+import de.mwolff.commons.command.iface.ProcessCommand;
 
-public class SimpleTestCommand<T extends GenericContext> extends AbstractDefaultChainCommand<T> {
+public class SimpleTestCommand<T extends GenericContext> extends AbstractDefaultChainCommand<T> implements ProcessCommand<T>{
 
     /*
      * @see de.mwolff.commons.command.Command#execute()
@@ -68,6 +69,12 @@ public class SimpleTestCommand<T extends GenericContext> extends AbstractDefault
     @Override
     public String getProcessID() {
         return null;
+    }
+
+    @Override
+    public void setProcessID(String processID) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

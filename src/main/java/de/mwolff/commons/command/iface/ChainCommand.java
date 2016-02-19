@@ -26,15 +26,18 @@
 package de.mwolff.commons.command.iface;
 
 /**
- * A chain builder interface to build chains via configuration.
+ * Command interface for the command framework. Commands may act with generic
+ * command contexts.
  */
-public interface ChainBuilder<T extends Context> extends Command<T>, ProcessCommand<T>, ChainCommand<T> {
+public interface ChainCommand<T extends Context> extends Command<T>{
 
     /**
-     * Factory method to build the chain.
+     * Executes a command as a chain. Best way to execute a command chain is to
+     * execute it as a chain because exceptions are automatically handled.
      *
-     * @return A <code>CommandContainer</code> that holds all
-     *         <code>Command</code>-Objects.
+     * @param context
+     * @return False if there is an error or the whole task is completed. True
+     *         if the next command should overtake.
      */
-    CommandContainer<T> buildChain() throws CommandException;
+    boolean executeAsChain(T context);
 }

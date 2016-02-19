@@ -18,6 +18,7 @@ import de.mwolff.commons.command.iface.Command;
 import de.mwolff.commons.command.iface.CommandContainer;
 import de.mwolff.commons.command.iface.CommandException;
 import de.mwolff.commons.command.iface.Context;
+import de.mwolff.commons.command.iface.ProcessCommand;
 
 public class XMLChainBuilder<T extends Context> implements ChainBuilder<T> {
 
@@ -112,7 +113,7 @@ public class XMLChainBuilder<T extends Context> implements ChainBuilder<T> {
             }
 
             if ("processid".equals(attribute.getName())) {
-                command.setProcessID(attribute.getValue());
+                ((ProcessCommand<Context>)command).setProcessID(attribute.getValue());
             }
 
         }

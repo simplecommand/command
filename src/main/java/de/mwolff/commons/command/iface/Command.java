@@ -46,27 +46,4 @@ public interface Command<T extends Context> {
      * @return False if there is an error or the whole task is completed. True
      *         if the next command should overtake.
      */
-    boolean executeAsChain(T context);
-
-    /**
-     * Execute a command as a process. The result is the decision which process
-     * step should be executed next.
-     *
-     * @return The next process step to execute. Null stops the process.
-     */
-    String executeAsProcess(String startCommand, T context);
-
-    /**
-     * Gets the process ID of the command.
-     *
-     * @return The process ID
-     */
-    String getProcessID();
-
-    /**
-     * Sets the process ID of the command
-     * 
-     * @param processID
-     */
-    void setProcessID(String processID);
 }

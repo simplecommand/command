@@ -27,18 +27,46 @@ package de.mwolff.commons.command;
 
 import org.apache.log4j.Logger;
 
-import de.mwolff.commons.command.iface.ChainCommand;
 import de.mwolff.commons.command.iface.CommandException;
 import de.mwolff.commons.command.iface.Context;
+import de.mwolff.commons.command.iface.ProcessCommand;
 
 /**
  * Default implementation for a chain-command. You may use
  * <code>executeAsChain</code> for all executions of the <code>command</code> or
  * <code>commandContainer</code>.
  */
-public abstract class AbstractDefaultChainCommand<T extends Context> implements ChainCommand<T> {
+public abstract class AbstractDefaultProcessCommand<T extends Context> implements ProcessCommand<T> {
 
-    private static final Logger LOG = Logger.getLogger(AbstractDefaultChainCommand.class);
+    private static final Logger LOG = Logger.getLogger(AbstractDefaultProcessCommand.class);
+
+    protected String processID;
+
+    /** Constructor with process ID */
+    public AbstractDefaultProcessCommand(String processID) {
+        this.processID = processID;
+    }
+
+    /** Default constructor */
+    public AbstractDefaultProcessCommand() {
+        super();
+    }
+
+    @Override
+    /**
+     * @see de.mwolff.commons.command.Command#getProcessID()
+     */
+    public String getProcessID() {
+        return this.processID;
+    }
+
+    @Override
+    /**
+     * @see de.mwolff.commons.command.Command#getProcessID()
+     */
+    public void setProcessID(final String processID) {
+        this.processID = processID;
+    }
 
     /**
      * @see de.mwolff.commons.command.iface.Command#execute(de.mwolff.commons.command.iface.Context)
@@ -47,17 +75,11 @@ public abstract class AbstractDefaultChainCommand<T extends Context> implements 
     public abstract void execute(T context) throws CommandException;
 
     /**
-     * @see de.mwolff.commons.command.iface.Command#executeAsChain(de.mwolff.commons.command.iface.Context)
+     * @see de.mwolff.commons.command.iface.Command#executeAsProcess(de.mwolff.commons.command.iface.Context)
      */
     @Override
-    public boolean executeAsChain(T context) {
-        boolean result = true;
-        try {
-            execute(context);
-        } catch (final Exception e) {
-            AbstractDefaultChainCommand.LOG.info("Chain is aborted.", e);
-            result = false;
-        }
-        return result;
+    public String executeAsProcess(String startCommand, T context) {
+        return null;
     }
+
 }
