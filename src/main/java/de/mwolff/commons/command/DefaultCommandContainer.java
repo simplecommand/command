@@ -96,7 +96,7 @@ public class DefaultCommandContainer<T extends Context> implements CommandContai
     public boolean executeAsChain(T context) {
         boolean result = true;
         for (final Command<T> command : commandList.values()) {
-            result = (((ChainCommand<T>) command).executeAsChain(context));
+            result = ((ChainCommand<T>) command).executeAsChain(context);
             if (!result) {
                 break;
             }
@@ -118,7 +118,7 @@ public class DefaultCommandContainer<T extends Context> implements CommandContai
             return null;
         }
 
-        final String next = (((ProcessCommand<T>) command).executeAsProcess(startCommand, context));
+        final String next = ((ProcessCommand<T>) command).executeAsProcess(startCommand, context);
 
         if (next == null) {
             return null;
@@ -134,7 +134,7 @@ public class DefaultCommandContainer<T extends Context> implements CommandContai
         Command<T> command = null;
 
         for (final Command<T> actcommand : commandList.values()) {
-            final String actualProcessId = (((ProcessCommand<T>) actcommand).getProcessID());
+            final String actualProcessId = ((ProcessCommand<T>) actcommand).getProcessID();
             if (actualProcessId.equals(proceddID)) {
                 command = actcommand;
                 break;

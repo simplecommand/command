@@ -25,8 +25,6 @@
  */
 package de.mwolff.commons.command;
 
-import org.apache.log4j.Logger;
-
 import de.mwolff.commons.command.iface.CommandException;
 import de.mwolff.commons.command.iface.Context;
 import de.mwolff.commons.command.iface.ProcessCommand;
@@ -37,8 +35,6 @@ import de.mwolff.commons.command.iface.ProcessCommand;
  * <code>commandContainer</code>.
  */
 public abstract class AbstractDefaultProcessCommand<T extends Context> implements ProcessCommand<T> {
-
-    private static final Logger LOG = Logger.getLogger(AbstractDefaultProcessCommand.class);
 
     protected String processID;
 
