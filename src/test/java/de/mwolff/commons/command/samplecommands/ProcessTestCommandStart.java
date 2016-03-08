@@ -25,12 +25,16 @@
  */
 package de.mwolff.commons.command.samplecommands;
 
+import org.apache.log4j.Logger;
+
 import de.mwolff.commons.command.AbstractDefaultProcessCommand;
 import de.mwolff.commons.command.GenericContext;
 import de.mwolff.commons.command.iface.CommandException;
 
 public class ProcessTestCommandStart<T extends GenericContext> extends AbstractDefaultProcessCommand<T> {
 
+    private static final Logger LOG = Logger.getLogger(ProcessTestCommandStart.class);
+    
     public ProcessTestCommandStart() {
         super();
     }
@@ -41,18 +45,21 @@ public class ProcessTestCommandStart<T extends GenericContext> extends AbstractD
 
     @Override
     public String executeAsProcess(String startCommand, T context) {
+        try {
+            execute(context);
+        } catch (CommandException e) {
+            LOG.error(e);
+        }
+        return "Next";
+    }
+
+    @Override
+    public void execute(T context) throws CommandException {
         String result = context.getAsString("result");
         if (result.equals("NullObject")) {
             result = "";
         }
         result += processID + " - ";
         context.put("result", result);
-        return "Next";
-    }
-
-    @Override
-    public void execute(T context) throws CommandException {
-        // Do nothing
-
     }
 }
