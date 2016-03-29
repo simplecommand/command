@@ -29,25 +29,25 @@ import org.apache.log4j.Logger;
 
 import de.mwolff.commons.command.iface.ChainCommand;
 import de.mwolff.commons.command.iface.CommandException;
-import de.mwolff.commons.command.iface.Context;
+import de.mwolff.commons.command.iface.ParameterObject;
 
 /**
  * Default implementation for a chain-command. You may use
  * <code>executeAsChain</code> for all executions of the <code>command</code> or
  * <code>commandContainer</code>.
  */
-public abstract class AbstractDefaultChainCommand<T extends Context> implements ChainCommand<T> {
+public abstract class AbstractDefaultChainCommand<T extends ParameterObject> implements ChainCommand<T> {
 
     private static final Logger LOG = Logger.getLogger(AbstractDefaultChainCommand.class);
 
     /**
-     * @see de.mwolff.commons.command.iface.Command#execute(de.mwolff.commons.command.iface.Context)
+     * @see de.mwolff.commons.command.iface.Command#execute(de.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
     public abstract void execute(T context) throws CommandException;
 
     /**
-     * @see de.mwolff.commons.command.iface.Command#executeAsChain(de.mwolff.commons.command.iface.Context)
+     * @see de.mwolff.commons.command.iface.Command#executeAsChain(de.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
     public boolean executeAsChain(T context) {

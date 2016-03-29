@@ -33,12 +33,12 @@ import de.mwolff.commons.command.iface.ChainBuilder;
 import de.mwolff.commons.command.iface.Command;
 import de.mwolff.commons.command.iface.CommandContainer;
 import de.mwolff.commons.command.iface.CommandException;
-import de.mwolff.commons.command.iface.Context;
+import de.mwolff.commons.command.iface.ParameterObject;
 
 /**
  * Generic chain builder for configuration with the spring framework.
  */
-public class InjectionChainBuilder<T extends Context> implements ChainBuilder<T> {
+public class InjectionChainBuilder<T extends ParameterObject> implements ChainBuilder<T> {
 
     private List<Command<T>> commands = new ArrayList<Command<T>>();
 
@@ -67,7 +67,7 @@ public class InjectionChainBuilder<T extends Context> implements ChainBuilder<T>
     }
 
     /**
-     * @see de.mwolff.commons.command.iface.ChainBuilder#executeAsChain(de.mwolff.commons.command.iface.Context)
+     * @see de.mwolff.commons.command.iface.ChainBuilder#executeAsChain(de.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
     public boolean executeAsChain(final T context) {
@@ -75,7 +75,7 @@ public class InjectionChainBuilder<T extends Context> implements ChainBuilder<T>
     }
 
     /**
-     * @see de.mwolff.commons.command.iface.Command#execute(de.mwolff.commons.command.iface.Context)
+     * @see de.mwolff.commons.command.iface.Command#execute(de.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
     public void execute(T context) throws CommandException {
@@ -84,7 +84,7 @@ public class InjectionChainBuilder<T extends Context> implements ChainBuilder<T>
 
     /**
      * @see de.mwolff.commons.command.iface.Command#executeAsProcess(java.lang.String,
-     *      de.mwolff.commons.command.iface.Context)
+     *      de.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
     public String executeAsProcess(String startCommand, T context) {

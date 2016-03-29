@@ -25,53 +25,35 @@
  */
 package de.mwolff.commons.command;
 
-import java.util.HashMap;
-import java.util.Map;
+import de.mwolff.commons.command.iface.ParameterObject;
 
 /**
- * A simple implementation of a generic context.
+ * Simple context interface for pass values across commands.
  */
-public class DefaultContext implements GenericContext {
+public interface GenericParameterObject extends ParameterObject {
 
     /**
-     * A null context to execute commands without a context.
-     */
-    public static final GenericContext NULLCONTEXT = new DefaultContext();
-
-    /**
-     * A generic map storing the key/value pairs.
-     */
-    private final Map<String, Object> genericMap = new HashMap<String, Object>();
-
-    /**
+     * Saves an object to the key.
      *
-     * @see de.mwolff.commons.command.GenericContext#put(java.lang.String,
-     *      java.lang.Object)
+     * @param key
+     * @param value
      */
-    @Override
-    public void put(String key, Object value) {
-        genericMap.put(key, value);
-    }
+    void put(String key, Object value);
 
     /**
+     * Returns the object of the given key.
      *
-     * @see de.mwolff.commons.command.GenericContext#get(java.lang.String)
+     * @param key
+     * @return
      */
-    @Override
-    public Object get(String key) {
-        return genericMap.get(key);
-    }
+    Object get(String key);
 
     /**
+     * Returns the object of the given key as String.
      *
-     * @see de.mwolff.commons.command.GenericContext#getAsString(java.lang.String)
+     * @param key
+     * @return
      */
-    @Override
-    public String getAsString(String key) {
-        Object object = genericMap.get(key);
-        if (object == null) {
-            object = "NullObject";
-        }
-        return object.toString();
-    }
+    String getAsString(String key);
+
 }

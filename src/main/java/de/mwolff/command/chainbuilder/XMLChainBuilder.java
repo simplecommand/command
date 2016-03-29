@@ -17,14 +17,14 @@ import de.mwolff.commons.command.iface.ChainBuilder;
 import de.mwolff.commons.command.iface.Command;
 import de.mwolff.commons.command.iface.CommandContainer;
 import de.mwolff.commons.command.iface.CommandException;
-import de.mwolff.commons.command.iface.Context;
+import de.mwolff.commons.command.iface.ParameterObject;
 import de.mwolff.commons.command.iface.ProcessCommand;
 
-public class XMLChainBuilder<T extends Context> implements ChainBuilder<T> {
+public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<T> {
 
     private static final Logger LOG = Logger.getLogger(XMLChainBuilder.class);
 
-    private final List<Command<Context>> commands = new ArrayList<Command<Context>>();
+    private final List<Command<ParameterObject>> commands = new ArrayList<Command<ParameterObject>>();
     private String xmlFileName;
 
     @Override
@@ -75,7 +75,7 @@ public class XMLChainBuilder<T extends Context> implements ChainBuilder<T> {
         createCommandOutOfXML(document);
 
         final CommandContainer<T> commandContainer = new DefaultCommandContainer<T>();
-        for (final Command<Context> command : commands) {
+        for (final Command<ParameterObject> command : commands) {
             commandContainer.addCommand((Command<T>) command);
         }
         return commandContainer;
@@ -98,7 +98,7 @@ public class XMLChainBuilder<T extends Context> implements ChainBuilder<T> {
     }
 
     private void extractElement(final Element element) throws CommandException {
-        Command<Context> command = null;
+        Command<ParameterObject> command = null;
         for (@SuppressWarnings("unchecked")
         final Iterator<Attribute> attributeIterator = element.attributeIterator(); attributeIterator.hasNext();) {
             final Attribute attribute = attributeIterator.next();
@@ -113,17 +113,17 @@ public class XMLChainBuilder<T extends Context> implements ChainBuilder<T> {
             }
 
             if ("processid".equals(attribute.getName())) {
-                ((ProcessCommand<Context>)command).setProcessID(attribute.getValue());
+                ((ProcessCommand<ParameterObject>)command).setProcessID(attribute.getValue());
             }
 
         }
     }
 
     @SuppressWarnings("unchecked")
-    private Command<Context> createAndAddCommand(String name)
+    private Command<ParameterObject> createAndAddCommand(String name)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        Command<Context> command;
-        command = (Command<Context>) Class.forName(name).newInstance();
+        Command<ParameterObject> command;
+        command = (Command<ParameterObject>) Class.forName(name).newInstance();
         commands.add(command);
         return command;
     }

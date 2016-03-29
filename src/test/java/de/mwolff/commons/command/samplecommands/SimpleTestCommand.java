@@ -26,11 +26,11 @@
 package de.mwolff.commons.command.samplecommands;
 
 import de.mwolff.commons.command.AbstractDefaultChainCommand;
-import de.mwolff.commons.command.DefaultContext;
-import de.mwolff.commons.command.GenericContext;
+import de.mwolff.commons.command.DefaultParameterObject;
+import de.mwolff.commons.command.GenericParameterObject;
 import de.mwolff.commons.command.iface.ProcessCommand;
 
-public class SimpleTestCommand<T extends GenericContext> extends AbstractDefaultChainCommand<T> implements ProcessCommand<T>{
+public class SimpleTestCommand<T extends GenericParameterObject> extends AbstractDefaultChainCommand<T> implements ProcessCommand<T>{
 
     /*
      * @see de.mwolff.commons.command.Command#execute()
@@ -49,7 +49,7 @@ public class SimpleTestCommand<T extends GenericContext> extends AbstractDefault
     @Override
     public boolean executeAsChain(T context) {
         super.executeAsChain(context);
-        if (context == DefaultContext.NULLCONTEXT) {
+        if (context == DefaultParameterObject.NULLCONTEXT) {
             return true;
         }
         String priorString = context.getAsString("priority");

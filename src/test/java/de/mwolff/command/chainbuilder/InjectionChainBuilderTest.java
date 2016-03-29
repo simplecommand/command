@@ -33,8 +33,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import de.mwolff.commons.command.DefaultContext;
-import de.mwolff.commons.command.GenericContext;
+import de.mwolff.commons.command.DefaultParameterObject;
+import de.mwolff.commons.command.GenericParameterObject;
 import de.mwolff.commons.command.iface.Command;
 import de.mwolff.commons.command.samplecommands.ExceptionCommand;
 import de.mwolff.commons.command.samplecommands.PriorityOneTestCommand;
@@ -49,10 +49,10 @@ public class InjectionChainBuilderTest {
 
     @Test
     public void testSpringChainBuilder() throws Exception {
-        final InjectionChainBuilder<GenericContext> builder = new InjectionChainBuilder<GenericContext>();
-        final List<Command<GenericContext>> commandList = new ArrayList<Command<GenericContext>>();
-        final GenericContext context = new DefaultContext();
-        final Command<GenericContext> command = new ExceptionCommand<GenericContext>();
+        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<GenericParameterObject>();
+        final List<Command<GenericParameterObject>> commandList = new ArrayList<Command<GenericParameterObject>>();
+        final GenericParameterObject context = new DefaultParameterObject();
+        final Command<GenericParameterObject> command = new ExceptionCommand<GenericParameterObject>();
         commandList.add(command);
         builder.setCommands(commandList);
         final boolean result = builder.executeAsChain(context);
@@ -61,12 +61,12 @@ public class InjectionChainBuilderTest {
 
     @Test
     public void testExecuteMethodForBuilder() throws Exception {
-        final InjectionChainBuilder<GenericContext> builder = new InjectionChainBuilder<GenericContext>();
-        final List<Command<GenericContext>> commandList = new ArrayList<Command<GenericContext>>();
-        final GenericContext context = new DefaultContext();
-        Command<GenericContext> command = new PriorityOneTestCommand<GenericContext>();
+        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<GenericParameterObject>();
+        final List<Command<GenericParameterObject>> commandList = new ArrayList<Command<GenericParameterObject>>();
+        final GenericParameterObject context = new DefaultParameterObject();
+        Command<GenericParameterObject> command = new PriorityOneTestCommand<GenericParameterObject>();
         commandList.add(command);
-        command = new PriorityTwoTestCommand<GenericContext>();
+        command = new PriorityTwoTestCommand<GenericParameterObject>();
         commandList.add(command);
         builder.setCommands(commandList);
         builder.execute(context);
@@ -75,12 +75,12 @@ public class InjectionChainBuilderTest {
 
     @Test
     public void testExecuteAsProcessMethodForBuilder() throws Exception {
-        final InjectionChainBuilder<GenericContext> builder = new InjectionChainBuilder<GenericContext>();
-        final List<Command<GenericContext>> commandList = new ArrayList<Command<GenericContext>>();
-        final GenericContext context = new DefaultContext();
-        final ProcessTestCommandStart<GenericContext> processTestStartCommand = new ProcessTestCommandStart<GenericContext>(
+        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<GenericParameterObject>();
+        final List<Command<GenericParameterObject>> commandList = new ArrayList<Command<GenericParameterObject>>();
+        final GenericParameterObject context = new DefaultParameterObject();
+        final ProcessTestCommandStart<GenericParameterObject> processTestStartCommand = new ProcessTestCommandStart<GenericParameterObject>(
                 "Start");
-        final ProcessTestCommandEnd<GenericContext> processTestEndCommand = new ProcessTestCommandEnd<GenericContext>(
+        final ProcessTestCommandEnd<GenericParameterObject> processTestEndCommand = new ProcessTestCommandEnd<GenericParameterObject>(
                 "Next");
         commandList.add(processTestStartCommand);
         commandList.add(processTestEndCommand);
@@ -95,7 +95,7 @@ public class InjectionChainBuilderTest {
     public void testsetProcessID() throws Exception {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("ProcessID cannot be set on Container.");
-        final InjectionChainBuilder<GenericContext> builder = new InjectionChainBuilder<GenericContext>();
+        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<GenericParameterObject>();
         builder.setProcessID("something");
     }
 }

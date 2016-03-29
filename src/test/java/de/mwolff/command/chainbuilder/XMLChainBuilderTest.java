@@ -10,11 +10,11 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import de.mwolff.commons.command.DefaultContext;
+import de.mwolff.commons.command.DefaultParameterObject;
 import de.mwolff.commons.command.iface.ChainBuilder;
 import de.mwolff.commons.command.iface.Command;
 import de.mwolff.commons.command.iface.CommandException;
-import de.mwolff.commons.command.iface.Context;
+import de.mwolff.commons.command.iface.ParameterObject;
 
 public class XMLChainBuilderTest {
 
@@ -23,7 +23,7 @@ public class XMLChainBuilderTest {
 
     @Test
     public void chainbuilderExists() throws Exception {
-        final XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
+        final XMLChainBuilder<ParameterObject> xmlChainBuilder = new XMLChainBuilder<ParameterObject>();
         Assert.assertThat(xmlChainBuilder, CoreMatchers.instanceOf(ChainBuilder.class));
     }
 
@@ -31,7 +31,7 @@ public class XMLChainBuilderTest {
     public void loadInvalidXMLFileFromInputStream() throws Exception {
         thrown.expect(CommandException.class);
         thrown.expectMessage("Could not read xml file");
-        final XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
+        final XMLChainBuilder<ParameterObject> xmlChainBuilder = new XMLChainBuilder<ParameterObject>();
         xmlChainBuilder.setXmlFileName("/notExists.xml");
         xmlChainBuilder.buildChain();
     }
@@ -40,19 +40,19 @@ public class XMLChainBuilderTest {
     public void createInvalidXMLDocument() throws Exception {
         thrown.expect(CommandException.class);
         thrown.expectMessage("XML Document could not created");
-        final XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
+        final XMLChainBuilder<ParameterObject> xmlChainBuilder = new XMLChainBuilder<ParameterObject>();
         xmlChainBuilder.setXmlFileName("/invalidXMLDocument.xml");
         xmlChainBuilder.buildChain();
     }
 
     @Test
     public void oneCommandInserted() throws Exception {
-        final XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
-        final DefaultContext context = new DefaultContext();
+        final XMLChainBuilder<ParameterObject> xmlChainBuilder = new XMLChainBuilder<ParameterObject>();
+        final DefaultParameterObject context = new DefaultParameterObject();
         xmlChainBuilder.setXmlFileName("/commandChainOneComandSimple.xml");
         boolean returnvalue = xmlChainBuilder.executeAsChain(context);
         @SuppressWarnings("unchecked")
-        final List<Command<Context>> commands = (List<Command<Context>>) ReflectionTestUtils.getField(xmlChainBuilder,
+        final List<Command<ParameterObject>> commands = (List<Command<ParameterObject>>) ReflectionTestUtils.getField(xmlChainBuilder,
                 "commands");
         Assert.assertThat(returnvalue, Matchers.is(true));
         Assert.assertThat(commands, Matchers.notNullValue());
@@ -62,12 +62,12 @@ public class XMLChainBuilderTest {
 
     @Test
     public void emptyCommand() throws Exception {
-        final XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
-        final DefaultContext context = new DefaultContext();
+        final XMLChainBuilder<ParameterObject> xmlChainBuilder = new XMLChainBuilder<ParameterObject>();
+        final DefaultParameterObject context = new DefaultParameterObject();
         xmlChainBuilder.setXmlFileName("/commandChainEmpty.xml");
         boolean returnvalue = xmlChainBuilder.executeAsChain(context);
         @SuppressWarnings("unchecked")
-        final List<Command<Context>> commands = (List<Command<Context>>) ReflectionTestUtils.getField(xmlChainBuilder,
+        final List<Command<ParameterObject>> commands = (List<Command<ParameterObject>>) ReflectionTestUtils.getField(xmlChainBuilder,
                 "commands");
         Assert.assertThat(returnvalue, Matchers.is(true));
         Assert.assertThat(commands, Matchers.notNullValue());
@@ -76,12 +76,12 @@ public class XMLChainBuilderTest {
 
     @Test
     public void oneExceptionCommandInserted() throws Exception {
-        final XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
-        final DefaultContext context = new DefaultContext();
+        final XMLChainBuilder<ParameterObject> xmlChainBuilder = new XMLChainBuilder<ParameterObject>();
+        final DefaultParameterObject context = new DefaultParameterObject();
         xmlChainBuilder.setXmlFileName("/commandChainOneComandException.xml");
         boolean returnvalue = xmlChainBuilder.executeAsChain(context);
         @SuppressWarnings("unchecked")
-        final List<Command<Context>> commands = (List<Command<Context>>) ReflectionTestUtils.getField(xmlChainBuilder,
+        final List<Command<ParameterObject>> commands = (List<Command<ParameterObject>>) ReflectionTestUtils.getField(xmlChainBuilder,
                 "commands");
         Assert.assertThat(returnvalue, Matchers.is(false));
         Assert.assertThat(commands, Matchers.notNullValue());
@@ -91,8 +91,8 @@ public class XMLChainBuilderTest {
 
     @Test
     public void invalidCommandInserted() throws Exception {
-        final XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
-        final DefaultContext context = new DefaultContext();
+        final XMLChainBuilder<ParameterObject> xmlChainBuilder = new XMLChainBuilder<ParameterObject>();
+        final DefaultParameterObject context = new DefaultParameterObject();
         xmlChainBuilder.setXmlFileName("/invalidCommandChain.xml");
         final boolean result = xmlChainBuilder.executeAsChain(context);
         Assert.assertThat(result, Matchers.is(false));
@@ -100,8 +100,8 @@ public class XMLChainBuilderTest {
 
     @Test
     public void testExecuteMethodForBuilder() throws Exception {
-        final XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
-        final DefaultContext context = new DefaultContext();
+        final XMLChainBuilder<ParameterObject> xmlChainBuilder = new XMLChainBuilder<ParameterObject>();
+        final DefaultParameterObject context = new DefaultParameterObject();
         xmlChainBuilder.setXmlFileName("/commandChainPriority.xml");
         xmlChainBuilder.execute(context);
         Assert.assertEquals("1-2-", context.getAsString("priority"));
@@ -109,8 +109,8 @@ public class XMLChainBuilderTest {
 
     @Test
     public void executeWithException() throws Exception {
-        final XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
-        final DefaultContext context = new DefaultContext();
+        final XMLChainBuilder<ParameterObject> xmlChainBuilder = new XMLChainBuilder<ParameterObject>();
+        final DefaultParameterObject context = new DefaultParameterObject();
         xmlChainBuilder.setXmlFileName("/commandChainOneComandException.xml");
         xmlChainBuilder.execute(context);
         Assert.assertEquals("true", context.getAsString("executed"));
@@ -118,8 +118,8 @@ public class XMLChainBuilderTest {
 
     @Test
     public void testExecuteAsProcessMethodForBuilder() throws Exception {
-        final XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
-        final DefaultContext context = new DefaultContext();
+        final XMLChainBuilder<ParameterObject> xmlChainBuilder = new XMLChainBuilder<ParameterObject>();
+        final DefaultParameterObject context = new DefaultParameterObject();
         xmlChainBuilder.setXmlFileName("/commandChainProcess.xml");
         String result = xmlChainBuilder.executeAsProcess("Start", context);
         Assert.assertNull(result);
@@ -129,8 +129,8 @@ public class XMLChainBuilderTest {
 
     @Test
     public void testExecuteAsProcessWithException() throws Exception {
-        final XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
-        final DefaultContext context = new DefaultContext();
+        final XMLChainBuilder<ParameterObject> xmlChainBuilder = new XMLChainBuilder<ParameterObject>();
+        final DefaultParameterObject context = new DefaultParameterObject();
         xmlChainBuilder.setXmlFileName("/commandChainProcessNotExists.xml");
         String result = xmlChainBuilder.executeAsProcess("Start", context);
         Assert.assertNull(result);
@@ -139,8 +139,8 @@ public class XMLChainBuilderTest {
 
     @Test
     public void testExecuteAsProcessMethodForBuilderWIthException() throws Exception {
-        final XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
-        final DefaultContext context = new DefaultContext();
+        final XMLChainBuilder<ParameterObject> xmlChainBuilder = new XMLChainBuilder<ParameterObject>();
+        final DefaultParameterObject context = new DefaultParameterObject();
         xmlChainBuilder.setXmlFileName("notExists.xml");
         xmlChainBuilder.execute(context);
         Assert.assertNull(xmlChainBuilder.getProcessID());
@@ -150,7 +150,7 @@ public class XMLChainBuilderTest {
     public void testsetProcessID() throws Exception {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("ProcessID cannot be set on Container.");
-        final XMLChainBuilder<Context> xmlChainBuilder = new XMLChainBuilder<Context>();
+        final XMLChainBuilder<ParameterObject> xmlChainBuilder = new XMLChainBuilder<ParameterObject>();
         xmlChainBuilder.setProcessID("something");
     }
 

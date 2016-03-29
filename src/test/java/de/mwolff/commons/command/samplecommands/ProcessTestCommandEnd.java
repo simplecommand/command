@@ -28,10 +28,10 @@ package de.mwolff.commons.command.samplecommands;
 import org.apache.log4j.Logger;
 
 import de.mwolff.commons.command.AbstractDefaultProcessCommand;
-import de.mwolff.commons.command.GenericContext;
+import de.mwolff.commons.command.GenericParameterObject;
 import de.mwolff.commons.command.iface.CommandException;
 
-public class ProcessTestCommandEnd<T extends GenericContext> extends AbstractDefaultProcessCommand<T> {
+public class ProcessTestCommandEnd<T extends GenericParameterObject> extends AbstractDefaultProcessCommand<T> {
 
     private static final Logger LOG = Logger.getLogger(ProcessTestCommandEnd.class);
     

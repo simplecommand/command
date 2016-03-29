@@ -36,9 +36,9 @@ public class ProcessCommandTest {
 
     @Test
     public void executeAsProcessSimpleTest() throws Exception {
-        final ProcessTestCommandStart<GenericContext> processTestStartCommand = new ProcessTestCommandStart<GenericContext>(
+        final ProcessTestCommandStart<GenericParameterObject> processTestStartCommand = new ProcessTestCommandStart<GenericParameterObject>(
                 "Start");
-        final GenericContext context = new DefaultContext();
+        final GenericParameterObject context = new DefaultParameterObject();
         final String result = processTestStartCommand.executeAsProcess("", context);
         final String processflow = context.getAsString("result");
         Assert.assertEquals("Start - ", processflow);
@@ -47,7 +47,7 @@ public class ProcessCommandTest {
 
     @Test
     public void getProcessNameTest() throws Exception {
-        final ProcessTestCommandStart<GenericContext> processTestStartCommand = new ProcessTestCommandStart<GenericContext>(
+        final ProcessTestCommandStart<GenericParameterObject> processTestStartCommand = new ProcessTestCommandStart<GenericParameterObject>(
                 "Start");
         final String result = processTestStartCommand.getProcessID();
         Assert.assertEquals("Start", result);
@@ -55,12 +55,12 @@ public class ProcessCommandTest {
 
     @Test
     public void executeTwoSimpleProcessesInARow() throws Exception {
-        final GenericContext context = new DefaultContext();
-        final ProcessTestCommandStart<GenericContext> processTestStartCommand = new ProcessTestCommandStart<GenericContext>(
+        final GenericParameterObject context = new DefaultParameterObject();
+        final ProcessTestCommandStart<GenericParameterObject> processTestStartCommand = new ProcessTestCommandStart<GenericParameterObject>(
                 "Start");
-        final ProcessTestCommandEnd<GenericContext> processTestEndCommand = new ProcessTestCommandEnd<GenericContext>(
+        final ProcessTestCommandEnd<GenericParameterObject> processTestEndCommand = new ProcessTestCommandEnd<GenericParameterObject>(
                 "Next");
-        final DefaultCommandContainer<GenericContext> container = new DefaultCommandContainer<GenericContext>();
+        final DefaultCommandContainer<GenericParameterObject> container = new DefaultCommandContainer<GenericParameterObject>();
         container.addCommand(processTestStartCommand);
         container.addCommand(processTestEndCommand);
         container.executeAsProcess("Start", context);
@@ -70,8 +70,8 @@ public class ProcessCommandTest {
 
     @Test
     public void processANullContainer() throws Exception {
-        final GenericContext context = new DefaultContext();
-        final DefaultCommandContainer<GenericContext> container = new DefaultCommandContainer<GenericContext>();
+        final GenericParameterObject context = new DefaultParameterObject();
+        final DefaultCommandContainer<GenericParameterObject> container = new DefaultCommandContainer<GenericParameterObject>();
         String result = container.executeAsProcess("Start", context);
         Assert.assertNull(result);
         result = container.getProcessID();
@@ -80,10 +80,10 @@ public class ProcessCommandTest {
 
     @Test
     public void processMoreCompicated() throws Exception {
-        final DefaultCommandContainer<GenericContext> container = new DefaultCommandContainer<GenericContext>();
-        container.addCommand(new ProcessTestCommandStart<GenericContext>("Start"));
-        container.addCommand(new ProcessTestCommandNext<GenericContext>("Next"));
-        GenericContext context = new DefaultContext();
+        final DefaultCommandContainer<GenericParameterObject> container = new DefaultCommandContainer<GenericParameterObject>();
+        container.addCommand(new ProcessTestCommandStart<GenericParameterObject>("Start"));
+        container.addCommand(new ProcessTestCommandNext<GenericParameterObject>("Next"));
+        GenericParameterObject context = new DefaultParameterObject();
         String result = container.executeAsProcess("Start", context);
         final String processflow = context.getAsString("result");
         Assert.assertNull(result);

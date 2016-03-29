@@ -28,7 +28,7 @@ package de.mwolff.commons.command.iface;
 /**
  * A chain builder interface to build chains via configuration.
  */
-public interface ChainBuilder<T extends Context> extends Command<T>, ProcessCommand<T>, ChainCommand<T> {
+public interface ChainBuilder<T extends ParameterObject> extends Command<T>, ProcessCommand<T>, ChainCommand<T> {
 
     /**
      * Factory method to build the chain.

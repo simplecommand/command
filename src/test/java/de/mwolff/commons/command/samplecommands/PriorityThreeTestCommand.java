@@ -25,11 +25,11 @@
  */
 package de.mwolff.commons.command.samplecommands;
 
-import de.mwolff.commons.command.GenericContext;
+import de.mwolff.commons.command.GenericParameterObject;
 import de.mwolff.commons.command.iface.ChainCommand;
 import de.mwolff.commons.command.iface.ProcessCommand;
 
-public class PriorityThreeTestCommand<T extends GenericContext> implements ChainCommand<T>, ProcessCommand<T> {
+public class PriorityThreeTestCommand<T extends GenericParameterObject> implements ChainCommand<T>, ProcessCommand<T> {
 
     @Override
     public void execute(T context) {

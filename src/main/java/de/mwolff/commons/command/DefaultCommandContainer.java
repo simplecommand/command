@@ -34,14 +34,14 @@ import org.apache.log4j.Logger;
 import de.mwolff.commons.command.iface.ChainCommand;
 import de.mwolff.commons.command.iface.Command;
 import de.mwolff.commons.command.iface.CommandContainer;
-import de.mwolff.commons.command.iface.Context;
+import de.mwolff.commons.command.iface.ParameterObject;
 import de.mwolff.commons.command.iface.ProcessCommand;
 
 /**
  * CommandContainer that holds Command-objects. Should have the same behavior as
  * a command (Composite Pattern).
  */
-public class DefaultCommandContainer<T extends Context> implements CommandContainer<T> {
+public class DefaultCommandContainer<T extends ParameterObject> implements CommandContainer<T> {
 
     private static final Logger LOG = Logger.getLogger(DefaultCommandContainer.class);
 
@@ -75,7 +75,7 @@ public class DefaultCommandContainer<T extends Context> implements CommandContai
     }
 
     /**
-     * @see de.mwolff.commons.command.iface.Command#execute(de.mwolff.commons.command.iface.Context)
+     * @see de.mwolff.commons.command.iface.Command#execute(de.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
     public void execute(T context) {
@@ -90,7 +90,7 @@ public class DefaultCommandContainer<T extends Context> implements CommandContai
     }
 
     /**
-     * @see de.mwolff.commons.command.iface.Command#executeAsChain(de.mwolff.commons.command.iface.Context)
+     * @see de.mwolff.commons.command.iface.Command#executeAsChain(de.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
     public boolean executeAsChain(T context) {
@@ -105,7 +105,7 @@ public class DefaultCommandContainer<T extends Context> implements CommandContai
     }
 
     /**
-     * @see de.mwolff.commons.command.iface.Command#executeAsProcess(de.mwolff.commons.command.iface.Context)
+     * @see de.mwolff.commons.command.iface.Command#executeAsProcess(de.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
     public String executeAsProcess(String startCommand, T context) {

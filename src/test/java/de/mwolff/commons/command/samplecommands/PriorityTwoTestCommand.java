@@ -25,16 +25,16 @@
  */
 package de.mwolff.commons.command.samplecommands;
 
-import de.mwolff.commons.command.DefaultContext;
-import de.mwolff.commons.command.GenericContext;
+import de.mwolff.commons.command.DefaultParameterObject;
+import de.mwolff.commons.command.GenericParameterObject;
 import de.mwolff.commons.command.iface.ChainCommand;
 import de.mwolff.commons.command.iface.ProcessCommand;
 
-public class PriorityTwoTestCommand<T extends GenericContext> implements ChainCommand<T>, ProcessCommand<T> {
+public class PriorityTwoTestCommand<T extends GenericParameterObject> implements ChainCommand<T>, ProcessCommand<T> {
 
     @Override
     public void execute(T context) {
-        if (context != DefaultContext.NULLCONTEXT) {
+        if (context != DefaultParameterObject.NULLCONTEXT) {
             context.put("PriorityTwoTestCommand", "PriorityTwoTestCommand");
             String priorString = context.getAsString("priority");
             if ("NullObject".equals(priorString)) {

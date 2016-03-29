@@ -28,15 +28,15 @@ package de.mwolff.commons.command.iface;
 import org.junit.Assert;
 import org.junit.Test;
 
-import de.mwolff.commons.command.DefaultContext;
-import de.mwolff.commons.command.GenericContext;
+import de.mwolff.commons.command.DefaultParameterObject;
+import de.mwolff.commons.command.GenericParameterObject;
 
-public class ContextTest {
+public class ParameterObjectTest {
 
     private static final String INTEGER_VALUE = "IntegerValue";
     private static final String STRING_VALUE = "StringValue";
 
-    private final GenericContext context = new DefaultContext();
+    private final GenericParameterObject context = new DefaultParameterObject();
 
     @Test
     public void testContextInterface() throws Exception {
@@ -45,28 +45,28 @@ public class ContextTest {
 
     @Test
     public void testPutGetContext() throws Exception {
-        context.put(ContextTest.STRING_VALUE, ContextTest.STRING_VALUE);
-        final String stringValue = (String) context.get(ContextTest.STRING_VALUE);
-        Assert.assertEquals(ContextTest.STRING_VALUE, stringValue);
+        context.put(ParameterObjectTest.STRING_VALUE, ParameterObjectTest.STRING_VALUE);
+        final String stringValue = (String) context.get(ParameterObjectTest.STRING_VALUE);
+        Assert.assertEquals(ParameterObjectTest.STRING_VALUE, stringValue);
     }
 
     @Test
     public void testGet() throws Exception {
-        context.put(ContextTest.INTEGER_VALUE, Integer.valueOf(42));
-        final Integer integerValue = (Integer) context.get(ContextTest.INTEGER_VALUE);
+        context.put(ParameterObjectTest.INTEGER_VALUE, Integer.valueOf(42));
+        final Integer integerValue = (Integer) context.get(ParameterObjectTest.INTEGER_VALUE);
         Assert.assertEquals(Integer.valueOf(42), integerValue);
     }
 
     @Test
     public void testGetAsString() throws Exception {
-        context.put(ContextTest.STRING_VALUE, ContextTest.STRING_VALUE);
-        final String stringValue = context.getAsString(ContextTest.STRING_VALUE);
-        Assert.assertEquals(ContextTest.STRING_VALUE, stringValue);
+        context.put(ParameterObjectTest.STRING_VALUE, ParameterObjectTest.STRING_VALUE);
+        final String stringValue = context.getAsString(ParameterObjectTest.STRING_VALUE);
+        Assert.assertEquals(ParameterObjectTest.STRING_VALUE, stringValue);
     }
 
     @Test
     public void testNullContext() throws Exception {
-        final GenericContext nullContext = DefaultContext.NULLCONTEXT;
+        final GenericParameterObject nullContext = DefaultParameterObject.NULLCONTEXT;
         nullContext.put("myKey", "myValue");
         Assert.assertEquals("myValue", nullContext.getAsString("myKey"));
     }

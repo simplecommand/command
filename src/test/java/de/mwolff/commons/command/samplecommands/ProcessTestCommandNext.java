@@ -3,10 +3,10 @@ package de.mwolff.commons.command.samplecommands;
 import org.apache.log4j.Logger;
 
 import de.mwolff.commons.command.AbstractDefaultProcessCommand;
-import de.mwolff.commons.command.GenericContext;
+import de.mwolff.commons.command.GenericParameterObject;
 import de.mwolff.commons.command.iface.CommandException;
 
-public class ProcessTestCommandNext<T extends GenericContext> extends AbstractDefaultProcessCommand<T> {
+public class ProcessTestCommandNext<T extends GenericParameterObject> extends AbstractDefaultProcessCommand<T> {
 
     private static final Logger LOG = Logger.getLogger(ProcessTestCommandNext.class);
     

@@ -26,11 +26,11 @@
 package de.mwolff.commons.command.samplecommands;
 
 import de.mwolff.commons.command.AbstractDefaultChainCommand;
-import de.mwolff.commons.command.GenericContext;
+import de.mwolff.commons.command.GenericParameterObject;
 import de.mwolff.commons.command.iface.Command;
 import de.mwolff.commons.command.iface.CommandException;
 
-public class ExceptionCommand<T extends GenericContext> extends AbstractDefaultChainCommand<T> implements Command<T> {
+public class ExceptionCommand<T extends GenericParameterObject> extends AbstractDefaultChainCommand<T> implements Command<T> {
 
     @Override
     public void execute(T context) throws CommandException {

@@ -17,8 +17,8 @@ public class AbstractDefaultChainCommandTest {
 
     @Test
     public void executeTest() throws Exception {
-        final ExceptionCommand<GenericContext> exceptionCommand = new ExceptionCommand<GenericContext>();
-        final GenericContext defaultContext = new DefaultContext();
+        final ExceptionCommand<GenericParameterObject> exceptionCommand = new ExceptionCommand<GenericParameterObject>();
+        final GenericParameterObject defaultContext = new DefaultParameterObject();
         thrown.expect(CommandException.class);
         thrown.expectMessage("Method is not implemented yet.");
         exceptionCommand.execute(defaultContext);
@@ -26,14 +26,14 @@ public class AbstractDefaultChainCommandTest {
 
     @Test
     public void executeAsChainReturnsFalse() throws Exception {
-        final ExceptionCommand<GenericContext> defaultCommand = new ExceptionCommand<GenericContext>();
-        Assert.assertThat(defaultCommand.executeAsChain(DefaultContext.NULLCONTEXT), Matchers.is(false));
+        final ExceptionCommand<GenericParameterObject> defaultCommand = new ExceptionCommand<GenericParameterObject>();
+        Assert.assertThat(defaultCommand.executeAsChain(DefaultParameterObject.NULLCONTEXT), Matchers.is(false));
     }
 
     @Test
     public void executeAsChainReturnsTrue() throws Exception {
-        final SimpleTestCommand<GenericContext> simpleTestCommand = new SimpleTestCommand<GenericContext>();
-        Assert.assertThat(simpleTestCommand.executeAsChain(DefaultContext.NULLCONTEXT), Matchers.is(true));
+        final SimpleTestCommand<GenericParameterObject> simpleTestCommand = new SimpleTestCommand<GenericParameterObject>();
+        Assert.assertThat(simpleTestCommand.executeAsChain(DefaultParameterObject.NULLCONTEXT), Matchers.is(true));
     }
 
 }

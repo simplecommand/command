@@ -23,37 +23,10 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package de.mwolff.commons.command;
-
-import de.mwolff.commons.command.iface.Context;
+package de.mwolff.commons.command.iface;
 
 /**
- * Simple context interface for pass values across commands.
+ * Marker-interface for a context used in the framework
  */
-public interface GenericContext extends Context {
-
-    /**
-     * Saves an object to the key.
-     *
-     * @param key
-     * @param value
-     */
-    void put(String key, Object value);
-
-    /**
-     * Returns the object of the given key.
-     *
-     * @param key
-     * @return
-     */
-    Object get(String key);
-
-    /**
-     * Returns the object of the given key as String.
-     *
-     * @param key
-     * @return
-     */
-    String getAsString(String key);
-
+public interface ParameterObject {
 }

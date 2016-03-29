@@ -26,7 +26,7 @@
 package de.mwolff.commons.command;
 
 import de.mwolff.commons.command.iface.CommandException;
-import de.mwolff.commons.command.iface.Context;
+import de.mwolff.commons.command.iface.ParameterObject;
 import de.mwolff.commons.command.iface.ProcessCommand;
 
 /**
@@ -34,7 +34,7 @@ import de.mwolff.commons.command.iface.ProcessCommand;
  * <code>executeAsChain</code> for all executions of the <code>command</code> or
  * <code>commandContainer</code>.
  */
-public abstract class AbstractDefaultProcessCommand<T extends Context> implements ProcessCommand<T> {
+public abstract class AbstractDefaultProcessCommand<T extends ParameterObject> implements ProcessCommand<T> {
 
     protected String processID;
 
@@ -65,13 +65,13 @@ public abstract class AbstractDefaultProcessCommand<T extends Context> implement
     }
 
     /**
-     * @see de.mwolff.commons.command.iface.Command#execute(de.mwolff.commons.command.iface.Context)
+     * @see de.mwolff.commons.command.iface.Command#execute(de.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
     public abstract void execute(T context) throws CommandException;
 
     /**
-     * @see de.mwolff.commons.command.iface.Command#executeAsProcess(de.mwolff.commons.command.iface.Context)
+     * @see de.mwolff.commons.command.iface.Command#executeAsProcess(de.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
     public String executeAsProcess(String startCommand, T context) {

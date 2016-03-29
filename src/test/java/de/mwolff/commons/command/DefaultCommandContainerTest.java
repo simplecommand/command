@@ -51,11 +51,11 @@ public class DefaultCommandContainerTest {
      */
     @Test
     public void testAddNoPriorityInCommandContainer() throws Exception {
-        final GenericContext context = new DefaultContext();
-        final CommandContainer<GenericContext> commandContainer = new DefaultCommandContainer<GenericContext>();
-        commandContainer.addCommand(new PriorityOneTestCommand<GenericContext>());
-        commandContainer.addCommand(new PriorityTwoTestCommand<GenericContext>());
-        commandContainer.addCommand(new PriorityThreeTestCommand<GenericContext>());
+        final GenericParameterObject context = new DefaultParameterObject();
+        final CommandContainer<GenericParameterObject> commandContainer = new DefaultCommandContainer<GenericParameterObject>();
+        commandContainer.addCommand(new PriorityOneTestCommand<GenericParameterObject>());
+        commandContainer.addCommand(new PriorityTwoTestCommand<GenericParameterObject>());
+        commandContainer.addCommand(new PriorityThreeTestCommand<GenericParameterObject>());
         commandContainer.execute(context);
         String priorString = context.getAsString("priority");
         Assert.assertEquals("1-2-3-", priorString);
@@ -70,11 +70,11 @@ public class DefaultCommandContainerTest {
      */
     @Test
     public void testAddCommandWithPriorityInCommandContainer() throws Exception {
-        final GenericContext context = new DefaultContext();
-        final CommandContainer<GenericContext> commandContainer = new DefaultCommandContainer<GenericContext>();
-        commandContainer.addCommand(2, new PriorityThreeTestCommand<GenericContext>());
-        commandContainer.addCommand(1, new PriorityOneTestCommand<GenericContext>());
-        commandContainer.addCommand(1, new PriorityTwoTestCommand<GenericContext>());
+        final GenericParameterObject context = new DefaultParameterObject();
+        final CommandContainer<GenericParameterObject> commandContainer = new DefaultCommandContainer<GenericParameterObject>();
+        commandContainer.addCommand(2, new PriorityThreeTestCommand<GenericParameterObject>());
+        commandContainer.addCommand(1, new PriorityOneTestCommand<GenericParameterObject>());
+        commandContainer.addCommand(1, new PriorityTwoTestCommand<GenericParameterObject>());
         commandContainer.execute(context);
         String priorString = context.getAsString("priority");
         Assert.assertEquals("1-2-3-", priorString);
@@ -89,14 +89,14 @@ public class DefaultCommandContainerTest {
     @Test
     public void testMixedModeInCommandContainer() throws Exception {
 
-        final GenericContext context = new DefaultContext();
-        final CommandContainer<GenericContext> commandContainer = new DefaultCommandContainer<GenericContext>();
-        commandContainer.addCommand(1, new PriorityOneTestCommand<GenericContext>());
-        commandContainer.addCommand(2, new PriorityTwoTestCommand<GenericContext>());
-        commandContainer.addCommand(3, new PriorityThreeTestCommand<GenericContext>());
+        final GenericParameterObject context = new DefaultParameterObject();
+        final CommandContainer<GenericParameterObject> commandContainer = new DefaultCommandContainer<GenericParameterObject>();
+        commandContainer.addCommand(1, new PriorityOneTestCommand<GenericParameterObject>());
+        commandContainer.addCommand(2, new PriorityTwoTestCommand<GenericParameterObject>());
+        commandContainer.addCommand(3, new PriorityThreeTestCommand<GenericParameterObject>());
 
-        final CommandContainer<GenericContext> mixedList = new DefaultCommandContainer<GenericContext>();
-        mixedList.addCommand(new SimpleTestCommand<GenericContext>());
+        final CommandContainer<GenericParameterObject> mixedList = new DefaultCommandContainer<GenericParameterObject>();
+        mixedList.addCommand(new SimpleTestCommand<GenericParameterObject>());
         mixedList.addCommand(commandContainer);
 
         mixedList.execute(context);
@@ -111,10 +111,10 @@ public class DefaultCommandContainerTest {
     // executed
     @Test
     public void testChainWithError() throws Exception {
-        final GenericContext context = new DefaultContext();
-        final CommandContainer<GenericContext> commandContainer = new DefaultCommandContainer<GenericContext>();
-        commandContainer.addCommand(1, new ExceptionCommand<GenericContext>());
-        commandContainer.addCommand(2, new SimpleTestCommand<GenericContext>());
+        final GenericParameterObject context = new DefaultParameterObject();
+        final CommandContainer<GenericParameterObject> commandContainer = new DefaultCommandContainer<GenericParameterObject>();
+        commandContainer.addCommand(1, new ExceptionCommand<GenericParameterObject>());
+        commandContainer.addCommand(2, new SimpleTestCommand<GenericParameterObject>());
         commandContainer.execute(context);
         final String priorString = context.getAsString("priority");
         Assert.assertEquals("S-", priorString);
@@ -124,8 +124,8 @@ public class DefaultCommandContainerTest {
     // Remark: Should work if no command is inserted
     @Test
     public void testExecuteWithNullCommands() throws Exception {
-        final GenericContext context = new DefaultContext();
-        final CommandContainer<GenericContext> commandContainer = new DefaultCommandContainer<GenericContext>();
+        final GenericParameterObject context = new DefaultParameterObject();
+        final CommandContainer<GenericParameterObject> commandContainer = new DefaultCommandContainer<GenericParameterObject>();
         final String result = commandContainer.executeAsProcess(null, context);
         Assert.assertEquals(null, result);
 
@@ -135,18 +135,18 @@ public class DefaultCommandContainerTest {
     public void testsetProcessID() throws Exception {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("ProcessID cannot be set on Container.");
-        final CommandContainer<GenericContext> commandContainer = new DefaultCommandContainer<GenericContext>();
+        final CommandContainer<GenericParameterObject> commandContainer = new DefaultCommandContainer<GenericParameterObject>();
         commandContainer.setProcessID("something");
     }
 
     @Test
     public void testGetCommandWithProcessID() throws Exception {
-        final CommandContainer<GenericContext> commandContainer = new DefaultCommandContainer<GenericContext>();
-        Command<GenericContext> search = new ProcessTestCommandStart<GenericContext>("StartCommand");
+        final CommandContainer<GenericParameterObject> commandContainer = new DefaultCommandContainer<GenericParameterObject>();
+        Command<GenericParameterObject> search = new ProcessTestCommandStart<GenericParameterObject>("StartCommand");
         commandContainer.addCommand(1, search);
-        commandContainer.addCommand(2, new ProcessTestCommandNext<GenericContext>("NextCommand"));
+        commandContainer.addCommand(2, new ProcessTestCommandNext<GenericParameterObject>("NextCommand"));
 
-        Command<GenericContext> found = commandContainer.getCommandByProcessID("StartCommand");
+        Command<GenericParameterObject> found = commandContainer.getCommandByProcessID("StartCommand");
         Assert.assertSame(found, search);
     }
 }
