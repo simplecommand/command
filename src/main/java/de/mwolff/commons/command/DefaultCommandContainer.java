@@ -25,7 +25,6 @@
  */
 package de.mwolff.commons.command;
 
-import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -45,17 +44,14 @@ public class DefaultCommandContainer<T extends ParameterObject> implements Comma
 
     private static final Logger LOG = Logger.getLogger(DefaultCommandContainer.class);
 
-    private final Map<Integer, Command<T>> commandList = new TreeMap<Integer, Command<T>>(new Comparator<Integer>() {
-        @Override
-        public int compare(Integer o1, Integer o2) {
+    private final Map<Integer, Command<T>> commandList = new TreeMap<>((final Integer o1, final Integer o2) -> {
             // First wins if there are two commands with the same priority
             if (o1.intValue() >= o2.intValue()) {
                 return 1;
             } else {
                 return -1;
             } // returning 0 would merge keys
-        }
-    });
+        });
 
     /**
      * @see de.mwolff.commons.command.iface.CommandContainer#addCommand(de.mwolff.commons.command.iface.Command)
