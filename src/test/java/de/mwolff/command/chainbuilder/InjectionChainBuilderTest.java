@@ -34,8 +34,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import de.mwolff.commons.command.DefaultParameterObject;
+import de.mwolff.commons.command.DefaultTransition;
 import de.mwolff.commons.command.GenericParameterObject;
 import de.mwolff.commons.command.iface.Command;
+import de.mwolff.commons.command.iface.Transition;
 import de.mwolff.commons.command.samplecommands.ExceptionCommand;
 import de.mwolff.commons.command.samplecommands.PriorityOneTestCommand;
 import de.mwolff.commons.command.samplecommands.PriorityTwoTestCommand;
@@ -80,8 +82,18 @@ public class InjectionChainBuilderTest {
         final GenericParameterObject context = new DefaultParameterObject();
         final ProcessTestCommandStart<GenericParameterObject> processTestStartCommand = new ProcessTestCommandStart<GenericParameterObject>(
                 "Start");
+        Transition transition = new DefaultTransition();
+        transition.setReturnValue("OK");
+        transition.setTarget("Next");
+        processTestStartCommand.addTransition(transition);
+        transition = new DefaultTransition();
+        transition.setReturnValue("NOK");
+        transition.setTarget("Start");
+        processTestStartCommand.addTransition(transition);
+        
         final ProcessTestCommandEnd<GenericParameterObject> processTestEndCommand = new ProcessTestCommandEnd<GenericParameterObject>(
                 "Next");
+        
         commandList.add(processTestStartCommand);
         commandList.add(processTestEndCommand);
         builder.setCommands(commandList);

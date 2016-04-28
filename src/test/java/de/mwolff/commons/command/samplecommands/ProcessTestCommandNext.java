@@ -39,7 +39,7 @@ public class ProcessTestCommandNext<T extends GenericParameterObject> extends Ab
         if (counter == null) {
             counter = Integer.valueOf(1);
             context.put("counter", counter);
-            return "Start";
+            return "OK";
         }
         return "";
     }

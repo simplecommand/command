@@ -62,4 +62,8 @@ public interface ProcessCommand<T extends ParameterObject> extends Command<T>{
     default void addTransition(final Transition transition) {
         //
     }
+    
+    default String findNext(final String next) {
+        return "";
+    }
 }

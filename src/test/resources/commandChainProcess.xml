@@ -5,5 +5,7 @@
        <transition returnvalue="OK" target="Next"/>
        <transition returnvalue="NOK" target="Start"/>
 	</command>
-	<command class="de.mwolff.commons.command.samplecommands.ProcessTestCommandNext"  processid="Next"/>
+	<command class="de.mwolff.commons.command.samplecommands.ProcessTestCommandNext"  processid="Next">
+       <transition returnvalue="OK" target="Start"/>
+	</command>
 </commandchain>

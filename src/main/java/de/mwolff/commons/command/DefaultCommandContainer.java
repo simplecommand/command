@@ -114,7 +114,8 @@ public class DefaultCommandContainer<T extends ParameterObject> implements Comma
             return null;
         }
 
-        final String next = ((ProcessCommand<T>) command).executeAsProcess(startCommand, context);
+        String next = ((ProcessCommand<T>) command).executeAsProcess(startCommand, context);
+        next = ((ProcessCommand<T>) command).findNext(next);
 
         if (next == null) {
             return null;

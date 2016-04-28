@@ -50,7 +50,7 @@ public class ProcessTestCommandStart<T extends GenericParameterObject> extends A
         } catch (CommandException e) {
             LOG.error(e);
         }
-        return "Next";
+        return "OK";
     }
 
     @Override

@@ -90,5 +90,16 @@ public abstract class AbstractDefaultProcessCommand<T extends ParameterObject> i
     public String executeAsProcess(String startCommand, T context) {
         return null;
     }
+    
+    @Override
+    public String findNext(final String next) {
+        for (Transition transition : transitionList) {
+            System.out.println(transition.getReturnValue());
+            if (next.equals(transition.getReturnValue())) {
+                return transition.getTarget();
+            }
+        }
+        return null;
+    }
 
 }

@@ -133,7 +133,7 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
             final Iterator<Attribute> attributeIterator = transition.attributeIterator(); attributeIterator.hasNext();) {
                 final Attribute attribute = attributeIterator.next();
 
-                if ("returnValue".equals(attribute.getName())) {
+                if ("returnvalue".equals(attribute.getName())) {
                     transitionClass.setReturnValue(attribute.getValue());
                 }
 
