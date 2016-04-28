@@ -37,13 +37,4 @@ public interface Command<T extends ParameterObject> {
      * @param context
      */
     void execute(T context) throws CommandException;
-
-    /**
-     * Executes a command as a chain. Best way to execute a command chain is to
-     * execute it as a chain because exceptions are automatically handled.
-     *
-     * @param context
-     * @return False if there is an error or the whole task is completed. True
-     *         if the next command should overtake.
-     */
 }

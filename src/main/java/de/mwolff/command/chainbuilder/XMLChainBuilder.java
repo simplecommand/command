@@ -13,12 +13,14 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 import de.mwolff.commons.command.DefaultCommandContainer;
+import de.mwolff.commons.command.DefaultTransition;
 import de.mwolff.commons.command.iface.ChainBuilder;
 import de.mwolff.commons.command.iface.Command;
 import de.mwolff.commons.command.iface.CommandContainer;
 import de.mwolff.commons.command.iface.CommandException;
 import de.mwolff.commons.command.iface.ParameterObject;
 import de.mwolff.commons.command.iface.ProcessCommand;
+import de.mwolff.commons.command.iface.Transition;
 
 public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<T> {
 
@@ -92,13 +94,17 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
 
         if (!list.isEmpty()) {
             for (final Element element : list) {
-                extractElement(element);
+                extractCommandElement(element);
             }
         }
     }
 
-    private void extractElement(final Element element) throws CommandException {
+    private void extractCommandElement(final Element element) throws CommandException {
+        
+        // Here we have a single commandchain/command in place. We create the command (attribute class
+        // and read further attributes to set i.e. the optional processid.
         Command<ParameterObject> command = null;
+        
         for (@SuppressWarnings("unchecked")
         final Iterator<Attribute> attributeIterator = element.attributeIterator(); attributeIterator.hasNext();) {
             final Attribute attribute = attributeIterator.next();
@@ -115,7 +121,27 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
             if ("processid".equals(attribute.getName())) {
                 ((ProcessCommand<ParameterObject>)command).setProcessID(attribute.getValue());
             }
+        }
+        
+        // For the version two we've her to iterate through all transitions and set the transition
+        // into the transition list to the command.
+        @SuppressWarnings("unchecked")
+        final List<Element> innerElementList = element.elements();
+        for (Element transition : innerElementList) {
+            Transition transitionClass = new DefaultTransition();
+            for (@SuppressWarnings("unchecked")
+            final Iterator<Attribute> attributeIterator = transition.attributeIterator(); attributeIterator.hasNext();) {
+                final Attribute attribute = attributeIterator.next();
 
+                if ("returnValue".equals(attribute.getName())) {
+                    transitionClass.setReturnValue(attribute.getValue());
+                }
+
+                if ("target".equals(attribute.getName())) {
+                    transitionClass.setTarget(attribute.getValue());
+                }
+            }
+            ((ProcessCommand<ParameterObject>)command).addTransition(transitionClass);
         }
     }
 

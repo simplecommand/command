@@ -25,9 +25,13 @@
  */
 package de.mwolff.commons.command;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.mwolff.commons.command.iface.CommandException;
 import de.mwolff.commons.command.iface.ParameterObject;
 import de.mwolff.commons.command.iface.ProcessCommand;
+import de.mwolff.commons.command.iface.Transition;
 
 /**
  * Default implementation for a chain-command. You may use
@@ -37,7 +41,16 @@ import de.mwolff.commons.command.iface.ProcessCommand;
 public abstract class AbstractDefaultProcessCommand<T extends ParameterObject> implements ProcessCommand<T> {
 
     protected String processID;
+    protected List<Transition> transitionList = new ArrayList<Transition>();
 
+    public List<Transition> getTransitionList() {
+        return new ArrayList<Transition>(transitionList);
+    }
+    
+    public void addTransition(final Transition transition) {
+        transitionList.add(transition);
+    }
+    
     /** Constructor with process ID */
     public AbstractDefaultProcessCommand(String processID) {
         this.processID = processID;

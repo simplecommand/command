@@ -13,8 +13,11 @@ import org.springframework.test.util.ReflectionTestUtils;
 import de.mwolff.commons.command.DefaultParameterObject;
 import de.mwolff.commons.command.iface.ChainBuilder;
 import de.mwolff.commons.command.iface.Command;
+import de.mwolff.commons.command.iface.CommandContainer;
 import de.mwolff.commons.command.iface.CommandException;
 import de.mwolff.commons.command.iface.ParameterObject;
+import de.mwolff.commons.command.iface.ProcessCommand;
+import de.mwolff.commons.command.iface.Transition;
 
 public class XMLChainBuilderTest {
 
@@ -153,5 +156,19 @@ public class XMLChainBuilderTest {
         final XMLChainBuilder<ParameterObject> xmlChainBuilder = new XMLChainBuilder<ParameterObject>();
         xmlChainBuilder.setProcessID("something");
     }
+    
+    @Test
+    public void testTransitions() throws Exception {
+        final XMLChainBuilder<ParameterObject> xmlChainBuilder = new XMLChainBuilder<ParameterObject>();
+        final DefaultParameterObject context = new DefaultParameterObject();
+        xmlChainBuilder.setXmlFileName("/commandChainProcess.xml");
+        CommandContainer<ParameterObject> commands = xmlChainBuilder.buildChain();
+        Assert.assertNotNull(commands);
+        ProcessCommand<ParameterObject> command = (ProcessCommand)commands.getCommandByProcessID("Start");
+        Assert.assertNotNull(command);
+        List<Transition> transList = command.getTransitionList();
+        Assert.assertEquals(2, transList.size());
+    }
+
 
 }

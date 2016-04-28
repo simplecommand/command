@@ -25,6 +25,8 @@
  */
 package de.mwolff.commons.command.iface;
 
+import java.util.List;
+
 /**
  * Command interface for the command framework. Commands may act with generic
  * command contexts.
@@ -52,4 +54,12 @@ public interface ProcessCommand<T extends ParameterObject> extends Command<T>{
      * @param processID
      */
     void setProcessID(String processID);
+    
+    default List<Transition> getTransitionList() {
+        return null;
+    }
+    
+    default void addTransition(final Transition transition) {
+        //
+    }
 }
