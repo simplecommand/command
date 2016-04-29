@@ -25,10 +25,17 @@ import de.mwolff.commons.command.iface.Transition;
 public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<T> {
 
     private static final Logger LOG = Logger.getLogger(XMLChainBuilder.class);
-
     private final List<Command<ParameterObject>> commands = new ArrayList<Command<ParameterObject>>();
     private String xmlFileName;
 
+    private static final String ROOT = "//process/action";
+    private static final String CLASS = "class";
+    private static final String ID = "id";
+    private static final String NAME = "name";
+    private static final String TO = "to";
+    
+    
+    
     @Override
     public boolean executeAsChain(T context) {
         CommandContainer<T> chain = null;
@@ -90,7 +97,7 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
     @SuppressWarnings("unchecked")
     private void createCommandOutOfXML(Document document) throws CommandException {
 
-        final List<Element> list = document.selectNodes("//commandchain/command");
+        final List<Element> list = document.selectNodes(ROOT);
 
         if (!list.isEmpty()) {
             for (final Element element : list) {
@@ -109,7 +116,7 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
         final Iterator<Attribute> attributeIterator = element.attributeIterator(); attributeIterator.hasNext();) {
             final Attribute attribute = attributeIterator.next();
 
-            if ("class".equals(attribute.getName())) {
+            if (CLASS.equals(attribute.getName())) {
                 try {
                     command = createAndAddCommand(attribute.getValue());
                 } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
@@ -118,12 +125,12 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
                 }
             }
 
-            if ("processid".equals(attribute.getName())) {
+            if (ID.equals(attribute.getName())) {
                 ((ProcessCommand<ParameterObject>)command).setProcessID(attribute.getValue());
             }
         }
         
-        // For the version two we've her to iterate through all transitions and set the transition
+        // For the version 1.2 we've her to iterate through all transitions and set the transition
         // into the transition list to the command.
         @SuppressWarnings("unchecked")
         final List<Element> innerElementList = element.elements();
@@ -133,11 +140,11 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
             final Iterator<Attribute> attributeIterator = transition.attributeIterator(); attributeIterator.hasNext();) {
                 final Attribute attribute = attributeIterator.next();
 
-                if ("returnvalue".equals(attribute.getName())) {
+                if (NAME.equals(attribute.getName())) {
                     transitionClass.setReturnValue(attribute.getValue());
                 }
 
-                if ("target".equals(attribute.getName())) {
+                if (TO.equals(attribute.getName())) {
                     transitionClass.setTarget(attribute.getValue());
                 }
             }

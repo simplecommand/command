@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<commandchain xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<process xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="simplecommandframework.xsd">
-	<command class="de.mwolff.commons.command.samplecommands.ProcessTestCommandStart" processid="Start">
-       <transition returnvalue="OK" target="Next"/>
-       <transition returnvalue="NOK" target="Start"/>
-	</command>
-	<command class="de.mwolff.commons.command.samplecommands.ProcessTestCommandNext"  processid="Next">
-       <transition returnvalue="OK" target="Start"/>
-	</command>
-</commandchain>
+	<action class="de.mwolff.commons.command.samplecommands.ProcessTestCommandStart" id="Start">
+       <transition name="OK" to="Next"/>
+       <transition name="NOK" to="Start"/>
+	</action>
+	<action class="de.mwolff.commons.command.samplecommands.ProcessTestCommandNext"  id="Next">
+       <transition name="OK" to="Start"/>
+	</action>
+</process>

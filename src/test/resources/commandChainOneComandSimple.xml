@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<commandchain xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<process xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="simplecommandframework.xsd">
-	<command class="de.mwolff.commons.command.samplecommands.SimpleTestCommand" />
-</commandchain>   
+	<action class="de.mwolff.commons.command.samplecommands.SimpleTestCommand" />
+</process>   
