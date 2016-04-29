@@ -29,7 +29,7 @@ package de.mwolff.commons.command.iface;
  * Command interface for the command framework. Commands may act with generic
  * command contexts.
  */
-public interface ChainCommand<T extends ParameterObject> extends Command<T>{
+public interface ChainCommand<T extends ParameterObject> extends Command<T> {
 
     /**
      * Executes a command as a chain. Best way to execute a command chain is to

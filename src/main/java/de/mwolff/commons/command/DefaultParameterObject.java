@@ -45,16 +45,6 @@ public class DefaultParameterObject implements GenericParameterObject {
 
     /**
      *
-     * @see de.mwolff.commons.command.GenericParameterObject#put(java.lang.String,
-     *      java.lang.Object)
-     */
-    @Override
-    public void put(String key, Object value) {
-        genericMap.put(key, value);
-    }
-
-    /**
-     *
      * @see de.mwolff.commons.command.GenericParameterObject#get(java.lang.String)
      */
     @Override
@@ -73,5 +63,15 @@ public class DefaultParameterObject implements GenericParameterObject {
             object = "NullObject";
         }
         return object.toString();
+    }
+
+    /**
+     *
+     * @see de.mwolff.commons.command.GenericParameterObject#put(java.lang.String,
+     *      java.lang.Object)
+     */
+    @Override
+    public void put(String key, Object value) {
+        genericMap.put(key, value);
     }
 }

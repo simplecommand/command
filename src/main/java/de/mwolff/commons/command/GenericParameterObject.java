@@ -33,14 +33,6 @@ import de.mwolff.commons.command.iface.ParameterObject;
 public interface GenericParameterObject extends ParameterObject {
 
     /**
-     * Saves an object to the key.
-     *
-     * @param key
-     * @param value
-     */
-    void put(String key, Object value);
-
-    /**
      * Returns the object of the given key.
      *
      * @param key
@@ -55,5 +47,13 @@ public interface GenericParameterObject extends ParameterObject {
      * @return
      */
     String getAsString(String key);
+
+    /**
+     * Saves an object to the key.
+     *
+     * @param key
+     * @param value
+     */
+    void put(String key, Object value);
 
 }

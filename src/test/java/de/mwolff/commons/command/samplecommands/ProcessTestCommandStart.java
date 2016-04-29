@@ -34,23 +34,13 @@ import de.mwolff.commons.command.iface.CommandException;
 public class ProcessTestCommandStart<T extends GenericParameterObject> extends AbstractDefaultProcessCommand<T> {
 
     private static final Logger LOG = Logger.getLogger(ProcessTestCommandStart.class);
-    
+
     public ProcessTestCommandStart() {
         super();
     }
 
     public ProcessTestCommandStart(String processID) {
         super(processID);
-    }
-
-    @Override
-    public String executeAsProcess(String startCommand, T context) {
-        try {
-            execute(context);
-        } catch (CommandException e) {
-            LOG.error(e);
-        }
-        return "OK";
     }
 
     @Override
@@ -61,5 +51,15 @@ public class ProcessTestCommandStart<T extends GenericParameterObject> extends A
         }
         result += processID + " - ";
         context.put("result", result);
+    }
+
+    @Override
+    public String executeAsProcess(String startCommand, T context) {
+        try {
+            execute(context);
+        } catch (final CommandException e) {
+            LOG.error(e);
+        }
+        return "OK";
     }
 }

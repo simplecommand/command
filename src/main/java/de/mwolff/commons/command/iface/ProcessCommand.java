@@ -25,13 +25,17 @@
  */
 package de.mwolff.commons.command.iface;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Command interface for the command framework. Commands may act with generic
  * command contexts.
  */
-public interface ProcessCommand<T extends ParameterObject> extends Command<T>{
+public interface ProcessCommand<T extends ParameterObject> extends Command<T> {
+
+    default void addTransition(final Transition transition) {
+    }
 
     /**
      * Execute a command as a process. The result is the decision which process
@@ -41,6 +45,10 @@ public interface ProcessCommand<T extends ParameterObject> extends Command<T>{
      */
     String executeAsProcess(String startCommand, T context);
 
+    default String findNext(final String next) {
+        return next;
+    }
+
     /**
      * Gets the process ID of the command.
      *
@@ -48,21 +56,14 @@ public interface ProcessCommand<T extends ParameterObject> extends Command<T>{
      */
     String getProcessID();
 
+    default List<Transition> getTransitionList() {
+        return new ArrayList<Transition>();
+    }
+
     /**
      * Sets the process ID of the command
-     * 
+     *
      * @param processID
      */
     void setProcessID(String processID);
-
-    default List<Transition> getTransitionList() {
-        return null;
-    }
-    
-    default void addTransition(final Transition transition) {
-    }
-    
-    default String findNext(final String next) {
-        return "";
-    }
 }

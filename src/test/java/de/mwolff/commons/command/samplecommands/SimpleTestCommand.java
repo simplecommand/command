@@ -30,7 +30,8 @@ import de.mwolff.commons.command.DefaultParameterObject;
 import de.mwolff.commons.command.GenericParameterObject;
 import de.mwolff.commons.command.iface.ProcessCommand;
 
-public class SimpleTestCommand<T extends GenericParameterObject> extends AbstractDefaultChainCommand<T> implements ProcessCommand<T>{
+public class SimpleTestCommand<T extends GenericParameterObject> extends AbstractDefaultChainCommand<T>
+        implements ProcessCommand<T> {
 
     /*
      * @see de.mwolff.commons.command.Command#execute()
@@ -74,7 +75,7 @@ public class SimpleTestCommand<T extends GenericParameterObject> extends Abstrac
     @Override
     public void setProcessID(String processID) {
         // TODO Auto-generated method stub
-        
+
     }
 
 }

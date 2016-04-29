@@ -1,7 +1,7 @@
 package de.mwolff.commons.command;
 
-import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -11,7 +11,7 @@ public class TransitionTest {
 
     @Test
     public void transition() throws Exception {
-        Transition transition = new DefaultTransition();
+        final Transition transition = new DefaultTransition();
         transition.setReturnValue("OK");
         transition.setTarget("Next");
         assertThat("OK", is(transition.getReturnValue()));

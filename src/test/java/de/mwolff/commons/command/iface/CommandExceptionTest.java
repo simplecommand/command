@@ -37,16 +37,16 @@ public class CommandExceptionTest {
     }
 
     @Test
-    public void commandExceptionWithMessageTest() throws Exception {
-        final CommandException commandException = new CommandException("message");
-        Assert.assertThat(commandException.getMessage(), Matchers.is("message"));
-    }
-
-    @Test
     public void commandExceptionWithMessageAndThrowableTest() throws Exception {
         final CommandException commandException = new CommandException("message", null);
         Assert.assertThat(commandException.getMessage(), Matchers.is("message"));
         Assert.assertThat(commandException.getCause(), Matchers.nullValue());
+    }
+
+    @Test
+    public void commandExceptionWithMessageTest() throws Exception {
+        final CommandException commandException = new CommandException("message");
+        Assert.assertThat(commandException.getMessage(), Matchers.is("message"));
     }
 
     @Test

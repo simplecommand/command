@@ -42,17 +42,59 @@ import de.mwolff.commons.command.samplecommands.SimpleTestCommand;
 
 public class ExampleCommandTest {
 
-    /*
-     * Simplest example. Put all commands in a container and execute it. All
-     * commands in the container will be executed in the sequence they were
-     * inserted.
+    /**
+     * You can use the builder to build and execute the chain. Usually you will
+     * use the builder together with a dependency framework just as Spring. In
+     * this case Spring instantiates the builder as well as all commands and
+     * injects all commands as a list.
+     *
+     * &lt;bean id="firstCommand"
+     * class="de.mwolff.commons.command.PriorityOneCommand"&gt; &lt;/bean&gt;
+     *
+     * &lt;bean id="secondCommand"
+     * class="de.mwolff.commons.command.PriorityTwoCommand"&gt; &lt;/bean&gt;
+     *
+     * &lt;bean id="chainBuilder"
+     * class="de.mwolff.command.chainbuilder.InjectionChainBuilder"&gt;
+     * &lt;property name="commands"&gt; &lt;list&gt; &lt;ref bean="firstCommand"
+     * /&gt; &lt;ref bean="secondCommand" /&gt; &lt;/list&gt; &lt;/property&gt;
+     * &lt;/bean&gt;
      */
     @Test
-    public void testExecuteCommandsWithoutContext() throws Exception {
-        final CommandContainer<GenericParameterObject> container = new DefaultCommandContainer<GenericParameterObject>();
-        container.addCommand(new PriorityOneTestCommand<GenericParameterObject>());
-        container.addCommand(new PriorityTwoTestCommand<GenericParameterObject>());
-        container.execute(DefaultParameterObject.NULLCONTEXT);
+    public void testBuilderExample() throws Exception {
+
+        final List<Command<GenericParameterObject>> commands = new ArrayList<Command<GenericParameterObject>>();
+        commands.add(new PriorityOneTestCommand<GenericParameterObject>());
+        commands.add(new PriorityTwoTestCommand<GenericParameterObject>());
+        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<GenericParameterObject>();
+        // injection usually will be done by a injection container
+        builder.setCommands(commands);
+        final GenericParameterObject context = new DefaultParameterObject();
+        builder.executeAsChain(context);
+        final String priorString = context.getAsString("priority");
+        Assert.assertEquals("A-B-", priorString);
+    }
+
+    /*
+     * Chain example. You can execute commands as a chain. The execution is
+     * stopped if one command returns false.
+     */
+    @Test
+    public void testExecuteCommandsAsChain() throws Exception {
+
+        final GenericParameterObject context = new DefaultParameterObject();
+        final CommandContainer<GenericParameterObject> commandContainer = new DefaultCommandContainer<GenericParameterObject>();
+        commandContainer.addCommand(1, new PriorityOneTestCommand<GenericParameterObject>());
+        commandContainer.addCommand(2, new PriorityTwoTestCommand<GenericParameterObject>());
+        commandContainer.addCommand(3, new PriorityThreeTestCommand<GenericParameterObject>());
+
+        final CommandContainer<GenericParameterObject> mixedList = new DefaultCommandContainer<GenericParameterObject>();
+        mixedList.addCommand(1, new SimpleTestCommand<GenericParameterObject>());
+        mixedList.addCommand(2, commandContainer);
+
+        mixedList.executeAsChain(context);
+        final String priorString = context.getAsString("priority");
+        Assert.assertEquals("S-S-A-B-C-", priorString);
     }
 
     /*
@@ -107,57 +149,15 @@ public class ExampleCommandTest {
     }
 
     /*
-     * Chain example. You can execute commands as a chain. The execution is
-     * stopped if one command returns false.
+     * Simplest example. Put all commands in a container and execute it. All
+     * commands in the container will be executed in the sequence they were
+     * inserted.
      */
     @Test
-    public void testExecuteCommandsAsChain() throws Exception {
-
-        final GenericParameterObject context = new DefaultParameterObject();
-        final CommandContainer<GenericParameterObject> commandContainer = new DefaultCommandContainer<GenericParameterObject>();
-        commandContainer.addCommand(1, new PriorityOneTestCommand<GenericParameterObject>());
-        commandContainer.addCommand(2, new PriorityTwoTestCommand<GenericParameterObject>());
-        commandContainer.addCommand(3, new PriorityThreeTestCommand<GenericParameterObject>());
-
-        final CommandContainer<GenericParameterObject> mixedList = new DefaultCommandContainer<GenericParameterObject>();
-        mixedList.addCommand(1, new SimpleTestCommand<GenericParameterObject>());
-        mixedList.addCommand(2, commandContainer);
-
-        mixedList.executeAsChain(context);
-        final String priorString = context.getAsString("priority");
-        Assert.assertEquals("S-S-A-B-C-", priorString);
-    }
-
-    /**
-     * You can use the builder to build and execute the chain. Usually you will
-     * use the builder together with a dependency framework just as Spring. In
-     * this case Spring instantiates the builder as well as all commands and
-     * injects all commands as a list.
-     *
-     * &lt;bean id="firstCommand"
-     * class="de.mwolff.commons.command.PriorityOneCommand"&gt; &lt;/bean&gt;
-     *
-     * &lt;bean id="secondCommand"
-     * class="de.mwolff.commons.command.PriorityTwoCommand"&gt; &lt;/bean&gt;
-     *
-     * &lt;bean id="chainBuilder"
-     * class="de.mwolff.command.chainbuilder.InjectionChainBuilder"&gt;
-     * &lt;property name="commands"&gt; &lt;list&gt; &lt;ref bean="firstCommand"
-     * /&gt; &lt;ref bean="secondCommand" /&gt; &lt;/list&gt; &lt;/property&gt;
-     * &lt;/bean&gt;
-     */
-    @Test
-    public void testBuilderExample() throws Exception {
-
-        final List<Command<GenericParameterObject>> commands = new ArrayList<Command<GenericParameterObject>>();
-        commands.add(new PriorityOneTestCommand<GenericParameterObject>());
-        commands.add(new PriorityTwoTestCommand<GenericParameterObject>());
-        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<GenericParameterObject>();
-        // injection usually will be done by a injection container
-        builder.setCommands(commands);
-        final GenericParameterObject context = new DefaultParameterObject();
-        builder.executeAsChain(context);
-        final String priorString = context.getAsString("priority");
-        Assert.assertEquals("A-B-", priorString);
+    public void testExecuteCommandsWithoutContext() throws Exception {
+        final CommandContainer<GenericParameterObject> container = new DefaultCommandContainer<GenericParameterObject>();
+        container.addCommand(new PriorityOneTestCommand<GenericParameterObject>());
+        container.addCommand(new PriorityTwoTestCommand<GenericParameterObject>());
+        container.execute(DefaultParameterObject.NULLCONTEXT);
     }
 }

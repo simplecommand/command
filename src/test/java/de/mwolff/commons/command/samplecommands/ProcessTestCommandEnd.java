@@ -34,7 +34,7 @@ import de.mwolff.commons.command.iface.CommandException;
 public class ProcessTestCommandEnd<T extends GenericParameterObject> extends AbstractDefaultProcessCommand<T> {
 
     private static final Logger LOG = Logger.getLogger(ProcessTestCommandEnd.class);
-    
+
     public ProcessTestCommandEnd() {
         super();
     }
@@ -44,19 +44,19 @@ public class ProcessTestCommandEnd<T extends GenericParameterObject> extends Abs
     }
 
     @Override
-    public String executeAsProcess(String startCommand, T context) {
-        try {
-            execute(context);
-        } catch (CommandException e) {
-            LOG.error(e);
-        }
-        return super.executeAsProcess("", context);
-    }
-
-    @Override
     public void execute(T context) throws CommandException {
         String result = context.getAsString("result");
         result += processID + " - ";
         context.put("result", result);
+    }
+
+    @Override
+    public String executeAsProcess(String startCommand, T context) {
+        try {
+            execute(context);
+        } catch (final CommandException e) {
+            LOG.error(e);
+        }
+        return null;
     }
 }

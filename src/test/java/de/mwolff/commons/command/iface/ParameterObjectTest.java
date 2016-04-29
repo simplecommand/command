@@ -44,13 +44,6 @@ public class ParameterObjectTest {
     }
 
     @Test
-    public void testPutGetContext() throws Exception {
-        context.put(ParameterObjectTest.STRING_VALUE, ParameterObjectTest.STRING_VALUE);
-        final String stringValue = (String) context.get(ParameterObjectTest.STRING_VALUE);
-        Assert.assertEquals(ParameterObjectTest.STRING_VALUE, stringValue);
-    }
-
-    @Test
     public void testGet() throws Exception {
         context.put(ParameterObjectTest.INTEGER_VALUE, Integer.valueOf(42));
         final Integer integerValue = (Integer) context.get(ParameterObjectTest.INTEGER_VALUE);
@@ -75,5 +68,12 @@ public class ParameterObjectTest {
     public void testNullValue() throws Exception {
         final Object value = context.getAsString("null");
         Assert.assertNotNull(value);
+    }
+
+    @Test
+    public void testPutGetContext() throws Exception {
+        context.put(ParameterObjectTest.STRING_VALUE, ParameterObjectTest.STRING_VALUE);
+        final String stringValue = (String) context.get(ParameterObjectTest.STRING_VALUE);
+        Assert.assertEquals(ParameterObjectTest.STRING_VALUE, stringValue);
     }
 }

@@ -43,15 +43,6 @@ public class InjectionChainBuilder<T extends ParameterObject> implements ChainBu
     private List<Command<T>> commands = new ArrayList<Command<T>>();
 
     /**
-     * Injection point for the dependency framework.
-     *
-     * @param commands
-     */
-    public void setCommands(final List<Command<T>> commands) {
-        this.commands = commands;
-    }
-
-    /**
      * Builder method.
      *
      * @return
@@ -67,19 +58,19 @@ public class InjectionChainBuilder<T extends ParameterObject> implements ChainBu
     }
 
     /**
-     * @see de.mwolff.commons.command.iface.ChainBuilder#executeAsChain(de.mwolff.commons.command.iface.ParameterObject)
-     */
-    @Override
-    public boolean executeAsChain(final T context) {
-        return buildChain().executeAsChain(context);
-    }
-
-    /**
      * @see de.mwolff.commons.command.iface.Command#execute(de.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
     public void execute(T context) throws CommandException {
         buildChain().execute(context);
+    }
+
+    /**
+     * @see de.mwolff.commons.command.iface.ChainBuilder#executeAsChain(de.mwolff.commons.command.iface.ParameterObject)
+     */
+    @Override
+    public boolean executeAsChain(final T context) {
+        return buildChain().executeAsChain(context);
     }
 
     /**
@@ -94,6 +85,15 @@ public class InjectionChainBuilder<T extends ParameterObject> implements ChainBu
     @Override
     public String getProcessID() {
         return null;
+    }
+
+    /**
+     * Injection point for the dependency framework.
+     *
+     * @param commands
+     */
+    public void setCommands(final List<Command<T>> commands) {
+        this.commands = commands;
     }
 
     @Override

@@ -51,7 +51,7 @@ public interface CommandContainer<T extends ParameterObject> extends Command<T>,
 
     /**
      * Gets the command with the certain processID.
-     * 
+     *
      * @param processID
      * @return The command with the certain processID
      */

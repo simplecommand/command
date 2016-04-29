@@ -28,7 +28,6 @@ package de.mwolff.commons.command;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.mwolff.commons.command.iface.CommandException;
 import de.mwolff.commons.command.iface.ParameterObject;
 import de.mwolff.commons.command.iface.ProcessCommand;
 import de.mwolff.commons.command.iface.Transition;
@@ -43,22 +42,35 @@ public abstract class AbstractDefaultProcessCommand<T extends ParameterObject> i
     protected String processID;
     protected List<Transition> transitionList = new ArrayList<Transition>();
 
-    public List<Transition> getTransitionList() {
-        return new ArrayList<Transition>(transitionList);
+    /** Default constructor */
+    public AbstractDefaultProcessCommand() {
+        super();
     }
-    
-    public void addTransition(final Transition transition) {
-        transitionList.add(transition);
-    }
-    
+
     /** Constructor with process ID */
     public AbstractDefaultProcessCommand(String processID) {
         this.processID = processID;
     }
 
-    /** Default constructor */
-    public AbstractDefaultProcessCommand() {
-        super();
+    @Override
+    public void addTransition(final Transition transition) {
+        transitionList.add(transition);
+    }
+
+    /**
+     * @see de.mwolff.commons.command.iface.Command#executeAsProcess(de.mwolff.commons.command.iface.ParameterObject)
+     */
+    @Override
+    public abstract String executeAsProcess(String startCommand, T context);
+
+    @Override
+    public String findNext(final String next) {
+        for (final Transition transition : transitionList) {
+            if (next.equals(transition.getReturnValue())) {
+                return transition.getTarget();
+            }
+        }
+        return null;
     }
 
     @Override
@@ -70,35 +82,16 @@ public abstract class AbstractDefaultProcessCommand<T extends ParameterObject> i
     }
 
     @Override
+    public List<Transition> getTransitionList() {
+        return new ArrayList<Transition>(transitionList);
+    }
+
+    @Override
     /**
      * @see de.mwolff.commons.command.Command#getProcessID()
      */
     public void setProcessID(final String processID) {
         this.processID = processID;
-    }
-
-    /**
-     * @see de.mwolff.commons.command.iface.Command#execute(de.mwolff.commons.command.iface.ParameterObject)
-     */
-    @Override
-    public abstract void execute(T context) throws CommandException;
-
-    /**
-     * @see de.mwolff.commons.command.iface.Command#executeAsProcess(de.mwolff.commons.command.iface.ParameterObject)
-     */
-    @Override
-    public String executeAsProcess(String startCommand, T context) {
-        return null;
-    }
-    
-    @Override
-    public String findNext(final String next) {
-        for (Transition transition : transitionList) {
-            if (next.equals(transition.getReturnValue())) {
-                return transition.getTarget();
-            }
-        }
-        return null;
     }
 
 }

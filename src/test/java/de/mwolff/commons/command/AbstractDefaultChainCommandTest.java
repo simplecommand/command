@@ -16,15 +16,6 @@ public class AbstractDefaultChainCommandTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void executeTest() throws Exception {
-        final ExceptionCommand<GenericParameterObject> exceptionCommand = new ExceptionCommand<GenericParameterObject>();
-        final GenericParameterObject defaultContext = new DefaultParameterObject();
-        thrown.expect(CommandException.class);
-        thrown.expectMessage("Method is not implemented yet.");
-        exceptionCommand.execute(defaultContext);
-    }
-
-    @Test
     public void executeAsChainReturnsFalse() throws Exception {
         final ExceptionCommand<GenericParameterObject> defaultCommand = new ExceptionCommand<GenericParameterObject>();
         Assert.assertThat(defaultCommand.executeAsChain(DefaultParameterObject.NULLCONTEXT), Matchers.is(false));
@@ -34,6 +25,15 @@ public class AbstractDefaultChainCommandTest {
     public void executeAsChainReturnsTrue() throws Exception {
         final SimpleTestCommand<GenericParameterObject> simpleTestCommand = new SimpleTestCommand<GenericParameterObject>();
         Assert.assertThat(simpleTestCommand.executeAsChain(DefaultParameterObject.NULLCONTEXT), Matchers.is(true));
+    }
+
+    @Test
+    public void executeTest() throws Exception {
+        final ExceptionCommand<GenericParameterObject> exceptionCommand = new ExceptionCommand<GenericParameterObject>();
+        final GenericParameterObject defaultContext = new DefaultParameterObject();
+        thrown.expect(CommandException.class);
+        thrown.expectMessage("Method is not implemented yet.");
+        exceptionCommand.execute(defaultContext);
     }
 
 }

@@ -25,54 +25,25 @@ import de.mwolff.commons.command.iface.Transition;
 public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<T> {
 
     private static final Logger LOG = Logger.getLogger(XMLChainBuilder.class);
-    private final List<Command<ParameterObject>> commands = new ArrayList<Command<ParameterObject>>();
-    private String xmlFileName;
-
     private static final String ROOT = "//process/action";
     private static final String CLASS = "class";
+
     private static final String ID = "id";
     private static final String NAME = "name";
     private static final String TO = "to";
-    
-    
-    
-    @Override
-    public boolean executeAsChain(T context) {
-        CommandContainer<T> chain = null;
+    private String xmlFileName;
+    private final List<Command<ParameterObject>> commands = new ArrayList<Command<ParameterObject>>();
+
+    private static Document createXMLDocument(SAXReader reader, InputStream xmlStream) throws CommandException {
+        Document document = null;
         try {
-            chain = buildChain();
-        } catch (final Exception e) {
-            XMLChainBuilder.LOG.error("Operation aborted via command implementation.", e);
-            return false;
+            document = reader.read(xmlStream);
+        } catch (final DocumentException e) {
+            throw new CommandException("XML Document could not created", e);
         }
-        return chain.executeAsChain(context);
+        return document;
     }
 
-    @Override
-    public void execute(T context) throws CommandException {
-        try {
-            buildChain().execute(context);
-        } catch (final Exception e) {
-            // Just log, do nothing else
-            XMLChainBuilder.LOG.error("Error while executing chain.", e);
-
-        }
-    }
-
-    @Override
-    public String executeAsProcess(String startCommand, T context) {
-        try {
-            return buildChain().executeAsProcess(startCommand, context);
-        } catch (CommandException e) {
-            LOG.error(e);
-            return null;
-        }
-    }
-
-    @Override
-    public String getProcessID() {
-        return null;
-    }
 
     @SuppressWarnings("unchecked")
     @Override
@@ -90,8 +61,13 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
         return commandContainer;
     }
 
-    public void setXmlFileName(String xmlFileName) {
-        this.xmlFileName = xmlFileName;
+    @SuppressWarnings("unchecked")
+    private Command<ParameterObject> createAndAddCommand(String name)
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        Command<ParameterObject> command;
+        command = (Command<ParameterObject>) Class.forName(name).newInstance();
+        commands.add(command);
+        return command;
     }
 
     @SuppressWarnings("unchecked")
@@ -106,12 +82,57 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
         }
     }
 
+    private Document createXMLStream(SAXReader reader, String resource) throws CommandException {
+        Document document;
+        final InputStream xmlStream = this.getClass().getResourceAsStream(resource);
+        if (xmlStream != null) {
+            document = createXMLDocument(reader, xmlStream);
+        } else {
+            throw new CommandException("Could not read xml file");
+        }
+        return document;
+    }
+
+    @Override
+    public void execute(T context) throws CommandException {
+        try {
+            buildChain().execute(context);
+        } catch (final Exception e) {
+            // Just log, do nothing else
+            XMLChainBuilder.LOG.error("Error while executing chain.", e);
+
+        }
+    }
+
+    @Override
+    public boolean executeAsChain(T context) {
+        CommandContainer<T> chain = null;
+        try {
+            chain = buildChain();
+        } catch (final Exception e) {
+            XMLChainBuilder.LOG.error("Operation aborted via command implementation.", e);
+            return false;
+        }
+        return chain.executeAsChain(context);
+    }
+
+    @Override
+    public String executeAsProcess(String startCommand, T context) {
+        try {
+            return buildChain().executeAsProcess(startCommand, context);
+        } catch (final CommandException e) {
+            LOG.error(e);
+            return null;
+        }
+    }
+
     private void extractCommandElement(final Element element) throws CommandException {
-        
-        // Here we have a single commandchain/command in place. We create the command (attribute class
+
+        // Here we have a single commandchain/command in place. We create the
+        // command (attribute class
         // and read further attributes to set i.e. the optional processid.
         Command<ParameterObject> command = null;
-        
+
         for (@SuppressWarnings("unchecked")
         final Iterator<Attribute> attributeIterator = element.attributeIterator(); attributeIterator.hasNext();) {
             final Attribute attribute = attributeIterator.next();
@@ -126,18 +147,20 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
             }
 
             if (ID.equals(attribute.getName())) {
-                ((ProcessCommand<ParameterObject>)command).setProcessID(attribute.getValue());
+                ((ProcessCommand<ParameterObject>) command).setProcessID(attribute.getValue());
             }
         }
-        
-        // For the version 1.2 we've her to iterate through all transitions and set the transition
+
+        // For the version 1.2 we've her to iterate through all transitions and
+        // set the transition
         // into the transition list to the command.
         @SuppressWarnings("unchecked")
         final List<Element> innerElementList = element.elements();
-        for (Element transition : innerElementList) {
-            Transition transitionClass = new DefaultTransition();
+        for (final Element transition : innerElementList) {
+            final Transition transitionClass = new DefaultTransition();
             for (@SuppressWarnings("unchecked")
-            final Iterator<Attribute> attributeIterator = transition.attributeIterator(); attributeIterator.hasNext();) {
+            final Iterator<Attribute> attributeIterator = transition.attributeIterator(); attributeIterator
+                    .hasNext();) {
                 final Attribute attribute = attributeIterator.next();
 
                 if (NAME.equals(attribute.getName())) {
@@ -148,38 +171,13 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
                     transitionClass.setTarget(attribute.getValue());
                 }
             }
-            ((ProcessCommand<ParameterObject>)command).addTransition(transitionClass);
+            ((ProcessCommand<ParameterObject>) command).addTransition(transitionClass);
         }
     }
 
-    @SuppressWarnings("unchecked")
-    private Command<ParameterObject> createAndAddCommand(String name)
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        Command<ParameterObject> command;
-        command = (Command<ParameterObject>) Class.forName(name).newInstance();
-        commands.add(command);
-        return command;
-    }
-
-    private Document createXMLStream(SAXReader reader, String resource) throws CommandException {
-        Document document;
-        final InputStream xmlStream = this.getClass().getResourceAsStream(resource);
-        if (xmlStream != null) {
-            document = createXMLDocument(reader, xmlStream);
-        } else {
-            throw new CommandException("Could not read xml file");
-        }
-        return document;
-    }
-
-    private static Document createXMLDocument(SAXReader reader, InputStream xmlStream) throws CommandException {
-        Document document = null;
-        try {
-            document = reader.read(xmlStream);
-        } catch (final DocumentException e) {
-            throw new CommandException("XML Document could not created", e);
-        }
-        return document;
+    @Override
+    public String getProcessID() {
+        return null;
     }
 
     @Override
@@ -187,5 +185,8 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
         throw new IllegalArgumentException("ProcessID cannot be set on Container.");
     }
 
+    public void setXmlFileName(String xmlFileName) {
+        this.xmlFileName = xmlFileName;
+    }
 
 }
