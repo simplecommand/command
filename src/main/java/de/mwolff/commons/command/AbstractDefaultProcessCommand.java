@@ -94,7 +94,6 @@ public abstract class AbstractDefaultProcessCommand<T extends ParameterObject> i
     @Override
     public String findNext(final String next) {
         for (Transition transition : transitionList) {
-            System.out.println(transition.getReturnValue());
             if (next.equals(transition.getReturnValue())) {
                 return transition.getTarget();
             }

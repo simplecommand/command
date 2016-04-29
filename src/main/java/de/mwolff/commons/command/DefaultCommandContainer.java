@@ -114,11 +114,22 @@ public class DefaultCommandContainer<T extends ParameterObject> implements Comma
             return null;
         }
 
+        // Special Node ENDE
         String next = ((ProcessCommand<T>) command).executeAsProcess(startCommand, context);
+        LOG.info("Returnvalue    = ##> " + next);
+        // Special Node ENDE
+        if ("END".equals(next)) {
+            // do first nothing
+        } else {
         next = ((ProcessCommand<T>) command).findNext(next);
+        }
+        LOG.info("Next ProcessID = --> " + next);
 
         if (next == null) {
             return null;
+        }
+        if ("END".equals(next)) {
+            return "END";
         }
 
         // Recursion until next == null

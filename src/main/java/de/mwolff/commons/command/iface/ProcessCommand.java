@@ -54,13 +54,12 @@ public interface ProcessCommand<T extends ParameterObject> extends Command<T>{
      * @param processID
      */
     void setProcessID(String processID);
-    
+
     default List<Transition> getTransitionList() {
         return null;
     }
     
     default void addTransition(final Transition transition) {
-        //
     }
     
     default String findNext(final String next) {
