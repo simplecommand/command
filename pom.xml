@@ -4,7 +4,7 @@
 
 	<groupId>mwolff-commons</groupId>
 	<artifactId>command</artifactId>
-	<version>1.2.0</version>
+	<version>1.2.1-SNAPSHOT</version>
 
 	<name>Simple Command Framework</name>
 	<url>http://mwolff.info/wiki/display/SCF/Documentation+Simple+Command+Framework+1.0</url>

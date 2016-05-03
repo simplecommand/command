@@ -26,71 +26,37 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
 
     private static final Logger LOG = Logger.getLogger(XMLChainBuilder.class);
     private static final String ROOT = "//process/action";
+    private static final String TRANS = "//process/action[@id='%s']/transition";
     private static final String CLASS = "class";
 
     private static final String ID = "id";
     private static final String NAME = "name";
     private static final String TO = "to";
     private String xmlFileName;
+    
     private final List<Command<ParameterObject>> commands = new ArrayList<Command<ParameterObject>>();
+    Document document = null;
 
-    private static Document createXMLDocument(SAXReader reader, InputStream xmlStream) throws CommandException {
-        Document document = null;
-        try {
-            document = reader.read(xmlStream);
-        } catch (final DocumentException e) {
-            throw new CommandException("XML Document could not created", e);
-        }
-        return document;
+    public XMLChainBuilder(final String xmlFileName) {
+        this.xmlFileName = xmlFileName;
     }
 
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public CommandContainer<T> buildChain() throws CommandException {
-
-        final String resource = xmlFileName;
-        final SAXReader reader = new SAXReader();
-        final Document document = createXMLStream(reader, resource);
-        createCommandOutOfXML(document);
-
-        final CommandContainer<T> commandContainer = new DefaultCommandContainer<T>();
-        for (final Command<ParameterObject> command : commands) {
-            commandContainer.addCommand((Command<T>) command);
-        }
-        return commandContainer;
+    @Deprecated
+    /**
+     * Use XMLChainBuilder(final String xmlFileName) instead.
+     */
+    public XMLChainBuilder() {
+        super();
     }
 
-    @SuppressWarnings("unchecked")
-    private Command<ParameterObject> createAndAddCommand(String name)
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        Command<ParameterObject> command;
-        command = (Command<ParameterObject>) Class.forName(name).newInstance();
-        commands.add(command);
-        return command;
-    }
-
-    @SuppressWarnings("unchecked")
-    private void createCommandOutOfXML(Document document) throws CommandException {
-
-        final List<Element> list = document.selectNodes(ROOT);
-
-        if (!list.isEmpty()) {
-            for (final Element element : list) {
-                extractCommandElement(element);
-            }
-        }
-    }
-
-    private Document createXMLStream(SAXReader reader, String resource) throws CommandException {
-        Document document;
-        final InputStream xmlStream = this.getClass().getResourceAsStream(resource);
-        if (xmlStream != null) {
-            document = createXMLDocument(reader, xmlStream);
-        } else {
-            throw new CommandException("Could not read xml file");
-        }
-        return document;
+    @Deprecated
+    /**
+     * Use XMLChainBuilder(final String xmlFileName) instead.
+     * 
+     * @param xmlFileName
+     */
+    public void setXmlFileName(String xmlFileName) {
+        this.xmlFileName = xmlFileName;
     }
 
     @Override
@@ -126,15 +92,77 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
         }
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public CommandContainer<T> buildChain() throws CommandException {
+
+        final String resource = xmlFileName;
+        final SAXReader reader = new SAXReader();
+        createXMLStream(reader, resource);
+        createCommandOutOfXML(document);
+
+        final CommandContainer<T> commandContainer = new DefaultCommandContainer<T>();
+        for (final Command<ParameterObject> command : commands) {
+            commandContainer.addCommand((Command<T>) command);
+        }
+        return commandContainer;
+    }
+
+    @Override
+    public String getProcessID() {
+        return null;
+    }
+
+    @Override
+    public void setProcessID(String processID) {
+        throw new IllegalArgumentException("ProcessID cannot be set on Container.");
+    }
+
+    private void createXMLStream(SAXReader reader, String resource) throws CommandException {
+        final InputStream xmlStream = this.getClass().getResourceAsStream(resource);
+        if (xmlStream != null) {
+            createXMLDocument(reader, xmlStream);
+        } else {
+            throw new CommandException("Could not read xml file");
+        }
+    }
+
+    private void createXMLDocument(SAXReader reader, InputStream xmlStream) throws CommandException {
+        try {
+            document = reader.read(xmlStream);
+        } catch (final DocumentException e) {
+            throw new CommandException("XML Document could not created", e);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void createCommandOutOfXML(Document document) throws CommandException {
+
+        final List<Element> list = document.selectNodes(ROOT);
+
+        if (!list.isEmpty()) {
+            for (final Element element : list) {
+                extractCommandElement(element);
+            }
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private Command<ParameterObject> createAndAddCommand(String name)
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        Command<ParameterObject> command;
+        command = (Command<ParameterObject>) Class.forName(name).newInstance();
+        commands.add(command);
+        return command;
+    }
+
+    @SuppressWarnings("unchecked")
     private void extractCommandElement(final Element element) throws CommandException {
 
-        // Here we have a single commandchain/command in place. We create the
-        // command (attribute class
-        // and read further attributes to set i.e. the optional processid.
         Command<ParameterObject> command = null;
+        String commandID = null;
 
-        for (@SuppressWarnings("unchecked")
-        final Iterator<Attribute> attributeIterator = element.attributeIterator(); attributeIterator.hasNext();) {
+        for (final Iterator<Attribute> attributeIterator = element.attributeIterator(); attributeIterator.hasNext();) {
             final Attribute attribute = attributeIterator.next();
 
             if (CLASS.equals(attribute.getName())) {
@@ -148,18 +176,21 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
 
             if (ID.equals(attribute.getName())) {
                 ((ProcessCommand<ParameterObject>) command).setProcessID(attribute.getValue());
+                commandID = attribute.getValue();
             }
         }
 
-        // For the version 1.2 we've her to iterate through all transitions and
-        // set the transition
-        // into the transition list to the command.
-        @SuppressWarnings("unchecked")
-        final List<Element> innerElementList = element.elements();
-        for (final Element transition : innerElementList) {
+        if (commandID != null) {
+            extractTransitionElements((ProcessCommand<ParameterObject>) command, commandID);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void extractTransitionElements(ProcessCommand<ParameterObject> command, String commandID) {
+        final List<Element> transitionElementList = document.selectNodes(String.format(TRANS, commandID));
+        for (final Element transition : transitionElementList) {
             final Transition transitionClass = new DefaultTransition();
-            for (@SuppressWarnings("unchecked")
-            final Iterator<Attribute> attributeIterator = transition.attributeIterator(); attributeIterator
+            for (final Iterator<Attribute> attributeIterator = transition.attributeIterator(); attributeIterator
                     .hasNext();) {
                 final Attribute attribute = attributeIterator.next();
 
@@ -171,22 +202,8 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
                     transitionClass.setTarget(attribute.getValue());
                 }
             }
-            ((ProcessCommand<ParameterObject>) command).addTransition(transitionClass);
+            command.addTransition(transitionClass);
         }
-    }
-
-    @Override
-    public String getProcessID() {
-        return null;
-    }
-
-    @Override
-    public void setProcessID(String processID) {
-        throw new IllegalArgumentException("ProcessID cannot be set on Container.");
-    }
-
-    public void setXmlFileName(String xmlFileName) {
-        this.xmlFileName = xmlFileName;
     }
 
 }
