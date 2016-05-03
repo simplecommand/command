@@ -14,19 +14,19 @@ public class ProcessTestCommandNext<T extends GenericParameterObject> extends Ab
         super();
     }
 
-    public ProcessTestCommandNext(String processID) {
+    public ProcessTestCommandNext(final String processID) {
         super(processID);
     }
 
     @Override
-    public void execute(T context) throws CommandException {
+    public void execute(final T context) throws CommandException {
         String result = context.getAsString("result");
         result += processID + " - ";
         context.put("result", result);
     }
 
     @Override
-    public String executeAsProcess(String startCommand, T context) {
+    public String executeAsProcess(final String startCommand, final T context) {
 
         try {
             execute(context);

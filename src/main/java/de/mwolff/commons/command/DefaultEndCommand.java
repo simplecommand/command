@@ -10,12 +10,12 @@ public class DefaultEndCommand<T extends ParameterObject> extends AbstractDefaul
     private static final Logger LOG = Logger.getLogger(DefaultEndCommand.class);
 
     @Override
-    public void execute(T context) throws CommandException {
+    public void execute(final T context) throws CommandException {
         LOG.error("nothing to do");
     }
 
     @Override
-    public String executeAsProcess(String startCommand, T context) {
+    public String executeAsProcess(final String startCommand, final T context) {
         return "END";
     }
 

@@ -48,7 +48,7 @@ public class DefaultParameterObject implements GenericParameterObject {
      * @see de.mwolff.commons.command.GenericParameterObject#get(java.lang.String)
      */
     @Override
-    public Object get(String key) {
+    public Object get(final String key) {
         return genericMap.get(key);
     }
 
@@ -57,7 +57,7 @@ public class DefaultParameterObject implements GenericParameterObject {
      * @see de.mwolff.commons.command.GenericParameterObject#getAsString(java.lang.String)
      */
     @Override
-    public String getAsString(String key) {
+    public String getAsString(final String key) {
         Object object = genericMap.get(key);
         if (object == null) {
             object = "NullObject";
@@ -71,7 +71,7 @@ public class DefaultParameterObject implements GenericParameterObject {
      *      java.lang.Object)
      */
     @Override
-    public void put(String key, Object value) {
+    public void put(final String key, final Object value) {
         genericMap.put(key, value);
     }
 }

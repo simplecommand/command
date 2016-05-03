@@ -48,7 +48,7 @@ public abstract class AbstractDefaultProcessCommand<T extends ParameterObject> i
     }
 
     /** Constructor with process ID */
-    public AbstractDefaultProcessCommand(String processID) {
+    public AbstractDefaultProcessCommand(final String processID) {
         this.processID = processID;
     }
 

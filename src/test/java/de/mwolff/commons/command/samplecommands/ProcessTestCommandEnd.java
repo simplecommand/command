@@ -39,19 +39,19 @@ public class ProcessTestCommandEnd<T extends GenericParameterObject> extends Abs
         super();
     }
 
-    public ProcessTestCommandEnd(String processID) {
+    public ProcessTestCommandEnd(final String processID) {
         super(processID);
     }
 
     @Override
-    public void execute(T context) throws CommandException {
+    public void execute(final T context) throws CommandException {
         String result = context.getAsString("result");
         result += processID + " - ";
         context.put("result", result);
     }
 
     @Override
-    public String executeAsProcess(String startCommand, T context) {
+    public String executeAsProcess(final String startCommand, final T context) {
         try {
             execute(context);
         } catch (final CommandException e) {

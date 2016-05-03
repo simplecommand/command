@@ -91,11 +91,11 @@ public class ProcessCommandTest {
         final ProcessCommand<ParameterObject> pc = new ProcessCommand<ParameterObject>() {
 
             @Override
-            public void execute(ParameterObject context) throws CommandException {
+            public void execute(final ParameterObject context) throws CommandException {
             }
 
             @Override
-            public String executeAsProcess(String startCommand, ParameterObject context) {
+            public String executeAsProcess(final String startCommand, final ParameterObject context) {
                 return "executeAsProcess";
             }
 
@@ -105,7 +105,7 @@ public class ProcessCommandTest {
             }
 
             @Override
-            public void setProcessID(String processID) {
+            public void setProcessID(final String processID) {
             }
 
         };

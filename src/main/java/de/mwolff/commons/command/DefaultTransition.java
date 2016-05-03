@@ -18,12 +18,12 @@ public class DefaultTransition implements Transition {
     }
 
     @Override
-    public void setReturnValue(String returnValue) {
+    public void setReturnValue(final String returnValue) {
         this.returnValue = returnValue;
     }
 
     @Override
-    public void setTarget(String target) {
+    public void setTarget(final String target) {
         this.target = target;
     }
 

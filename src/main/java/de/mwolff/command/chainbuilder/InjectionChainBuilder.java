@@ -61,7 +61,7 @@ public class InjectionChainBuilder<T extends ParameterObject> implements ChainBu
      * @see de.mwolff.commons.command.iface.Command#execute(de.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
-    public void execute(T context) throws CommandException {
+    public void execute(final T context) throws CommandException {
         buildChain().execute(context);
     }
 
@@ -78,7 +78,7 @@ public class InjectionChainBuilder<T extends ParameterObject> implements ChainBu
      *      de.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
-    public String executeAsProcess(String startCommand, T context) {
+    public String executeAsProcess(final String startCommand, final T context) {
         return buildChain().executeAsProcess(startCommand, context);
     }
 
@@ -97,7 +97,7 @@ public class InjectionChainBuilder<T extends ParameterObject> implements ChainBu
     }
 
     @Override
-    public void setProcessID(String processID) {
+    public void setProcessID(final String processID) {
         throw new IllegalArgumentException("ProcessID cannot be set on Container.");
     }
 }

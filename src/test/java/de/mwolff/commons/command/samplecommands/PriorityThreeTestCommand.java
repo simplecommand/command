@@ -32,7 +32,7 @@ import de.mwolff.commons.command.iface.ProcessCommand;
 public class PriorityThreeTestCommand<T extends GenericParameterObject> implements ChainCommand<T>, ProcessCommand<T> {
 
     @Override
-    public void execute(T context) {
+    public void execute(final T context) {
         context.put("PriorityThreeTestCommand", "PriorityThreeTestCommand");
         String priorString = context.getAsString("priority");
         if ("NullObject".equals(priorString)) {
@@ -43,7 +43,7 @@ public class PriorityThreeTestCommand<T extends GenericParameterObject> implemen
     }
 
     @Override
-    public boolean executeAsChain(T context) {
+    public boolean executeAsChain(final T context) {
         String priorString = context.getAsString("priority");
         priorString += "C-";
         context.put("priority", priorString);
@@ -51,7 +51,7 @@ public class PriorityThreeTestCommand<T extends GenericParameterObject> implemen
     }
 
     @Override
-    public String executeAsProcess(String startCommand, T context) {
+    public String executeAsProcess(final String startCommand, final T context) {
         return null;
     }
 
@@ -62,7 +62,7 @@ public class PriorityThreeTestCommand<T extends GenericParameterObject> implemen
     }
 
     @Override
-    public void setProcessID(String processID) {
+    public void setProcessID(final String processID) {
         // TODO Auto-generated method stub
 
     }

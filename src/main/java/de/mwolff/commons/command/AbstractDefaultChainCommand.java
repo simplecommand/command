@@ -50,7 +50,7 @@ public abstract class AbstractDefaultChainCommand<T extends ParameterObject> imp
      * @see de.mwolff.commons.command.iface.Command#executeAsChain(de.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
-    public boolean executeAsChain(T context) {
+    public boolean executeAsChain(final T context) {
         boolean result = true;
         try {
             execute(context);

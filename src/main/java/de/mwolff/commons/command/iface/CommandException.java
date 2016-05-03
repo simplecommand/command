@@ -40,11 +40,11 @@ public class CommandException extends Exception {
         super(message);
     }
 
-    public CommandException(String message, Throwable cause) {
+    public CommandException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
-    public CommandException(Throwable cause) {
+    public CommandException(final Throwable cause) {
         super(cause);
     }
 }

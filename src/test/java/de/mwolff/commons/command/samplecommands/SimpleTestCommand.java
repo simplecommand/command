@@ -37,7 +37,7 @@ public class SimpleTestCommand<T extends GenericParameterObject> extends Abstrac
      * @see de.mwolff.commons.command.Command#execute()
      */
     @Override
-    public void execute(T context) {
+    public void execute(final T context) {
         context.put("SimpleTestCommand", "SimpleTestCommand");
         String priorString = context.getAsString("priority");
         if ("NullObject".equals(priorString)) {
@@ -48,7 +48,7 @@ public class SimpleTestCommand<T extends GenericParameterObject> extends Abstrac
     }
 
     @Override
-    public boolean executeAsChain(T context) {
+    public boolean executeAsChain(final T context) {
         super.executeAsChain(context);
         if (context == DefaultParameterObject.NULLCONTEXT) {
             return true;
@@ -63,7 +63,7 @@ public class SimpleTestCommand<T extends GenericParameterObject> extends Abstrac
     }
 
     @Override
-    public String executeAsProcess(String startCommand, T context) {
+    public String executeAsProcess(final String startCommand, final T context) {
         return null;
     }
 
@@ -73,7 +73,7 @@ public class SimpleTestCommand<T extends GenericParameterObject> extends Abstrac
     }
 
     @Override
-    public void setProcessID(String processID) {
+    public void setProcessID(final String processID) {
         // TODO Auto-generated method stub
 
     }
