@@ -74,7 +74,6 @@ public class SimpleTestCommand<T extends GenericParameterObject> extends Abstrac
 
     @Override
     public void setProcessID(final String processID) {
-        // TODO Auto-generated method stub
 
     }
 
