@@ -1,6 +1,8 @@
 package de.mwolff.command.chainbuilder;
 
-import java.util.Set;
+import java.util.List;
+
+import org.apache.log4j.Logger;
 
 import de.mwolff.commons.command.DefaultCommandContainer;
 import de.mwolff.commons.command.iface.BootstrapCommand;
@@ -15,6 +17,8 @@ import de.mwolff.commons.command.iface.ParameterObject;
  * this package gets part of the chain.
  */
 public class BootstrapChainBuilder<T extends ParameterObject> implements ChainBuilder<T> {
+    
+    private static final Logger LOG = Logger.getLogger(BootstrapChainBuilder.class);
 
     private String myPackage;
 
@@ -28,15 +32,17 @@ public class BootstrapChainBuilder<T extends ParameterObject> implements ChainBu
         final CommandContainer<T> commandContainer = new DefaultCommandContainer<T>();
 
         PackageScanner scanner = new PackageScanner();
-        Set<Class<? extends BootstrapCommand>> scannedClasses = scanner
-                .getSubTypesOf(myPackage);
+        List<String> scannedClasses  = scanner.getSubTypesOf(myPackage);
+        LOG.info("Packagepath is: " + myPackage);
 
-        for (Class<? extends BootstrapCommand> classEntry : scannedClasses) {
+        for (String classToInstantiate : scannedClasses) {
 
             BootstrapCommand<T> command = null;
             try {
-                command = (BootstrapCommand<T>) Class.forName(classEntry.getName()).newInstance();
+                LOG.info("ClassEntry is: " + classToInstantiate);
+                command = (BootstrapCommand<T>) Class.forName(classToInstantiate).newInstance();
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+                LOG.error(e);
             }
             commandContainer.addCommand(command.getPriority(),command);
         }

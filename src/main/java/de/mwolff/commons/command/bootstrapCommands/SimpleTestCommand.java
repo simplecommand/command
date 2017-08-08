@@ -29,6 +29,7 @@ import de.mwolff.commons.command.AbstractDefaultChainCommand;
 import de.mwolff.commons.command.DefaultParameterObject;
 import de.mwolff.commons.command.GenericParameterObject;
 import de.mwolff.commons.command.iface.BootstrapCommand;
+import de.mwolff.commons.command.iface.Command;
 
 public class SimpleTestCommand<T extends GenericParameterObject> extends AbstractDefaultChainCommand<T>
         implements BootstrapCommand<T> {
