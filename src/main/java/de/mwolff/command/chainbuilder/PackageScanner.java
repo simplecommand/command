@@ -37,12 +37,14 @@ public class PackageScanner {
     @SuppressWarnings("rawtypes")
     public Set<Class<? extends BootstrapCommand>> getSubTypesOf(String packagePath) {
 
-        LOG.debug("Grabbing packagePath: " + packagePath);
+        LOG.trace("Grabbing packagePath: " + packagePath);
         
         List<ClassLoader> classLoadersList = new LinkedList<ClassLoader>();
         classLoadersList.add(ClasspathHelper.contextClassLoader());
         classLoadersList.add(ClasspathHelper.staticClassLoader());
 
+        System.out.println(packagePath);
+        
         Reflections reflections = new Reflections(new ConfigurationBuilder()
                 .setScanners(new SubTypesScanner(
                         false /* don't exclude Object.class */), new ResourcesScanner())
@@ -51,7 +53,7 @@ public class PackageScanner {
 
         Set<Class<? extends BootstrapCommand>> classes = reflections.getSubTypesOf(BootstrapCommand.class);
         
-        LOG.debug("Returns size: " + classes.size());
+        LOG.trace("Returns size: " + classes.size());
         
         return classes;
     }

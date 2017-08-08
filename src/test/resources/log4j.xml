@@ -7,7 +7,7 @@
 		<layout class="org.apache.log4j.PatternLayout">
 			<!-- <param name="ConversionPattern" value="[%d{ISO8601}] %-5p [%c] %m 
 				%n" /> -->
-			<param name="ConversionPattern" value="[%-5p] loginvalidator: [%c{1}] %m %n" />
+			<param name="ConversionPattern" value="[%-5p] command: [%c{1}] %m %n" />
 		</layout>
 	</appender>
 

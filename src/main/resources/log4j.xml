@@ -7,7 +7,7 @@
 		<layout class="org.apache.log4j.PatternLayout">
 			<!-- <param name="ConversionPattern" value="[%d{ISO8601}] %-5p [%c] %m 
 				%n" /> -->
-			<param name="ConversionPattern" value="[%-5p] loginvalidator: [%c{1}] %m %n" />
+			<param name="ConversionPattern" value="[%-5p] command: [%c{1}] %m %n" />
 		</layout>
 	</appender>
 
@@ -37,9 +37,14 @@
 		<appender-ref ref="SW_ROLLING_FILE" />
 		<appender-ref ref="STDOUT" />
 	</logger>
+	<logger name="de.neusta" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="SW_ROLLING_FILE" />
+		<appender-ref ref="STDOUT" />
+	</logger>
 
 	<root>
-		<level value="ERROR" />
+		<level value="DEBUG" />
 		<appender-ref ref="STDERR" />
 	</root>
 

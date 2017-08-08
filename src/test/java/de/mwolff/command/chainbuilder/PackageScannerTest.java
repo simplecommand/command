@@ -12,20 +12,23 @@ import de.mwolff.commons.command.iface.BootstrapCommand;
 
 public class PackageScannerTest {
 
-    private static final Logger LOG = Logger.getLogger(PackageScanner.class);
+    private static final Logger LOG = Logger.getLogger(PackageScannerTest.class);
 
     @SuppressWarnings("rawtypes")
     @Test
     public void testScanPackage() throws Exception {
 
         PackageScanner packageScanner = new PackageScanner();
+        LOG.debug("Starting Test.");
         
         Set<Class<? extends BootstrapCommand>> scannedClasses = packageScanner.getSubTypesOf("de.mwolff.commons.command.bootstrapCommands");
+        
+        LOG.debug("Getting Result. " + scannedClasses.size());
 
         assertThat(scannedClasses.size(), is(2));
         
         for (Class<?> classEntry : scannedClasses) {
-            LOG.info(classEntry.getName());
+            LOG.debug(classEntry.getName());
         }
         
     }
