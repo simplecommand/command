@@ -75,7 +75,7 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
      */
     public XMLChainBuilder(final String xmlFileName) {
         this.xmlFileName = xmlFileName;
-        actions = new ArrayList<Command<ParameterObject>>();
+        actions = new ArrayList<>();
     }
 
     // **** Methods from super type *****
@@ -182,7 +182,7 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
 
     @SuppressWarnings("unchecked")
     private CommandContainer<T> addCommandsToCommandContainer() {
-        final CommandContainer<T> commandContainer = new DefaultCommandContainer<T>();
+        final CommandContainer<T> commandContainer = new DefaultCommandContainer<>();
         for (final Command<ParameterObject> command : actions) {
             commandContainer.addCommand((Command<T>) command);
         }

@@ -40,7 +40,7 @@ import org.mwolff.commons.command.iface.Transition;
 public abstract class AbstractDefaultProcessCommand<T extends ParameterObject> implements ProcessCommand<T> {
 
     protected String processID;
-    protected List<Transition> transitionList = new ArrayList<Transition>();
+    protected List<Transition> transitionList = new ArrayList<>();
 
     /** Default constructor */
     public AbstractDefaultProcessCommand() {
@@ -57,11 +57,6 @@ public abstract class AbstractDefaultProcessCommand<T extends ParameterObject> i
         transitionList.add(transition);
     }
 
-    /**
-     * @see org.mwolff.commons.command.iface.Command#executeAsProcess(org.mwolff.commons.command.iface.ParameterObject)
-     */
-    @Override
-    public abstract String executeAsProcess(String startCommand, T context);
 
     @Override
     public String findNext(final String next) {
@@ -83,7 +78,7 @@ public abstract class AbstractDefaultProcessCommand<T extends ParameterObject> i
 
     @Override
     public List<Transition> getTransitionList() {
-        return new ArrayList<Transition>(transitionList);
+        return new ArrayList<>(transitionList);
     }
 
     @Override

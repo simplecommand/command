@@ -40,7 +40,7 @@ import org.mwolff.commons.command.iface.ParameterObject;
  */
 public class InjectionChainBuilder<T extends ParameterObject> implements ChainBuilder<T> {
 
-    private List<Command<T>> commands = new ArrayList<Command<T>>();
+    private List<Command<T>> commands = new ArrayList<>();
 
     /**
      * Builder method.
@@ -50,7 +50,7 @@ public class InjectionChainBuilder<T extends ParameterObject> implements ChainBu
     @Override
     public CommandContainer<T> buildChain() {
 
-        final CommandContainer<T> commandContainer = new DefaultCommandContainer<T>();
+        final CommandContainer<T> commandContainer = new DefaultCommandContainer<>();
         for (final Command<T> command : commands) {
             commandContainer.addCommand(command);
         }

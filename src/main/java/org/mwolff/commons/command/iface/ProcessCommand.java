@@ -57,7 +57,7 @@ public interface ProcessCommand<T extends ParameterObject> extends Command<T> {
     String getProcessID();
 
     default List<Transition> getTransitionList() {
-        return new ArrayList<Transition>();
+        return new ArrayList<>();
     }
 
     /**
