@@ -2,6 +2,9 @@ package de.mwolff.command.chainbuilder;
 
 import static org.junit.Assert.*;
 
+import java.net.URL;
+import java.net.URLClassLoader;
+
 import org.apache.log4j.Logger;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
@@ -14,10 +17,9 @@ import de.mwolff.commons.command.iface.ChainBuilder;
 import de.mwolff.commons.command.iface.ParameterObject;
 
 public class BootstrapChainBuilderTest {
-    
-    
+
     private static final Logger LOG = Logger.getLogger(BootstrapChainBuilderTest.class);
-    
+
     @Test
     public void chainbuilderExists() throws Exception {
         final BootstrapChainBuilder<ParameterObject> bootstrapChainBuilder = new BootstrapChainBuilder<ParameterObject>(
@@ -33,8 +35,17 @@ public class BootstrapChainBuilderTest {
         bootstrapChainBuilder.execute(context);
         final String priorString = context.getAsString("priority");
         System.out.println("priorString: " + priorString);
-        
+
         assertThat(priorString, Matchers.is("One-Two-"));
+    }
+
+    @Test
+    public void playAround() throws Exception {
+        URL[] urls = ((URLClassLoader) (Thread.currentThread().getContextClassLoader())).getURLs();
+        for (URL url : urls) {
+            System.out.println(url);
+
+        }
     }
 
 }
