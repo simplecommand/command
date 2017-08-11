@@ -8,7 +8,6 @@
 	<packaging>jar</packaging>
 
 	<name>Simple Command Framework</name>
-	<url>http://maven.apache.org</url>
 
 	<licenses>
 		<license>
