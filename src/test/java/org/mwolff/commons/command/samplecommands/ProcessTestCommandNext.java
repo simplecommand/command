@@ -73,5 +73,11 @@ public class ProcessTestCommandNext<T extends GenericParameterObject> extends Ab
     public String getProcessID() {
         return super.getProcessID();
     }
+    
+    @Override
+    public T executeOnly(T context) {
+        return context;
+    }
+
 
 }

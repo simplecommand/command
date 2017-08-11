@@ -100,4 +100,11 @@ public class InjectionChainBuilder<T extends ParameterObject> implements ChainBu
     public void setProcessID(final String processID) {
         throw new IllegalArgumentException("ProcessID cannot be set on Container.");
     }
+
+    @Override
+    public T executeOnly(T context) {
+        return context;
+    }
+    
+
 }

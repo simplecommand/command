@@ -54,9 +54,9 @@ public class DefaultCommandContainerTest {
      * prio 1!
      */
     public CommandContainer<GenericParameterObject> createCommandInOrder() {
-        commandContainer.addCommand(2, new PriorityThreeTestCommand<GenericParameterObject>());
-        commandContainer.addCommand(1, new PriorityOneTestCommand<GenericParameterObject>());
-        commandContainer.addCommand(1, new PriorityTwoTestCommand<GenericParameterObject>());
+        commandContainer.addCommand(2, new PriorityThreeTestCommand<GenericParameterObject>()).
+        addCommand(1, new PriorityOneTestCommand<GenericParameterObject>()).
+        addCommand(1, new PriorityTwoTestCommand<GenericParameterObject>());
         return commandContainer;
     }
 
@@ -64,9 +64,9 @@ public class DefaultCommandContainerTest {
      * Creating three commands with prio 1-2-3 for execution
      */
     private CommandContainer<GenericParameterObject> createDefaultCommands() {
-        commandContainer.addCommand(new PriorityOneTestCommand<GenericParameterObject>());
-        commandContainer.addCommand(new PriorityTwoTestCommand<GenericParameterObject>());
-        commandContainer.addCommand(new PriorityThreeTestCommand<GenericParameterObject>());
+        commandContainer.addCommand(new PriorityOneTestCommand<GenericParameterObject>()).
+        addCommand(new PriorityTwoTestCommand<GenericParameterObject>()).
+        addCommand(new PriorityThreeTestCommand<GenericParameterObject>());
         return commandContainer;
     }
 
@@ -88,6 +88,13 @@ public class DefaultCommandContainerTest {
         Assert.assertEquals("1-2-3-", priorString);
     }
 
+    @Test
+    public void testExecuteOnlyOnContainer() throws Exception {
+        final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrder();
+        GenericParameterObject c = commandContainer.executeOnly(context);
+        final String priorString = context.getAsString("priority");
+        Assert.assertEquals("1-2-3-", priorString);
+    }
     /*
      * Remark: If there are two commands with the same priority, the first
      * inserted Command wins ... etc.

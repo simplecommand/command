@@ -28,9 +28,8 @@ package org.mwolff.commons.command;
 
 import org.apache.log4j.Logger;
 import org.mwolff.commons.command.iface.CommandException;
-import org.mwolff.commons.command.iface.ParameterObject;
 
-public class DefaultEndCommand<T extends ParameterObject> extends AbstractDefaultProcessCommand<T> {
+public class DefaultEndCommand<T extends GenericParameterObject> extends AbstractDefaultProcessCommand<T> {
 
     private static final Logger LOG = Logger.getLogger(DefaultEndCommand.class);
 
@@ -42,6 +41,11 @@ public class DefaultEndCommand<T extends ParameterObject> extends AbstractDefaul
     @Override
     public String executeAsProcess(final String startCommand, final T context) {
         return "END";
+    }
+
+    @Override
+    public T executeOnly(T context) {
+        return context;
     }
 
 }

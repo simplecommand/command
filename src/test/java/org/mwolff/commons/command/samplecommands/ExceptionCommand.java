@@ -39,4 +39,9 @@ public class ExceptionCommand<T extends GenericParameterObject> extends Abstract
         throw new CommandException("Method is not implemented yet.");
     }
 
+    @Override
+    public T executeOnly(T context) {
+        return context;
+    }
+
 }

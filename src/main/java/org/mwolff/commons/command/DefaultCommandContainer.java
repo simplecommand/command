@@ -32,6 +32,7 @@ import org.apache.log4j.Logger;
 import org.mwolff.commons.command.iface.ChainCommand;
 import org.mwolff.commons.command.iface.Command;
 import org.mwolff.commons.command.iface.CommandContainer;
+import org.mwolff.commons.command.iface.CommandException;
 import org.mwolff.commons.command.iface.ParameterObject;
 import org.mwolff.commons.command.iface.ProcessCommand;
 
@@ -56,8 +57,9 @@ public class DefaultCommandContainer<T extends ParameterObject> implements Comma
      * @see org.mwolff.commons.command.iface.CommandContainer#addCommand(org.mwolff.commons.command.iface.Command)
      */
     @Override
-    public void addCommand(final Command<T> command) {
+    public CommandContainer<T> addCommand(final Command<T> command) {
         commandList.put(Integer.valueOf(0), command);
+        return (CommandContainer<T>) this;
     }
 
     /**
@@ -65,15 +67,16 @@ public class DefaultCommandContainer<T extends ParameterObject> implements Comma
      *      org.mwolff.commons.command.iface.Command)
      */
     @Override
-    public void addCommand(final int priority, final Command<T> command) {
+    public CommandContainer<T>  addCommand(final int priority, final Command<T> command) {
         commandList.put(Integer.valueOf(priority), command);
+        return (CommandContainer<T>) this;
     }
 
     /**
      * @see org.mwolff.commons.command.iface.Command#execute(org.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
-    public void execute(final T context) {
+    public void execute(final T context) throws CommandException {
         for (final Command<T> command : commandList.values()) {
             try {
                 command.execute(context);
@@ -82,6 +85,14 @@ public class DefaultCommandContainer<T extends ParameterObject> implements Comma
                 DefaultCommandContainer.LOG.error("Error while executing chain.", exception);
             }
         }
+    }
+    
+    @Override
+    public T executeOnly(T context) {
+        for (final Command<T> command : commandList.values()) {
+            command.executeOnly(context);
+        }
+        return context;
     }
 
     /**

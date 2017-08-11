@@ -37,7 +37,7 @@ public interface CommandContainer<T extends ParameterObject> extends ChainComman
      *
      * @param command
      */
-    void addCommand(Command<T> command);
+    CommandContainer<T> addCommand(Command<T> command);
 
     /**
      * Adds a <code>Command</code> to the list via priority. Because a
@@ -47,7 +47,7 @@ public interface CommandContainer<T extends ParameterObject> extends ChainComman
      * @param priority
      * @param command
      */
-    void addCommand(int priority, Command<T> command);
+    CommandContainer<T>  addCommand(int priority, Command<T> command);
 
     /**
      * Gets the command with the certain processID.

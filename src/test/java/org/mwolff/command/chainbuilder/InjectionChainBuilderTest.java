@@ -47,6 +47,15 @@ public class InjectionChainBuilderTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+    
+    @Test
+    public void testExecuteOnly() throws Exception {
+        GenericParameterObject context = new DefaultParameterObject();
+        context.put("key", "value");
+        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<GenericParameterObject>();
+        context = builder.executeOnly(context);
+        Assert.assertEquals("value", context.getAsString("key"));
+    }
 
     @Test
     public void testExecuteAsProcessMethodForBuilder() throws Exception {

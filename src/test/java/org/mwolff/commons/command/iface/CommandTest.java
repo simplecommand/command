@@ -36,6 +36,7 @@ import org.mwolff.commons.command.samplecommands.PriorityOneTestCommand;
 import org.mwolff.commons.command.samplecommands.PriorityThreeTestCommand;
 import org.mwolff.commons.command.samplecommands.PriorityTwoTestCommand;
 import org.mwolff.commons.command.samplecommands.SimpleTestCommand;
+import org.mwolff.commons.command.samplecommands.VerySimpleTestCommand;
 
 public class CommandTest {
 
@@ -108,5 +109,16 @@ public class CommandTest {
         command.execute(context);
         Assert.assertEquals("PriorityTwoTestCommand", context.getAsString("PriorityTwoTestCommand"));
     }
+    
+    @Test
+    public void testVerySimpleCommand() throws Exception {
+        GenericParameterObject context = new DefaultParameterObject();
+        final Command<GenericParameterObject> command = new VerySimpleTestCommand<>();
+        context = command.executeOnly(context);
+        Assert.assertEquals("newValue", context.getAsString("key"));
+        
+        
+    }
+    
 
 }

@@ -29,7 +29,6 @@ package org.mwolff.commons.command.iface;
  * Command interface for the command framework. Commands may act with generic
  * command contexts.
  */
-@FunctionalInterface
 public interface Command<T extends ParameterObject> {
 
     /**
@@ -38,4 +37,11 @@ public interface Command<T extends ParameterObject> {
      * @param context
      */
     void execute(T context) throws CommandException;
+    
+    /**
+     * Executes the command straight forward (no error handling) and returns the context. 
+     * @param context
+     * @return
+     */
+    T executeOnly(T context);
 }

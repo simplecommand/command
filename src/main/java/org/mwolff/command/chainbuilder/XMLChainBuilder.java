@@ -261,4 +261,10 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
             command.addTransition(transitionClass);
         }
     }
+    
+    @Override
+    public T executeOnly(T context) {
+        return context;
+    }
+
 }

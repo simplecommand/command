@@ -27,6 +27,8 @@ package org.mwolff.commons.command;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
+
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mwolff.commons.command.iface.CommandException;
@@ -48,7 +50,26 @@ public class ProcessCommandTest {
         assertEquals("Start - ", processflow);
         assertEquals("OK", result);
     }
+    
+    @Test
+    public void testExecuteOnlyStart() throws Exception {
+        final ProcessTestCommandStart<GenericParameterObject> processTestStartCommand = new ProcessTestCommandStart<GenericParameterObject>(
+                "Start");
+        GenericParameterObject context = new DefaultParameterObject();
+        context.put("key", "value");
+        context = processTestStartCommand.executeOnly(context);
+        Assert.assertEquals("value", context.getAsString("key"));
+    }
 
+    @Test
+    public void testExecuteOnlyEnd() throws Exception {
+        final DefaultEndCommand<GenericParameterObject> processTestStartCommand = new DefaultEndCommand<GenericParameterObject>();
+        GenericParameterObject context = new DefaultParameterObject();
+        context.put("key", "value");
+        context = processTestStartCommand.executeOnly(context);
+        Assert.assertEquals("value", context.getAsString("key"));
+    }
+    
     @Test
     @Ignore
     public void executeTwoSimpleProcessesInARow() throws Exception {
@@ -103,6 +124,11 @@ public class ProcessCommandTest {
 
             @Override
             public void setProcessID(final String processID) {
+            }
+
+            @Override
+            public ParameterObject executeOnly(ParameterObject context) {
+                return context;
             }
 
         };

@@ -23,23 +23,31 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.commons.command;
+package org.mwolff.commons.command.samplecommands;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import org.mwolff.commons.command.GenericParameterObject;
+import org.mwolff.commons.command.iface.Command;
 
-import org.junit.Test;
-import org.mwolff.commons.command.iface.Transition;
+public class VerySimpleTestCommand<T extends GenericParameterObject> implements Command<T> {
 
-public class TransitionTest {
-
-    @Test
-    public void transition() throws Exception {
-        final Transition transition = new DefaultTransition();
-        transition.setReturnValue("OK");
-        transition.setTarget("Next");
-        assertThat("OK", is(transition.getReturnValue()));
-        assertThat("Next", is(transition.getTarget()));
+    /*
+     * @see de.mwolff.commons.command.Command#execute()
+     */
+    @Override
+    public void execute(final T context) {
+        context.put("SimpleTestCommand", "SimpleTestCommand");
+        String priorString = context.getAsString("priority");
+        if ("NullObject".equals(priorString)) {
+            priorString = "";
+        }
+        priorString += "S-";
+        context.put("priority", priorString);
+    }
+    
+    @Override
+    public T executeOnly(T context) {
+        context.put("key", "newValue");
+        return context;
     }
 
 }

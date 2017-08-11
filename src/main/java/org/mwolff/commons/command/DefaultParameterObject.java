@@ -74,4 +74,14 @@ public class DefaultParameterObject implements GenericParameterObject {
     public void put(final String key, final Object value) {
         genericMap.put(key, value);
     }
+
+    public static GenericParameterObject getStandardContext() {
+        return new DefaultParameterObject();
+    }
+
+    public static GenericParameterObject getStandardContext(final String key, final Object value) {
+        DefaultParameterObject defaultParameterObject = new DefaultParameterObject();
+        defaultParameterObject.put(key, value);
+        return defaultParameterObject;
+    }
 }

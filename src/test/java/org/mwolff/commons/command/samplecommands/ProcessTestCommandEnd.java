@@ -59,4 +59,10 @@ public class ProcessTestCommandEnd<T extends GenericParameterObject> extends Abs
         }
         return null;
     }
+    
+    @Override
+    public T executeOnly(T context) {
+        return context;
+    }
+
 }
