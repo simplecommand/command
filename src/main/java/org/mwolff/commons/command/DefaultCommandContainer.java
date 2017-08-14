@@ -59,7 +59,7 @@ public class DefaultCommandContainer<T extends ParameterObject> implements Comma
     @Override
     public CommandContainer<T> addCommand(final Command<T> command) {
         commandList.put(Integer.valueOf(0), command);
-        return (CommandContainer<T>) this;
+        return this;
     }
 
     /**
@@ -69,7 +69,7 @@ public class DefaultCommandContainer<T extends ParameterObject> implements Comma
     @Override
     public CommandContainer<T>  addCommand(final int priority, final Command<T> command) {
         commandList.put(Integer.valueOf(priority), command);
-        return (CommandContainer<T>) this;
+        return this;
     }
 
     /**
