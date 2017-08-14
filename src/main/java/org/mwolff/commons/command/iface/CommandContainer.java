@@ -36,6 +36,7 @@ public interface CommandContainer<T extends ParameterObject> extends ChainComman
      * <code>CommandContainer</code> objects as well.
      *
      * @param command
+     * @return this
      */
     CommandContainer<T> addCommand(Command<T> command);
 
@@ -46,6 +47,7 @@ public interface CommandContainer<T extends ParameterObject> extends ChainComman
      *
      * @param priority
      * @param command
+     * @return this
      */
     CommandContainer<T>  addCommand(int priority, Command<T> command);
 
