@@ -71,9 +71,8 @@ public class PriorityTwoTestCommand<T extends GenericParameterObject> implements
     }
     
     @Override
-    public T executeOnly(T context) {
+    public void executeOnly(T context) {
         execute(context);
-        return context;
     }
 
 

@@ -75,8 +75,7 @@ public class ProcessTestCommandNext<T extends GenericParameterObject> extends Ab
     }
     
     @Override
-    public T executeOnly(T context) {
-        return context;
+    public void executeOnly(T context) {
     }
 
 

@@ -40,8 +40,7 @@ public class ExceptionCommand<T extends GenericParameterObject> extends Abstract
     }
 
     @Override
-    public T executeOnly(T context) {
-        return context;
+    public void executeOnly(T context) {
     }
 
 }

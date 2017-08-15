@@ -88,11 +88,10 @@ public class DefaultCommandContainer<T extends ParameterObject> implements Comma
     }
     
     @Override
-    public T executeOnly(T context) {
+    public void executeOnly(T context) {
         for (final Command<T> command : commandList.values()) {
             command.executeOnly(context);
         }
-        return context;
     }
 
     /**

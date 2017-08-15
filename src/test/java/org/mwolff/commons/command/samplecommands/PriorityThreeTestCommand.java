@@ -65,9 +65,8 @@ public class PriorityThreeTestCommand<T extends GenericParameterObject> implemen
     }
     
     @Override
-    public T executeOnly(T context) {
+    public void executeOnly(T context) {
         execute(context);
-        return context;
     }
 
 

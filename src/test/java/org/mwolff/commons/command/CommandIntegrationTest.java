@@ -169,7 +169,7 @@ public class CommandIntegrationTest {
         GenericParameterObject context = new DefaultParameterObject();
         SimpleTestCommand<GenericParameterObject> simpleTestCommand = new SimpleTestCommand<>();
         context.put("key", "value");
-        context = simpleTestCommand.executeOnly(context);
+        simpleTestCommand.executeOnly(context);
         Assert.assertEquals("newValue", context.getAsString("key"));
     }
 }

@@ -45,9 +45,8 @@ public class VerySimpleTestCommand<T extends GenericParameterObject> implements 
     }
     
     @Override
-    public T executeOnly(T context) {
+    public void executeOnly(T context) {
         context.put("key", "newValue");
-        return context;
     }
 
 }

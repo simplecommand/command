@@ -57,7 +57,7 @@ public class ProcessCommandTest {
                 "Start");
         GenericParameterObject context = new DefaultParameterObject();
         context.put("key", "value");
-        context = processTestStartCommand.executeOnly(context);
+        processTestStartCommand.executeOnly(context);
         Assert.assertEquals("value", context.getAsString("key"));
     }
 
@@ -66,25 +66,10 @@ public class ProcessCommandTest {
         final DefaultEndCommand<GenericParameterObject> processTestStartCommand = new DefaultEndCommand<GenericParameterObject>();
         GenericParameterObject context = new DefaultParameterObject();
         context.put("key", "value");
-        context = processTestStartCommand.executeOnly(context);
+        processTestStartCommand.executeOnly(context);
         Assert.assertEquals("value", context.getAsString("key"));
     }
     
-    @Test
-    @Ignore
-    public void executeTwoSimpleProcessesInARow() throws Exception {
-        final GenericParameterObject context = new DefaultParameterObject();
-        final ProcessTestCommandStart<GenericParameterObject> processTestStartCommand = new ProcessTestCommandStart<GenericParameterObject>(
-                "Start");
-        final ProcessTestCommandEnd<GenericParameterObject> processTestEndCommand = new ProcessTestCommandEnd<GenericParameterObject>(
-                "Next");
-        final DefaultCommandContainer<GenericParameterObject> container = new DefaultCommandContainer<GenericParameterObject>();
-        container.addCommand(processTestStartCommand);
-        container.addCommand(processTestEndCommand);
-        container.executeAsProcess("Start", context);
-        final String processflow = context.getAsString("result");
-        assertEquals("Start - Next - ", processflow);
-    }
 
     @Test
     public void getProcessNameTest() throws Exception {
@@ -127,8 +112,7 @@ public class ProcessCommandTest {
             }
 
             @Override
-            public ParameterObject executeOnly(ParameterObject context) {
-                return context;
+            public void executeOnly(ParameterObject context) {
             }
 
         };

@@ -48,9 +48,8 @@ public class SimpleTestCommand<T extends GenericParameterObject> extends Abstrac
     }
     
     @Override
-    public T executeOnly(T context) {
+    public void executeOnly(T context) {
         context.put("key", "newValue");
-        return context;
     }
 
     @Override

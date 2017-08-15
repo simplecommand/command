@@ -263,8 +263,7 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
     }
     
     @Override
-    public T executeOnly(T context) {
-        return context;
+    public void executeOnly(T context) {
     }
 
 }

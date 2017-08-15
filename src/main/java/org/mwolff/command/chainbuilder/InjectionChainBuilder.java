@@ -102,8 +102,7 @@ public class InjectionChainBuilder<T extends ParameterObject> implements ChainBu
     }
 
     @Override
-    public T executeOnly(T context) {
-        return context;
+    public void executeOnly(T context) {
     }
     
 

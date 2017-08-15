@@ -54,7 +54,7 @@ public class XMLChainBuilderTest {
         GenericParameterObject context = new DefaultParameterObject();
         context.put("key", "value");
         final XMLChainBuilder<GenericParameterObject> builder = new XMLChainBuilder<GenericParameterObject>("/invalidXMLDocument.xml");
-        context = builder.executeOnly(context);
+        builder.executeOnly(context);
         Assert.assertEquals("value", context.getAsString("key"));
     }
 

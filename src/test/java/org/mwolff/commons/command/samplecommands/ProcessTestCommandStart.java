@@ -64,8 +64,7 @@ public class ProcessTestCommandStart<T extends GenericParameterObject> extends A
     }
     
     @Override
-    public T executeOnly(T context) {
-        return context;
+    public void executeOnly(T context) {
     }
 
 }

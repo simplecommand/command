@@ -44,8 +44,7 @@ public class DefaultEndCommand<T extends GenericParameterObject> extends Abstrac
     }
 
     @Override
-    public T executeOnly(T context) {
-        return context;
+    public void executeOnly(T context) {
     }
 
 }

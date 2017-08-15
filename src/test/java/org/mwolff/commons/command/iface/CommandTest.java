@@ -114,7 +114,7 @@ public class CommandTest {
     public void testVerySimpleCommand() throws Exception {
         GenericParameterObject context = new DefaultParameterObject();
         final Command<GenericParameterObject> command = new VerySimpleTestCommand<>();
-        context = command.executeOnly(context);
+        command.executeOnly(context);
         Assert.assertEquals("newValue", context.getAsString("key"));
         
         

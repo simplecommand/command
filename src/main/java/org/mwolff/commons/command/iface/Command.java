@@ -39,9 +39,8 @@ public interface Command<T extends ParameterObject> {
     void execute(T context) throws CommandException;
     
     /**
-     * Executes the command straight forward (no error handling) and returns the context. 
-     * @param context
+     * Executes the command straight forward (no error handling). 
      * @return
      */
-    T executeOnly(T context);
+    void executeOnly(T context);
 }
