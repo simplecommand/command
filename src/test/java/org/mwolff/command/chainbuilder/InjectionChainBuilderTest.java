@@ -47,22 +47,22 @@ public class InjectionChainBuilderTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-    
+
     @Test
     public void testExecuteOnly() throws Exception {
-        GenericParameterObject context = new DefaultParameterObject();
+        final GenericParameterObject context = new DefaultParameterObject();
         context.put("key", "value");
-        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<GenericParameterObject>();
+        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
         builder.executeOnly(context);
         Assert.assertEquals("value", context.getAsString("key"));
     }
 
     @Test
     public void testExecuteAsProcessMethodForBuilder() throws Exception {
-        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<GenericParameterObject>();
-        final List<Command<GenericParameterObject>> commandList = new ArrayList<Command<GenericParameterObject>>();
+        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
+        final List<Command<GenericParameterObject>> commandList = new ArrayList<>();
         final GenericParameterObject context = new DefaultParameterObject();
-        final ProcessTestCommandStart<GenericParameterObject> processTestStartCommand = new ProcessTestCommandStart<GenericParameterObject>(
+        final ProcessTestCommandStart<GenericParameterObject> processTestStartCommand = new ProcessTestCommandStart<>(
                 "Start");
         Transition transition = new DefaultTransition();
         transition.setReturnValue("OK");
@@ -73,7 +73,7 @@ public class InjectionChainBuilderTest {
         transition.setTarget("Start");
         processTestStartCommand.addTransition(transition);
 
-        final ProcessTestCommandEnd<GenericParameterObject> processTestEndCommand = new ProcessTestCommandEnd<GenericParameterObject>(
+        final ProcessTestCommandEnd<GenericParameterObject> processTestEndCommand = new ProcessTestCommandEnd<>(
                 "Next");
 
         commandList.add(processTestStartCommand);
@@ -87,12 +87,12 @@ public class InjectionChainBuilderTest {
 
     @Test
     public void testExecuteMethodForBuilder() throws Exception {
-        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<GenericParameterObject>();
-        final List<Command<GenericParameterObject>> commandList = new ArrayList<Command<GenericParameterObject>>();
+        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
+        final List<Command<GenericParameterObject>> commandList = new ArrayList<>();
         final GenericParameterObject context = new DefaultParameterObject();
-        Command<GenericParameterObject> command = new PriorityOneTestCommand<GenericParameterObject>();
+        Command<GenericParameterObject> command = new PriorityOneTestCommand<>();
         commandList.add(command);
-        command = new PriorityTwoTestCommand<GenericParameterObject>();
+        command = new PriorityTwoTestCommand<>();
         commandList.add(command);
         builder.setCommands(commandList);
         builder.execute(context);
@@ -103,16 +103,16 @@ public class InjectionChainBuilderTest {
     public void testsetProcessID() throws Exception {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("ProcessID cannot be set on Container.");
-        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<GenericParameterObject>();
+        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
         builder.setProcessID("something");
     }
 
     @Test
     public void testSpringChainBuilder() throws Exception {
-        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<GenericParameterObject>();
-        final List<Command<GenericParameterObject>> commandList = new ArrayList<Command<GenericParameterObject>>();
+        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
+        final List<Command<GenericParameterObject>> commandList = new ArrayList<>();
         final GenericParameterObject context = new DefaultParameterObject();
-        final Command<GenericParameterObject> command = new ExceptionCommand<GenericParameterObject>();
+        final Command<GenericParameterObject> command = new ExceptionCommand<>();
         commandList.add(command);
         builder.setCommands(commandList);
         final boolean result = builder.executeAsChain(context);

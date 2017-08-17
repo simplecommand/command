@@ -41,7 +41,7 @@ public class DefaultParameterObject implements GenericParameterObject {
     /**
      * A generic map storing the key/value pairs.
      */
-    private final Map<String, Object> genericMap = new HashMap<>();
+    private final Map<String, Object>          genericMap  = new HashMap<>();
 
     /**
      *
@@ -80,7 +80,7 @@ public class DefaultParameterObject implements GenericParameterObject {
     }
 
     public static GenericParameterObject getStandardContext(final String key, final Object value) {
-        DefaultParameterObject defaultParameterObject = new DefaultParameterObject();
+        final DefaultParameterObject defaultParameterObject = new DefaultParameterObject();
         defaultParameterObject.put(key, value);
         return defaultParameterObject;
     }

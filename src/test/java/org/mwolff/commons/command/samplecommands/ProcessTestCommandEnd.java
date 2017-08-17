@@ -25,7 +25,6 @@
  */
 package org.mwolff.commons.command.samplecommands;
 
-
 import org.apache.log4j.Logger;
 import org.mwolff.commons.command.AbstractDefaultProcessCommand;
 import org.mwolff.commons.command.GenericParameterObject;
@@ -55,11 +54,11 @@ public class ProcessTestCommandEnd<T extends GenericParameterObject> extends Abs
         try {
             execute(context);
         } catch (final CommandException e) {
-            LOG.error(e);
+            ProcessTestCommandEnd.LOG.error(e);
         }
         return null;
     }
-    
+
     @Override
     public void executeOnly(T context) {
     }

@@ -43,6 +43,7 @@ public interface BootstrapCommand<T extends ParameterObject> extends Command<T> 
 
     /**
      * Gets the priority of this command.
+     * 
      * @return
      */
     int getPriority();

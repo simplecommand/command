@@ -25,7 +25,6 @@
  */
 package org.mwolff.commons.command;
 
-
 import org.apache.log4j.Logger;
 import org.mwolff.commons.command.iface.ChainCommand;
 import org.mwolff.commons.command.iface.CommandException;

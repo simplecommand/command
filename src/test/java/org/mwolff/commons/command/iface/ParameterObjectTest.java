@@ -32,10 +32,10 @@ import org.mwolff.commons.command.GenericParameterObject;
 
 public class ParameterObjectTest {
 
-    private static final String INTEGER_VALUE = "IntegerValue";
-    private static final String STRING_VALUE = "StringValue";
+    private static final String          INTEGER_VALUE = "IntegerValue";
+    private static final String          STRING_VALUE  = "StringValue";
 
-    private final GenericParameterObject context = new DefaultParameterObject();
+    private final GenericParameterObject context       = new DefaultParameterObject();
 
     @Test
     public void testContextInterface() throws Exception {

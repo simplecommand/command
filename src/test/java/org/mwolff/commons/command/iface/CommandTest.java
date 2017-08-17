@@ -46,21 +46,21 @@ public class CommandTest {
     @Test
     public void testCommandInterface() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
-        final Command<GenericParameterObject> command = new SimpleTestCommand<GenericParameterObject>();
+        final Command<GenericParameterObject> command = new SimpleTestCommand<>();
         command.execute(context);
         Assert.assertEquals("SimpleTestCommand", context.getAsString("SimpleTestCommand"));
     }
 
     @Test
     public void testCommandWithResult() throws Exception {
-        final ChainCommand<GenericParameterObject> command = new SimpleTestCommand<GenericParameterObject>();
+        final ChainCommand<GenericParameterObject> command = new SimpleTestCommand<>();
         final boolean result = command.executeAsChain(DefaultParameterObject.NULLCONTEXT);
         Assert.assertTrue(result);
     }
 
     @Test
     public void testDefaultBehaviorWithException() throws Exception {
-        final ChainCommand<DefaultParameterObject> command = new ExceptionCommand<DefaultParameterObject>();
+        final ChainCommand<DefaultParameterObject> command = new ExceptionCommand<>();
         final DefaultParameterObject context = new DefaultParameterObject();
         command.executeAsChain(context);
         final String result = context.getAsString("executed");
@@ -69,13 +69,13 @@ public class CommandTest {
 
     @Test
     public void testDefaultCommandAsChainFalse() throws Exception {
-        final ExceptionCommand<GenericParameterObject> defaultCommand = new ExceptionCommand<GenericParameterObject>();
+        final ExceptionCommand<GenericParameterObject> defaultCommand = new ExceptionCommand<>();
         Assert.assertFalse(defaultCommand.executeAsChain(DefaultParameterObject.NULLCONTEXT));
     }
 
     @Test
     public void testException() throws Exception {
-        final ChainCommand<DefaultParameterObject> command = new ExceptionCommand<DefaultParameterObject>();
+        final ChainCommand<DefaultParameterObject> command = new ExceptionCommand<>();
         final DefaultParameterObject context = new DefaultParameterObject();
         Assert.assertFalse(command.executeAsChain(context));
     }
@@ -83,13 +83,13 @@ public class CommandTest {
     @Test
     public void testPriorityCommands() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
-        Command<GenericParameterObject> command = new PriorityOneTestCommand<GenericParameterObject>();
+        Command<GenericParameterObject> command = new PriorityOneTestCommand<>();
         command.execute(context);
         Assert.assertEquals("PriorityOneTestCommand", context.getAsString("PriorityOneTestCommand"));
-        command = new PriorityTwoTestCommand<GenericParameterObject>();
+        command = new PriorityTwoTestCommand<>();
         command.execute(context);
         Assert.assertEquals("PriorityTwoTestCommand", context.getAsString("PriorityTwoTestCommand"));
-        command = new PriorityThreeTestCommand<GenericParameterObject>();
+        command = new PriorityThreeTestCommand<>();
         command.execute(context);
         Assert.assertEquals("PriorityThreeTestCommand", context.getAsString("PriorityThreeTestCommand"));
     }
@@ -97,7 +97,7 @@ public class CommandTest {
     @Test
     public void testPriorThreeFirstCall() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
-        final Command<GenericParameterObject> command = new PriorityThreeTestCommand<GenericParameterObject>();
+        final Command<GenericParameterObject> command = new PriorityThreeTestCommand<>();
         command.execute(context);
         Assert.assertEquals("PriorityThreeTestCommand", context.getAsString("PriorityThreeTestCommand"));
     }
@@ -105,20 +105,18 @@ public class CommandTest {
     @Test
     public void testPriorTwoFirstCall() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
-        final Command<GenericParameterObject> command = new PriorityTwoTestCommand<GenericParameterObject>();
+        final Command<GenericParameterObject> command = new PriorityTwoTestCommand<>();
         command.execute(context);
         Assert.assertEquals("PriorityTwoTestCommand", context.getAsString("PriorityTwoTestCommand"));
     }
-    
+
     @Test
     public void testVerySimpleCommand() throws Exception {
-        GenericParameterObject context = new DefaultParameterObject();
+        final GenericParameterObject context = new DefaultParameterObject();
         final Command<GenericParameterObject> command = new VerySimpleTestCommand<>();
         command.executeOnly(context);
         Assert.assertEquals("newValue", context.getAsString("key"));
-        
-        
+
     }
-    
 
 }

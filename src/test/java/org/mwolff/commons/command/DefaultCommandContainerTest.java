@@ -44,9 +44,9 @@ import org.mwolff.commons.command.samplecommands.SimpleTestCommand;
 public class DefaultCommandContainerTest {
 
     @Rule
-    public ExpectedException thrown = ExpectedException.none();
+    public ExpectedException                         thrown = ExpectedException.none();
 
-    private GenericParameterObject context;
+    private GenericParameterObject                   context;
     private CommandContainer<GenericParameterObject> commandContainer;
 
     /*
@@ -54,9 +54,9 @@ public class DefaultCommandContainerTest {
      * prio 1!
      */
     public CommandContainer<GenericParameterObject> createCommandInOrder() {
-        commandContainer.addCommand(2, new PriorityThreeTestCommand<GenericParameterObject>()).
-        addCommand(1, new PriorityOneTestCommand<GenericParameterObject>()).
-        addCommand(1, new PriorityTwoTestCommand<GenericParameterObject>());
+        commandContainer.addCommand(2, new PriorityThreeTestCommand<>())
+                .addCommand(1, new PriorityOneTestCommand<>())
+                .addCommand(1, new PriorityTwoTestCommand<>());
         return commandContainer;
     }
 
@@ -64,9 +64,9 @@ public class DefaultCommandContainerTest {
      * Creating three commands with prio 1-2-3 for execution
      */
     private CommandContainer<GenericParameterObject> createDefaultCommands() {
-        commandContainer.addCommand(new PriorityOneTestCommand<GenericParameterObject>()).
-        addCommand(new PriorityTwoTestCommand<GenericParameterObject>()).
-        addCommand(new PriorityThreeTestCommand<GenericParameterObject>());
+        commandContainer.addCommand(new PriorityOneTestCommand<>())
+                .addCommand(new PriorityTwoTestCommand<>())
+                .addCommand(new PriorityThreeTestCommand<>());
         return commandContainer;
     }
 
@@ -95,6 +95,7 @@ public class DefaultCommandContainerTest {
         final String priorString = context.getAsString("priority");
         Assert.assertEquals("1-2-3-", priorString);
     }
+
     /*
      * Remark: If there are two commands with the same priority, the first
      * inserted Command wins ... etc.
@@ -135,8 +136,8 @@ public class DefaultCommandContainerTest {
     // executed
     @Test
     public void testChainWithError() throws Exception {
-        commandContainer.addCommand(1, new ExceptionCommand<GenericParameterObject>());
-        commandContainer.addCommand(2, new SimpleTestCommand<GenericParameterObject>());
+        commandContainer.addCommand(1, new ExceptionCommand<>());
+        commandContainer.addCommand(2, new SimpleTestCommand<>());
         commandContainer.execute(context);
         final String priorString = context.getAsString("priority");
         Assert.assertEquals("S-", priorString);
@@ -145,7 +146,7 @@ public class DefaultCommandContainerTest {
 
     @Test
     public void testEndCommand() throws Exception {
-        final ProcessCommand<GenericParameterObject> search = new DefaultEndCommand<GenericParameterObject>();
+        final ProcessCommand<GenericParameterObject> search = new DefaultEndCommand<>();
         search.setProcessID("END");
         commandContainer.addCommand(search);
         commandContainer.execute(context);
@@ -163,10 +164,10 @@ public class DefaultCommandContainerTest {
 
     @Test
     public void testGetCommandWithProcessID() throws Exception {
-        final Command<GenericParameterObject> search = new ProcessTestCommandStart<GenericParameterObject>(
+        final Command<GenericParameterObject> search = new ProcessTestCommandStart<>(
                 "StartCommand");
         commandContainer.addCommand(1, search);
-        commandContainer.addCommand(2, new ProcessTestCommandNext<GenericParameterObject>("NextCommand"));
+        commandContainer.addCommand(2, new ProcessTestCommandNext<>("NextCommand"));
 
         final Command<GenericParameterObject> found = commandContainer.getCommandByProcessID("StartCommand");
         Assert.assertSame(found, search);
@@ -177,12 +178,12 @@ public class DefaultCommandContainerTest {
      */
     @Test
     public void testMixedModeInCommandContainer() throws Exception {
-        commandContainer.addCommand(1, new PriorityOneTestCommand<GenericParameterObject>());
-        commandContainer.addCommand(2, new PriorityTwoTestCommand<GenericParameterObject>());
-        commandContainer.addCommand(3, new PriorityThreeTestCommand<GenericParameterObject>());
+        commandContainer.addCommand(1, new PriorityOneTestCommand<>());
+        commandContainer.addCommand(2, new PriorityTwoTestCommand<>());
+        commandContainer.addCommand(3, new PriorityThreeTestCommand<>());
 
         final CommandContainer<GenericParameterObject> mixedList = new DefaultCommandContainer<>();
-        mixedList.addCommand(new SimpleTestCommand<GenericParameterObject>());
+        mixedList.addCommand(new SimpleTestCommand<>());
         mixedList.addCommand(commandContainer);
 
         mixedList.execute(context);

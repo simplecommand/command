@@ -25,7 +25,6 @@
  */
 package org.mwolff.commons.command;
 
-
 import org.apache.log4j.Logger;
 import org.mwolff.commons.command.iface.CommandException;
 
@@ -35,7 +34,7 @@ public class DefaultEndCommand<T extends GenericParameterObject> extends Abstrac
 
     @Override
     public void execute(final T context) throws CommandException {
-        LOG.error("nothing to do");
+        DefaultEndCommand.LOG.error("nothing to do");
     }
 
     @Override

@@ -49,7 +49,7 @@ public interface CommandContainer<T extends ParameterObject> extends ChainComman
      * @param command
      * @return this
      */
-    CommandContainer<T>  addCommand(int priority, Command<T> command);
+    CommandContainer<T> addCommand(int priority, Command<T> command);
 
     /**
      * Gets the command with the certain processID.

@@ -53,18 +53,18 @@ import org.mwolff.commons.command.iface.Transition;
  */
 public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<T> {
 
-    private static final Logger LOG = Logger.getLogger(XMLChainBuilder.class);
-    private static final String ROOT = "//process/action";
-    private static final String TRANS = "//process/action[@id='%s']/transition";
-    private static final String CLASS = "class";
+    private static final Logger                  LOG   = Logger.getLogger(XMLChainBuilder.class);
+    private static final String                  ROOT  = "//process/action";
+    private static final String                  TRANS = "//process/action[@id='%s']/transition";
+    private static final String                  CLASS = "class";
 
-    private static final String ID = "id";
-    private static final String NAME = "name";
-    private static final String TO = "to";
-    private String xmlFileName;
+    private static final String                  ID    = "id";
+    private static final String                  NAME  = "name";
+    private static final String                  TO    = "to";
+    private final String                         xmlFileName;
 
     private final List<Command<ParameterObject>> actions;
-    Document document;
+    Document                                     document;
 
     /**
      * Constructor.
@@ -137,7 +137,7 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
         try {
             return buildChain().executeAsProcess(startCommand, context);
         } catch (final CommandException e) {
-            LOG.error(e);
+            XMLChainBuilder.LOG.error(e);
             return null;
         }
     }
@@ -163,7 +163,7 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
     @SuppressWarnings("unchecked")
     private void createCommandsOutOfXML(final Document document) throws CommandException {
 
-        final List<Element> list = document.selectNodes(ROOT);
+        final List<Element> list = document.selectNodes(XMLChainBuilder.ROOT);
 
         if (!list.isEmpty()) {
             for (final Element element : list) {
@@ -212,17 +212,17 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
         Command<ParameterObject> action = null;
         String actionID = null;
 
-        final Map<String, String> attributeMap = getAttributeOfElement(element);
+        final Map<String, String> attributeMap = XMLChainBuilder.getAttributeOfElement(element);
 
-        String value = attributeMap.get(CLASS);
+        String value = attributeMap.get(XMLChainBuilder.CLASS);
         try {
             action = createAndAddAction(value);
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-            LOG.error(e);
+            XMLChainBuilder.LOG.error(e);
             throw new CommandException("Error creating class via reflection out of xml definition.", e);
         }
 
-        value = attributeMap.get(ID);
+        value = attributeMap.get(XMLChainBuilder.ID);
         if (value != null) {
             ((ProcessCommand<ParameterObject>) action).setProcessID(value);
             actionID = value;
@@ -245,23 +245,24 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
     private void extractAttributesOfTransitionElement(final ProcessCommand<ParameterObject> command,
             final String commandID) {
 
-        final List<Element> transitionElementList = document.selectNodes(String.format(TRANS, commandID));
+        final List<Element> transitionElementList = document
+                .selectNodes(String.format(XMLChainBuilder.TRANS, commandID));
 
         for (final Element transition : transitionElementList) {
             final Transition transitionClass = new DefaultTransition();
 
-            final Map<String, String> attributeMap = getAttributeOfElement(transition);
+            final Map<String, String> attributeMap = XMLChainBuilder.getAttributeOfElement(transition);
 
-            String value = attributeMap.get(NAME);
+            String value = attributeMap.get(XMLChainBuilder.NAME);
             transitionClass.setReturnValue(value);
 
-            value = attributeMap.get(TO);
+            value = attributeMap.get(XMLChainBuilder.TO);
             transitionClass.setTarget(value);
 
             command.addTransition(transitionClass);
         }
     }
-    
+
     @Override
     public void executeOnly(T context) {
     }

@@ -43,7 +43,7 @@ public class VerySimpleTestCommand<T extends GenericParameterObject> implements 
         priorString += "S-";
         context.put("priority", priorString);
     }
-    
+
     @Override
     public void executeOnly(T context) {
         context.put("key", "newValue");

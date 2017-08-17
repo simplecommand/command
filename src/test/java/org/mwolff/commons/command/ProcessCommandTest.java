@@ -25,37 +25,33 @@
  */
 package org.mwolff.commons.command;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-
+import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mwolff.commons.command.iface.CommandException;
 import org.mwolff.commons.command.iface.ParameterObject;
 import org.mwolff.commons.command.iface.ProcessCommand;
 import org.mwolff.commons.command.iface.Transition;
-import org.mwolff.commons.command.samplecommands.ProcessTestCommandEnd;
 import org.mwolff.commons.command.samplecommands.ProcessTestCommandStart;
 
 public class ProcessCommandTest {
 
     @Test
     public void executeAsProcessSimpleTest() throws Exception {
-        final ProcessTestCommandStart<GenericParameterObject> processTestStartCommand = new ProcessTestCommandStart<GenericParameterObject>(
+        final ProcessTestCommandStart<GenericParameterObject> processTestStartCommand = new ProcessTestCommandStart<>(
                 "Start");
         final GenericParameterObject context = new DefaultParameterObject();
         final String result = processTestStartCommand.executeAsProcess("", context);
         final String processflow = context.getAsString("result");
-        assertEquals("Start - ", processflow);
-        assertEquals("OK", result);
+        Assert.assertEquals("Start - ", processflow);
+        Assert.assertEquals("OK", result);
     }
-    
+
     @Test
     public void testExecuteOnlyStart() throws Exception {
-        final ProcessTestCommandStart<GenericParameterObject> processTestStartCommand = new ProcessTestCommandStart<GenericParameterObject>(
+        final ProcessTestCommandStart<GenericParameterObject> processTestStartCommand = new ProcessTestCommandStart<>(
                 "Start");
-        GenericParameterObject context = new DefaultParameterObject();
+        final GenericParameterObject context = new DefaultParameterObject();
         context.put("key", "value");
         processTestStartCommand.executeOnly(context);
         Assert.assertEquals("value", context.getAsString("key"));
@@ -63,30 +59,29 @@ public class ProcessCommandTest {
 
     @Test
     public void testExecuteOnlyEnd() throws Exception {
-        final DefaultEndCommand<GenericParameterObject> processTestStartCommand = new DefaultEndCommand<GenericParameterObject>();
-        GenericParameterObject context = new DefaultParameterObject();
+        final DefaultEndCommand<GenericParameterObject> processTestStartCommand = new DefaultEndCommand<>();
+        final GenericParameterObject context = new DefaultParameterObject();
         context.put("key", "value");
         processTestStartCommand.executeOnly(context);
         Assert.assertEquals("value", context.getAsString("key"));
     }
-    
 
     @Test
     public void getProcessNameTest() throws Exception {
-        final ProcessTestCommandStart<GenericParameterObject> processTestStartCommand = new ProcessTestCommandStart<GenericParameterObject>(
+        final ProcessTestCommandStart<GenericParameterObject> processTestStartCommand = new ProcessTestCommandStart<>(
                 "Start");
         final String result = processTestStartCommand.getProcessID();
-        assertEquals("Start", result);
+        Assert.assertEquals("Start", result);
     }
 
     @Test
     public void processANullContainer() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
-        final DefaultCommandContainer<GenericParameterObject> container = new DefaultCommandContainer<GenericParameterObject>();
+        final DefaultCommandContainer<GenericParameterObject> container = new DefaultCommandContainer<>();
         String result = container.executeAsProcess("Start", context);
-        assertNull(result);
+        Assert.assertNull(result);
         result = container.getProcessID();
-        assertNull(result);
+        Assert.assertNull(result);
     }
 
     @Test
@@ -116,10 +111,11 @@ public class ProcessCommandTest {
             }
 
         };
-        assertThat(pc.executeAsProcess("", DefaultParameterObject.NULLCONTEXT), is("executeAsProcess"));
-        assertThat(pc.getProcessID(), is("getProcessID"));
-        assertThat(pc.getTransitionList(), notNullValue());
-        assertThat(pc.findNext("Hello"), is("Hello"));
+        Assert.assertThat(pc.executeAsProcess("", DefaultParameterObject.NULLCONTEXT),
+                CoreMatchers.is("executeAsProcess"));
+        Assert.assertThat(pc.getProcessID(), CoreMatchers.is("getProcessID"));
+        Assert.assertThat(pc.getTransitionList(), CoreMatchers.notNullValue());
+        Assert.assertThat(pc.findNext("Hello"), CoreMatchers.is("Hello"));
         final Transition transition = new DefaultTransition();
         pc.addTransition(transition);
     }

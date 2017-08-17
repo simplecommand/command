@@ -43,7 +43,7 @@ public class ExceptionCommandTest {
     public void testExceptionThrowd() throws Exception {
         thrown.expect(CommandException.class);
         final GenericParameterObject context = new DefaultParameterObject();
-        final ExceptionCommand<GenericParameterObject> exceptionCommand = new ExceptionCommand<GenericParameterObject>();
+        final ExceptionCommand<GenericParameterObject> exceptionCommand = new ExceptionCommand<>();
         exceptionCommand.execute(context);
         final String value = context.getAsString("executed");
         Assert.assertThat(value, Matchers.is("true"));

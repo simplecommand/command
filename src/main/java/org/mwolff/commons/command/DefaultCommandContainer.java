@@ -42,16 +42,23 @@ import org.mwolff.commons.command.iface.ProcessCommand;
  */
 public class DefaultCommandContainer<T extends ParameterObject> implements CommandContainer<T> {
 
-    private static final Logger LOG = Logger.getLogger(DefaultCommandContainer.class);
+    private static final Logger            LOG         = Logger.getLogger(DefaultCommandContainer.class);
 
     private final Map<Integer, Command<T>> commandList = new TreeMap<>((final Integer o1, final Integer o2) -> {
-        // First wins if there are two commands with the same priority
-        if (o1.intValue() >= o2.intValue()) {
-            return 1;
-        } else {
-            return -1;
-        } // returning 0 would merge keys
-    });
+                                                           // First wins if
+                                                           // there are two
+                                                           // commands with the
+                                                           // same priority
+                                                           if (o1.intValue() >= o2.intValue()) {
+                                                               return 1;
+                                                           } else {
+                                                               return -1;
+                                                           }                                                             // returning
+                                                                                                                         // 0
+                                                                                                                         // would
+                                                                                                                         // merge
+                                                                                                                         // keys
+                                                       });
 
     /**
      * @see org.mwolff.commons.command.iface.CommandContainer#addCommand(org.mwolff.commons.command.iface.Command)
@@ -67,7 +74,7 @@ public class DefaultCommandContainer<T extends ParameterObject> implements Comma
      *      org.mwolff.commons.command.iface.Command)
      */
     @Override
-    public CommandContainer<T>  addCommand(final int priority, final Command<T> command) {
+    public CommandContainer<T> addCommand(final int priority, final Command<T> command) {
         commandList.put(Integer.valueOf(priority), command);
         return this;
     }
@@ -86,7 +93,7 @@ public class DefaultCommandContainer<T extends ParameterObject> implements Comma
             }
         }
     }
-    
+
     @Override
     public void executeOnly(T context) {
         for (final Command<T> command : commandList.values()) {
@@ -125,14 +132,14 @@ public class DefaultCommandContainer<T extends ParameterObject> implements Comma
 
         // Special Node ENDE
         String next = ((ProcessCommand<T>) command).executeAsProcess(startCommand, context);
-        LOG.info("Returnvalue    = ##> " + next);
+        DefaultCommandContainer.LOG.info("Returnvalue    = ##> " + next);
         // Special Node ENDE
         if ("END".equals(next)) {
             // do first nothing
         } else {
             next = ((ProcessCommand<T>) command).findNext(next);
         }
-        LOG.info("Next ProcessID = --> " + next);
+        DefaultCommandContainer.LOG.info("Next ProcessID = --> " + next);
 
         if (next == null) {
             return null;

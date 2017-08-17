@@ -25,9 +25,8 @@
  */
 package org.mwolff.commons.command;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-
+import org.hamcrest.CoreMatchers;
+import org.junit.Assert;
 import org.junit.Test;
 import org.mwolff.commons.command.iface.Transition;
 
@@ -38,8 +37,8 @@ public class TransitionTest {
         final Transition transition = new DefaultTransition();
         transition.setReturnValue("OK");
         transition.setTarget("Next");
-        assertThat("OK", is(transition.getReturnValue()));
-        assertThat("Next", is(transition.getTarget()));
+        Assert.assertThat("OK", CoreMatchers.is(transition.getReturnValue()));
+        Assert.assertThat("Next", CoreMatchers.is(transition.getTarget()));
     }
 
 }
