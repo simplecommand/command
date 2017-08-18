@@ -150,8 +150,8 @@ public class DefaultCommandContainerTest {
         search.setProcessID("END");
         commandContainer.addCommand(search);
         commandContainer.execute(context);
-        final String result = commandContainer.executeAsProcess("END", context);
-        Assert.assertEquals("END", result);
+        final String result = commandContainer.executeAsProcess(context);
+        Assert.assertEquals(null, result);
     }
 
     // Remark: Should work if no command is inserted

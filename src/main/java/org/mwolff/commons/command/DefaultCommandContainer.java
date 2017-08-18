@@ -131,7 +131,7 @@ public class DefaultCommandContainer<T extends ParameterObject> implements Comma
         }
 
         // Special Node ENDE
-        String next = ((ProcessCommand<T>) command).executeAsProcess(startCommand, context);
+        String next = ((ProcessCommand<T>) command).executeAsProcess(context);
         DefaultCommandContainer.LOG.info("Returnvalue    = ##> " + next);
         // Special Node ENDE
         if ("END".equals(next)) {

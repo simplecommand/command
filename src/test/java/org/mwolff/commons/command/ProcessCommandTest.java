@@ -41,7 +41,7 @@ public class ProcessCommandTest {
         final ProcessTestCommandStart<GenericParameterObject> processTestStartCommand = new ProcessTestCommandStart<>(
                 "Start");
         final GenericParameterObject context = new DefaultParameterObject();
-        final String result = processTestStartCommand.executeAsProcess("", context);
+        final String result = processTestStartCommand.executeAsProcess(context);
         final String processflow = context.getAsString("result");
         Assert.assertEquals("Start - ", processflow);
         Assert.assertEquals("OK", result);

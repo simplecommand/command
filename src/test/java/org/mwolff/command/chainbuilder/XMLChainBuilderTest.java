@@ -143,7 +143,7 @@ public class XMLChainBuilderTest {
         Assert.assertThat(commands.isEmpty(), Matchers.is(false));
         Assert.assertThat(commands.size(), Matchers.is(1));
     }
-
+    
     @Test
     public void testExecuteAsProcessMethodForBuilder() throws Exception {
         final XMLChainBuilder<ParameterObject> xmlChainBuilder = new XMLChainBuilder<>(

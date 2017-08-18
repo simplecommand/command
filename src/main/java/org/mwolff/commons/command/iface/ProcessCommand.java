@@ -41,9 +41,17 @@ public interface ProcessCommand<T extends ParameterObject> extends Command<T> {
      * Execute a command as a process. The result is the decision which process
      * step should be executed next.
      *
+     * @param startCommand The command the process should start with.
+     * @param context The context to work with.
      * @return The next process step to execute. Null stops the process.
      */
-    String executeAsProcess(String startCommand, T context);
+    default String executeAsProcess(String startCommand, T context) {
+        return null;
+    }
+    
+    default String executeAsProcess(T context) {
+        return null;
+    }
 
     default String findNext(final String next) {
         return next;

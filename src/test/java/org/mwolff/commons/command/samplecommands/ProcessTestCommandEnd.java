@@ -50,7 +50,7 @@ public class ProcessTestCommandEnd<T extends GenericParameterObject> extends Abs
     }
 
     @Override
-    public String executeAsProcess(final String startCommand, final T context) {
+    public String executeAsProcess(final T context) {
         try {
             execute(context);
         } catch (final CommandException e) {
