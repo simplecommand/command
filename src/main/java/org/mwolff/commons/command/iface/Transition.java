@@ -25,14 +25,24 @@
  */
 package org.mwolff.commons.command.iface;
 
+/**
+ * Interface for a transition used for the process mode of the framework.
+ * 
+ * @author mwolff
+ *
+ */
 public interface Transition {
 
+    /** */
     String getReturnValue();
 
+    /** */
     String getTarget();
 
+    /** */
     void setReturnValue(final String returnValue);
 
+    /** */
     void setTarget(final String target);
 
 }

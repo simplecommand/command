@@ -60,7 +60,8 @@ public class DefaultCommandContainer<T extends ParameterObject> implements Comma
                                                                                                                          // keys
                                                        });
 
-    /**
+
+    /*
      * @see org.mwolff.commons.command.iface.CommandContainer#addCommand(org.mwolff.commons.command.iface.Command)
      */
     @Override
@@ -69,9 +70,8 @@ public class DefaultCommandContainer<T extends ParameterObject> implements Comma
         return this;
     }
 
-    /**
-     * @see org.mwolff.commons.command.iface.CommandContainer#addCommand(int,
-     *      org.mwolff.commons.command.iface.Command)
+    /*
+     * @see org.mwolff.commons.command.iface.CommandContainer#addCommand(int, org.mwolff.commons.command.iface.Command)
      */
     @Override
     public CommandContainer<T> addCommand(final int priority, final Command<T> command) {
@@ -79,7 +79,7 @@ public class DefaultCommandContainer<T extends ParameterObject> implements Comma
         return this;
     }
 
-    /**
+    /*
      * @see org.mwolff.commons.command.iface.Command#execute(org.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
@@ -94,6 +94,9 @@ public class DefaultCommandContainer<T extends ParameterObject> implements Comma
         }
     }
 
+    /*
+     * @see org.mwolff.commons.command.iface.Command#executeOnly(org.mwolff.commons.command.iface.ParameterObject)
+     */
     @Override
     public void executeOnly(T context) {
         for (final Command<T> command : commandList.values()) {
@@ -101,8 +104,8 @@ public class DefaultCommandContainer<T extends ParameterObject> implements Comma
         }
     }
 
-    /**
-     * @see org.mwolff.commons.command.iface.Command#executeAsChain(org.mwolff.commons.command.iface.ParameterObject)
+    /*
+     * @see org.mwolff.commons.command.iface.ChainCommand#executeAsChain(org.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
     public boolean executeAsChain(final T context) {
@@ -116,8 +119,9 @@ public class DefaultCommandContainer<T extends ParameterObject> implements Comma
         return result;
     }
 
-    /**
-     * @see org.mwolff.commons.command.iface.Command#executeAsProcess(org.mwolff.commons.command.iface.ParameterObject)
+
+    /*
+     * @see org.mwolff.commons.command.iface.ProcessCommand#executeAsProcess(java.lang.String, org.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
     public String executeAsProcess(final String startCommand, final T context) {

@@ -34,14 +34,15 @@ public interface Command<T extends ParameterObject> {
     /**
      * Executes the command.
      *
-     * @param context
+     * @param context The parameter object to pass.
+     * @throws CommandException if something happens.
      */
     void execute(T context) throws CommandException;
 
     /**
      * Executes the command straight forward (no error handling).
      * 
-     * @return
+     * @param context The parameter object to pass.
      */
     void executeOnly(T context);
 }

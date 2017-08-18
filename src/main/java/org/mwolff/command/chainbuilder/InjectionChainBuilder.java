@@ -57,7 +57,9 @@ public class InjectionChainBuilder<T extends ParameterObject> implements ChainBu
         return commandContainer;
     }
 
-    /**
+
+    /*
+     * (non-Javadoc)
      * @see org.mwolff.commons.command.iface.Command#execute(org.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
@@ -65,17 +67,18 @@ public class InjectionChainBuilder<T extends ParameterObject> implements ChainBu
         buildChain().execute(context);
     }
 
-    /**
-     * @see org.mwolff.commons.command.iface.ChainBuilder#executeAsChain(org.mwolff.commons.command.iface.ParameterObject)
+    /*
+     * (non-Javadoc)
+     * @see org.mwolff.commons.command.iface.ChainCommand#executeAsChain(org.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
     public boolean executeAsChain(final T context) {
         return buildChain().executeAsChain(context);
     }
 
-    /**
-     * @see org.mwolff.commons.command.iface.Command#executeAsProcess(java.lang.String,
-     *      org.mwolff.commons.command.iface.ParameterObject)
+    /*
+     * (non-Javadoc)
+     * @see org.mwolff.commons.command.iface.ProcessCommand#executeAsProcess(java.lang.String, org.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
     public String executeAsProcess(final String startCommand, final T context) {

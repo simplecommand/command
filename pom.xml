@@ -4,11 +4,13 @@
 
 	<groupId>org.mwolff</groupId>
 	<artifactId>command</artifactId>
-	<version>1.3.2-SNAPSHOT</version>
+	<version>1.3.2</version>
 	<packaging>jar</packaging>
 
 	<name>Simple Command Framework</name>
-
+	<description>A framework to build up SOLID-save applications.</description>
+    <url>http://mwolff.info/wiki/display/SCF/The+Simple+Command+Framework</url>
+	
 	<licenses>
 		<license>
 			<name>GNU Lesser General Public License</name>
@@ -21,6 +23,15 @@
 		<name>neusta software development GmbH</name>
 		<url>http://neusta-sd.de</url>
 	</organization>
+
+	<developers>
+		<developer>
+			<name>Manfred Wolff</name>
+			<email>m.wolff@neusta.de</email>
+			<organization>neusta software development GmbH</organization>
+			<organizationUrl>http://www.neusta-se.de</organizationUrl>
+		</developer>
+	</developers>
 
 	<scm>
 		<url>https://github.com/simplecommand/SimpleCommandFramework</url>

@@ -35,7 +35,7 @@ public interface CommandContainer<T extends ParameterObject> extends ChainComman
      * <code>CommandContainer</code> is a <code>Command</code> you can add
      * <code>CommandContainer</code> objects as well.
      *
-     * @param command
+     * @param command The command to add.
      * @return this
      */
     CommandContainer<T> addCommand(Command<T> command);
@@ -45,8 +45,8 @@ public interface CommandContainer<T extends ParameterObject> extends ChainComman
      * <code>CommandContainer</code> is a <code>Command</code> you can add
      * <code>CommandContainer</code> objects as well.
      *
-     * @param priority
-     * @param command
+     * @param priority A priority. If two commands has the same priority the first wins.
+     * @param command The command to add.
      * @return this
      */
     CommandContainer<T> addCommand(int priority, Command<T> command);
@@ -54,7 +54,7 @@ public interface CommandContainer<T extends ParameterObject> extends ChainComman
     /**
      * Gets the command with the certain processID.
      *
-     * @param processID
+     * @param processID The id to find the command.
      * @return The command with the certain processID
      */
     Command<T> getCommandByProcessID(String processID);

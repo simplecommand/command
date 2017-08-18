@@ -39,14 +39,15 @@ public abstract class AbstractDefaultChainCommand<T extends ParameterObject> imp
 
     private static final Logger LOG = Logger.getLogger(AbstractDefaultChainCommand.class);
 
-    /**
+    /*
      * @see org.mwolff.commons.command.iface.Command#execute(org.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
     public abstract void execute(T context) throws CommandException;
 
-    /**
-     * @see org.mwolff.commons.command.iface.Command#executeAsChain(org.mwolff.commons.command.iface.ParameterObject)
+
+    /*
+     * @see org.mwolff.commons.command.iface.ChainCommand#executeAsChain(org.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
     public boolean executeAsChain(final T context) {
