@@ -27,6 +27,7 @@ package org.mwolff.commons.command.samplecommands;
 
 import org.apache.log4j.Logger;
 import org.mwolff.commons.command.AbstractDefaultProcessCommand;
+import org.mwolff.commons.command.DefaultEndCommand;
 import org.mwolff.commons.command.GenericParameterObject;
 import org.mwolff.commons.command.iface.CommandException;
 
@@ -75,6 +76,12 @@ public class ProcessTestCommandNext<T extends GenericParameterObject> extends Ab
 
     @Override
     public void executeOnly(T context) {
+    }
+
+    @Override
+    public boolean executeAsChain(T parameterObject) {
+        LOG.error("nothing to do");
+        return false;
     }
 
 }

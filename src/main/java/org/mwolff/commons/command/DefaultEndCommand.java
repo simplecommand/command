@@ -43,7 +43,19 @@ public class DefaultEndCommand<T extends GenericParameterObject> extends Abstrac
     }
 
     @Override
+    public String executeAsProcess(final T context) {
+        return "END";
+    }
+
+    @Override
     public void executeOnly(T context) {
+        super.executeOnly(context);
+    }
+
+    @Override
+    public boolean executeAsChain(T parameterObject) {
+        DefaultEndCommand.LOG.error("nothing to do");
+        return false;
     }
 
 }

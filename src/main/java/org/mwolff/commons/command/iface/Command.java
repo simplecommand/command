@@ -26,23 +26,22 @@
 package org.mwolff.commons.command.iface;
 
 /**
- * Command interface for the command framework. Commands may act with generic
- * command contexts.
+ * Command interface for the command framework. 
+ * 
+ * Commands may act with generic command context. A context actually is a
+ * parameter object which passes information along the whole chain.
+ *
+ * @author Manfred Wolff <m.wolff@neusta.de>
  */
+@FunctionalInterface
 public interface Command<T extends ParameterObject> {
 
     /**
      * Executes the command.
      *
-     * @param context The parameter object to pass.
+     * @param parameterObject The parameter object to pass.
      * @throws CommandException if something happens.
      */
-    void execute(T context) throws CommandException;
+    void execute(T parameterObject) throws CommandException;
 
-    /**
-     * Executes the command straight forward (no error handling).
-     * 
-     * @param context The parameter object to pass.
-     */
-    void executeOnly(T context);
 }

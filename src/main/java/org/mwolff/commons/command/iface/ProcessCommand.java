@@ -31,8 +31,10 @@ import java.util.List;
 /**
  * Command interface for the command framework. Commands may act with generic
  * command contexts.
+ * 
+ * @author Manfred Wolff <m.wolff@neusta.de>
  */
-public interface ProcessCommand<T extends ParameterObject> extends Command<T> {
+public interface ProcessCommand<T extends ParameterObject> extends ChainCommand<T> {
 
     default void addTransition(final Transition transition) {
     }
@@ -84,7 +86,7 @@ public interface ProcessCommand<T extends ParameterObject> extends Command<T> {
     /**
      * Sets the process ID of the command
      *
-     * @param processID
+     * @param processID Sets the process id of this process command.
      */
     void setProcessID(String processID);
 }

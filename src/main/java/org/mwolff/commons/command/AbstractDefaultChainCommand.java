@@ -60,4 +60,9 @@ public abstract class AbstractDefaultChainCommand<T extends ParameterObject> imp
         }
         return result;
     }
+    
+    @Override
+    public void executeOnly(final T context) {
+    }
+    
 }

@@ -33,8 +33,8 @@ import org.mwolff.commons.command.iface.ProcessCommand;
 import org.mwolff.commons.command.iface.Transition;
 
 /**
- * Default implementation for a chain-command. You may use
- * <code>executeAsChain</code> for all executions of the <code>command</code> or
+ * Default implementation for a process-command. You may use
+ * <code>executeAsProcess</code> for all executions of the <code>command</code> or
  * <code>commandContainer</code>.
  */
 public abstract class AbstractDefaultProcessCommand<T extends ParameterObject> implements ProcessCommand<T> {
@@ -47,16 +47,26 @@ public abstract class AbstractDefaultProcessCommand<T extends ParameterObject> i
         super();
     }
 
-    /** Constructor with process ID */
+    /** Constructor with process ID
+     * @param processID The process id for this command.  
+     */
     public AbstractDefaultProcessCommand(final String processID) {
         this.processID = processID;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.mwolff.commons.command.iface.ProcessCommand#addTransition(org.mwolff.commons.command.iface.Transition)
+     */
     @Override
     public void addTransition(final Transition transition) {
         transitionList.add(transition);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.mwolff.commons.command.iface.ProcessCommand#findNext(java.lang.String)
+     */
     @Override
     public String findNext(final String next) {
         for (final Transition transition : transitionList) {
@@ -67,23 +77,29 @@ public abstract class AbstractDefaultProcessCommand<T extends ParameterObject> i
         return null;
     }
 
-    @Override
-    /**
-     * @see de.mwolff.commons.command.Command#getProcessID()
+    /*
+     * (non-Javadoc)
+     * @see org.mwolff.commons.command.iface.ProcessCommand#getProcessID()
      */
+    @Override
     public String getProcessID() {
         return this.processID;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.mwolff.commons.command.iface.ProcessCommand#getTransitionList()
+     */
     @Override
     public List<Transition> getTransitionList() {
         return new ArrayList<>(transitionList);
     }
 
-    @Override
-    /**
-     * @see de.mwolff.commons.command.Command#getProcessID()
+    /*
+     * (non-Javadoc)
+     * @see org.mwolff.commons.command.iface.ProcessCommand#setProcessID(java.lang.String)
      */
+    @Override
     public void setProcessID(final String processID) {
         this.processID = processID;
     }

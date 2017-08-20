@@ -25,19 +25,41 @@
  */
 package org.mwolff.commons.command.iface;
 
+import org.apache.log4j.Logger;
+
 /**
- * Command interface for the command framework. Commands may act with generic
- * command contexts.
+ * ChainCommand interface for the command framework. The behavior of this method
+ * is the chain of responsibility pattern.
+ * 
+ * Commands may act with generic command contexts. A context actually is a
+ * parameter object which passes information along the whole chain.
+ * 
+ * @author Manfred Wolff <m.wolff@neusta.de>
  */
 public interface ChainCommand<T extends ParameterObject> extends Command<T> {
 
+    final Logger LOG = Logger.getLogger(ChainCommand.class);
+
     /**
      * Executes a command as a chain. Best way to execute a command chain is to
-     * execute it as a chain because exceptions are automatically handled.
+     * execute it as a chain because exceptions are automatically handled. An
+     * other way is to use the <code>executeOnly</code> method.
      *
-     * @param context The parameter object to pass
+     * @param parameterObject
+     *            The parameter object to pass
      * @return False if there is an error or the whole task is completed. True
      *         if the next command should overtake.
      */
-    boolean executeAsChain(T context);
+    boolean executeAsChain(T parameterObject);
+    
+    /**
+     * Executes the command as a chain straight forward (no error handling).
+     * 
+     * @param parameterObject The parameter object to pass.
+     * 
+     * @since 1.3.0
+     */
+    default void executeOnly(T parameterObject) {
+    }
+
 }

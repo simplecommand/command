@@ -93,11 +93,6 @@ public class ProcessCommandTest {
             }
 
             @Override
-            public String executeAsProcess(final String startCommand, final ParameterObject context) {
-                return "executeAsProcess";
-            }
-
-            @Override
             public String getProcessID() {
                 return "getProcessID";
             }
@@ -110,9 +105,14 @@ public class ProcessCommandTest {
             public void executeOnly(ParameterObject context) {
             }
 
+            @Override
+            public boolean executeAsChain(ParameterObject parameterObject) {
+                return false;
+            }
+
         };
-        Assert.assertThat(pc.executeAsProcess("", DefaultParameterObject.NULLCONTEXT),
-                CoreMatchers.is("executeAsProcess"));
+        Assert.assertNull(pc.executeAsProcess("START", DefaultParameterObject.NULLCONTEXT));
+        Assert.assertNull(pc.executeAsProcess(DefaultParameterObject.NULLCONTEXT));
         Assert.assertThat(pc.getProcessID(), CoreMatchers.is("getProcessID"));
         Assert.assertThat(pc.getTransitionList(), CoreMatchers.notNullValue());
         Assert.assertThat(pc.findNext("Hello"), CoreMatchers.is("Hello"));

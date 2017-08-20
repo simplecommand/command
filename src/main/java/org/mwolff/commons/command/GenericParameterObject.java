@@ -35,24 +35,24 @@ public interface GenericParameterObject extends ParameterObject {
     /**
      * Returns the object of the given key.
      *
-     * @param key
-     * @return
+     * @param key The given key to return the value.
+     * @return The value of the key
      */
     Object get(String key);
 
     /**
      * Returns the object of the given key as String.
      *
-     * @param key
-     * @return
+     * @param key The given key to return a value as String.
+     * @return The value of the key as string.
      */
     String getAsString(String key);
 
     /**
      * Saves an object to the key.
      *
-     * @param key
-     * @param value
+     * @param key the key.
+     * @param value the key.
      */
     void put(String key, Object value);
 

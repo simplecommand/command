@@ -110,13 +110,5 @@ public class CommandTest {
         Assert.assertEquals("PriorityTwoTestCommand", context.getAsString("PriorityTwoTestCommand"));
     }
 
-    @Test
-    public void testVerySimpleCommand() throws Exception {
-        final GenericParameterObject context = new DefaultParameterObject();
-        final Command<GenericParameterObject> command = new VerySimpleTestCommand<>();
-        command.executeOnly(context);
-        Assert.assertEquals("newValue", context.getAsString("key"));
-
-    }
 
 }

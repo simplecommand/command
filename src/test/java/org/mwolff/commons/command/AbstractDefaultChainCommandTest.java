@@ -25,6 +25,8 @@
  */
 package org.mwolff.commons.command;
 
+import static org.junit.Assert.*;
+
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -58,6 +60,13 @@ public class AbstractDefaultChainCommandTest {
         thrown.expect(CommandException.class);
         thrown.expectMessage("Method is not implemented yet.");
         exceptionCommand.execute(defaultContext);
+    }
+    
+    @Test
+    public void executeOnlyTest() throws Exception {
+        final ExceptionCommand<GenericParameterObject> exceptionCommand = new ExceptionCommand<>();
+        final GenericParameterObject defaultContext = new DefaultParameterObject();
+        exceptionCommand.executeOnly(defaultContext);
     }
 
 }

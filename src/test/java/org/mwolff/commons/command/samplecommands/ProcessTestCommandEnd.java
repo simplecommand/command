@@ -27,6 +27,7 @@ package org.mwolff.commons.command.samplecommands;
 
 import org.apache.log4j.Logger;
 import org.mwolff.commons.command.AbstractDefaultProcessCommand;
+import org.mwolff.commons.command.DefaultEndCommand;
 import org.mwolff.commons.command.GenericParameterObject;
 import org.mwolff.commons.command.iface.CommandException;
 
@@ -45,6 +46,9 @@ public class ProcessTestCommandEnd<T extends GenericParameterObject> extends Abs
     @Override
     public void execute(final T context) throws CommandException {
         String result = context.getAsString("result");
+        if ((result == null) || ("NullObject".equals(result))) {
+            result = "";
+        }
         result += processID + " - ";
         context.put("result", result);
     }
@@ -61,6 +65,12 @@ public class ProcessTestCommandEnd<T extends GenericParameterObject> extends Abs
 
     @Override
     public void executeOnly(T context) {
+    }
+
+    @Override
+    public boolean executeAsChain(T parameterObject) {
+        LOG.error("nothing to do");
+        return false;
     }
 
 }

@@ -42,10 +42,9 @@ public class InjectionChainBuilder<T extends ParameterObject> implements ChainBu
 
     private List<Command<T>> commands = new ArrayList<>();
 
-    /**
-     * Builder method.
-     *
-     * @return
+    /*
+     * (non-Javadoc)
+     * @see org.mwolff.commons.command.iface.ChainBuilder#buildChain()
      */
     @Override
     public CommandContainer<T> buildChain() {
@@ -85,25 +84,36 @@ public class InjectionChainBuilder<T extends ParameterObject> implements ChainBu
         return buildChain().executeAsProcess(startCommand, context);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.mwolff.commons.command.iface.ProcessCommand#getProcessID()
+     */
     @Override
     public String getProcessID() {
         return null;
     }
 
     /**
-     * Injection point for the dependency framework.
-     *
-     * @param commands
+     * Sets the list of commands.
+     * @param commands Command to set from the injection framework.
      */
     public void setCommands(final List<Command<T>> commands) {
         this.commands = commands;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.mwolff.commons.command.iface.ProcessCommand#setProcessID(java.lang.String)
+     */
     @Override
     public void setProcessID(final String processID) {
         throw new IllegalArgumentException("ProcessID cannot be set on Container.");
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.mwolff.commons.command.iface.Command#executeOnly(org.mwolff.commons.command.iface.ParameterObject)
+     */
     @Override
     public void executeOnly(T context) {
     }

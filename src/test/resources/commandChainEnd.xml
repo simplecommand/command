@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<process xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="simplecommandframework.xsd">
+	<action class="org.mwolff.commons.command.samplecommands.ProcessTestCommandEnd" id="END">
+	</action>
+</process>
