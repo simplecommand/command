@@ -33,7 +33,7 @@ import parameterobject.ParameterObject;
  * Commands may act with generic command context. A context actually is a
  * parameter object which passes information along the whole chain.
  *
- * @author Manfred Wolff <m.wolff@neusta.de>
+ * @author Manfred Wolff 
  */
 @FunctionalInterface
 public interface Command<T extends ParameterObject> {

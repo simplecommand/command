@@ -38,7 +38,7 @@ import parameterobject.ParameterObject;
  * CommandContainer that holds Command-objects. Should have the same behavior as
  * a command (Composite Pattern).
  * 
- * @author Manfred Wolff <m.wolff@neusta.de>
+ * @author Manfred Wolff 
  */
 public class DefaultCommandContainer<T extends ParameterObject> implements CommandContainer<T> {
 

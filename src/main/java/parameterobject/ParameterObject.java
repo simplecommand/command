@@ -29,8 +29,7 @@ package parameterobject;
  * Marker-interface for a context used in the framework. In this case the
  * context is actually a parameter object.
  * 
- * @author Manfred Wolff <m.wolff@neusta.de>
- * 
+ * @author Manfred Wolff
  */
 public interface ParameterObject {
 }

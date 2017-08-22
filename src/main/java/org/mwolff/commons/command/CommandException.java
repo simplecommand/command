@@ -28,7 +28,7 @@ package org.mwolff.commons.command;
 /**
  * Exception which works with this framework.
  * 
- * @author Manfred Wolff <m.wolff@neusta.de>
+ * @author Manfred Wolff
  */
 @SuppressWarnings("serial")
 public class CommandException extends Exception {

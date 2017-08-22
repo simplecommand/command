@@ -36,7 +36,7 @@ import parameterobject.ParameterObject;
  * this implements the composite pattern. So you can mix commands and command
  * container to build chains.
  * 
- * @author Manfred Wolff <m.wolff@neusta.de>
+ * @author Manfred Wolff
  */
 public interface CommandContainer<T extends ParameterObject> extends ChainCommand<T>, ProcessCommand<T> {
 

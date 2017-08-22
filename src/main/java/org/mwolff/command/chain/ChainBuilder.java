@@ -40,7 +40,7 @@ import parameterobject.ParameterObject;
  * The builder takes information out of meta data and builds the chain of
  * commands.
  * 
- * @author Manfred Wolff <m.wolff@neusta.de>
+ * @author Manfred Wolff
  */
 public interface ChainBuilder<T extends ParameterObject> extends Command<T>, ProcessCommand<T>, ChainCommand<T> {
 
