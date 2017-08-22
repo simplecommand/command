@@ -23,12 +23,12 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.commons.command;
+package org.mwolff.command.chain;
 
 import org.apache.log4j.Logger;
-import org.mwolff.commons.command.iface.ChainCommand;
-import org.mwolff.commons.command.iface.CommandException;
-import org.mwolff.commons.command.iface.ParameterObject;
+import org.mwolff.commons.command.CommandException;
+
+import parameterobject.ParameterObject;
 
 /**
  * Default implementation for a chain-command. You may use
@@ -40,6 +40,7 @@ public abstract class AbstractDefaultChainCommand<T extends ParameterObject> imp
     private static final Logger LOG = Logger.getLogger(AbstractDefaultChainCommand.class);
 
     /*
+     * (non-Javadoc)
      * @see org.mwolff.commons.command.iface.Command#execute(org.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
@@ -47,6 +48,7 @@ public abstract class AbstractDefaultChainCommand<T extends ParameterObject> imp
 
 
     /*
+     * (non-Javadoc)
      * @see org.mwolff.commons.command.iface.ChainCommand#executeAsChain(org.mwolff.commons.command.iface.ParameterObject)
      */
     @Override
@@ -61,6 +63,10 @@ public abstract class AbstractDefaultChainCommand<T extends ParameterObject> imp
         return result;
     }
     
+    /*
+     * (non-Javadoc)
+     * @see org.mwolff.commons.command.iface.ChainCommand#executeOnly(org.mwolff.commons.command.iface.ParameterObject)
+     */
     @Override
     public void executeOnly(final T context) {
     }

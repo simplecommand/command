@@ -25,10 +25,11 @@
  */
 package org.mwolff.commons.command.samplecommands;
 
-import org.mwolff.commons.command.AbstractDefaultChainCommand;
-import org.mwolff.commons.command.DefaultParameterObject;
-import org.mwolff.commons.command.GenericParameterObject;
-import org.mwolff.commons.command.iface.ProcessCommand;
+import org.mwolff.command.chain.AbstractDefaultChainCommand;
+import org.mwolff.command.process.ProcessCommand;
+
+import parameterobject.DefaultParameterObject;
+import parameterobject.GenericParameterObject;
 
 public class SimpleTestCommand<T extends GenericParameterObject> extends AbstractDefaultChainCommand<T>
         implements ProcessCommand<T> {

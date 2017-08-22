@@ -23,14 +23,12 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.commons.command;
+package org.mwolff.command.process;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.mwolff.commons.command.iface.ParameterObject;
-import org.mwolff.commons.command.iface.ProcessCommand;
-import org.mwolff.commons.command.iface.Transition;
+import parameterobject.ParameterObject;
 
 /**
  * Default implementation for a process-command. You may use

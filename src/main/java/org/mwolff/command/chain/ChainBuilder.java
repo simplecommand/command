@@ -23,7 +23,14 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.commons.command.iface;
+package org.mwolff.command.chain;
+
+import org.mwolff.command.process.ProcessCommand;
+import org.mwolff.commons.command.Command;
+import org.mwolff.commons.command.CommandContainer;
+import org.mwolff.commons.command.CommandException;
+
+import parameterobject.ParameterObject;
 
 /**
  * A chain builder interface to build chains via configuration. Known builder so

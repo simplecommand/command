@@ -23,10 +23,12 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.commons.command;
+package org.mwolff.command.process;
 
 import org.apache.log4j.Logger;
-import org.mwolff.commons.command.iface.CommandException;
+import org.mwolff.commons.command.CommandException;
+
+import parameterobject.GenericParameterObject;
 
 public class DefaultEndCommand<T extends GenericParameterObject> extends AbstractDefaultProcessCommand<T> {
 

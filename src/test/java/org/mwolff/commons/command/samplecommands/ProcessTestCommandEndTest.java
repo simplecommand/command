@@ -5,9 +5,10 @@ import static org.junit.Assert.*;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
-import org.mwolff.command.chainbuilder.XMLChainBuilder;
-import org.mwolff.commons.command.DefaultParameterObject;
-import org.mwolff.commons.command.iface.ParameterObject;
+import org.mwolff.command.chain.XMLChainBuilder;
+
+import parameterobject.DefaultParameterObject;
+import parameterobject.ParameterObject;
 
 public class ProcessTestCommandEndTest {
 

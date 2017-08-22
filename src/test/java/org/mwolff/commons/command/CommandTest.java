@@ -23,20 +23,21 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.commons.command.iface;
+package org.mwolff.commons.command;
 
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mwolff.commons.command.DefaultParameterObject;
-import org.mwolff.commons.command.GenericParameterObject;
+import org.mwolff.command.chain.ChainCommand;
 import org.mwolff.commons.command.samplecommands.ExceptionCommand;
 import org.mwolff.commons.command.samplecommands.PriorityOneTestCommand;
 import org.mwolff.commons.command.samplecommands.PriorityThreeTestCommand;
 import org.mwolff.commons.command.samplecommands.PriorityTwoTestCommand;
 import org.mwolff.commons.command.samplecommands.SimpleTestCommand;
-import org.mwolff.commons.command.samplecommands.VerySimpleTestCommand;
+
+import parameterobject.DefaultParameterObject;
+import parameterobject.GenericParameterObject;
 
 public class CommandTest {
 

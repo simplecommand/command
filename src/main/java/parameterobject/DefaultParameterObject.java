@@ -23,7 +23,7 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.commons.command;
+package parameterobject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,7 +45,7 @@ public class DefaultParameterObject implements GenericParameterObject {
 
     /**
      *
-     * @see org.mwolff.commons.command.GenericParameterObject#get(java.lang.String)
+     * @see parameterobject.GenericParameterObject#get(java.lang.String)
      */
     @Override
     public Object get(final String key) {
@@ -54,7 +54,7 @@ public class DefaultParameterObject implements GenericParameterObject {
 
     /**
      *
-     * @see org.mwolff.commons.command.GenericParameterObject#getAsString(java.lang.String)
+     * @see parameterobject.GenericParameterObject#getAsString(java.lang.String)
      */
     @Override
     public String getAsString(final String key) {
@@ -67,7 +67,7 @@ public class DefaultParameterObject implements GenericParameterObject {
 
     /**
      *
-     * @see org.mwolff.commons.command.GenericParameterObject#put(java.lang.String,
+     * @see parameterobject.GenericParameterObject#put(java.lang.String,
      *      java.lang.Object)
      */
     @Override

@@ -28,11 +28,15 @@ package org.mwolff.commons.command;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
-import org.mwolff.commons.command.iface.CommandException;
-import org.mwolff.commons.command.iface.ParameterObject;
-import org.mwolff.commons.command.iface.ProcessCommand;
-import org.mwolff.commons.command.iface.Transition;
+import org.mwolff.command.process.DefaultEndCommand;
+import org.mwolff.command.process.DefaultTransition;
+import org.mwolff.command.process.ProcessCommand;
+import org.mwolff.command.process.Transition;
 import org.mwolff.commons.command.samplecommands.ProcessTestCommandStart;
+
+import parameterobject.DefaultParameterObject;
+import parameterobject.GenericParameterObject;
+import parameterobject.ParameterObject;
 
 public class ProcessCommandTest {
 

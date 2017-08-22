@@ -30,9 +30,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mwolff.commons.command.iface.Command;
-import org.mwolff.commons.command.iface.CommandContainer;
-import org.mwolff.commons.command.iface.ProcessCommand;
+import org.mwolff.command.process.DefaultEndCommand;
+import org.mwolff.command.process.ProcessCommand;
 import org.mwolff.commons.command.samplecommands.ExceptionCommand;
 import org.mwolff.commons.command.samplecommands.PriorityOneTestCommand;
 import org.mwolff.commons.command.samplecommands.PriorityThreeTestCommand;
@@ -40,6 +39,9 @@ import org.mwolff.commons.command.samplecommands.PriorityTwoTestCommand;
 import org.mwolff.commons.command.samplecommands.ProcessTestCommandNext;
 import org.mwolff.commons.command.samplecommands.ProcessTestCommandStart;
 import org.mwolff.commons.command.samplecommands.SimpleTestCommand;
+
+import parameterobject.DefaultParameterObject;
+import parameterobject.GenericParameterObject;
 
 public class DefaultCommandContainerTest {
 

@@ -31,13 +31,14 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mwolff.command.chainbuilder.InjectionChainBuilder;
-import org.mwolff.commons.command.iface.Command;
-import org.mwolff.commons.command.iface.CommandContainer;
+import org.mwolff.command.chain.InjectionChainBuilder;
 import org.mwolff.commons.command.samplecommands.PriorityOneTestCommand;
 import org.mwolff.commons.command.samplecommands.PriorityThreeTestCommand;
 import org.mwolff.commons.command.samplecommands.PriorityTwoTestCommand;
 import org.mwolff.commons.command.samplecommands.SimpleTestCommand;
+
+import parameterobject.DefaultParameterObject;
+import parameterobject.GenericParameterObject;
 
 public class CommandIntegrationTest {
 

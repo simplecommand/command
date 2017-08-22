@@ -23,7 +23,7 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.commons.command;
+package org.mwolff.command.chain;
 
 import static org.junit.Assert.*;
 
@@ -32,9 +32,12 @@ import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mwolff.commons.command.iface.CommandException;
+import org.mwolff.commons.command.CommandException;
 import org.mwolff.commons.command.samplecommands.ExceptionCommand;
 import org.mwolff.commons.command.samplecommands.SimpleTestCommand;
+
+import parameterobject.DefaultParameterObject;
+import parameterobject.GenericParameterObject;
 
 public class AbstractDefaultChainCommandTest {
 

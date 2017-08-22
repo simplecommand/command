@@ -23,33 +23,34 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.commons.command;
+package org.mwolff.command.process;
 
-import org.mwolff.commons.command.iface.Transition;
+/**
+ * Interface for a transition used for the process mode of the framework.
+ * 
+ * @author Manfred Wolff <m.wolff@neusta.de>
+ *
+ */
+public interface Transition {
 
-public class DefaultTransition implements Transition {
+    /**
+     * @return The return value of the transition.
+     */
+    String getReturnValue();
 
-    private String returnValue;
-    private String target;
+    /**
+     * @return The target of the transition
+     */
+    String getTarget();
 
-    @Override
-    public String getReturnValue() {
-        return returnValue;
-    }
+    /** 
+     * @param returnValue The return value of the transition. 
+     */
+    void setReturnValue(final String returnValue);
 
-    @Override
-    public String getTarget() {
-        return target;
-    }
-
-    @Override
-    public void setReturnValue(final String returnValue) {
-        this.returnValue = returnValue;
-    }
-
-    @Override
-    public void setTarget(final String target) {
-        this.target = target;
-    }
+    /**
+     * @param target The target of the transition. 
+     */
+    void setTarget(final String target);
 
 }

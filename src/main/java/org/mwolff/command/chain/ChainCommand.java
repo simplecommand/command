@@ -23,9 +23,12 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.commons.command.iface;
+package org.mwolff.command.chain;
 
 import org.apache.log4j.Logger;
+import org.mwolff.commons.command.Command;
+
+import parameterobject.ParameterObject;
 
 /**
  * ChainCommand interface for the command framework. The behavior of this method

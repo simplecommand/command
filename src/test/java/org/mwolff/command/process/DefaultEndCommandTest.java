@@ -1,10 +1,14 @@
-package org.mwolff.commons.command;
+package org.mwolff.command.process;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mwolff.command.process.DefaultEndCommand;
+
+import parameterobject.DefaultParameterObject;
+import parameterobject.GenericParameterObject;
 
 public class DefaultEndCommandTest {
 

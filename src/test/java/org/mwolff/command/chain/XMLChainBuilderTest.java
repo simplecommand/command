@@ -23,7 +23,7 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.command.chainbuilder;
+package org.mwolff.command.chain;
 
 import java.util.List;
 
@@ -33,16 +33,18 @@ import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mwolff.commons.command.DefaultParameterObject;
-import org.mwolff.commons.command.GenericParameterObject;
-import org.mwolff.commons.command.iface.ChainBuilder;
-import org.mwolff.commons.command.iface.Command;
-import org.mwolff.commons.command.iface.CommandContainer;
-import org.mwolff.commons.command.iface.CommandException;
-import org.mwolff.commons.command.iface.ParameterObject;
-import org.mwolff.commons.command.iface.ProcessCommand;
-import org.mwolff.commons.command.iface.Transition;
+import org.mwolff.command.chain.ChainBuilder;
+import org.mwolff.command.chain.XMLChainBuilder;
+import org.mwolff.command.process.ProcessCommand;
+import org.mwolff.command.process.Transition;
+import org.mwolff.commons.command.Command;
+import org.mwolff.commons.command.CommandContainer;
+import org.mwolff.commons.command.CommandException;
 import org.springframework.test.util.ReflectionTestUtils;
+
+import parameterobject.DefaultParameterObject;
+import parameterobject.GenericParameterObject;
+import parameterobject.ParameterObject;
 
 public class XMLChainBuilderTest {
 

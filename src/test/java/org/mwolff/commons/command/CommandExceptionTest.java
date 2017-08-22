@@ -23,11 +23,12 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.commons.command.iface;
+package org.mwolff.commons.command;
 
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mwolff.commons.command.CommandException;
 
 public class CommandExceptionTest {
 

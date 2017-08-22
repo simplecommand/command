@@ -23,7 +23,7 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.commons.command.iface;
+package org.mwolff.commons.command;
 
 /**
  * Exception which works with this framework.

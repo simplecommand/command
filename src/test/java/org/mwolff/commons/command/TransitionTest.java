@@ -28,7 +28,8 @@ package org.mwolff.commons.command;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
-import org.mwolff.commons.command.iface.Transition;
+import org.mwolff.command.process.DefaultTransition;
+import org.mwolff.command.process.Transition;
 
 public class TransitionTest {
 

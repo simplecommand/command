@@ -30,9 +30,10 @@ import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mwolff.commons.command.DefaultParameterObject;
-import org.mwolff.commons.command.GenericParameterObject;
-import org.mwolff.commons.command.iface.CommandException;
+import org.mwolff.commons.command.CommandException;
+
+import parameterobject.DefaultParameterObject;
+import parameterobject.GenericParameterObject;
 
 public class ExceptionCommandTest {
 

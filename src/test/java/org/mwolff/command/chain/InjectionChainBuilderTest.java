@@ -23,7 +23,7 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.command.chainbuilder;
+package org.mwolff.command.chain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,16 +32,18 @@ import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mwolff.commons.command.DefaultParameterObject;
-import org.mwolff.commons.command.DefaultTransition;
-import org.mwolff.commons.command.GenericParameterObject;
-import org.mwolff.commons.command.iface.Command;
-import org.mwolff.commons.command.iface.Transition;
+import org.mwolff.command.chain.InjectionChainBuilder;
+import org.mwolff.command.process.DefaultTransition;
+import org.mwolff.command.process.Transition;
+import org.mwolff.commons.command.Command;
 import org.mwolff.commons.command.samplecommands.ExceptionCommand;
 import org.mwolff.commons.command.samplecommands.PriorityOneTestCommand;
 import org.mwolff.commons.command.samplecommands.PriorityTwoTestCommand;
 import org.mwolff.commons.command.samplecommands.ProcessTestCommandEnd;
 import org.mwolff.commons.command.samplecommands.ProcessTestCommandStart;
+
+import parameterobject.DefaultParameterObject;
+import parameterobject.GenericParameterObject;
 
 public class InjectionChainBuilderTest {
 

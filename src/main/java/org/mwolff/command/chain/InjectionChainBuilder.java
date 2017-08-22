@@ -23,17 +23,17 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.command.chainbuilder;
+package org.mwolff.command.chain;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.mwolff.commons.command.Command;
+import org.mwolff.commons.command.CommandContainer;
+import org.mwolff.commons.command.CommandException;
 import org.mwolff.commons.command.DefaultCommandContainer;
-import org.mwolff.commons.command.iface.ChainBuilder;
-import org.mwolff.commons.command.iface.Command;
-import org.mwolff.commons.command.iface.CommandContainer;
-import org.mwolff.commons.command.iface.CommandException;
-import org.mwolff.commons.command.iface.ParameterObject;
+
+import parameterobject.ParameterObject;
 
 /**
  * Generic chain builder for configuration with the spring framework.

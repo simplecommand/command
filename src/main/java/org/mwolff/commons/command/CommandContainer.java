@@ -23,7 +23,12 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.commons.command.iface;
+package org.mwolff.commons.command;
+
+import org.mwolff.command.chain.ChainCommand;
+import org.mwolff.command.process.ProcessCommand;
+
+import parameterobject.ParameterObject;
 
 /**
  * Interface of a command container. A command container implements all command

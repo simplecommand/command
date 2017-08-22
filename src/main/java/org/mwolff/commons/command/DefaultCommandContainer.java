@@ -29,12 +29,10 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
-import org.mwolff.commons.command.iface.ChainCommand;
-import org.mwolff.commons.command.iface.Command;
-import org.mwolff.commons.command.iface.CommandContainer;
-import org.mwolff.commons.command.iface.CommandException;
-import org.mwolff.commons.command.iface.ParameterObject;
-import org.mwolff.commons.command.iface.ProcessCommand;
+import org.mwolff.command.chain.ChainCommand;
+import org.mwolff.command.process.ProcessCommand;
+
+import parameterobject.ParameterObject;
 
 /**
  * CommandContainer that holds Command-objects. Should have the same behavior as

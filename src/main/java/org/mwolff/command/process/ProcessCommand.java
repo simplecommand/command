@@ -23,10 +23,14 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.commons.command.iface;
+package org.mwolff.command.process;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.mwolff.command.chain.ChainCommand;
+
+import parameterobject.ParameterObject;
 
 /**
  * Command interface for the command framework. Commands may act with generic

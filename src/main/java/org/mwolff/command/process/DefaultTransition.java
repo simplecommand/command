@@ -23,25 +23,31 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.commons.command.iface;
+package org.mwolff.command.process;
 
-/**
- * Command interface for the command framework. 
- * 
- * Commands may act with generic command context. A context actually is a
- * parameter object which passes information along the whole chain.
- *
- * @author Manfred Wolff <m.wolff@neusta.de>
- */
-@FunctionalInterface
-public interface Command<T extends ParameterObject> {
+public class DefaultTransition implements Transition {
 
-    /**
-     * Executes the command.
-     *
-     * @param parameterObject The parameter object to pass.
-     * @throws CommandException if something happens.
-     */
-    void execute(T parameterObject) throws CommandException;
+    private String returnValue;
+    private String target;
+
+    @Override
+    public String getReturnValue() {
+        return returnValue;
+    }
+
+    @Override
+    public String getTarget() {
+        return target;
+    }
+
+    @Override
+    public void setReturnValue(final String returnValue) {
+        this.returnValue = returnValue;
+    }
+
+    @Override
+    public void setTarget(final String target) {
+        this.target = target;
+    }
 
 }

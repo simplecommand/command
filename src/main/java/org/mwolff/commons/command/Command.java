@@ -23,34 +23,27 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.commons.command.iface;
+package org.mwolff.commons.command;
+
+import parameterobject.ParameterObject;
 
 /**
- * Interface for a transition used for the process mode of the framework.
+ * Command interface for the command framework. 
  * 
- * @author Manfred Wolff <m.wolff@neusta.de>
+ * Commands may act with generic command context. A context actually is a
+ * parameter object which passes information along the whole chain.
  *
+ * @author Manfred Wolff <m.wolff@neusta.de>
  */
-public interface Transition {
+@FunctionalInterface
+public interface Command<T extends ParameterObject> {
 
     /**
-     * @return The return value of the transition.
+     * Executes the command.
+     *
+     * @param parameterObject The parameter object to pass.
+     * @throws CommandException if something happens.
      */
-    String getReturnValue();
-
-    /**
-     * @return The target of the transition
-     */
-    String getTarget();
-
-    /** 
-     * @param returnValue The return value of the transition. 
-     */
-    void setReturnValue(final String returnValue);
-
-    /**
-     * @param target The target of the transition. 
-     */
-    void setTarget(final String target);
+    void execute(T parameterObject) throws CommandException;
 
 }

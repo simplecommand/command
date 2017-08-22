@@ -23,7 +23,7 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.command.chainbuilder;
+package org.mwolff.command.chain;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -36,15 +36,15 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.mwolff.command.process.DefaultTransition;
+import org.mwolff.command.process.ProcessCommand;
+import org.mwolff.command.process.Transition;
+import org.mwolff.commons.command.Command;
+import org.mwolff.commons.command.CommandContainer;
+import org.mwolff.commons.command.CommandException;
 import org.mwolff.commons.command.DefaultCommandContainer;
-import org.mwolff.commons.command.DefaultTransition;
-import org.mwolff.commons.command.iface.ChainBuilder;
-import org.mwolff.commons.command.iface.Command;
-import org.mwolff.commons.command.iface.CommandContainer;
-import org.mwolff.commons.command.iface.CommandException;
-import org.mwolff.commons.command.iface.ParameterObject;
-import org.mwolff.commons.command.iface.ProcessCommand;
-import org.mwolff.commons.command.iface.Transition;
+
+import parameterobject.ParameterObject;
 
 /**
  * Chain builder parsing an XML file for building chains or process chains.
