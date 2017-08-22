@@ -26,10 +26,9 @@
 package org.mwolff.commons.command.samplecommands;
 
 import org.mwolff.command.chain.ChainCommand;
+import org.mwolff.command.parameterobject.DefaultParameterObject;
+import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.ProcessCommand;
-
-import parameterobject.DefaultParameterObject;
-import parameterobject.GenericParameterObject;
 
 public class PriorityTwoTestCommand<T extends GenericParameterObject> implements ChainCommand<T>, ProcessCommand<T> {
 

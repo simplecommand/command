@@ -28,7 +28,7 @@ package org.mwolff.command.process;
 import java.util.ArrayList;
 import java.util.List;
 
-import parameterobject.ParameterObject;
+import org.mwolff.command.parameterobject.ParameterObject;
 
 /**
  * Default implementation for a process-command. You may use

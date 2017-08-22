@@ -29,14 +29,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.mwolff.command.chain.ChainCommand;
-
-import parameterobject.ParameterObject;
+import org.mwolff.command.parameterobject.ParameterObject;
 
 /**
  * Command interface for the command framework. Commands may act with generic
  * command contexts.
  * 
- * @author Manfred Wolff <m.wolff@neusta.de>
+ * @author Manfred Wolff 
  */
 public interface ProcessCommand<T extends ParameterObject> extends ChainCommand<T> {
 

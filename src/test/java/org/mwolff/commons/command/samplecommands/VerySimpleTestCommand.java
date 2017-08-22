@@ -25,9 +25,8 @@
  */
 package org.mwolff.commons.command.samplecommands;
 
-import org.mwolff.commons.command.Command;
-
-import parameterobject.GenericParameterObject;
+import org.mwolff.command.Command;
+import org.mwolff.command.parameterobject.GenericParameterObject;
 
 public class VerySimpleTestCommand<T extends GenericParameterObject> implements Command<T> {
 

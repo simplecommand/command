@@ -36,15 +36,14 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.mwolff.command.Command;
+import org.mwolff.command.CommandContainer;
+import org.mwolff.command.CommandException;
+import org.mwolff.command.DefaultCommandContainer;
+import org.mwolff.command.parameterobject.ParameterObject;
 import org.mwolff.command.process.DefaultTransition;
 import org.mwolff.command.process.ProcessCommand;
 import org.mwolff.command.process.Transition;
-import org.mwolff.commons.command.Command;
-import org.mwolff.commons.command.CommandContainer;
-import org.mwolff.commons.command.CommandException;
-import org.mwolff.commons.command.DefaultCommandContainer;
-
-import parameterobject.ParameterObject;
 
 /**
  * Chain builder parsing an XML file for building chains or process chains.

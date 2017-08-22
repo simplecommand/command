@@ -24,23 +24,25 @@
     USA
  */
 
-package org.mwolff.commons.command;
+package org.mwolff.command;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.mwolff.command.Command;
+import org.mwolff.command.CommandContainer;
+import org.mwolff.command.DefaultCommandContainer;
 import org.mwolff.command.chain.InjectionChainBuilder;
+import org.mwolff.command.parameterobject.DefaultParameterObject;
+import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.commons.command.samplecommands.PriorityOneTestCommand;
 import org.mwolff.commons.command.samplecommands.PriorityThreeTestCommand;
 import org.mwolff.commons.command.samplecommands.PriorityTwoTestCommand;
 import org.mwolff.commons.command.samplecommands.SimpleTestCommand;
 
-import parameterobject.DefaultParameterObject;
-import parameterobject.GenericParameterObject;
-
-public class CommandIntegrationTest {
+public class ExampleCommandTest {
 
     /**
      * You can use the builder to build and execute the chain. Usually you will
@@ -159,18 +161,5 @@ public class CommandIntegrationTest {
         container.addCommand(new PriorityOneTestCommand<>());
         container.addCommand(new PriorityTwoTestCommand<>());
         container.execute(DefaultParameterObject.NULLCONTEXT);
-    }
-
-    /*
-     * Test the executeOnly strategy.
-     */
-    @Test
-    public void testExecuteOnly() throws Exception {
-
-        final GenericParameterObject context = new DefaultParameterObject();
-        final SimpleTestCommand<GenericParameterObject> simpleTestCommand = new SimpleTestCommand<>();
-        context.put("key", "value");
-        simpleTestCommand.executeOnly(context);
-        Assert.assertEquals("newValue", context.getAsString("key"));
     }
 }

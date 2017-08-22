@@ -25,12 +25,11 @@
  */
 package org.mwolff.command.chain;
 
+import org.mwolff.command.Command;
+import org.mwolff.command.CommandContainer;
+import org.mwolff.command.CommandException;
+import org.mwolff.command.parameterobject.ParameterObject;
 import org.mwolff.command.process.ProcessCommand;
-import org.mwolff.commons.command.Command;
-import org.mwolff.commons.command.CommandContainer;
-import org.mwolff.commons.command.CommandException;
-
-import parameterobject.ParameterObject;
 
 /**
  * A chain builder interface to build chains via configuration. Known builder so
@@ -40,7 +39,7 @@ import parameterobject.ParameterObject;
  * The builder takes information out of meta data and builds the chain of
  * commands.
  * 
- * @author Manfred Wolff <m.wolff@neusta.de>
+ * @author Manfred Wolff
  */
 public interface ChainBuilder<T extends ParameterObject> extends Command<T>, ProcessCommand<T>, ChainCommand<T> {
 

@@ -23,10 +23,12 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package parameterobject;
+package org.mwolff.command.parameterobject;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.mwolff.command.parameterobject.DefaultParameterObject;
+import org.mwolff.command.parameterobject.GenericParameterObject;
 
 public class ParameterObjectTest {
 

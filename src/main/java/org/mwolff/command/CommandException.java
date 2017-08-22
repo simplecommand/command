@@ -23,12 +23,12 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.commons.command;
+package org.mwolff.command;
 
 /**
  * Exception which works with this framework.
  * 
- * @author Manfred Wolff <m.wolff@neusta.de>
+ * @author Manfred Wolff
  */
 @SuppressWarnings("serial")
 public class CommandException extends Exception {

@@ -23,9 +23,9 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.commons.command;
+package org.mwolff.command;
 
-import parameterobject.ParameterObject;
+import org.mwolff.command.parameterobject.ParameterObject;
 
 /**
  * Command interface for the command framework. 
@@ -33,7 +33,7 @@ import parameterobject.ParameterObject;
  * Commands may act with generic command context. A context actually is a
  * parameter object which passes information along the whole chain.
  *
- * @author Manfred Wolff <m.wolff@neusta.de>
+ * @author Manfred Wolff 
  */
 @FunctionalInterface
 public interface Command<T extends ParameterObject> {

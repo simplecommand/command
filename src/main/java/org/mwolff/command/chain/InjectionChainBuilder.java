@@ -28,12 +28,11 @@ package org.mwolff.command.chain;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.mwolff.commons.command.Command;
-import org.mwolff.commons.command.CommandContainer;
-import org.mwolff.commons.command.CommandException;
-import org.mwolff.commons.command.DefaultCommandContainer;
-
-import parameterobject.ParameterObject;
+import org.mwolff.command.Command;
+import org.mwolff.command.CommandContainer;
+import org.mwolff.command.CommandException;
+import org.mwolff.command.DefaultCommandContainer;
+import org.mwolff.command.parameterobject.ParameterObject;
 
 /**
  * Generic chain builder for configuration with the spring framework.

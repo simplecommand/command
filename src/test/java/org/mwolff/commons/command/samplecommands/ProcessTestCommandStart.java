@@ -26,11 +26,10 @@
 package org.mwolff.commons.command.samplecommands;
 
 import org.apache.log4j.Logger;
+import org.mwolff.command.CommandException;
+import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.AbstractDefaultProcessCommand;
 import org.mwolff.command.process.DefaultEndCommand;
-import org.mwolff.commons.command.CommandException;
-
-import parameterobject.GenericParameterObject;
 
 public class ProcessTestCommandStart<T extends GenericParameterObject> extends AbstractDefaultProcessCommand<T> {
 

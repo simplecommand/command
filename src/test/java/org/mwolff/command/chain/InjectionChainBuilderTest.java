@@ -32,18 +32,17 @@ import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mwolff.command.Command;
 import org.mwolff.command.chain.InjectionChainBuilder;
+import org.mwolff.command.parameterobject.DefaultParameterObject;
+import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.DefaultTransition;
 import org.mwolff.command.process.Transition;
-import org.mwolff.commons.command.Command;
 import org.mwolff.commons.command.samplecommands.ExceptionCommand;
 import org.mwolff.commons.command.samplecommands.PriorityOneTestCommand;
 import org.mwolff.commons.command.samplecommands.PriorityTwoTestCommand;
 import org.mwolff.commons.command.samplecommands.ProcessTestCommandEnd;
 import org.mwolff.commons.command.samplecommands.ProcessTestCommandStart;
-
-import parameterobject.DefaultParameterObject;
-import parameterobject.GenericParameterObject;
 
 public class InjectionChainBuilderTest {
 

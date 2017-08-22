@@ -1,10 +1,10 @@
-package parameterobject;
+package org.mwolff.command.parameterobject;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
-import parameterobject.DefaultParameterObject;
-import parameterobject.GenericParameterObject;
+import org.mwolff.command.parameterobject.DefaultParameterObject;
+import org.mwolff.command.parameterobject.GenericParameterObject;
 
 public class DefaultParameterObjectTest {
 

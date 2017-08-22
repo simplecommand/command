@@ -5,10 +5,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mwolff.command.parameterobject.DefaultParameterObject;
+import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.DefaultEndCommand;
-
-import parameterobject.DefaultParameterObject;
-import parameterobject.GenericParameterObject;
 
 public class DefaultEndCommandTest {
 

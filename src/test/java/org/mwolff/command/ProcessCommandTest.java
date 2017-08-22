@@ -23,20 +23,21 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.commons.command;
+package org.mwolff.command;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mwolff.command.CommandException;
+import org.mwolff.command.DefaultCommandContainer;
+import org.mwolff.command.parameterobject.DefaultParameterObject;
+import org.mwolff.command.parameterobject.GenericParameterObject;
+import org.mwolff.command.parameterobject.ParameterObject;
 import org.mwolff.command.process.DefaultEndCommand;
 import org.mwolff.command.process.DefaultTransition;
 import org.mwolff.command.process.ProcessCommand;
 import org.mwolff.command.process.Transition;
 import org.mwolff.commons.command.samplecommands.ProcessTestCommandStart;
-
-import parameterobject.DefaultParameterObject;
-import parameterobject.GenericParameterObject;
-import parameterobject.ParameterObject;
 
 public class ProcessCommandTest {
 

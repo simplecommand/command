@@ -26,9 +26,8 @@
 package org.mwolff.command.chain;
 
 import org.apache.log4j.Logger;
-import org.mwolff.commons.command.CommandException;
-
-import parameterobject.ParameterObject;
+import org.mwolff.command.CommandException;
+import org.mwolff.command.parameterobject.ParameterObject;
 
 /**
  * Default implementation for a chain-command. You may use

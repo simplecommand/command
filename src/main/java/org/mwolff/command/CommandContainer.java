@@ -23,12 +23,11 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.commons.command;
+package org.mwolff.command;
 
 import org.mwolff.command.chain.ChainCommand;
+import org.mwolff.command.parameterobject.ParameterObject;
 import org.mwolff.command.process.ProcessCommand;
-
-import parameterobject.ParameterObject;
 
 /**
  * Interface of a command container. A command container implements all command
@@ -36,7 +35,7 @@ import parameterobject.ParameterObject;
  * this implements the composite pattern. So you can mix commands and command
  * container to build chains.
  * 
- * @author Manfred Wolff <m.wolff@neusta.de>
+ * @author Manfred Wolff
  */
 public interface CommandContainer<T extends ParameterObject> extends ChainCommand<T>, ProcessCommand<T> {
 

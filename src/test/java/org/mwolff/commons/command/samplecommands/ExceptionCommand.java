@@ -25,11 +25,10 @@
  */
 package org.mwolff.commons.command.samplecommands;
 
+import org.mwolff.command.Command;
+import org.mwolff.command.CommandException;
 import org.mwolff.command.chain.AbstractDefaultChainCommand;
-import org.mwolff.commons.command.Command;
-import org.mwolff.commons.command.CommandException;
-
-import parameterobject.GenericParameterObject;
+import org.mwolff.command.parameterobject.GenericParameterObject;
 
 public class ExceptionCommand<T extends GenericParameterObject> extends AbstractDefaultChainCommand<T>
         implements Command<T> {

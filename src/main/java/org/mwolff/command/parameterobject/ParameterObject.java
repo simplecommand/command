@@ -23,14 +23,13 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package parameterobject;
+package org.mwolff.command.parameterobject;
 
 /**
  * Marker-interface for a context used in the framework. In this case the
  * context is actually a parameter object.
  * 
- * @author Manfred Wolff <m.wolff@neusta.de>
- * 
+ * @author Manfred Wolff
  */
 public interface ParameterObject {
 }

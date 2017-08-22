@@ -28,7 +28,7 @@ package org.mwolff.command.process;
 /**
  * Interface for a transition used for the process mode of the framework.
  * 
- * @author Manfred Wolff <m.wolff@neusta.de>
+ * @author Manfred Wolff 
  *
  */
 public interface Transition {

@@ -23,22 +23,21 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.commons.command;
+package org.mwolff.command;
 
 import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
 import org.mwolff.command.chain.ChainCommand;
+import org.mwolff.command.parameterobject.ParameterObject;
 import org.mwolff.command.process.ProcessCommand;
-
-import parameterobject.ParameterObject;
 
 /**
  * CommandContainer that holds Command-objects. Should have the same behavior as
  * a command (Composite Pattern).
  * 
- * @author Manfred Wolff <m.wolff@neusta.de>
+ * @author Manfred Wolff 
  */
 public class DefaultCommandContainer<T extends ParameterObject> implements CommandContainer<T> {
 
