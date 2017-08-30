@@ -25,8 +25,6 @@
  */
 package org.mwolff.command;
 
-import org.mwolff.command.parameterobject.ParameterObject;
-
 /**
  * Command interface for the command framework. 
  * 
@@ -36,7 +34,7 @@ import org.mwolff.command.parameterobject.ParameterObject;
  * @author Manfred Wolff 
  */
 @FunctionalInterface
-public interface Command<T extends ParameterObject> {
+public interface Command<T extends Object> {
 
     /**
      * Executes the command.
