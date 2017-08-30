@@ -4,7 +4,7 @@
 
 	<groupId>org.mwolff</groupId>
 	<artifactId>command</artifactId>
-	<version>1.3.3-SNAPSHOT</version>
+	<version>1.4.0</version>
 	<packaging>jar</packaging>
 
 	<name>Simple Command Framework</name>
@@ -34,8 +34,8 @@
 	</developers>
 
 	<scm>
-		<url>https://github.com/simplecommand/SimpleCommandFramework</url>
-		<developerConnection>mannewolff</developerConnection>
+		<url>https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git</url>
+		<developerConnection>mwolff</developerConnection>
 	</scm>
 
 	<properties>
