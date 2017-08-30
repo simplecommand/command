@@ -27,7 +27,6 @@ package org.mwolff.command.chain;
 
 import org.apache.log4j.Logger;
 import org.mwolff.command.Command;
-import org.mwolff.command.parameterobject.ParameterObject;
 
 /**
  * ChainCommand interface for the command framework. The behavior of this method
@@ -38,7 +37,7 @@ import org.mwolff.command.parameterobject.ParameterObject;
  * 
  * @author Manfred Wolff
  */
-public interface ChainCommand<T extends ParameterObject> extends Command<T> {
+public interface ChainCommand<T extends Object> extends Command<T> {
 
     final Logger LOG = Logger.getLogger(ChainCommand.class);
 

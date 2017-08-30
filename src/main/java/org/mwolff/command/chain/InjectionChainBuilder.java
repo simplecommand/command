@@ -32,12 +32,11 @@ import org.mwolff.command.Command;
 import org.mwolff.command.CommandContainer;
 import org.mwolff.command.CommandException;
 import org.mwolff.command.DefaultCommandContainer;
-import org.mwolff.command.parameterobject.ParameterObject;
 
 /**
  * Generic chain builder for configuration with the spring framework.
  */
-public class InjectionChainBuilder<T extends ParameterObject> implements ChainBuilder<T> {
+public class InjectionChainBuilder<T extends Object> implements ChainBuilder<T> {
 
     private List<Command<T>> commands = new ArrayList<>();
 
@@ -58,7 +57,7 @@ public class InjectionChainBuilder<T extends ParameterObject> implements ChainBu
 
     /*
      * (non-Javadoc)
-     * @see org.mwolff.commons.command.iface.Command#execute(org.mwolff.commons.command.iface.ParameterObject)
+     * @see org.mwolff.commons.command.iface.Command#execute(Object)
      */
     @Override
     public void execute(final T context) throws CommandException {
@@ -67,7 +66,7 @@ public class InjectionChainBuilder<T extends ParameterObject> implements ChainBu
 
     /*
      * (non-Javadoc)
-     * @see org.mwolff.commons.command.iface.ChainCommand#executeAsChain(org.mwolff.commons.command.iface.ParameterObject)
+     * @see org.mwolff.commons.command.iface.ChainCommand#executeAsChain(Object)
      */
     @Override
     public boolean executeAsChain(final T context) {
@@ -76,7 +75,7 @@ public class InjectionChainBuilder<T extends ParameterObject> implements ChainBu
 
     /*
      * (non-Javadoc)
-     * @see org.mwolff.commons.command.iface.ProcessCommand#executeAsProcess(java.lang.String, org.mwolff.commons.command.iface.ParameterObject)
+     * @see org.mwolff.commons.command.iface.ProcessCommand#executeAsProcess(java.lang.String, org.mwolff.commons.command.iface.Object)
      */
     @Override
     public String executeAsProcess(final String startCommand, final T context) {
@@ -111,7 +110,7 @@ public class InjectionChainBuilder<T extends ParameterObject> implements ChainBu
 
     /*
      * (non-Javadoc)
-     * @see org.mwolff.commons.command.iface.Command#executeOnly(org.mwolff.commons.command.iface.ParameterObject)
+     * @see org.mwolff.commons.command.iface.Command#executeOnly(Object)
      */
     @Override
     public void executeOnly(T context) {

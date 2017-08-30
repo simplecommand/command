@@ -26,7 +26,6 @@
 package org.mwolff.command;
 
 import org.mwolff.command.chain.ChainCommand;
-import org.mwolff.command.parameterobject.ParameterObject;
 import org.mwolff.command.process.ProcessCommand;
 
 /**
@@ -37,7 +36,7 @@ import org.mwolff.command.process.ProcessCommand;
  * 
  * @author Manfred Wolff
  */
-public interface CommandContainer<T extends ParameterObject> extends ChainCommand<T>, ProcessCommand<T> {
+public interface CommandContainer<T extends Object> extends ChainCommand<T>, ProcessCommand<T> {
 
     /**
      * Adds a <code>Command</code> to the list. Because a

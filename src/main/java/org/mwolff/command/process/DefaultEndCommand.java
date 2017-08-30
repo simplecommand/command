@@ -50,7 +50,6 @@ public class DefaultEndCommand<T extends GenericParameterObject> extends Abstrac
 
     @Override
     public void executeOnly(T context) {
-        super.executeOnly(context);
     }
 
     @Override

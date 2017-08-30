@@ -28,11 +28,8 @@ package org.mwolff.command;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
-import org.mwolff.command.CommandException;
-import org.mwolff.command.DefaultCommandContainer;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
-import org.mwolff.command.parameterobject.ParameterObject;
 import org.mwolff.command.process.DefaultEndCommand;
 import org.mwolff.command.process.DefaultTransition;
 import org.mwolff.command.process.ProcessCommand;
@@ -91,10 +88,10 @@ public class ProcessCommandTest {
 
     @Test
     public void testDefaultMethods() throws Exception {
-        final ProcessCommand<ParameterObject> pc = new ProcessCommand<ParameterObject>() {
+        final ProcessCommand<Object> pc = new ProcessCommand<Object>() {
 
             @Override
-            public void execute(final ParameterObject context) throws CommandException {
+            public void execute(final Object context) throws CommandException {
             }
 
             @Override
@@ -107,11 +104,11 @@ public class ProcessCommandTest {
             }
 
             @Override
-            public void executeOnly(ParameterObject context) {
+            public void executeOnly(Object context) {
             }
 
             @Override
-            public boolean executeAsChain(ParameterObject parameterObject) {
+            public boolean executeAsChain(Object parameterObject) {
                 return false;
             }
 

@@ -40,7 +40,6 @@ import org.mwolff.command.Command;
 import org.mwolff.command.CommandContainer;
 import org.mwolff.command.CommandException;
 import org.mwolff.command.DefaultCommandContainer;
-import org.mwolff.command.parameterobject.ParameterObject;
 import org.mwolff.command.process.DefaultTransition;
 import org.mwolff.command.process.ProcessCommand;
 import org.mwolff.command.process.Transition;
@@ -50,7 +49,7 @@ import org.mwolff.command.process.Transition;
  *
  * @author Manfred Wolff
  */
-public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<T> {
+public class XMLChainBuilder<T extends Object> implements ChainBuilder<T> {
 
     private static final Logger                  LOG   = Logger.getLogger(XMLChainBuilder.class);
     private static final String                  ROOT  = "//process/action";
@@ -62,7 +61,7 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
     private static final String                  TO    = "to";
     private final String                         xmlFileName;
 
-    private final List<Command<ParameterObject>> actions;
+    private final List<Command<Object>> actions;
     Document                                     document;
 
     /**
@@ -96,7 +95,7 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
     /*
      * @see
      * de.mwolff.commons.command.iface.Command#execute(de.mwolff.commons.command
-     * .iface.ParameterObject)
+     * .iface.Object)
      */
     @Override
     public void execute(final T context) throws CommandException {
@@ -112,7 +111,7 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
     /*
      * @see
      * de.mwolff.commons.command.iface.ChainCommand#executeAsChain(de.mwolff.
-     * commons.command.iface.ParameterObject)
+     * commons.command.iface.Object)
      */
     @Override
     public boolean executeAsChain(final T context) {
@@ -129,7 +128,7 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
     /*
      * @see
      * de.mwolff.commons.command.iface.ProcessCommand#executeAsProcess(java.lang
-     * .String, de.mwolff.commons.command.iface.ParameterObject)
+     * .String, de.mwolff.commons.command.iface.Object)
      */
     @Override
     public String executeAsProcess(final String startCommand, final T context) {
@@ -182,17 +181,17 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
     @SuppressWarnings("unchecked")
     private CommandContainer<T> addCommandsToCommandContainer() {
         final CommandContainer<T> commandContainer = new DefaultCommandContainer<>();
-        for (final Command<ParameterObject> command : actions) {
+        for (final Command<Object> command : actions) {
             commandContainer.addCommand((Command<T>) command);
         }
         return commandContainer;
     }
 
     @SuppressWarnings("unchecked")
-    private Command<ParameterObject> createAndAddAction(final String name)
+    private Command<Object> createAndAddAction(final String name)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        Command<ParameterObject> command;
-        command = (Command<ParameterObject>) Class.forName(name).newInstance();
+        Command<Object> command;
+        command = (Command<Object>) Class.forName(name).newInstance();
         actions.add(command);
         return command;
     }
@@ -208,7 +207,7 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
 
     private void extractAttributesOfActionElement(final Element element) throws CommandException {
 
-        Command<ParameterObject> action = null;
+        Command<Object> action = null;
         String actionID = null;
 
         final Map<String, String> attributeMap = XMLChainBuilder.getAttributeOfElement(element);
@@ -223,12 +222,12 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
 
         value = attributeMap.get(XMLChainBuilder.ID);
         if (value != null) {
-            ((ProcessCommand<ParameterObject>) action).setProcessID(value);
+            ((ProcessCommand<Object>) action).setProcessID(value);
             actionID = value;
         }
 
         if (actionID != null) {
-            extractAttributesOfTransitionElement((ProcessCommand<ParameterObject>) action, actionID);
+            extractAttributesOfTransitionElement((ProcessCommand<Object>) action, actionID);
         }
     }
 
@@ -241,7 +240,7 @@ public class XMLChainBuilder<T extends ParameterObject> implements ChainBuilder<
     }
 
     @SuppressWarnings("unchecked")
-    private void extractAttributesOfTransitionElement(final ProcessCommand<ParameterObject> command,
+    private void extractAttributesOfTransitionElement(final ProcessCommand<Object> command,
             final String commandID) {
 
         final List<Element> transitionElementList = document

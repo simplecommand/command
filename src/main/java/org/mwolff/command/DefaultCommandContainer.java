@@ -30,7 +30,6 @@ import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
 import org.mwolff.command.chain.ChainCommand;
-import org.mwolff.command.parameterobject.ParameterObject;
 import org.mwolff.command.process.ProcessCommand;
 
 /**
@@ -39,7 +38,7 @@ import org.mwolff.command.process.ProcessCommand;
  * 
  * @author Manfred Wolff 
  */
-public class DefaultCommandContainer<T extends ParameterObject> implements CommandContainer<T> {
+public class DefaultCommandContainer<T extends Object> implements CommandContainer<T> {
 
     private static final Logger            LOG         = Logger.getLogger(DefaultCommandContainer.class);
 
@@ -81,7 +80,7 @@ public class DefaultCommandContainer<T extends ParameterObject> implements Comma
 
     /*
      * @see org.mwolff.commons.command.iface.Command#execute(org.mwolff.commons.
-     * command.iface.ParameterObject)
+     * command.iface.Object)
      */
     @Override
     public void execute(final T context) throws CommandException {
@@ -98,7 +97,7 @@ public class DefaultCommandContainer<T extends ParameterObject> implements Comma
     /*
      * @see
      * org.mwolff.commons.command.iface.Command#executeOnly(org.mwolff.commons.
-     * command.iface.ParameterObject)
+     * command.iface.Object)
      */
     @Override
     public void executeOnly(T context) {
@@ -110,7 +109,7 @@ public class DefaultCommandContainer<T extends ParameterObject> implements Comma
     /*
      * @see
      * org.mwolff.commons.command.iface.ChainCommand#executeAsChain(org.mwolff.
-     * commons.command.iface.ParameterObject)
+     * commons.command.iface.Object)
      */
     @Override
     public boolean executeAsChain(final T context) {
@@ -127,7 +126,7 @@ public class DefaultCommandContainer<T extends ParameterObject> implements Comma
     /*
      * @see
      * org.mwolff.commons.command.iface.ProcessCommand#executeAsProcess(java.
-     * lang.String, org.mwolff.commons.command.iface.ParameterObject)
+     * lang.String, org.mwolff.commons.command.iface.Object)
      */
     @Override
     public String executeAsProcess(final String startCommand, final T context) {

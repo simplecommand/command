@@ -28,14 +28,12 @@ package org.mwolff.command.process;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.mwolff.command.parameterobject.ParameterObject;
-
 /**
  * Default implementation for a process-command. You may use
  * <code>executeAsProcess</code> for all executions of the <code>command</code> or
  * <code>commandContainer</code>.
  */
-public abstract class AbstractDefaultProcessCommand<T extends ParameterObject> implements ProcessCommand<T> {
+public abstract class AbstractDefaultProcessCommand<T extends Object> implements ProcessCommand<T> {
 
     protected String           processID;
     protected List<Transition> transitionList = new ArrayList<>();

@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.mwolff.command.chain.ChainCommand;
-import org.mwolff.command.parameterobject.ParameterObject;
 
 /**
  * Command interface for the command framework. Commands may act with generic
@@ -37,7 +36,7 @@ import org.mwolff.command.parameterobject.ParameterObject;
  * 
  * @author Manfred Wolff 
  */
-public interface ProcessCommand<T extends ParameterObject> extends ChainCommand<T> {
+public interface ProcessCommand<T extends Object> extends ChainCommand<T> {
 
     default void addTransition(final Transition transition) {
     }

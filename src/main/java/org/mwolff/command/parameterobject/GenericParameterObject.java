@@ -28,7 +28,7 @@ package org.mwolff.command.parameterobject;
 /**
  * Simple context interface for pass values across commands.
  */
-public interface GenericParameterObject extends ParameterObject {
+public interface GenericParameterObject  {
 
     /**
      * Returns the object of the given key.
