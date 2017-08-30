@@ -61,12 +61,5 @@ public abstract class AbstractDefaultChainCommand<T extends Object> implements C
         return result;
     }
     
-    /*
-     * (non-Javadoc)
-     * @see org.mwolff.commons.command.iface.ChainCommand#executeOnly(Object)
-     */
-    @Override
-    public void executeOnly(final T context) {
-    }
-    
+  
 }

@@ -47,12 +47,7 @@ public class SimpleTestCommand<T extends GenericParameterObject> extends Abstrac
         context.put("priority", priorString);
     }
 
-    @Override
-    public void executeOnly(T context) {
-        context.put("key", "newValue");
-    }
-
-    @Override
+   @Override
     public boolean executeAsChain(final T context) {
         super.executeAsChain(context);
         if (context == DefaultParameterObject.NULLCONTEXT) {

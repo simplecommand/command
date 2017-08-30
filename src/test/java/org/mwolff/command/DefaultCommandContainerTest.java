@@ -95,7 +95,7 @@ public class DefaultCommandContainerTest {
     @Test
     public void testExecuteOnlyOnContainer() throws Exception {
         final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrder();
-        commandContainer.executeOnly(context);
+        commandContainer.execute(context);
         final String priorString = context.getAsString("priority");
         Assert.assertEquals("1-2-3-", priorString);
     }

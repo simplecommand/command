@@ -54,7 +54,7 @@ public class InjectionChainBuilderTest {
         final GenericParameterObject context = new DefaultParameterObject();
         context.put("key", "value");
         final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
-        builder.executeOnly(context);
+        builder.execute(context);
         Assert.assertEquals("value", context.getAsString("key"));
     }
 

@@ -64,11 +64,4 @@ public class AbstractDefaultChainCommandTest {
         exceptionCommand.execute(defaultContext);
     }
     
-    @Test
-    public void executeOnlyTest() throws Exception {
-        final ExceptionCommand<GenericParameterObject> exceptionCommand = new ExceptionCommand<>();
-        final GenericParameterObject defaultContext = new DefaultParameterObject();
-        exceptionCommand.executeOnly(defaultContext);
-    }
-
 }

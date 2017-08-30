@@ -96,18 +96,6 @@ public class DefaultCommandContainer<T extends Object> implements CommandContain
 
     /*
      * @see
-     * org.mwolff.commons.command.iface.Command#executeOnly(org.mwolff.commons.
-     * command.iface.Object)
-     */
-    @Override
-    public void executeOnly(T context) {
-        for (final Command<T> command : commandList.values()) {
-            ((ChainCommand<T>) command).executeOnly(context);
-        }
-    }
-
-    /*
-     * @see
      * org.mwolff.commons.command.iface.ChainCommand#executeAsChain(org.mwolff.
      * commons.command.iface.Object)
      */

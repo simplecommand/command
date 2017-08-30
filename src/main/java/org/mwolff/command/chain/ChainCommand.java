@@ -25,7 +25,6 @@
  */
 package org.mwolff.command.chain;
 
-import org.apache.log4j.Logger;
 import org.mwolff.command.Command;
 
 /**
@@ -39,7 +38,6 @@ import org.mwolff.command.Command;
  */
 public interface ChainCommand<T extends Object> extends Command<T> {
 
-    final Logger LOG = Logger.getLogger(ChainCommand.class);
 
     /**
      * Executes a command as a chain. Best way to execute a command chain is to
@@ -52,15 +50,4 @@ public interface ChainCommand<T extends Object> extends Command<T> {
      *         if the next command should overtake.
      */
     boolean executeAsChain(T parameterObject);
-    
-    /**
-     * Executes the command as a chain straight forward (no error handling).
-     * 
-     * @param parameterObject The parameter object to pass.
-     * 
-     * @since 1.3.0
-     */
-    default void executeOnly(T parameterObject) {
-    }
-
 }

@@ -107,13 +107,4 @@ public class InjectionChainBuilder<T extends Object> implements ChainBuilder<T> 
     public void setProcessID(final String processID) {
         throw new IllegalArgumentException("ProcessID cannot be set on Container.");
     }
-
-    /*
-     * (non-Javadoc)
-     * @see org.mwolff.commons.command.iface.Command#executeOnly(Object)
-     */
-    @Override
-    public void executeOnly(T context) {
-    }
-
 }

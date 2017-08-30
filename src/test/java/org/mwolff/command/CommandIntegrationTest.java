@@ -162,17 +162,4 @@ public class CommandIntegrationTest {
         container.addCommand(new PriorityTwoTestCommand<>());
         container.execute(DefaultParameterObject.NULLCONTEXT);
     }
-
-    /*
-     * Test the executeOnly strategy.
-     */
-    @Test
-    public void testExecuteOnly() throws Exception {
-
-        final GenericParameterObject context = new DefaultParameterObject();
-        final SimpleTestCommand<GenericParameterObject> simpleTestCommand = new SimpleTestCommand<>();
-        context.put("key", "value");
-        simpleTestCommand.executeOnly(context);
-        Assert.assertEquals("newValue", context.getAsString("key"));
-    }
 }

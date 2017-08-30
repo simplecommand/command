@@ -64,10 +64,6 @@ public class ProcessTestCommandEnd<T extends GenericParameterObject> extends Abs
     }
 
     @Override
-    public void executeOnly(T context) {
-    }
-
-    @Override
     public boolean executeAsChain(T parameterObject) {
         LOG.error("nothing to do");
         return false;

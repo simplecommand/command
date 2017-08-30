@@ -63,11 +63,7 @@ public class ProcessTestCommandStart<T extends GenericParameterObject> extends A
         return "OK";
     }
 
-    @Override
-    public void executeOnly(T context) {
-    }
-
-    @Override
+     @Override
     public boolean executeAsChain(T parameterObject) {
         LOG.error("nothing to do");
         return false;

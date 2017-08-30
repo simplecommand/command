@@ -50,21 +50,11 @@ public class ProcessCommandTest {
     }
 
     @Test
-    public void testExecuteOnlyStart() throws Exception {
-        final ProcessTestCommandStart<GenericParameterObject> processTestStartCommand = new ProcessTestCommandStart<>(
-                "Start");
-        final GenericParameterObject context = new DefaultParameterObject();
-        context.put("key", "value");
-        processTestStartCommand.executeOnly(context);
-        Assert.assertEquals("value", context.getAsString("key"));
-    }
-
-    @Test
     public void testExecuteOnlyEnd() throws Exception {
         final DefaultEndCommand<GenericParameterObject> processTestStartCommand = new DefaultEndCommand<>();
         final GenericParameterObject context = new DefaultParameterObject();
         context.put("key", "value");
-        processTestStartCommand.executeOnly(context);
+        processTestStartCommand.execute(context);
         Assert.assertEquals("value", context.getAsString("key"));
     }
 
@@ -101,10 +91,6 @@ public class ProcessCommandTest {
 
             @Override
             public void setProcessID(final String processID) {
-            }
-
-            @Override
-            public void executeOnly(Object context) {
             }
 
             @Override

@@ -63,10 +63,4 @@ public class PriorityThreeTestCommand<T extends GenericParameterObject> implemen
     @Override
     public void setProcessID(final String processID) {
     }
-
-    @Override
-    public void executeOnly(T context) {
-        execute(context);
-    }
-
 }

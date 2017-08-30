@@ -69,10 +69,4 @@ public class PriorityTwoTestCommand<T extends GenericParameterObject> implements
     @Override
     public void setProcessID(final String processID) {
     }
-
-    @Override
-    public void executeOnly(T context) {
-        execute(context);
-    }
-
 }

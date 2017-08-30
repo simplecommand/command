@@ -260,9 +260,4 @@ public class XMLChainBuilder<T extends Object> implements ChainBuilder<T> {
             command.addTransition(transitionClass);
         }
     }
-
-    @Override
-    public void executeOnly(T context) {
-    }
-
 }
