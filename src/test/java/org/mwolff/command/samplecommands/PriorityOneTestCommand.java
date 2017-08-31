@@ -24,25 +24,51 @@
     USA
  */
 
-package org.mwolff.commons.command.samplecommands;
+package org.mwolff.command.samplecommands;
 
-import org.mwolff.command.Command;
+import org.mwolff.command.chain.ChainCommand;
+import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
+import org.mwolff.command.process.ProcessCommand;
 
-public class VerySimpleTestCommand<T extends GenericParameterObject> implements Command<T> {
+public class PriorityOneTestCommand<T extends GenericParameterObject> implements ChainCommand<T>, ProcessCommand<T> {
 
-    /*
-     * @see de.mwolff.commons.command.Command#execute()
-     */
     @Override
     public void execute(final T context) {
-        context.put("SimpleTestCommand", "SimpleTestCommand");
+        if (context != DefaultParameterObject.NULLCONTEXT) {
+            context.put("PriorityOneTestCommand", "PriorityOneTestCommand");
+            String priorString = context.getAsString("priority");
+            if ("NullObject".equals(priorString)) {
+                priorString = "";
+            }
+            priorString += "1-";
+            context.put("priority", priorString);
+        }
+    }
+
+    @Override
+    public boolean executeAsChain(final T context) {
         String priorString = context.getAsString("priority");
         if ("NullObject".equals(priorString)) {
             priorString = "";
         }
-        priorString += "S-";
+        priorString += "A-";
         context.put("priority", priorString);
+        return true;
     }
 
+    @Override
+    public String executeAsProcess(final String startCommand, final T context) {
+        return null;
+    }
+
+    @Override
+    public String getProcessID() {
+        return null;
+    }
+
+    @Override
+    public void setProcessID(final String processID) {
+
+    }
 }

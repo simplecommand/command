@@ -23,26 +23,26 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.command.parameterobject;
+package org.mwolff.command.samplecommands;
 
-import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+
 import org.junit.Test;
+import org.mwolff.command.chain.XMLChainBuilder;
+import org.mwolff.command.parameterobject.DefaultParameterObject;
 
-public class DefaultParameterObjectTest {
+public class ProcessTestCommandEndTest {
 
-    @Test
-    public void getStandardContextTest() throws Exception {
+        @Test
+    public void testEndCommand() throws Exception {
+        final XMLChainBuilder<Object> xmlChainBuilder = new XMLChainBuilder<>(
+                "/commandChainEnd.xml");
+        final DefaultParameterObject context = new DefaultParameterObject();
+        final String result = xmlChainBuilder.executeAsProcess("END", context);
+        assertNull(result);
+        String contextResult = context.getAsString("result");
+        assertThat(contextResult, is("END - "));
 
-        final GenericParameterObject context = DefaultParameterObject.getStandardContext();
-        Assert.assertNotNull(context);
-    }
-
-    @Test
-    public void getStandardContextWithValueTest() throws Exception {
-
-        final GenericParameterObject context = DefaultParameterObject.getStandardContext("file.list", "filelist");
-        final String value = context.getAsString("file.list");
-        Assert.assertThat(value, CoreMatchers.is("filelist"));
     }
 }

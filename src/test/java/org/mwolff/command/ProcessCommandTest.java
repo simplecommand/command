@@ -35,7 +35,7 @@ import org.mwolff.command.process.DefaultEndCommand;
 import org.mwolff.command.process.DefaultTransition;
 import org.mwolff.command.process.ProcessCommand;
 import org.mwolff.command.process.Transition;
-import org.mwolff.commons.command.samplecommands.ProcessTestCommandStart;
+import org.mwolff.command.samplecommands.ProcessTestCommandStart;
 
 public class ProcessCommandTest {
 

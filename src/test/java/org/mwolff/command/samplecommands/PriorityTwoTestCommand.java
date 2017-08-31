@@ -24,24 +24,24 @@
     USA
  */
 
-package org.mwolff.commons.command.samplecommands;
+package org.mwolff.command.samplecommands;
 
 import org.mwolff.command.chain.ChainCommand;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.ProcessCommand;
 
-public class PriorityOneTestCommand<T extends GenericParameterObject> implements ChainCommand<T>, ProcessCommand<T> {
+public class PriorityTwoTestCommand<T extends GenericParameterObject> implements ChainCommand<T>, ProcessCommand<T> {
 
     @Override
     public void execute(final T context) {
         if (context != DefaultParameterObject.NULLCONTEXT) {
-            context.put("PriorityOneTestCommand", "PriorityOneTestCommand");
+            context.put("PriorityTwoTestCommand", "PriorityTwoTestCommand");
             String priorString = context.getAsString("priority");
             if ("NullObject".equals(priorString)) {
                 priorString = "";
             }
-            priorString += "1-";
+            priorString += "2-";
             context.put("priority", priorString);
         }
     }
@@ -52,7 +52,7 @@ public class PriorityOneTestCommand<T extends GenericParameterObject> implements
         if ("NullObject".equals(priorString)) {
             priorString = "";
         }
-        priorString += "A-";
+        priorString += "B-";
         context.put("priority", priorString);
         return true;
     }
@@ -69,6 +69,5 @@ public class PriorityOneTestCommand<T extends GenericParameterObject> implements
 
     @Override
     public void setProcessID(final String processID) {
-
     }
 }

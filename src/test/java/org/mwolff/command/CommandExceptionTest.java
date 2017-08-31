@@ -29,7 +29,6 @@ package org.mwolff.command;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
-import org.mwolff.command.CommandException;
 
 public class CommandExceptionTest {
 
