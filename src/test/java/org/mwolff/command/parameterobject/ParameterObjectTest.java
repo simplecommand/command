@@ -28,8 +28,6 @@ package org.mwolff.command.parameterobject;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mwolff.command.parameterobject.DefaultParameterObject;
-import org.mwolff.command.parameterobject.GenericParameterObject;
 
 public class ParameterObjectTest {
 

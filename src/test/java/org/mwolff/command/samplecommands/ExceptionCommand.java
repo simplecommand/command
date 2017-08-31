@@ -24,50 +24,19 @@
     USA
  */
 
-package org.mwolff.commons.command.samplecommands;
+package org.mwolff.command.samplecommands;
 
-import org.apache.log4j.Logger;
+import org.mwolff.command.Command;
 import org.mwolff.command.CommandException;
+import org.mwolff.command.chain.AbstractDefaultChainCommand;
 import org.mwolff.command.parameterobject.GenericParameterObject;
-import org.mwolff.command.process.AbstractDefaultProcessCommand;
-import org.mwolff.command.process.DefaultEndCommand;
 
-public class ProcessTestCommandEnd<T extends GenericParameterObject> extends AbstractDefaultProcessCommand<T> {
-
-    private static final Logger LOG = Logger.getLogger(ProcessTestCommandEnd.class);
-
-    public ProcessTestCommandEnd() {
-        super();
-    }
-
-    public ProcessTestCommandEnd(final String processID) {
-        super(processID);
-    }
+public class ExceptionCommand<T extends GenericParameterObject> extends AbstractDefaultChainCommand<T>
+        implements Command<T> {
 
     @Override
     public void execute(final T context) throws CommandException {
-        String result = context.getAsString("result");
-        if ((result == null) || ("NullObject".equals(result))) {
-            result = "";
-        }
-        result += processID + " - ";
-        context.put("result", result);
+        context.put("executed", "true");
+        throw new CommandException("Method is not implemented yet.");
     }
-
-    @Override
-    public String executeAsProcess(final T context) {
-        try {
-            execute(context);
-        } catch (final CommandException e) {
-            ProcessTestCommandEnd.LOG.error(e);
-        }
-        return null;
-    }
-
-    @Override
-    public boolean executeAsChain(T parameterObject) {
-        LOG.error("nothing to do");
-        return false;
-    }
-
 }

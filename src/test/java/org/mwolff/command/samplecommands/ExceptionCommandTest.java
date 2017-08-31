@@ -24,7 +24,7 @@
     USA
  */
 
-package org.mwolff.commons.command.samplecommands;
+package org.mwolff.command.samplecommands;
 
 import org.hamcrest.Matchers;
 import org.junit.Assert;

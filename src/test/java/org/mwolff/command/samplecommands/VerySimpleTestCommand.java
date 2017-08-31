@@ -23,26 +23,26 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.commons.command.samplecommands;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+package org.mwolff.command.samplecommands;
 
-import org.junit.Test;
-import org.mwolff.command.chain.XMLChainBuilder;
-import org.mwolff.command.parameterobject.DefaultParameterObject;
+import org.mwolff.command.Command;
+import org.mwolff.command.parameterobject.GenericParameterObject;
 
-public class ProcessTestCommandEndTest {
+public class VerySimpleTestCommand<T extends GenericParameterObject> implements Command<T> {
 
-        @Test
-    public void testEndCommand() throws Exception {
-        final XMLChainBuilder<Object> xmlChainBuilder = new XMLChainBuilder<>(
-                "/commandChainEnd.xml");
-        final DefaultParameterObject context = new DefaultParameterObject();
-        final String result = xmlChainBuilder.executeAsProcess("END", context);
-        assertNull(result);
-        String contextResult = context.getAsString("result");
-        assertThat(contextResult, is("END - "));
-
+    /*
+     * @see de.mwolff.commons.command.Command#execute()
+     */
+    @Override
+    public void execute(final T context) {
+        context.put("SimpleTestCommand", "SimpleTestCommand");
+        String priorString = context.getAsString("priority");
+        if ("NullObject".equals(priorString)) {
+            priorString = "";
+        }
+        priorString += "S-";
+        context.put("priority", priorString);
     }
+
 }

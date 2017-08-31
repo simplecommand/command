@@ -30,15 +30,14 @@ import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mwolff.command.Command;
 import org.mwolff.command.chain.ChainCommand;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
-import org.mwolff.commons.command.samplecommands.ExceptionCommand;
-import org.mwolff.commons.command.samplecommands.PriorityOneTestCommand;
-import org.mwolff.commons.command.samplecommands.PriorityThreeTestCommand;
-import org.mwolff.commons.command.samplecommands.PriorityTwoTestCommand;
-import org.mwolff.commons.command.samplecommands.SimpleTestCommand;
+import org.mwolff.command.samplecommands.ExceptionCommand;
+import org.mwolff.command.samplecommands.PriorityOneTestCommand;
+import org.mwolff.command.samplecommands.PriorityThreeTestCommand;
+import org.mwolff.command.samplecommands.PriorityTwoTestCommand;
+import org.mwolff.command.samplecommands.SimpleTestCommand;
 
 public class CommandTest {
 

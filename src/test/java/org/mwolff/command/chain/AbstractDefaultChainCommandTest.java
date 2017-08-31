@@ -26,8 +26,6 @@
 
 package org.mwolff.command.chain;
 
-import static org.junit.Assert.*;
-
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -36,8 +34,8 @@ import org.junit.rules.ExpectedException;
 import org.mwolff.command.CommandException;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
-import org.mwolff.commons.command.samplecommands.ExceptionCommand;
-import org.mwolff.commons.command.samplecommands.SimpleTestCommand;
+import org.mwolff.command.samplecommands.ExceptionCommand;
+import org.mwolff.command.samplecommands.SimpleTestCommand;
 
 public class AbstractDefaultChainCommandTest {
 
