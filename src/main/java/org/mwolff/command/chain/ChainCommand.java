@@ -39,16 +39,16 @@ import org.mwolff.command.Command;
  */
 public interface ChainCommand<T extends Object> extends Command<T> {
 
-
     /**
      * Executes a command as a chain. Best way to execute a command chain is to
      * execute it as a chain because exceptions are automatically handled. An
-     * other way is to use the <code>executeOnly</code> method.
+     * other way is to use the <code>execute</code> method.
      *
      * @param parameterObject
      *            The parameter object to pass
-     * @return False if there is an error or the whole task is completed. True
-     *         if the next command should overtake.
+     * @return True if the next command should overtake. False if the chain
+     *         should be aborted. This can be because the issue is resolved or
+     *         it is not possible to resolve the issue at all.
      */
     boolean executeAsChain(T parameterObject);
 }
