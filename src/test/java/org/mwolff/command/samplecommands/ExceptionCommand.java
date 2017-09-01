@@ -28,6 +28,7 @@ package org.mwolff.command.samplecommands;
 
 import org.mwolff.command.Command;
 import org.mwolff.command.CommandException;
+import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.chain.AbstractDefaultChainCommand;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
@@ -35,8 +36,19 @@ public class ExceptionCommand<T extends GenericParameterObject> extends Abstract
         implements Command<T> {
 
     @Override
-    public void execute(final T context) throws CommandException {
-        context.put("executed", "true");
+    public void execute(final T parameterObject) throws CommandException {
+        parameterObject.put("executed", "true");
         throw new CommandException("Method is not implemented yet.");
+    }
+
+    @Override
+    public CommandTransition executeCommand(T parameterObject) {
+        parameterObject.put("executed", "true");
+        return CommandTransition.FAILURE;
+    }
+
+    @Override
+    public CommandTransition executeCommandAsChain(T parameterObject) {
+        return null;
     }
 }

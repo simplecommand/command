@@ -31,12 +31,12 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hamcrest.core.IsNull;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mwolff.command.Command;
+import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.DefaultTransition;
@@ -95,6 +95,7 @@ public class InjectionChainBuilderTest {
         final List<Command<GenericParameterObject>> commandList = new ArrayList<>();
         final GenericParameterObject context = new DefaultParameterObject();
         Command<GenericParameterObject> command = new PriorityOneTestCommand<>();
+        context.put("priority", "");
         commandList.add(command);
         command = new PriorityTwoTestCommand<>();
         commandList.add(command);
@@ -119,6 +120,13 @@ public class InjectionChainBuilderTest {
     }
 
     @Test
+    public void testExecuteCommand() throws Exception {
+        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
+        CommandTransition result = builder.executeCommand(DefaultParameterObject.NULLCONTEXT);
+        Assert.assertEquals(result,CommandTransition.SUCCESS);
+    }
+
+    @Test
     public void testSpringChainBuilder() throws Exception {
         final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
         final List<Command<GenericParameterObject>> commandList = new ArrayList<>();
@@ -128,5 +136,17 @@ public class InjectionChainBuilderTest {
         builder.setCommands(commandList);
         final boolean result = builder.executeAsChain(context);
         Assert.assertFalse(result);
+    }
+    
+    @Test
+    public void testSpringCommandChainBuilder() throws Exception {
+        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
+        final List<Command<GenericParameterObject>> commandList = new ArrayList<>();
+        final GenericParameterObject context = new DefaultParameterObject();
+        final Command<GenericParameterObject> command = new ExceptionCommand<>();
+        commandList.add(command);
+        builder.setCommands(commandList);
+        final CommandTransition result = builder.executeCommandAsChain(context);
+        assertNull(result);
     }
 }

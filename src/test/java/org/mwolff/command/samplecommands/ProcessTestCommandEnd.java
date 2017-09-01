@@ -28,6 +28,7 @@ package org.mwolff.command.samplecommands;
 
 import org.apache.log4j.Logger;
 import org.mwolff.command.CommandException;
+import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.AbstractDefaultProcessCommand;
 
@@ -54,6 +55,16 @@ public class ProcessTestCommandEnd<T extends GenericParameterObject> extends Abs
     }
 
     @Override
+    public CommandTransition executeCommand(T parameterObject) {
+        try {
+            execute(parameterObject);
+        } catch (CommandException e) {
+            return CommandTransition.FAILURE;
+        }
+        return CommandTransition.SUCCESS;
+    }
+
+    @Override
     public String executeAsProcess(final T context) {
         try {
             execute(context);
@@ -71,8 +82,12 @@ public class ProcessTestCommandEnd<T extends GenericParameterObject> extends Abs
 
     @Override
     public String executeAsProcess(String startCommand, T context) {
-        // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
+    public CommandTransition executeCommandAsChain(T parameterObject) {
+        boolean result = executeAsChain(parameterObject);
+        return (result == true) ? CommandTransition.SUCCESS : CommandTransition.ABORT;
+    }
 }

@@ -26,10 +26,12 @@
 
 package org.mwolff.command.samplecommands;
 
+import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.chain.ChainCommand;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.ProcessCommand;
+import org.springframework.util.StringUtils;
 
 public class PriorityTwoTestCommand<T extends GenericParameterObject> implements ChainCommand<T>, ProcessCommand<T> {
 
@@ -38,20 +40,25 @@ public class PriorityTwoTestCommand<T extends GenericParameterObject> implements
         if (context != DefaultParameterObject.NULLCONTEXT) {
             context.put("PriorityTwoTestCommand", "PriorityTwoTestCommand");
             String priorString = context.getAsString("priority");
-            if ("NullObject".equals(priorString)) {
+            if (StringUtils.isEmpty(priorString)) {
                 priorString = "";
             }
             priorString += "2-";
             context.put("priority", priorString);
         }
     }
+    
+    @Override
+    public CommandTransition executeCommand(T parameterObject) {
+        execute(parameterObject);
+        return CommandTransition.SUCCESS;
+    }
+
 
     @Override
     public boolean executeAsChain(final T context) {
         String priorString = context.getAsString("priority");
-        if ("NullObject".equals(priorString)) {
-            priorString = "";
-        }
+        if (StringUtils.isEmpty(priorString)) priorString = "";
         priorString += "B-";
         context.put("priority", priorString);
         return true;
@@ -73,7 +80,13 @@ public class PriorityTwoTestCommand<T extends GenericParameterObject> implements
 
     @Override
     public String executeAsProcess(T context) {
-        // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public CommandTransition executeCommandAsChain(T parameterObject) {
+        boolean result = executeAsChain(parameterObject);
+        return (result == true) ? CommandTransition.SUCCESS : CommandTransition.ABORT;
+    }
+
 }

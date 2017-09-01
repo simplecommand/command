@@ -26,10 +26,14 @@
 
 package org.mwolff.command;
 
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.chain.ChainCommand;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
@@ -44,6 +48,52 @@ public class CommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    @Test
+    public void testInterfaceDefaultExecuteCommand() {
+        
+        final GenericParameterObject context = new DefaultParameterObject();
+        final Command<GenericParameterObject> command = new Command<GenericParameterObject>() {
+
+            @Override
+            public void execute(GenericParameterObject parameterObject) throws CommandException {
+                throw new UnsupportedOperationException("Use executeCommand() instead");
+            }
+            
+            @Override
+            public CommandTransition executeCommand(GenericParameterObject parameterObject) {
+                return Command.super.executeCommand(parameterObject);
+            }
+
+        };
+        
+        CommandTransition transition = command.executeCommand(context);
+        assertThat(transition, is(CommandTransition.SUCCESS));
+    }
+    
+    @SuppressWarnings("deprecation")
+    @Test
+    public void testInterfaceDefaultExecute() throws Exception {
+        
+        final GenericParameterObject context = new DefaultParameterObject();
+        final Command<GenericParameterObject> command = new Command<GenericParameterObject>() {
+
+            @Override
+            public void execute(GenericParameterObject parameterObject) throws CommandException {
+                throw new UnsupportedOperationException("Use executeCommand() instead");
+            }
+            
+            @Override
+            public CommandTransition executeCommand(GenericParameterObject parameterObject) {
+                return Command.super.executeCommand(parameterObject);
+            }
+
+        };
+        
+        thrown.expect(UnsupportedOperationException.class);
+        thrown.expectMessage("Use executeCommand() instead");
+        command.execute(context);
+    }
+ 
     @Test
     public void testCommandInterface() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();

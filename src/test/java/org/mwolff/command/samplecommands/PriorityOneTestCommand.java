@@ -26,10 +26,12 @@
 
 package org.mwolff.command.samplecommands;
 
+import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.chain.ChainCommand;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.ProcessCommand;
+import org.springframework.util.StringUtils;
 
 public class PriorityOneTestCommand<T extends GenericParameterObject> implements ChainCommand<T>, ProcessCommand<T> {
 
@@ -38,7 +40,7 @@ public class PriorityOneTestCommand<T extends GenericParameterObject> implements
         if (context != DefaultParameterObject.NULLCONTEXT) {
             context.put("PriorityOneTestCommand", "PriorityOneTestCommand");
             String priorString = context.getAsString("priority");
-            if ("NullObject".equals(priorString)) {
+            if (StringUtils.isEmpty(priorString)) {
                 priorString = "";
             }
             priorString += "1-";
@@ -47,15 +49,34 @@ public class PriorityOneTestCommand<T extends GenericParameterObject> implements
     }
 
     @Override
+    public CommandTransition executeCommand(final T context) {
+        execute(context);
+        return CommandTransition.SUCCESS;
+    }
+
+    @Override
     public boolean executeAsChain(final T context) {
         String priorString = context.getAsString("priority");
-        if ("NullObject".equals(priorString)) {
+        if (StringUtils.isEmpty(priorString)) {
             priorString = "";
         }
         priorString += "A-";
         context.put("priority", priorString);
-        return true;
+        return false;
     }
+    
+    @Override
+    public CommandTransition executeCommandAsChain(T parameterObject) {
+        boolean result = executeAsChain(parameterObject);
+        return (result == true) ? CommandTransition.SUCCESS : CommandTransition.ABORT;
+    }
+
+    
+    @Override
+    public String executeAsProcess(T context) {
+        return null;
+    }
+
 
     @Override
     public String executeAsProcess(final String startCommand, final T context) {
@@ -69,12 +90,8 @@ public class PriorityOneTestCommand<T extends GenericParameterObject> implements
 
     @Override
     public void setProcessID(final String processID) {
-
     }
 
-    @Override
-    public String executeAsProcess(T context) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+
+
 }

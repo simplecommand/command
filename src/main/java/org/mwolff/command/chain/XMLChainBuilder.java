@@ -40,6 +40,7 @@ import org.dom4j.io.SAXReader;
 import org.mwolff.command.Command;
 import org.mwolff.command.CommandContainer;
 import org.mwolff.command.CommandException;
+import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.DefaultCommandContainer;
 import org.mwolff.command.process.DefaultTransition;
 import org.mwolff.command.process.ProcessCommand;
@@ -265,5 +266,21 @@ public class XMLChainBuilder<T extends Object> implements ChainBuilder<T> {
     @Override
     public String executeAsProcess(T context) {
         return null;
+    }
+
+    @Override
+    public CommandTransition executeCommand(T parameterObject) {
+        try {
+            execute(parameterObject);
+        } catch (CommandException e) {
+            return CommandTransition.FAILURE;
+        }
+        return CommandTransition.SUCCESS;
+    }
+
+    @Override
+    public CommandTransition executeCommandAsChain(T parameterObject) {
+        boolean result = executeAsChain(parameterObject);
+        return (result == true) ? CommandTransition.SUCCESS : CommandTransition.ABORT;
     }
 }

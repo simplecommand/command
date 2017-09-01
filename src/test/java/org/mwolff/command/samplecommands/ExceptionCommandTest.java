@@ -26,12 +26,14 @@
 
 package org.mwolff.command.samplecommands;
 
-import org.hamcrest.Matchers;
-import org.junit.Assert;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mwolff.command.CommandException;
+import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
@@ -41,12 +43,22 @@ public class ExceptionCommandTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void testExceptionThrowd() throws Exception {
+    public void testExceptionThrow() throws Exception {
         thrown.expect(CommandException.class);
         final GenericParameterObject context = new DefaultParameterObject();
         final ExceptionCommand<GenericParameterObject> exceptionCommand = new ExceptionCommand<>();
         exceptionCommand.execute(context);
         final String value = context.getAsString("executed");
-        Assert.assertThat(value, Matchers.is("true"));
+        assertThat(value, is("true"));
+    }
+
+    @Test
+    public void testFailure() throws Exception {
+        final GenericParameterObject context = new DefaultParameterObject();
+        final ExceptionCommand<GenericParameterObject> exceptionCommand = new ExceptionCommand<>();
+        CommandTransition transition = exceptionCommand.executeCommand(context);
+        final String value = context.getAsString("executed");
+        assertThat(value, is("true"));
+        assertThat(transition, is(CommandTransition.FAILURE));
     }
 }

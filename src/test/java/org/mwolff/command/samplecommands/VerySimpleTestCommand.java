@@ -27,6 +27,7 @@
 package org.mwolff.command.samplecommands;
 
 import org.mwolff.command.Command;
+import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
 public class VerySimpleTestCommand<T extends GenericParameterObject> implements Command<T> {
@@ -45,4 +46,9 @@ public class VerySimpleTestCommand<T extends GenericParameterObject> implements 
         context.put("priority", priorString);
     }
 
+    @Override
+    public CommandTransition executeCommand(T parameterObject) {
+        execute(parameterObject);
+        return CommandTransition.SUCCESS;
+    }
 }

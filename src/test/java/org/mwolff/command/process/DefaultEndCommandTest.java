@@ -28,10 +28,8 @@ package org.mwolff.command.process;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
-import org.hamcrest.core.IsNull;
 import org.junit.Before;
 import org.junit.Test;
-import org.mwolff.command.Command;
 import org.mwolff.command.DefaultCommandContainer;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;

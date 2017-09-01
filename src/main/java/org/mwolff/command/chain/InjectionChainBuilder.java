@@ -32,6 +32,7 @@ import java.util.List;
 import org.mwolff.command.Command;
 import org.mwolff.command.CommandContainer;
 import org.mwolff.command.CommandException;
+import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.DefaultCommandContainer;
 
 /**
@@ -73,6 +74,12 @@ public class InjectionChainBuilder<T extends Object> implements ChainBuilder<T> 
     public boolean executeAsChain(final T context) {
         return buildChain().executeAsChain(context);
     }
+    
+    @Override
+    public CommandTransition executeCommandAsChain(T parameterObject) {
+        return buildChain().executeCommandAsChain(parameterObject);
+    }
+
 
     /*
      * (non-Javadoc)
@@ -113,5 +120,15 @@ public class InjectionChainBuilder<T extends Object> implements ChainBuilder<T> 
     @Override
     public String executeAsProcess(T context) {
         return null;
+    }
+
+    @Override
+    public CommandTransition executeCommand(T parameterObject) {
+        try {
+            execute(parameterObject);
+        } catch (CommandException e) {
+            return CommandTransition.FAILURE;
+        }
+        return CommandTransition.SUCCESS;
     }
 }
