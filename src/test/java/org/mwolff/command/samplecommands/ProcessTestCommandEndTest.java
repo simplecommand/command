@@ -34,7 +34,7 @@ import org.mwolff.command.parameterobject.DefaultParameterObject;
 
 public class ProcessTestCommandEndTest {
 
-        @Test
+    @Test
     public void testEndCommand() throws Exception {
         final XMLChainBuilder<Object> xmlChainBuilder = new XMLChainBuilder<>(
                 "/commandChainEnd.xml");

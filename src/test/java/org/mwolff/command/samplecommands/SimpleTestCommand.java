@@ -26,6 +26,7 @@
 
 package org.mwolff.command.samplecommands;
 
+import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.chain.AbstractDefaultChainCommand;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
@@ -80,8 +81,19 @@ public class SimpleTestCommand<T extends GenericParameterObject> extends Abstrac
 
     @Override
     public String executeAsProcess(T context) {
-        // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public CommandTransition executeCommand(T parameterObject) {
+        execute(parameterObject);
+        return CommandTransition.SUCCESS;
+    }
+
+    @Override
+    public CommandTransition executeCommandAsChain(T parameterObject) {
+        boolean result = executeAsChain(parameterObject);
+        return (result == true) ? CommandTransition.SUCCESS : CommandTransition.ABORT;
     }
 
 }

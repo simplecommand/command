@@ -26,6 +26,7 @@
 
 package org.mwolff.command.samplecommands;
 
+import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.chain.ChainCommand;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.ProcessCommand;
@@ -42,6 +43,13 @@ public class PriorityThreeTestCommand<T extends GenericParameterObject> implemen
         priorString += "3-";
         context.put("priority", priorString);
     }
+    
+    @Override
+    public CommandTransition executeCommand(T parameterObject) {
+        execute(parameterObject);
+        return CommandTransition.SUCCESS;
+    }
+
 
     @Override
     public boolean executeAsChain(final T context) {
@@ -67,7 +75,13 @@ public class PriorityThreeTestCommand<T extends GenericParameterObject> implemen
 
     @Override
     public String executeAsProcess(T context) {
-        // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public CommandTransition executeCommandAsChain(T parameterObject) {
+        boolean result = executeAsChain(parameterObject);
+        return (result == true) ? CommandTransition.SUCCESS : CommandTransition.ABORT;
+    }
+
 }

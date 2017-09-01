@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
+import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.chain.ChainCommand;
 import org.mwolff.command.process.ProcessCommand;
 
@@ -37,31 +38,22 @@ import org.mwolff.command.process.ProcessCommand;
  * CommandContainer that holds Command-objects. Should have the same behavior as
  * a command (Composite Pattern).
  * 
- * @author Manfred Wolff 
+ * @author Manfred Wolff
  */
 public class DefaultCommandContainer<T extends Object> implements CommandContainer<T> {
 
     private static final Logger            LOG         = Logger.getLogger(DefaultCommandContainer.class);
 
     private final Map<Integer, Command<T>> commandList = new TreeMap<>((final Integer o1, final Integer o2) -> {
-                                                           // First wins if
-                                                           // there are two
-                                                           // commands with the
-                                                           // same priority
                                                            if (o1.intValue() >= o2.intValue()) {
                                                                return 1;
                                                            } else {
                                                                return -1;
-                                                           }                                                    // returning
-                                                                                                                // would
-                                                                                                                // merge
-                                                                                                                // keys
+                                                           }
                                                        });
 
-    /*
-     * @see
-     * org.mwolff.commons.command.iface.CommandContainer#addCommand(org.mwolff.
-     * commons.command.iface.Command)
+   /**
+     * @see org.mwolff.command.CommandContainer#addCommand(org.mwolff.command.Command)
      */
     @Override
     public CommandContainer<T> addCommand(final Command<T> command) {
@@ -69,9 +61,9 @@ public class DefaultCommandContainer<T extends Object> implements CommandContain
         return this;
     }
 
-    /*
-     * @see org.mwolff.commons.command.iface.CommandContainer#addCommand(int,
-     * org.mwolff.commons.command.iface.Command)
+    /**
+     * @see org.mwolff.command.CommandContainer#addCommand(int,
+     *      org.mwolff.command.Command)
      */
     @Override
     public CommandContainer<T> addCommand(final int priority, final Command<T> command) {
@@ -79,26 +71,26 @@ public class DefaultCommandContainer<T extends Object> implements CommandContain
         return this;
     }
 
-    /*
-     * @see org.mwolff.commons.command.iface.Command#execute(org.mwolff.commons.
-     * command.iface.Object)
+    /**
+     * Executes the whole command chain. If one command throws an exception the
+     * whole execution is aborted.
      */
+    @SuppressWarnings("deprecation")
     @Override
     public void execute(final T context) throws CommandException {
         for (final Command<T> command : commandList.values()) {
             try {
                 command.execute(context);
             } catch (final Exception exception) {
-                // Just log, do nothing else
+                // Just log, do nothing else.
                 DefaultCommandContainer.LOG.error("Error while executing chain.", exception);
             }
         }
     }
 
-    /*
-     * @see
-     * org.mwolff.commons.command.iface.ChainCommand#executeAsChain(org.mwolff.
-     * commons.command.iface.Object)
+    /**
+     * Executes the commands as a chain. If one command returns false the chain
+     * will be aborted.
      */
     @Override
     public boolean executeAsChain(final T context) {
@@ -111,11 +103,23 @@ public class DefaultCommandContainer<T extends Object> implements CommandContain
         }
         return result;
     }
+    
+    @Override
+    public CommandTransition executeCommandAsChain(T parameterObject) {
+        CommandTransition result = CommandTransition.SUCCESS;
+        for (final Command<T> command : commandList.values()) {
+            result = ((ChainCommand<T>) command).executeCommandAsChain(parameterObject);
+            if ((result == CommandTransition.ABORT) || (result == CommandTransition.FAILURE)) {
+                break;
+            }
+        }
+        return result;
+    }
 
-    /*
-     * @see
-     * org.mwolff.commons.command.iface.ProcessCommand#executeAsProcess(java.
-     * lang.String, org.mwolff.commons.command.iface.Object)
+
+    /**
+     * @see org.mwolff.command.process.ProcessCommand#executeAsProcess(java.lang.String,
+     *      java.lang.Object)
      */
     @Override
     public String executeAsProcess(final String startCommand, final T context) {
@@ -128,10 +132,10 @@ public class DefaultCommandContainer<T extends Object> implements CommandContain
             return null;
         }
 
-        // Special Node ENDE
         String next = ((ProcessCommand<T>) command).executeAsProcess(context);
         DefaultCommandContainer.LOG.info("Returnvalue    = ##> " + next);
-        // Special Node ENDE
+
+        // Special Node END
         if ("END".equals(next)) {
             // do first nothing
         } else {
@@ -179,4 +183,20 @@ public class DefaultCommandContainer<T extends Object> implements CommandContain
     public String executeAsProcess(T context) {
         return null;
     }
+
+    @Override
+    public CommandTransition executeCommand(T parameterObject) {
+        
+        CommandTransition transition = CommandTransition.SUCCESS;
+        
+        for (final Command<T> command : commandList.values()) {
+            transition = command.executeCommand(parameterObject);
+            if (transition.equals(CommandTransition.FAILURE)) {
+                break;
+            }
+        }
+        
+        return transition;
+    }
+
 }

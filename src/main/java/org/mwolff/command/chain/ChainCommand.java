@@ -27,6 +27,7 @@
 package org.mwolff.command.chain;
 
 import org.mwolff.command.Command;
+import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 
 /**
  * ChainCommand interface for the command framework. The behavior of this method
@@ -44,6 +45,7 @@ public interface ChainCommand<T extends Object> extends Command<T> {
      * execute it as a chain because exceptions are automatically handled. An
      * other way is to use the <code>execute</code> method.
      *
+     * @deprecated use executeCommandAsChain instead.
      * @param parameterObject
      *            The parameter object to pass
      * @return True if the next command should overtake. False if the chain
@@ -51,4 +53,6 @@ public interface ChainCommand<T extends Object> extends Command<T> {
      *         it is not possible to resolve the issue at all.
      */
     boolean executeAsChain(T parameterObject);
+    
+    CommandTransition executeCommandAsChain(T parameterObject);
 }

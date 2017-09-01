@@ -31,6 +31,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.DefaultEndCommand;
@@ -51,6 +52,12 @@ public class DefaultCommandContainerTest {
     private GenericParameterObject                   context;
     private CommandContainer<GenericParameterObject> commandContainer;
 
+    @Before
+    public void setUp() {
+        context = new DefaultParameterObject();
+        commandContainer = new DefaultCommandContainer<>();
+    }
+
     /*
      * Creates some Commands in different Order. There are two commands with
      * prio 1!
@@ -61,7 +68,7 @@ public class DefaultCommandContainerTest {
                 .addCommand(1, new PriorityTwoTestCommand<>());
         return commandContainer;
     }
-
+    
     /*
      * Creating three commands with prio 1-2-3 for execution
      */
@@ -72,11 +79,6 @@ public class DefaultCommandContainerTest {
         return commandContainer;
     }
 
-    @Before
-    public void setUp() {
-        context = new DefaultParameterObject();
-        commandContainer = new DefaultCommandContainer<>();
-    }
 
     /*
      * Remark: If there are two commands with the same priority, the first
@@ -86,6 +88,14 @@ public class DefaultCommandContainerTest {
     public void testAddCommandWithPriorityInCommandContainerAndExecute() throws Exception {
         final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrder();
         commandContainer.execute(context);
+        final String priorString = context.getAsString("priority");
+        Assert.assertEquals("1-2-3-", priorString);
+    }
+
+    @Test
+    public void testExecuteCommandSuccess() throws Exception {
+        final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrder();
+        commandContainer.executeCommand(context);
         final String priorString = context.getAsString("priority");
         Assert.assertEquals("1-2-3-", priorString);
     }
@@ -143,6 +153,15 @@ public class DefaultCommandContainerTest {
         commandContainer.execute(context);
         final String priorString = context.getAsString("priority");
         Assert.assertEquals("S-", priorString);
+    }
+
+    @Test
+    public void testChainWithFailure() throws Exception {
+        commandContainer.addCommand(1, new ExceptionCommand<>());
+        commandContainer.addCommand(2, new SimpleTestCommand<>());
+        CommandTransition transition = commandContainer.executeCommand(context);
+        final String priorString = context.getAsString("priority");
+        Assert.assertEquals(CommandTransition.FAILURE, transition);
 
     }
 

@@ -31,12 +31,12 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hamcrest.core.IsNull;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mwolff.command.Command;
+import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.DefaultTransition;
@@ -116,6 +116,13 @@ public class InjectionChainBuilderTest {
         final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
         String result = builder.executeAsProcess(DefaultParameterObject.NULLCONTEXT);
         assertNull(result);
+    }
+
+    @Test
+    public void testExecuteCommand() throws Exception {
+        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
+        CommandTransition result = builder.executeCommand(DefaultParameterObject.NULLCONTEXT);
+        Assert.assertEquals(result,CommandTransition.SUCCESS);
     }
 
     @Test

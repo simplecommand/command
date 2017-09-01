@@ -25,22 +25,46 @@
  */
 package org.mwolff.command;
 
+import org.mwolff.command.CommandTransitionEnum.CommandTransition;
+
 /**
- * Command interface for the command framework. 
+ * Command interface for the command framework.
  * 
  * Commands may act with generic command context. A context actually is a
  * parameter object which passes information along the whole chain.
  *
- * @author Manfred Wolff 
+ * @author Manfred Wolff
  */
-@FunctionalInterface
 public interface Command<T extends Object> {
+
+    /**
+     * Transition for an execute Method. State can be: SUCCESS : Execution was
+     * sucessfully done. The next command can overtake. ABORT : For CoR: The
+     * work ist successfully done, the chain can be aborted. FAILURE : An fatal
+     * error has occured. The chain should be aborted
+     * 
+     * @since 1.4.1
+     */
+
+
+    /**
+     * Executes the command. The command can have the result SUCCESS if
+     * everything is fine or FAILURE if an error occurred.
+     * 
+     * @since 1.4.1
+     * @param parameterObject
+     * @return
+     */
+    CommandTransition executeCommand(T parameterObject);
 
     /**
      * Executes the command.
      *
-     * @param parameterObject The parameter object to pass.
-     * @throws CommandException if something happens.
+     * @deprecated use executeCommand instead.
+     * @param parameterObject
+     *            The parameter object to pass.
+     * @throws CommandException
+     *             if something happens.
      */
     void execute(T parameterObject) throws CommandException;
 

@@ -29,6 +29,7 @@ package org.mwolff.command;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.DefaultEndCommand;
@@ -106,6 +107,17 @@ public class ProcessCommandTest {
 
             @Override
             public String executeAsProcess(Object context) {
+                return null;
+            }
+
+            @Override
+            public CommandTransition executeCommand(Object parameterObject) {
+                return null;
+            }
+
+            @Override
+            public CommandTransition executeCommandAsChain(Object parameterObject) {
+                // TODO Auto-generated method stub
                 return null;
             }
 

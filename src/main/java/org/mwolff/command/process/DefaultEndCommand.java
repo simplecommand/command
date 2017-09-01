@@ -28,6 +28,7 @@ package org.mwolff.command.process;
 
 import org.apache.log4j.Logger;
 import org.mwolff.command.CommandException;
+import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
 public class DefaultEndCommand<T extends GenericParameterObject> extends AbstractDefaultProcessCommand<T> {
@@ -53,6 +54,16 @@ public class DefaultEndCommand<T extends GenericParameterObject> extends Abstrac
     public boolean executeAsChain(T parameterObject) {
         DefaultEndCommand.LOG.error("nothing to do");
         return false;
+    }
+
+    @Override
+    public CommandTransition executeCommand(T parameterObject) {
+        return null;
+    }
+
+    @Override
+    public CommandTransition executeCommandAsChain(T parameterObject) {
+        return null;
     }
 
 }
