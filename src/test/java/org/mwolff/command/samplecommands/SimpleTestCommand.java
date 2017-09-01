@@ -78,4 +78,10 @@ public class SimpleTestCommand<T extends GenericParameterObject> extends Abstrac
 
     }
 
+    @Override
+    public String executeAsProcess(T context) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

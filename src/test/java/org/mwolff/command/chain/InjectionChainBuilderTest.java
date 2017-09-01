@@ -26,9 +26,12 @@
 
 package org.mwolff.command.chain;
 
+import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hamcrest.core.IsNull;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -106,6 +109,13 @@ public class InjectionChainBuilderTest {
         thrown.expectMessage("ProcessID cannot be set on Container.");
         final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
         builder.setProcessID("something");
+    }
+    
+    @Test
+    public void testExecuteAsProcess() throws Exception {
+        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
+        String result = builder.executeAsProcess(DefaultParameterObject.NULLCONTEXT);
+        assertNull(result);
     }
 
     @Test

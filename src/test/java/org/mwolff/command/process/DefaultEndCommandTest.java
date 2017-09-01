@@ -28,8 +28,11 @@ package org.mwolff.command.process;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
+import org.hamcrest.core.IsNull;
 import org.junit.Before;
 import org.junit.Test;
+import org.mwolff.command.Command;
+import org.mwolff.command.DefaultCommandContainer;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
@@ -39,7 +42,7 @@ public class DefaultEndCommandTest {
 
     @Before
     public void setUp() {
-        defaultEndCommand = new DefaultEndCommand<>();
+        defaultEndCommand = new DefaultEndCommand<GenericParameterObject>();
     }
     
     @Test
@@ -47,6 +50,14 @@ public class DefaultEndCommandTest {
         assertThat(defaultEndCommand.executeAsProcess(DefaultParameterObject.NULLCONTEXT), is("END"));
     }
 
+    @Test
+    public void testEndCommandInProcessChain() throws Exception {
+        DefaultCommandContainer<GenericParameterObject> defaultCommandContainer = new DefaultCommandContainer<>();
+        defaultEndCommand.setProcessID("END");
+        defaultCommandContainer.addCommand(defaultEndCommand);
+        assertThat(defaultCommandContainer.executeAsProcess("END", DefaultParameterObject.NULLCONTEXT), is("END"));
+    }
+    
     @Test
     public void testExecuteAsProcessComplex() throws Exception {
         assertThat(defaultEndCommand.executeAsProcess("START", DefaultParameterObject.NULLCONTEXT), is("END"));

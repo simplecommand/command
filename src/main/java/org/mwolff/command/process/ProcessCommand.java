@@ -50,9 +50,7 @@ public interface ProcessCommand<T extends Object> extends ChainCommand<T> {
      * @param context The context to work with.
      * @return The next process step to execute. Null stops the process.
      */
-    default String executeAsProcess(String startCommand, T context) {
-        return null;
-    }
+    String executeAsProcess(String startCommand, T context);
     
     /**
      * Execute a command as a process. The result is the decision which process
@@ -61,9 +59,7 @@ public interface ProcessCommand<T extends Object> extends ChainCommand<T> {
      * @param context The context to work with.
      * @return The next process step to execute. Null stops the process.
      */
-    default String executeAsProcess(T context) {
-        return null;
-    }
+    String executeAsProcess(T context);
 
     /**
      * Finds the next command with the processID next.

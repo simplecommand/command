@@ -80,4 +80,10 @@ public class ProcessTestCommandNext<T extends GenericParameterObject> extends Ab
         return false;
     }
 
+    @Override
+    public String executeAsProcess(String startCommand, T context) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

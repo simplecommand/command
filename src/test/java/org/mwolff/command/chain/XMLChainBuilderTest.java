@@ -26,6 +26,8 @@
 
 package org.mwolff.command.chain;
 
+import static org.junit.Assert.*;
+
 import java.util.List;
 
 import org.hamcrest.CoreMatchers;
@@ -170,6 +172,13 @@ public class XMLChainBuilderTest {
         final String result = xmlChainBuilder.executeAsProcess("Start", context);
         Assert.assertNull(result);
 
+    }
+
+    @Test
+    public void testExecuteAsProcess() throws Exception {
+        final XMLChainBuilder<GenericParameterObject> builder = new XMLChainBuilder<>("/commandChainProcess.xml");
+        String result = builder.executeAsProcess(DefaultParameterObject.NULLCONTEXT);
+        assertNull(result);
     }
 
     @Test

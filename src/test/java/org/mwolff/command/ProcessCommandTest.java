@@ -99,6 +99,16 @@ public class ProcessCommandTest {
                 return false;
             }
 
+            @Override
+            public String executeAsProcess(String startCommand, Object context) {
+                return null;
+            }
+
+            @Override
+            public String executeAsProcess(Object context) {
+                return null;
+            }
+
         };
         Assert.assertNull(pc.executeAsProcess("START", DefaultParameterObject.NULLCONTEXT));
         Assert.assertNull(pc.executeAsProcess(DefaultParameterObject.NULLCONTEXT));

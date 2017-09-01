@@ -71,4 +71,10 @@ public class PriorityOneTestCommand<T extends GenericParameterObject> implements
     public void setProcessID(final String processID) {
 
     }
+
+    @Override
+    public String executeAsProcess(T context) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

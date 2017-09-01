@@ -261,4 +261,9 @@ public class XMLChainBuilder<T extends Object> implements ChainBuilder<T> {
             command.addTransition(transitionClass);
         }
     }
+
+    @Override
+    public String executeAsProcess(T context) {
+        return null;
+    }
 }
