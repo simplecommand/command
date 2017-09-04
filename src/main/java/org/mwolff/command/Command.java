@@ -35,7 +35,6 @@ import org.mwolff.command.CommandTransitionEnum.CommandTransition;
  *
  * @author Manfred Wolff
  */
-@FunctionalInterface
 public interface Command<T extends Object> {
 
     /**

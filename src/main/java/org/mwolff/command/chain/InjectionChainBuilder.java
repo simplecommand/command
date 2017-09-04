@@ -71,21 +71,13 @@ public class InjectionChainBuilder<T extends Object> implements ChainBuilder<T> 
     public boolean executeAsChain(final T context) {
         return buildChain().executeAsChain(context);
     }
-
+    
     /**
      * @see org.mwolff.command.chain.ChainCommand#executeCommandAsChain(java.lang.Object)
      */
     @Override
     public CommandTransition executeCommandAsChain(T parameterObject) {
         return buildChain().executeCommandAsChain(parameterObject);
-    }
-
-    /**
-     * @see org.mwolff.command.Command#executeCommand(java.lang.Object)
-     */
-    @Override
-    public CommandTransition executeCommand(T parameterObject) {
-        return buildChain().executeCommand(parameterObject);
     }
 
     /**
@@ -131,4 +123,13 @@ public class InjectionChainBuilder<T extends Object> implements ChainBuilder<T> 
         return null;
     }
 
+    @Override
+    public CommandTransition executeCommand(T parameterObject) {
+        try {
+            execute(parameterObject);
+        } catch (CommandException e) {
+            return CommandTransition.FAILURE;
+        }
+        return CommandTransition.SUCCESS;
+    }
 }
