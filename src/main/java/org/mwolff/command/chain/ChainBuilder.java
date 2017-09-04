@@ -27,8 +27,6 @@
 package org.mwolff.command.chain;
 
 import org.mwolff.command.Command;
-import org.mwolff.command.CommandContainer;
-import org.mwolff.command.CommandException;
 import org.mwolff.command.process.ProcessCommand;
 
 /**
@@ -42,15 +40,4 @@ import org.mwolff.command.process.ProcessCommand;
  * @author Manfred Wolff
  */
 public interface ChainBuilder<T extends Object> extends Command<T>, ProcessCommand<T>, ChainCommand<T> {
-
-    /**
-     * Factory method to build the chain. The result is a
-     * <code>CommandContainer</code> which can be executed.
-     *
-     * @throws CommandException
-     *             if an error occurs.
-     * @return A <code>CommandContainer</code> that holds all
-     *         <code>Command</code>-Objects.
-     */
-    CommandContainer<T> buildChain() throws CommandException;
 }

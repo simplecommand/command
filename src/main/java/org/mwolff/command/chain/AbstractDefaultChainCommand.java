@@ -38,17 +38,15 @@ public abstract class AbstractDefaultChainCommand<T extends Object> implements C
 
     private static final Logger LOG = Logger.getLogger(AbstractDefaultChainCommand.class);
 
-    /*
-     * (non-Javadoc)
-     * @see org.mwolff.commons.command.iface.Command#execute(Object)
+    /**
+     * @see org.mwolff.command.Command#execute(java.lang.Object)
      */
     @Override
     public abstract void execute(T context) throws CommandException;
 
 
-    /*
-     * (non-Javadoc)
-     * @see org.mwolff.commons.command.iface.ChainCommand#executeAsChain(Object)
+    /**
+     * @see org.mwolff.command.chain.ChainCommand#executeAsChain(java.lang.Object)
      */
     @Override
     public boolean executeAsChain(final T context) {

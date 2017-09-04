@@ -35,6 +35,7 @@ import org.mwolff.command.CommandTransitionEnum.CommandTransition;
  *
  * @author Manfred Wolff
  */
+@FunctionalInterface
 public interface Command<T extends Object> {
 
     /**
@@ -43,7 +44,7 @@ public interface Command<T extends Object> {
      * work ist successfully done, the chain can be aborted. FAILURE : An fatal
      * error has occured. The chain should be aborted
      * 
-     * @since 1.4.1
+     * @since 1.5.0
      */
 
 
@@ -51,11 +52,14 @@ public interface Command<T extends Object> {
      * Executes the command. The command can have the result SUCCESS if
      * everything is fine or FAILURE if an error occurred.
      * 
-     * @since 1.4.1
+     * @since 1.5.0
      * @param parameterObject
      * @return
      */
     default CommandTransition executeCommand(T parameterObject) {
+        if (parameterObject == null) { 
+            return CommandTransition.FAILURE;
+        }
         return CommandTransition.SUCCESS;
     }
 
@@ -68,6 +72,7 @@ public interface Command<T extends Object> {
      * @throws CommandException
      *             if something happens.
      */
+    @Deprecated
     void execute(T parameterObject) throws CommandException;
 
 }

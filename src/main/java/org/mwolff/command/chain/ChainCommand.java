@@ -52,9 +52,18 @@ public interface ChainCommand<T extends Object> extends Command<T> {
      *         should be aborted. This can be because the issue is resolved or
      *         it is not possible to resolve the issue at all.
      */
+    @Deprecated
     boolean executeAsChain(T parameterObject);
     
+    /**
+     * @since 1.5.0
+     * @param parameterObject
+     * @return SUCCESS is the next chain should overtake, ABORT otherwise.
+     */
     default CommandTransition executeCommandAsChain(T parameterObject) {
+        if (parameterObject == null) { 
+            return CommandTransition.FAILURE;
+        }
         return CommandTransition.SUCCESS;
     }
 }

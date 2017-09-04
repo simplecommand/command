@@ -45,8 +45,7 @@ public class InjectionChainBuilder<T extends Object> implements ChainBuilder<T> 
     /**
      * @see org.mwolff.command.chain.ChainBuilder#buildChain()
      */
-    @Override
-    public CommandContainer<T> buildChain() {
+    protected CommandContainer<T> buildChain() {
 
         final CommandContainer<T> commandContainer = new DefaultCommandContainer<>();
         for (final Command<T> command : commands) {

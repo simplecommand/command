@@ -45,6 +45,36 @@ public class ChainCommandTest {
         assertThat(transition, is(CommandTransition.SUCCESS));
     }
 
+    @Test
+    public void testInterfaceDefaultExecuteCommandAsChainFAILED() {
+
+        final GenericParameterObject context = new DefaultParameterObject();
+        final ChainCommand<GenericParameterObject> command = new ChainCommand<GenericParameterObject>() {
+
+            @Override
+            public void execute(GenericParameterObject parameterObject) throws CommandException {
+                throw new UnsupportedOperationException("Use executeCommand() instead");
+            }
+
+            @Override
+            public boolean executeAsChain(GenericParameterObject parameterObject) {
+                return false;
+            }
+            
+            @Override
+            public CommandTransition executeCommandAsChain(GenericParameterObject parameterObject) {
+                return ChainCommand.super.executeCommandAsChain(parameterObject);
+            }
+
+        };
+
+        CommandTransition transition = command.executeCommand(null);
+        assertThat(transition, is(CommandTransition.FAILURE));
+        transition = command.executeCommandAsChain(null);
+        assertThat(transition, is(CommandTransition.FAILURE));
+    }
+
+    
     @SuppressWarnings("deprecation")
     @Test
     public void testInterfaceDefaultExecute() throws Exception {

@@ -49,9 +49,4 @@ public class DefaultEndCommand<T extends GenericParameterObject> extends Abstrac
         return "END";
     }
 
-     @Override
-    public boolean executeAsChain(T parameterObject) {
-        DefaultEndCommand.LOG.error("nothing to do");
-        return false;
-    }
 }

@@ -93,6 +93,29 @@ public class CommandTest {
         thrown.expectMessage("Use executeCommand() instead");
         command.execute(context);
     }
+
+    @SuppressWarnings("deprecation")
+    @Test
+    public void testInterfaceDefaultExecuteWithNoContext() throws Exception {
+        
+        final GenericParameterObject context = new DefaultParameterObject();
+        final Command<GenericParameterObject> command = new Command<GenericParameterObject>() {
+
+            @Override
+            public void execute(GenericParameterObject parameterObject) throws CommandException {
+                throw new UnsupportedOperationException("Use executeCommand() instead");
+            }
+            
+            @Override
+            public CommandTransition executeCommand(GenericParameterObject parameterObject) {
+                return Command.super.executeCommand(parameterObject);
+            }
+
+        };
+        
+        CommandTransition transition = command.executeCommand(null);
+        assertThat(transition, is(CommandTransition.FAILURE));
+    }
  
     @SuppressWarnings("deprecation")
     @Test

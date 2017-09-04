@@ -51,18 +51,16 @@ public abstract class AbstractDefaultProcessCommand<T extends Object> implements
         this.processID = processID;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.mwolff.commons.command.iface.ProcessCommand#addTransition(org.mwolff.commons.command.iface.Transition)
+    /**
+     * @see org.mwolff.command.process.ProcessCommand#addTransition(org.mwolff.command.process.Transition)
      */
     @Override
     public void addTransition(final Transition transition) {
         transitionList.add(transition);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.mwolff.commons.command.iface.ProcessCommand#findNext(java.lang.String)
+    /**
+     * @see org.mwolff.command.process.ProcessCommand#findNext(java.lang.String)
      */
     @Override
     public String findNext(final String next) {
@@ -74,31 +72,37 @@ public abstract class AbstractDefaultProcessCommand<T extends Object> implements
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.mwolff.commons.command.iface.ProcessCommand#getProcessID()
+    /**
+     * @see org.mwolff.command.process.ProcessCommand#getProcessID()
      */
     @Override
     public String getProcessID() {
         return this.processID;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.mwolff.commons.command.iface.ProcessCommand#getTransitionList()
+    /**
+     * @see org.mwolff.command.process.ProcessCommand#getTransitionList()
      */
     @Override
     public List<Transition> getTransitionList() {
         return new ArrayList<>(transitionList);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.mwolff.commons.command.iface.ProcessCommand#setProcessID(java.lang.String)
+
+    /**
+     * @see org.mwolff.command.process.ProcessCommand#setProcessID(java.lang.String)
      */
     @Override
     public void setProcessID(final String processID) {
         this.processID = processID;
+    }
+    
+    /**
+     * @see org.mwolff.command.chain.ChainCommand#executeAsChain(java.lang.Object)
+     */
+    @Override
+    public boolean executeAsChain(T parameterObject) {
+        return false;
     }
 
 }

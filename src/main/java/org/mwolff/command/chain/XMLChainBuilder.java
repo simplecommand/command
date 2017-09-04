@@ -83,8 +83,7 @@ public class XMLChainBuilder<T extends Object> implements ChainBuilder<T> {
     /*
      * @see de.mwolff.commons.command.iface.ChainBuilder#buildChain()
      */
-    @Override
-    public CommandContainer<T> buildChain() throws CommandException {
+    protected CommandContainer<T> buildChain() throws CommandException {
 
         final String resource = xmlFileName;
         final SAXReader reader = new SAXReader();
@@ -273,6 +272,6 @@ public class XMLChainBuilder<T extends Object> implements ChainBuilder<T> {
     @Override
     public CommandTransition executeCommandAsChain(T parameterObject) {
         boolean result = executeAsChain(parameterObject);
-        return (result == true) ? CommandTransition.SUCCESS : CommandTransition.ABORT;
+        return result ? CommandTransition.SUCCESS : CommandTransition.ABORT;
     }
 }
