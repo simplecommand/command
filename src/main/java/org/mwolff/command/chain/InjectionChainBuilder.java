@@ -42,9 +42,8 @@ public class InjectionChainBuilder<T extends Object> implements ChainBuilder<T> 
 
     private List<Command<T>> commands = new ArrayList<>();
 
-    /*
-     * (non-Javadoc)
-     * @see org.mwolff.commons.command.iface.ChainBuilder#buildChain()
+    /**
+     * @see org.mwolff.command.chain.ChainBuilder#buildChain()
      */
     @Override
     public CommandContainer<T> buildChain() {
@@ -56,43 +55,51 @@ public class InjectionChainBuilder<T extends Object> implements ChainBuilder<T> 
         return commandContainer;
     }
 
-
-    /*
-     * (non-Javadoc)
-     * @see org.mwolff.commons.command.iface.Command#execute(Object)
+    /**
+     * @see org.mwolff.command.Command#execute(java.lang.Object)
      */
+    @SuppressWarnings("deprecation")
     @Override
     public void execute(final T context) throws CommandException {
         buildChain().execute(context);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.mwolff.commons.command.iface.ChainCommand#executeAsChain(Object)
+    /**
+     * @see org.mwolff.command.chain.ChainCommand#executeAsChain(java.lang.Object)
      */
+    @SuppressWarnings("deprecation")
     @Override
     public boolean executeAsChain(final T context) {
         return buildChain().executeAsChain(context);
     }
-    
+
+    /**
+     * @see org.mwolff.command.chain.ChainCommand#executeCommandAsChain(java.lang.Object)
+     */
     @Override
     public CommandTransition executeCommandAsChain(T parameterObject) {
         return buildChain().executeCommandAsChain(parameterObject);
     }
 
+    /**
+     * @see org.mwolff.command.Command#executeCommand(java.lang.Object)
+     */
+    @Override
+    public CommandTransition executeCommand(T parameterObject) {
+        return buildChain().executeCommand(parameterObject);
+    }
 
-    /*
-     * (non-Javadoc)
-     * @see org.mwolff.commons.command.iface.ProcessCommand#executeAsProcess(java.lang.String, org.mwolff.commons.command.iface.Object)
+    /**
+     * @see org.mwolff.command.process.ProcessCommand#executeAsProcess(java.lang.String,
+     *      java.lang.Object)
      */
     @Override
     public String executeAsProcess(final String startCommand, final T context) {
         return buildChain().executeAsProcess(startCommand, context);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.mwolff.commons.command.iface.ProcessCommand#getProcessID()
+    /**
+     * @see org.mwolff.command.process.ProcessCommand#getProcessID()
      */
     @Override
     public String getProcessID() {
@@ -101,34 +108,28 @@ public class InjectionChainBuilder<T extends Object> implements ChainBuilder<T> 
 
     /**
      * Sets the list of commands.
-     * @param commands Command to set from the injection framework.
+     * 
+     * @param commands
+     *            Command to set from the injection framework.
      */
     public void setCommands(final List<Command<T>> commands) {
         this.commands = commands;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.mwolff.commons.command.iface.ProcessCommand#setProcessID(java.lang.String)
+    /**
+     * @see org.mwolff.command.process.ProcessCommand#setProcessID(java.lang.String)
      */
     @Override
     public void setProcessID(final String processID) {
         throw new IllegalArgumentException("ProcessID cannot be set on Container.");
     }
 
-
+    /**
+     * @see org.mwolff.command.process.ProcessCommand#executeAsProcess(java.lang.Object)
+     */
     @Override
     public String executeAsProcess(T context) {
         return null;
     }
 
-    @Override
-    public CommandTransition executeCommand(T parameterObject) {
-        try {
-            execute(parameterObject);
-        } catch (CommandException e) {
-            return CommandTransition.FAILURE;
-        }
-        return CommandTransition.SUCCESS;
-    }
 }

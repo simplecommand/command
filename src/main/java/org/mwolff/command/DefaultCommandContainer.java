@@ -92,6 +92,7 @@ public class DefaultCommandContainer<T extends Object> implements CommandContain
      * Executes the commands as a chain. If one command returns false the chain
      * will be aborted.
      */
+    @SuppressWarnings("deprecation")
     @Override
     public boolean executeAsChain(final T context) {
         boolean result = true;

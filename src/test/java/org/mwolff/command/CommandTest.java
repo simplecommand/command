@@ -94,6 +94,7 @@ public class CommandTest {
         command.execute(context);
     }
  
+    @SuppressWarnings("deprecation")
     @Test
     public void testCommandInterface() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
@@ -105,10 +106,12 @@ public class CommandTest {
     @Test
     public void testCommandWithResult() throws Exception {
         final ChainCommand<GenericParameterObject> command = new SimpleTestCommand<>();
+        @SuppressWarnings("deprecation")
         final boolean result = command.executeAsChain(DefaultParameterObject.NULLCONTEXT);
         Assert.assertTrue(result);
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void testDefaultBehaviorWithException() throws Exception {
         final ChainCommand<DefaultParameterObject> command = new ExceptionCommand<>();
@@ -124,6 +127,7 @@ public class CommandTest {
         Assert.assertFalse(defaultCommand.executeAsChain(DefaultParameterObject.NULLCONTEXT));
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void testException() throws Exception {
         final ChainCommand<DefaultParameterObject> command = new ExceptionCommand<>();
@@ -131,6 +135,7 @@ public class CommandTest {
         Assert.assertFalse(command.executeAsChain(context));
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void testPriorityCommands() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
@@ -145,6 +150,7 @@ public class CommandTest {
         Assert.assertEquals("PriorityThreeTestCommand", context.getAsString("PriorityThreeTestCommand"));
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void testPriorThreeFirstCall() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
@@ -153,6 +159,7 @@ public class CommandTest {
         Assert.assertEquals("PriorityThreeTestCommand", context.getAsString("PriorityThreeTestCommand"));
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void testPriorTwoFirstCall() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();

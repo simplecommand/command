@@ -26,63 +26,41 @@
 
 package org.mwolff.command.samplecommands;
 
-import org.apache.log4j.Logger;
 import org.mwolff.command.CommandException;
 import org.mwolff.command.CommandTransitionEnum.CommandTransition;
+import org.mwolff.command.chain.AbstractDefaultChainCommand;
 import org.mwolff.command.parameterobject.GenericParameterObject;
-import org.mwolff.command.process.AbstractDefaultProcessCommand;
 
-public class ProcessTestCommandEnd<T extends GenericParameterObject> extends AbstractDefaultProcessCommand<T> {
+public class AbortTestCommand<T extends GenericParameterObject> extends AbstractDefaultChainCommand<T>
+       {
 
-    private static final Logger LOG = Logger.getLogger(ProcessTestCommandEnd.class);
-
-    public ProcessTestCommandEnd() {
-        super();
-    }
-
-    public ProcessTestCommandEnd(final String processID) {
-        super(processID);
+    /*
+     * @see de.mwolff.commons.command.Command#execute()
+     */
+    @Override
+    public void execute(final T context) throws CommandException{
+        context.put("status", "proceeded");
+        throw new CommandException("ABORT.");
     }
 
     @Override
-    public void execute(final T context) throws CommandException {
-        String result = context.getAsString("result");
-        if ((result == null) || ("NullObject".equals(result))) {
-            result = "";
+    public boolean executeAsChain(T context) {
+        try {
+            execute(context);
+        } catch (CommandException e) {
+            // Only for test porpuse
         }
-        result += processID + " - ";
-        context.put("result", result);
+        return false;
     }
-
+    
     @Override
     public CommandTransition executeCommand(T parameterObject) {
         try {
             execute(parameterObject);
         } catch (CommandException e) {
-            return CommandTransition.FAILURE;
+            // Only for test porpuse
         }
-        return CommandTransition.SUCCESS;
-    }
-
-    @Override
-    public String executeAsProcess(final T context) {
-        try {
-            execute(context);
-        } catch (final CommandException e) {
-            ProcessTestCommandEnd.LOG.error(e);
-        }
-        return null;
-    }
-
-    @Override
-    public boolean executeAsChain(T parameterObject) {
-        LOG.error("nothing to do");
-        return true;
-    }
-
-    @Override
-    public String executeAsProcess(String startCommand, T context) {
-        return null;
+        return CommandTransition.ABORT;
     }
 
     @Override
@@ -90,4 +68,5 @@ public class ProcessTestCommandEnd<T extends GenericParameterObject> extends Abs
         boolean result = executeAsChain(parameterObject);
         return (result == true) ? CommandTransition.SUCCESS : CommandTransition.ABORT;
     }
+
 }

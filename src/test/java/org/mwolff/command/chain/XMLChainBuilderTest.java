@@ -196,7 +196,7 @@ public class XMLChainBuilderTest {
         final DefaultParameterObject context = new DefaultParameterObject();
         context.put("priority","");
         CommandTransition transition = xmlChainBuilder.executeCommand(context);
-        Assert.assertEquals("1-2-", context.getAsString("priority"));
+        Assert.assertEquals("", context.getAsString("priority"));
         Assert.assertEquals(transition, CommandTransition.SUCCESS);
     }
 
@@ -220,4 +220,21 @@ public class XMLChainBuilderTest {
         Assert.assertEquals(2, transList.size());
     }
 
+    @Test
+    public void testExecuteCommandSUCCESS() throws Exception {
+        final XMLChainBuilder<Object> xmlChainBuilder = new XMLChainBuilder<>("/commandChainEnd.xml");
+        final DefaultParameterObject context = new DefaultParameterObject();
+        context.put("priority","");
+        CommandTransition transition = xmlChainBuilder.executeCommandAsChain(context);
+        Assert.assertEquals(transition, CommandTransition.SUCCESS);
+    }
+
+    @Test
+    public void testExecuteCommandAsChainABORT() throws Exception {
+        final XMLChainBuilder<Object> xmlChainBuilder = new XMLChainBuilder<>("/commandChainAbort.xml");
+        final DefaultParameterObject context = new DefaultParameterObject();
+        CommandTransition transition = xmlChainBuilder.executeCommandAsChain(context);
+        Assert.assertEquals(CommandTransition.ABORT, transition);
+    }
+    
 }

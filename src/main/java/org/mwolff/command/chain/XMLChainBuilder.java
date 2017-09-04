@@ -99,6 +99,7 @@ public class XMLChainBuilder<T extends Object> implements ChainBuilder<T> {
      * de.mwolff.commons.command.iface.Command#execute(de.mwolff.commons.command
      * .iface.Object)
      */
+    @SuppressWarnings("deprecation")
     @Override
     public void execute(final T context) throws CommandException {
         try {
@@ -115,6 +116,7 @@ public class XMLChainBuilder<T extends Object> implements ChainBuilder<T> {
      * de.mwolff.commons.command.iface.ChainCommand#executeAsChain(de.mwolff.
      * commons.command.iface.Object)
      */
+    @SuppressWarnings("deprecation")
     @Override
     public boolean executeAsChain(final T context) {
         CommandContainer<T> chain = null;
@@ -266,16 +268,6 @@ public class XMLChainBuilder<T extends Object> implements ChainBuilder<T> {
     @Override
     public String executeAsProcess(T context) {
         return null;
-    }
-
-    @Override
-    public CommandTransition executeCommand(T parameterObject) {
-        try {
-            execute(parameterObject);
-        } catch (CommandException e) {
-            return CommandTransition.FAILURE;
-        }
-        return CommandTransition.SUCCESS;
     }
 
     @Override
