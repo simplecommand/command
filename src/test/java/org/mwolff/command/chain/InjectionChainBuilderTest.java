@@ -63,18 +63,6 @@ public class InjectionChainBuilderTest {
         Assert.assertEquals("value", context.getAsString("key"));
     }
 
-    @Test
-    public void testExecuteFailure() throws Exception {
-        final GenericParameterObject context = new DefaultParameterObject();
-        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
-        final List<Command<GenericParameterObject>> commandList = new ArrayList<>();
-        FailureTestCommand<GenericParameterObject> failureTestCommand = new FailureTestCommand<GenericParameterObject>();
-        commandList.add(failureTestCommand);
-        builder.setCommands(commandList);
-        CommandTransition result = builder.executeCommand(context);
-        Assert.assertEquals(CommandTransition.FAILURE, result);
-        Assert.assertEquals("proceeded", context.getAsString("status"));
-    }
 
     @Test
     public void testExecuteFailureChain() throws Exception {
@@ -89,18 +77,6 @@ public class InjectionChainBuilderTest {
         Assert.assertEquals("proceeded", context.getAsString("status"));
     }
 
-    @Test
-    public void testExecuteAbort() throws Exception {
-        final GenericParameterObject context = new DefaultParameterObject();
-        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
-        final List<Command<GenericParameterObject>> commandList = new ArrayList<>();
-        AbortTestCommand<GenericParameterObject> failureTestCommand = new AbortTestCommand<GenericParameterObject>();
-        commandList.add(failureTestCommand);
-        builder.setCommands(commandList);
-        CommandTransition result = builder.executeCommand(context);
-        Assert.assertEquals(CommandTransition.ABORT, result);
-        Assert.assertEquals("proceeded", context.getAsString("status"));
-    }
 
     @Test
     public void testExecuteAbortChain() throws Exception {
