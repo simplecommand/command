@@ -53,7 +53,7 @@ public class ProcessCommandTest {
 
     @Test
     public void testExecuteOnlyEnd() throws Exception {
-        final DefaultEndCommand<GenericParameterObject> processTestStartCommand = new DefaultEndCommand<>();
+        final DefaultEndCommand processTestStartCommand = new DefaultEndCommand();
         final GenericParameterObject context = new DefaultParameterObject();
         context.put("key", "value");
         processTestStartCommand.execute(context);

@@ -15,6 +15,6 @@ public class CommandTransitionEnumTest implements CommandTransitionEnum {
     public void testName() throws Exception {
         CommandTransition.valueOf(CommandTransition.SUCCESS.toString());
         CommandTransition.valueOf(CommandTransition.FAILURE.toString());
-        CommandTransition.valueOf(CommandTransition.ABORT.toString());
+        CommandTransition.valueOf(CommandTransition.DONE.toString());
     }
 }

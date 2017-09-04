@@ -31,28 +31,13 @@ import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.chain.AbstractDefaultChainCommand;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
-public class AbortTestCommand<T extends GenericParameterObject> extends AbstractDefaultChainCommand<T>
-       {
+public class DoneTestCommand<T extends GenericParameterObject> extends AbstractDefaultChainCommand<T> {
 
-    /*
-     * @see de.mwolff.commons.command.Command#execute()
-     */
     @Override
     public void execute(final T context) throws CommandException{
-        context.put("status", "proceeded");
-        throw new CommandException("ABORT.");
+        throw new CommandException("DONE.");
     }
 
-    @Override
-    public boolean executeAsChain(T context) {
-        try {
-            execute(context);
-        } catch (CommandException e) {
-            // Only for test porpuse
-        }
-        return false;
-    }
-    
     @Override
     public CommandTransition executeCommand(T parameterObject) {
         try {
@@ -60,13 +45,6 @@ public class AbortTestCommand<T extends GenericParameterObject> extends Abstract
         } catch (CommandException e) {
             // Only for test porpuse
         }
-        return CommandTransition.ABORT;
+        return CommandTransition.DONE;
     }
-
-    @Override
-    public CommandTransition executeCommandAsChain(T parameterObject) {
-        boolean result = executeAsChain(parameterObject);
-        return (result == true) ? CommandTransition.SUCCESS : CommandTransition.ABORT;
-    }
-
 }

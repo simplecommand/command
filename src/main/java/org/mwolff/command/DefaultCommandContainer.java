@@ -52,7 +52,7 @@ public class DefaultCommandContainer<T extends Object> implements CommandContain
                                                            }
                                                        });
 
-   /**
+    /**
      * @see org.mwolff.command.CommandContainer#addCommand(org.mwolff.command.Command)
      */
     @Override
@@ -72,23 +72,6 @@ public class DefaultCommandContainer<T extends Object> implements CommandContain
     }
 
     /**
-     * Executes the whole command chain. If one command throws an exception the
-     * whole execution is aborted.
-     */
-    @SuppressWarnings("deprecation")
-    @Override
-    public void execute(final T context) throws CommandException {
-        for (final Command<T> command : commandList.values()) {
-            try {
-                command.execute(context);
-            } catch (final Exception exception) {
-                // Just log, do nothing else.
-                DefaultCommandContainer.LOG.error("Error while executing chain.", exception);
-            }
-        }
-    }
-
-    /**
      * Executes the commands as a chain. If one command returns false the chain
      * will be aborted.
      */
@@ -104,19 +87,18 @@ public class DefaultCommandContainer<T extends Object> implements CommandContain
         }
         return result;
     }
-    
+
     @Override
     public CommandTransition executeCommandAsChain(T parameterObject) {
         CommandTransition result = CommandTransition.SUCCESS;
         for (final Command<T> command : commandList.values()) {
             result = ((ChainCommand<T>) command).executeCommandAsChain(parameterObject);
-            if ((result == CommandTransition.ABORT) || (result == CommandTransition.FAILURE)) {
+            if ((result == CommandTransition.DONE) || (result == CommandTransition.FAILURE)) {
                 break;
             }
         }
         return result;
     }
-
 
     /**
      * @see org.mwolff.command.process.ProcessCommand#executeAsProcess(java.lang.String,
@@ -187,17 +169,25 @@ public class DefaultCommandContainer<T extends Object> implements CommandContain
 
     @Override
     public CommandTransition executeCommand(T parameterObject) {
-        
+
         CommandTransition transition = CommandTransition.SUCCESS;
-        
+
         for (final Command<T> command : commandList.values()) {
             transition = command.executeCommand(parameterObject);
             if (transition.equals(CommandTransition.FAILURE)) {
                 break;
             }
         }
-        
+
         return transition;
+    }
+
+    @Override
+    public void execute(T parameterObject) throws CommandException {
+
+        for (final Command<T> command : commandList.values()) {
+            command.execute(parameterObject);
+        }
     }
 
 }

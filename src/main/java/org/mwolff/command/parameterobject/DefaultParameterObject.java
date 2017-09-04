@@ -61,7 +61,7 @@ public class DefaultParameterObject implements GenericParameterObject {
     public String getAsString(final String key) {
         Object object = genericMap.get(key);
         if (object == null) {
-            object = "NullObject";
+            object = "";
         }
         return object.toString();
     }

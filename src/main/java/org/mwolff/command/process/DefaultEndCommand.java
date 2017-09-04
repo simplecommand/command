@@ -28,26 +28,27 @@ package org.mwolff.command.process;
 
 import org.apache.log4j.Logger;
 import org.mwolff.command.CommandException;
-import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
-public class DefaultEndCommand<T extends GenericParameterObject> extends AbstractDefaultProcessCommand<T> {
+public class DefaultEndCommand extends AbstractDefaultProcessCommand<GenericParameterObject> {
 
     private static final Logger LOG = Logger.getLogger(DefaultEndCommand.class);
 
     @Override
-    public void execute(final T context) throws CommandException {
-        DefaultEndCommand.LOG.error("nothing to do");
-    }
-
-    @Override
-    public String executeAsProcess(final String startCommand, final T context) {
+    public String executeAsProcess(String startCommand, GenericParameterObject context) {
         return "END";
     }
 
     @Override
-    public String executeAsProcess(final T context) {
+    public String executeAsProcess(GenericParameterObject context) {
         return "END";
+    }
+
+    @Override
+    public void execute(GenericParameterObject context) {
+        if (context != null) {
+            context.put("DefaultEndCommand", "DefaultEndCommand");
+        }
     }
 
 }

@@ -26,14 +26,12 @@
 
 package org.mwolff.command.samplecommands;
 
-import org.mwolff.command.CommandTransitionEnum.CommandTransition;
-import org.mwolff.command.chain.ChainCommand;
+import org.mwolff.command.chain.AbstractDefaultChainCommand;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
-import org.mwolff.command.process.ProcessCommand;
 import org.springframework.util.StringUtils;
 
-public class PriorityTwoTestCommand<T extends GenericParameterObject> implements ChainCommand<T>, ProcessCommand<T> {
+public class PriorityTwoTestCommand<T extends GenericParameterObject> extends AbstractDefaultChainCommand<T> {
 
     @Override
     public void execute(final T context) {
@@ -47,13 +45,6 @@ public class PriorityTwoTestCommand<T extends GenericParameterObject> implements
             context.put("priority", priorString);
         }
     }
-    
-    @Override
-    public CommandTransition executeCommand(T parameterObject) {
-        execute(parameterObject);
-        return CommandTransition.SUCCESS;
-    }
-
 
     @Override
     public boolean executeAsChain(final T context) {
@@ -62,31 +53,6 @@ public class PriorityTwoTestCommand<T extends GenericParameterObject> implements
         priorString += "B-";
         context.put("priority", priorString);
         return true;
-    }
-
-    @Override
-    public String executeAsProcess(final String startCommand, final T context) {
-        return null;
-    }
-
-    @Override
-    public String getProcessID() {
-        return null;
-    }
-
-    @Override
-    public void setProcessID(final String processID) {
-    }
-
-    @Override
-    public String executeAsProcess(T context) {
-        return null;
-    }
-
-    @Override
-    public CommandTransition executeCommandAsChain(T parameterObject) {
-        boolean result = executeAsChain(parameterObject);
-        return (result == true) ? CommandTransition.SUCCESS : CommandTransition.ABORT;
     }
 
 }

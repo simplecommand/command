@@ -46,9 +46,4 @@ public class ExceptionCommand<T extends GenericParameterObject> extends Abstract
         parameterObject.put("executed", "true");
         return CommandTransition.FAILURE;
     }
-
-    @Override
-    public CommandTransition executeCommandAsChain(T parameterObject) {
-        return null;
-    }
 }

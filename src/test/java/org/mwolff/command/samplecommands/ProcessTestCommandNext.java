@@ -95,11 +95,4 @@ public class ProcessTestCommandNext<T extends GenericParameterObject> extends Ab
         }
         return CommandTransition.SUCCESS;
     }
-
-    @Override
-    public CommandTransition executeCommandAsChain(T parameterObject) {
-        boolean result = executeAsChain(parameterObject);
-        return (result == true) ? CommandTransition.SUCCESS : CommandTransition.ABORT;
-    }
-
 }

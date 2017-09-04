@@ -38,16 +38,6 @@ import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 public interface Command<T extends Object> {
 
     /**
-     * Transition for an execute Method. State can be: SUCCESS : Execution was
-     * sucessfully done. The next command can overtake. ABORT : For CoR: The
-     * work ist successfully done, the chain can be aborted. FAILURE : An fatal
-     * error has occured. The chain should be aborted
-     * 
-     * @since 1.5.0
-     */
-
-
-    /**
      * Executes the command. The command can have the result SUCCESS if
      * everything is fine or FAILURE if an error occurred.
      * 

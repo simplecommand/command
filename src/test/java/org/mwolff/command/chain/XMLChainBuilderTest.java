@@ -234,7 +234,7 @@ public class XMLChainBuilderTest {
         final XMLChainBuilder<Object> xmlChainBuilder = new XMLChainBuilder<>("/commandChainAbort.xml");
         final DefaultParameterObject context = new DefaultParameterObject();
         CommandTransition transition = xmlChainBuilder.executeCommandAsChain(context);
-        Assert.assertEquals(CommandTransition.ABORT, transition);
+        Assert.assertEquals(CommandTransition.DONE, transition);
     }
     
 }

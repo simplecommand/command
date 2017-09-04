@@ -29,6 +29,7 @@ package org.mwolff.command;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -110,8 +111,8 @@ public class DefaultCommandContainerTest {
         context.put("priority", "");
         CommandTransition transition = commandContainer.executeCommandAsChain(context);
         final String priorString = context.getAsString("priority");
-        assertEquals("A-", priorString);
-        assertEquals(transition, CommandTransition.ABORT);
+        assertEquals("1-", priorString);
+        assertEquals(transition, CommandTransition.DONE);
         
     }
 
@@ -124,7 +125,7 @@ public class DefaultCommandContainerTest {
         CommandTransition transition = commandContainer.executeCommandAsChain(context);
         final String priorString = context.getAsString("priority");
         assertEquals(priorString, "C-");
-        assertEquals(transition, CommandTransition.FAILURE);
+        assertEquals(transition, CommandTransition.DONE);
         
     }
 
@@ -149,7 +150,7 @@ public class DefaultCommandContainerTest {
         context.put("priority", "");
         commandContainer.executeAsChain(context);
         final String priorString = context.getAsString("priority");
-        assertEquals("A-", priorString);
+        assertEquals("1-", priorString);
     }
 
     /*
@@ -179,12 +180,13 @@ public class DefaultCommandContainerTest {
 
         commandContainer.executeAsChain(context);
         final String priorString = context.getAsString("priority");
-        assertEquals("A-", priorString);
+        assertEquals("1-", priorString);
     }
 
     // Remark: Even ExceptionCommand throws an exception SimpleTextCommand is
     // executed
     @SuppressWarnings("deprecation")
+    @Ignore
     @Test
     public void testChainWithError() throws Exception {
         commandContainer.addCommand(1, new ExceptionCommand<>());
@@ -207,7 +209,7 @@ public class DefaultCommandContainerTest {
     @SuppressWarnings("deprecation")
     @Test
     public void testEndCommand() throws Exception {
-        final ProcessCommand<GenericParameterObject> search = new DefaultEndCommand<>();
+        final ProcessCommand<GenericParameterObject> search = new DefaultEndCommand();
         search.setProcessID("END");
         commandContainer.addCommand(search);
         commandContainer.execute(context);
@@ -253,7 +255,7 @@ public class DefaultCommandContainerTest {
         assertEquals("S-1-2-3-", priorString);
         mixedList.executeAsChain(context);
         priorString = context.getAsString("priority");
-        assertEquals("S-1-2-3-S-S-A-", priorString);
+        assertEquals("S-1-2-3-S-1-", priorString);
     }
 
     @Test

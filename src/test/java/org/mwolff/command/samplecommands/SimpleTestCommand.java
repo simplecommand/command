@@ -26,74 +26,22 @@
 
 package org.mwolff.command.samplecommands;
 
-import org.mwolff.command.CommandTransitionEnum.CommandTransition;
+import org.mwolff.command.CommandException;
 import org.mwolff.command.chain.AbstractDefaultChainCommand;
-import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
-import org.mwolff.command.process.ProcessCommand;
 
-public class SimpleTestCommand<T extends GenericParameterObject> extends AbstractDefaultChainCommand<T>
-        implements ProcessCommand<T> {
+public class SimpleTestCommand<T extends GenericParameterObject> extends AbstractDefaultChainCommand<T> {
 
-    /*
-     * @see de.mwolff.commons.command.Command#execute()
-     */
     @Override
-    public void execute(final T context) {
-        context.put("SimpleTestCommand", "SimpleTestCommand");
-        String priorString = context.getAsString("priority");
-        if ("NullObject".equals(priorString)) {
-            priorString = "";
+    public void execute(final T context) throws CommandException {
+        
+        if (context == null) {
+            throw new CommandException("Command is null");
         }
-        priorString += "S-";
-        context.put("priority", priorString);
+
+       context.put("SimpleTestCommand", "SimpleTestCommand");
+       String priorString = context.getAsString("priority");
+       priorString += "S-";
+       context.put("priority", priorString);
     }
-
-   @Override
-    public boolean executeAsChain(final T context) {
-        super.executeAsChain(context);
-        if (context == DefaultParameterObject.NULLCONTEXT) {
-            return true;
-        }
-        String priorString = context.getAsString("priority");
-        if ("NullObject".equals(priorString)) {
-            priorString = "";
-        }
-        priorString += "S-";
-        context.put("priority", priorString);
-        return true;
-    }
-
-    @Override
-    public String executeAsProcess(final String startCommand, final T context) {
-        return null;
-    }
-
-    @Override
-    public String getProcessID() {
-        return null;
-    }
-
-    @Override
-    public void setProcessID(final String processID) {
-
-    }
-
-    @Override
-    public String executeAsProcess(T context) {
-        return null;
-    }
-
-    @Override
-    public CommandTransition executeCommand(T parameterObject) {
-        execute(parameterObject);
-        return CommandTransition.SUCCESS;
-    }
-
-    @Override
-    public CommandTransition executeCommandAsChain(T parameterObject) {
-        boolean result = executeAsChain(parameterObject);
-        return (result == true) ? CommandTransition.SUCCESS : CommandTransition.ABORT;
-    }
-
 }

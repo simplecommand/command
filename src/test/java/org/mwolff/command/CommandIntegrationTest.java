@@ -73,7 +73,7 @@ public class CommandIntegrationTest {
         context.put("priority", "");
         builder.executeAsChain(context);
         final String priorString = context.getAsString("priority");
-        Assert.assertEquals("A-", priorString);
+        Assert.assertEquals("1-", priorString);
     }
 
     /*
@@ -96,7 +96,7 @@ public class CommandIntegrationTest {
 
         mixedList.executeAsChain(context);
         final String priorString = context.getAsString("priority");
-        Assert.assertEquals("S-S-A-", priorString);
+        Assert.assertEquals("S-1-", priorString);
     }
 
     /*

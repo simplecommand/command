@@ -41,7 +41,7 @@ import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.DefaultTransition;
 import org.mwolff.command.process.Transition;
-import org.mwolff.command.samplecommands.AbortTestCommand;
+import org.mwolff.command.samplecommands.DoneTestCommand;
 import org.mwolff.command.samplecommands.ExceptionCommand;
 import org.mwolff.command.samplecommands.FailureTestCommand;
 import org.mwolff.command.samplecommands.PriorityOneTestCommand;
@@ -83,12 +83,11 @@ public class InjectionChainBuilderTest {
         final GenericParameterObject context = new DefaultParameterObject();
         final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
         final List<Command<GenericParameterObject>> commandList = new ArrayList<>();
-        AbortTestCommand<GenericParameterObject> failureTestCommand = new AbortTestCommand<GenericParameterObject>();
+        DoneTestCommand<GenericParameterObject> failureTestCommand = new DoneTestCommand<GenericParameterObject>();
         commandList.add(failureTestCommand);
         builder.setCommands(commandList);
         CommandTransition result = builder.executeCommandAsChain(context);
-        Assert.assertEquals(CommandTransition.ABORT, result);
-        Assert.assertEquals("proceeded", context.getAsString("status"));
+        Assert.assertEquals(CommandTransition.DONE, result);
     }
 
     @Test
@@ -177,6 +176,6 @@ public class InjectionChainBuilderTest {
         commandList.add(command);
         builder.setCommands(commandList);
         final CommandTransition result = builder.executeCommandAsChain(context);
-        assertNull(result);
+        Assert.assertEquals(result,CommandTransition.DONE);
     }
 }

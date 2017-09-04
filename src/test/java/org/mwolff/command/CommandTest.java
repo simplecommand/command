@@ -98,7 +98,6 @@ public class CommandTest {
     @Test
     public void testInterfaceDefaultExecuteWithNoContext() throws Exception {
         
-        final GenericParameterObject context = new DefaultParameterObject();
         final Command<GenericParameterObject> command = new Command<GenericParameterObject>() {
 
             @Override
@@ -117,22 +116,6 @@ public class CommandTest {
         assertThat(transition, is(CommandTransition.FAILURE));
     }
  
-    @SuppressWarnings("deprecation")
-    @Test
-    public void testCommandInterface() throws Exception {
-        final GenericParameterObject context = new DefaultParameterObject();
-        final Command<GenericParameterObject> command = new SimpleTestCommand<>();
-        command.execute(context);
-        Assert.assertEquals("SimpleTestCommand", context.getAsString("SimpleTestCommand"));
-    }
-
-    @Test
-    public void testCommandWithResult() throws Exception {
-        final ChainCommand<GenericParameterObject> command = new SimpleTestCommand<>();
-        @SuppressWarnings("deprecation")
-        final boolean result = command.executeAsChain(DefaultParameterObject.NULLCONTEXT);
-        Assert.assertTrue(result);
-    }
 
     @SuppressWarnings("deprecation")
     @Test

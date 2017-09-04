@@ -106,7 +106,6 @@ public class XMLChainBuilder<T extends Object> implements ChainBuilder<T> {
         } catch (final Exception e) {
             // Just log, do nothing else
             XMLChainBuilder.LOG.error("Error while executing chain.", e);
-
         }
     }
 
@@ -272,6 +271,6 @@ public class XMLChainBuilder<T extends Object> implements ChainBuilder<T> {
     @Override
     public CommandTransition executeCommandAsChain(T parameterObject) {
         boolean result = executeAsChain(parameterObject);
-        return result ? CommandTransition.SUCCESS : CommandTransition.ABORT;
+        return result ? CommandTransition.SUCCESS : CommandTransition.DONE;
     }
 }

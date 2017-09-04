@@ -36,33 +36,30 @@ import org.mwolff.command.parameterobject.GenericParameterObject;
 
 public class DefaultEndCommandTest {
 
-    private DefaultEndCommand<GenericParameterObject> defaultEndCommand;
+    private DefaultEndCommand defaultEndCommand;
 
     @Before
     public void setUp() {
-        defaultEndCommand = new DefaultEndCommand<GenericParameterObject>();
+        defaultEndCommand = new DefaultEndCommand();
     }
     
     @Test
     public void testExecuteAsProcessSimple() throws Exception {
-        assertThat(defaultEndCommand.executeAsProcess(DefaultParameterObject.NULLCONTEXT), is("END"));
+        assertThat(defaultEndCommand.executeAsProcess(null), is("END"));
     }
 
     @Test
     public void testEndCommandInProcessChain() throws Exception {
         DefaultCommandContainer<GenericParameterObject> defaultCommandContainer = new DefaultCommandContainer<>();
         defaultEndCommand.setProcessID("END");
+        DefaultParameterObject context = new DefaultParameterObject();
         defaultCommandContainer.addCommand(defaultEndCommand);
-        assertThat(defaultCommandContainer.executeAsProcess("END", DefaultParameterObject.NULLCONTEXT), is("END"));
+        assertThat(defaultCommandContainer.executeAsProcess("END", context), is("END"));
     }
     
     @Test
     public void testExecuteAsProcessComplex() throws Exception {
-        assertThat(defaultEndCommand.executeAsProcess("START", DefaultParameterObject.NULLCONTEXT), is("END"));
+        assertThat(defaultEndCommand.executeAsProcess("START", null), is("END"));
     }
     
-    @Test
-    public void testExecuteOnly() throws Exception {
-        assertThat(defaultEndCommand.executeAsChain(DefaultParameterObject.NULLCONTEXT), is(Boolean.FALSE));
-    }
 }

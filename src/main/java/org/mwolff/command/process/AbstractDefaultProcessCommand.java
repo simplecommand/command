@@ -29,12 +29,14 @@ package org.mwolff.command.process;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.mwolff.command.chain.AbstractDefaultChainCommand;
+
 /**
  * Default implementation for a process-command. You may use
  * <code>executeAsProcess</code> for all executions of the <code>command</code> or
  * <code>commandContainer</code>.
  */
-public abstract class AbstractDefaultProcessCommand<T extends Object> implements ProcessCommand<T> {
+public abstract class AbstractDefaultProcessCommand<T extends Object> extends AbstractDefaultChainCommand<T> implements ProcessCommand<T> {
 
     protected String           processID;
     protected List<Transition> transitionList = new ArrayList<>();
@@ -88,7 +90,6 @@ public abstract class AbstractDefaultProcessCommand<T extends Object> implements
         return new ArrayList<>(transitionList);
     }
 
-
     /**
      * @see org.mwolff.command.process.ProcessCommand#setProcessID(java.lang.String)
      */
@@ -97,12 +98,4 @@ public abstract class AbstractDefaultProcessCommand<T extends Object> implements
         this.processID = processID;
     }
     
-    /**
-     * @see org.mwolff.command.chain.ChainCommand#executeAsChain(java.lang.Object)
-     */
-    @Override
-    public boolean executeAsChain(T parameterObject) {
-        return false;
-    }
-
 }

@@ -88,6 +88,6 @@ public class ProcessTestCommandEnd<T extends GenericParameterObject> extends Abs
     @Override
     public CommandTransition executeCommandAsChain(T parameterObject) {
         boolean result = executeAsChain(parameterObject);
-        return (result == true) ? CommandTransition.SUCCESS : CommandTransition.ABORT;
+        return (result == true) ? CommandTransition.SUCCESS : CommandTransition.DONE;
     }
 }
