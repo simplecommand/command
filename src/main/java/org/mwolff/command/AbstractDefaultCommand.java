@@ -23,35 +23,29 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
-package org.mwolff.command.parameterobject;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+package org.mwolff.command;
 
-import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
-import org.junit.Test;
+import org.apache.log4j.Logger;
+import org.mwolff.command.CommandException;
+import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 
-public class DefaultParameterObjectTest {
+/**
+ * Default implementation for a command. You may use
+ * <code>executeAsChain</code> for all executions of the <code>command</code> or
+ * <code>commandContainer</code>.
+ * @since 1.5.1
+ */
+public abstract class AbstractDefaultCommand<T extends Object> implements Command<T> {
 
-    @Test
-    public void getStandardContextTest() throws Exception {
-        final GenericParameterObject context = DefaultParameterObject.getStandardContext();
-        Assert.assertNotNull(context);
-    }
-
-    @Test
-    public void getStandardContextWithValueTest() throws Exception {
-
-        final GenericParameterObject context = DefaultParameterObject.getStandardContext("file.list", "filelist");
-        final String value = context.getAsString("file.list");
-        Assert.assertThat(value, CoreMatchers.is("filelist"));
+    /**
+     * @see org.mwolff.command.Command#execute(java.lang.Object)
+     */
+    @Override
+    public void execute(T context) throws CommandException {
+        throw new UnsupportedOperationException("Deprecated, use executeCommand instead.");
     }
     
-    @Test
-    public void getInstanceTest() throws Exception {
-        GenericParameterObject instance = DefaultParameterObject.getInstance();
-        assertThat(instance, notNullValue());
-        assertThat(instance, CoreMatchers.instanceOf(DefaultParameterObject.class));
-    }
+    @Override
+    public abstract CommandTransition executeCommand(T parameterObject);
 }

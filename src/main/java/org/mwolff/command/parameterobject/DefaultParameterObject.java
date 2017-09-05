@@ -40,6 +40,14 @@ public class DefaultParameterObject implements GenericParameterObject {
     public static final GenericParameterObject NULLCONTEXT = new DefaultParameterObject();
 
     /**
+     * Gets a fresh instance of an GenericParameterObject
+     * @return The fresh instance
+     */
+    public static final GenericParameterObject getInstance() {
+        return new DefaultParameterObject();
+    }
+    
+    /**
      * A generic map storing the key/value pairs.
      */
     private final Map<String, Object>          genericMap  = new HashMap<>();
