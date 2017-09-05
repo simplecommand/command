@@ -48,7 +48,6 @@ public class ChainCommandTest {
     @Test
     public void testInterfaceDefaultExecuteCommandAsChainFAILED() {
 
-        final GenericParameterObject context = new DefaultParameterObject();
         final ChainCommand<GenericParameterObject> command = new ChainCommand<GenericParameterObject>() {
 
             @Override

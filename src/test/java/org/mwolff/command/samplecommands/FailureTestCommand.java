@@ -28,9 +28,7 @@ package org.mwolff.command.samplecommands;
 
 import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.chain.AbstractDefaultChainCommand;
-import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
-import org.mwolff.command.process.ProcessCommand;
 
 public class FailureTestCommand<T extends GenericParameterObject> extends AbstractDefaultChainCommand<T>
        {

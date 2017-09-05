@@ -41,7 +41,6 @@ import org.mwolff.command.samplecommands.ExceptionCommand;
 import org.mwolff.command.samplecommands.PriorityOneTestCommand;
 import org.mwolff.command.samplecommands.PriorityThreeTestCommand;
 import org.mwolff.command.samplecommands.PriorityTwoTestCommand;
-import org.mwolff.command.samplecommands.SimpleTestCommand;
 
 public class CommandTest {
 
@@ -94,7 +93,6 @@ public class CommandTest {
         command.execute(context);
     }
 
-    @SuppressWarnings("deprecation")
     @Test
     public void testInterfaceDefaultExecuteWithNoContext() throws Exception {
         

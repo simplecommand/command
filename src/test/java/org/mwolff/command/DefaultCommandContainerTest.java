@@ -207,7 +207,6 @@ public class DefaultCommandContainerTest {
 
     }
 
-    @SuppressWarnings("deprecation")
     @Test
     public void testEndCommand() throws Exception {
         final ProcessCommand<GenericParameterObject> search = new DefaultEndCommand();
