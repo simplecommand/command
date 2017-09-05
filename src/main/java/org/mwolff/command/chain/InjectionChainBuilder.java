@@ -43,7 +43,8 @@ public class InjectionChainBuilder<T extends Object> implements ChainBuilder<T> 
     private List<Command<T>> commands = new ArrayList<>();
 
     /**
-     * @see org.mwolff.command.chain.ChainBuilder#buildChain()
+     * Builds the chain for this builder.
+     * @return Returns the command container build.
      */
     protected CommandContainer<T> buildChain() {
 

@@ -43,8 +43,8 @@ public interface Command<T extends Object> {
      * everything is fine or FAILURE if an error occurred.
      * 
      * @since 1.5.0
-     * @param parameterObject
-     * @return
+     * @param parameterObject The parameter object to pass.
+     * @return FAILURE if something went wrong, SUCCESS otherwise.
      */
     default CommandTransition executeCommand(T parameterObject) {
         if (parameterObject == null) { 

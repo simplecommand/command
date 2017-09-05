@@ -46,8 +46,7 @@ public interface ChainCommand<T extends Object> extends Command<T> {
      * other way is to use the <code>execute</code> method.
      *
      * @deprecated use executeCommandAsChain instead.
-     * @param parameterObject
-     *            The parameter object to pass
+     * @param parameterObject The parameter object to pass
      * @return True if the next command should overtake. False if the chain
      *         should be aborted. This can be because the issue is resolved or
      *         it is not possible to resolve the issue at all.
@@ -57,7 +56,7 @@ public interface ChainCommand<T extends Object> extends Command<T> {
     
     /**
      * @since 1.5.0
-     * @param parameterObject
+     * @param parameterObject The parameter object to pass.
      * @return SUCCESS is the next chain should overtake, ABORT otherwise.
      */
     default CommandTransition executeCommandAsChain(T parameterObject) {
