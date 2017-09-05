@@ -51,14 +51,6 @@ public class ProcessCommandTest {
         Assert.assertEquals("OK", result);
     }
 
-    @Test
-    public void testExecuteOnlyEnd() throws Exception {
-        final DefaultEndCommand processTestStartCommand = new DefaultEndCommand();
-        final GenericParameterObject context = new DefaultParameterObject();
-        context.put("key", "value");
-        processTestStartCommand.execute(context);
-        Assert.assertEquals("value", context.getAsString("key"));
-    }
 
     @Test
     public void getProcessNameTest() throws Exception {

@@ -29,7 +29,10 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.mwolff.command.CommandException;
 import org.mwolff.command.DefaultCommandContainer;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
@@ -37,6 +40,10 @@ import org.mwolff.command.parameterobject.GenericParameterObject;
 public class DefaultEndCommandTest {
 
     private DefaultEndCommand defaultEndCommand;
+    
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
 
     @Before
     public void setUp() {
@@ -61,4 +68,11 @@ public class DefaultEndCommandTest {
     public void testExecuteAsProcessComplex() throws Exception {
         assertThat(defaultEndCommand.executeAsProcess("START", null), is("END"));
     }
+    
+    @Test
+    public void testExecute() throws Exception {
+        thrown.expect(UnsupportedOperationException.class);
+        defaultEndCommand.execute(null);
+    }
+    
 }

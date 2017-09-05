@@ -213,7 +213,6 @@ public class DefaultCommandContainerTest {
         final ProcessCommand<GenericParameterObject> search = new DefaultEndCommand();
         search.setProcessID("END");
         commandContainer.addCommand(search);
-        commandContainer.execute(context);
         final String result = commandContainer.executeAsProcess(context);
         assertEquals(null, result);
     }

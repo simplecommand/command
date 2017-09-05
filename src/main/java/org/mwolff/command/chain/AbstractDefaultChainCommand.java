@@ -71,6 +71,7 @@ public abstract class AbstractDefaultChainCommand<T extends Object> implements C
         try {
             execute(parameterObject);
         } catch (CommandException e) {
+            LOG.error(e);
             return CommandTransition.FAILURE;
         }
         return CommandTransition.SUCCESS;
