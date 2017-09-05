@@ -39,6 +39,7 @@ import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.DefaultEndCommand;
 import org.mwolff.command.process.ProcessCommand;
 import org.mwolff.command.samplecommands.ExceptionCommand;
+import org.mwolff.command.samplecommands.FailureTestCommand;
 import org.mwolff.command.samplecommands.PriorityOneTestCommand;
 import org.mwolff.command.samplecommands.PriorityThreeTestCommand;
 import org.mwolff.command.samplecommands.PriorityTwoTestCommand;
@@ -118,14 +119,14 @@ public class DefaultCommandContainerTest {
 
     @Test
     public void testExecuteCommandAsChainSuccessFAIL() throws Exception {
-        commandContainer.addCommand(new PriorityThreeTestCommand<>())
+        commandContainer.addCommand(new FailureTestCommand<>())
         .addCommand(new PriorityTwoTestCommand<>());
         context.put("priority", "");
 
         CommandTransition transition = commandContainer.executeCommandAsChain(context);
         final String priorString = context.getAsString("priority");
-        assertEquals(priorString, "C-");
-        assertEquals(transition, CommandTransition.DONE);
+        assertEquals(priorString, "");
+        assertEquals(transition, CommandTransition.FAILURE);
         
     }
 

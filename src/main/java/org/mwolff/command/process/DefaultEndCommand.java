@@ -26,13 +26,10 @@
 
 package org.mwolff.command.process;
 
-import org.apache.log4j.Logger;
-import org.mwolff.command.CommandException;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
 public class DefaultEndCommand extends AbstractDefaultProcessCommand<GenericParameterObject> {
 
-    private static final Logger LOG = Logger.getLogger(DefaultEndCommand.class);
 
     @Override
     public String executeAsProcess(String startCommand, GenericParameterObject context) {
@@ -46,9 +43,6 @@ public class DefaultEndCommand extends AbstractDefaultProcessCommand<GenericPara
 
     @Override
     public void execute(GenericParameterObject context) {
-        if (context != null) {
-            context.put("DefaultEndCommand", "DefaultEndCommand");
-        }
     }
 
 }

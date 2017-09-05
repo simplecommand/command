@@ -61,5 +61,4 @@ public class DefaultEndCommandTest {
     public void testExecuteAsProcessComplex() throws Exception {
         assertThat(defaultEndCommand.executeAsProcess("START", null), is("END"));
     }
-    
 }

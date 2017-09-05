@@ -123,13 +123,4 @@ public class InjectionChainBuilder<T extends Object> implements ChainBuilder<T> 
         return null;
     }
 
-    @Override
-    public CommandTransition executeCommand(T parameterObject) {
-        try {
-            execute(parameterObject);
-        } catch (CommandException e) {
-            return CommandTransition.FAILURE;
-        }
-        return CommandTransition.SUCCESS;
-    }
-}
+ }
