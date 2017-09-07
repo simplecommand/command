@@ -26,8 +26,6 @@
 
 package org.mwolff.command;
 
-import org.apache.log4j.Logger;
-import org.mwolff.command.CommandException;
 import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 
 /**
