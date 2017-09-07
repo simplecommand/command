@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -26,9 +26,8 @@
 
 package org.mwolff.command.samplecommands;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
-
+import org.hamcrest.Matchers;
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -49,16 +48,16 @@ public class ExceptionCommandTest {
         final ExceptionCommand<GenericParameterObject> exceptionCommand = new ExceptionCommand<>();
         exceptionCommand.execute(context);
         final String value = context.getAsString("executed");
-        assertThat(value, is("true"));
+        Assert.assertThat(value, Matchers.is("true"));
     }
 
     @Test
     public void testFailure() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
         final ExceptionCommand<GenericParameterObject> exceptionCommand = new ExceptionCommand<>();
-        CommandTransition transition = exceptionCommand.executeCommand(context);
+        final CommandTransition transition = exceptionCommand.executeCommand(context);
         final String value = context.getAsString("executed");
-        assertThat(value, is("true"));
-        assertThat(transition, is(CommandTransition.FAILURE));
+        Assert.assertThat(value, Matchers.is("true"));
+        Assert.assertThat(transition, Matchers.is(CommandTransition.FAILURE));
     }
 }

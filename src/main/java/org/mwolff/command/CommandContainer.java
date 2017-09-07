@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -34,7 +34,7 @@ import org.mwolff.command.process.ProcessCommand;
  * interfaces. So you can execute commandContainer as usual commands. Actually
  * this implements the composite pattern. So you can mix commands and command
  * container to build chains.
- * 
+ *
  * @author Manfred Wolff
  */
 public interface CommandContainer<T extends Object> extends ChainCommand<T>, ProcessCommand<T> {

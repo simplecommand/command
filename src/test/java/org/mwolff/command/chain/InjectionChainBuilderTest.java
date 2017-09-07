@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -25,8 +25,6 @@
  */
 
 package org.mwolff.command.chain;
-
-import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,30 +61,28 @@ public class InjectionChainBuilderTest {
         Assert.assertEquals("value", context.getAsString("key"));
     }
 
-
     @Test
     public void testExecuteFailureChain() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
         final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
         final List<Command<GenericParameterObject>> commandList = new ArrayList<>();
-        FailureTestCommand<GenericParameterObject> failureTestCommand = new FailureTestCommand<GenericParameterObject>();
+        final FailureTestCommand<GenericParameterObject> failureTestCommand = new FailureTestCommand<>();
         commandList.add(failureTestCommand);
         builder.setCommands(commandList);
-        CommandTransition result = builder.executeCommandAsChain(context);
+        final CommandTransition result = builder.executeCommandAsChain(context);
         Assert.assertEquals(CommandTransition.FAILURE, result);
         Assert.assertEquals("proceeded", context.getAsString("status"));
     }
-
 
     @Test
     public void testExecuteAbortChain() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
         final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
         final List<Command<GenericParameterObject>> commandList = new ArrayList<>();
-        DoneTestCommand<GenericParameterObject> failureTestCommand = new DoneTestCommand<GenericParameterObject>();
+        final DoneTestCommand<GenericParameterObject> failureTestCommand = new DoneTestCommand<>();
         commandList.add(failureTestCommand);
         builder.setCommands(commandList);
-        CommandTransition result = builder.executeCommandAsChain(context);
+        final CommandTransition result = builder.executeCommandAsChain(context);
         Assert.assertEquals(CommandTransition.DONE, result);
     }
 
@@ -106,8 +102,7 @@ public class InjectionChainBuilderTest {
         transition.setTarget("Start");
         processTestStartCommand.addTransition(transition);
 
-        final ProcessTestCommandEnd<GenericParameterObject> processTestEndCommand = new ProcessTestCommandEnd<>(
-                "Next");
+        final ProcessTestCommandEnd<GenericParameterObject> processTestEndCommand = new ProcessTestCommandEnd<>("Next");
 
         commandList.add(processTestStartCommand);
         commandList.add(processTestEndCommand);
@@ -140,19 +135,19 @@ public class InjectionChainBuilderTest {
         final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
         builder.setProcessID("something");
     }
-    
+
     @Test
     public void testExecuteAsProcess() throws Exception {
         final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
-        String result = builder.executeAsProcess(DefaultParameterObject.NULLCONTEXT);
-        assertNull(result);
+        final String result = builder.executeAsProcess(DefaultParameterObject.NULLCONTEXT);
+        Assert.assertNull(result);
     }
 
     @Test
     public void testExecuteCommand() throws Exception {
         final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
-        CommandTransition result = builder.executeCommand(DefaultParameterObject.NULLCONTEXT);
-        Assert.assertEquals(result,CommandTransition.SUCCESS);
+        final CommandTransition result = builder.executeCommand(DefaultParameterObject.NULLCONTEXT);
+        Assert.assertEquals(result, CommandTransition.SUCCESS);
     }
 
     @Test
@@ -166,7 +161,7 @@ public class InjectionChainBuilderTest {
         final boolean result = builder.executeAsChain(context);
         Assert.assertFalse(result);
     }
-    
+
     @Test
     public void testSpringCommandChainBuilder() throws Exception {
         final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
@@ -176,6 +171,6 @@ public class InjectionChainBuilderTest {
         commandList.add(command);
         builder.setCommands(commandList);
         final CommandTransition result = builder.executeCommandAsChain(context);
-        Assert.assertEquals(result,CommandTransition.DONE);
+        Assert.assertEquals(result, CommandTransition.DONE);
     }
 }

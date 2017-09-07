@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -32,10 +32,10 @@ import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 /**
  * ChainCommand interface for the command framework. The behavior of this method
  * is the chain of responsibility pattern.
- * 
+ *
  * Commands may act with generic command contexts. A context actually is a
  * parameter object which passes information along the whole chain.
- * 
+ *
  * @author Manfred Wolff
  */
 public interface ChainCommand<T extends Object> extends Command<T> {
@@ -53,14 +53,14 @@ public interface ChainCommand<T extends Object> extends Command<T> {
      */
     @Deprecated
     boolean executeAsChain(T parameterObject);
-    
+
     /**
      * @since 1.5.0
      * @param parameterObject The parameter object to pass.
      * @return SUCCESS is the next chain should overtake, ABORT otherwise.
      */
     default CommandTransition executeCommandAsChain(T parameterObject) {
-        if (parameterObject == null) { 
+        if (parameterObject == null) {
             return CommandTransition.FAILURE;
         }
         return CommandTransition.SUCCESS;

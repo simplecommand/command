@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -29,7 +29,6 @@ package org.mwolff.command.process;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
 public class DefaultEndCommand extends AbstractDefaultProcessCommand<GenericParameterObject> {
-
 
     @Override
     public String executeAsProcess(String startCommand, GenericParameterObject context) {

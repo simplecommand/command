@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -29,7 +29,7 @@ import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 
 /**
  * Command interface for the command framework.
- * 
+ *
  * Commands may act with generic command context. A context actually is a
  * parameter object which passes information along the whole chain.
  *
@@ -41,13 +41,13 @@ public interface Command<T extends Object> {
     /**
      * Executes the command. The command can have the result SUCCESS if
      * everything is fine or FAILURE if an error occurred.
-     * 
+     *
      * @since 1.5.0
      * @param parameterObject The parameter object to pass.
      * @return FAILURE if something went wrong, SUCCESS otherwise.
      */
     default CommandTransition executeCommand(T parameterObject) {
-        if (parameterObject == null) { 
+        if (parameterObject == null) {
             return CommandTransition.FAILURE;
         }
         return CommandTransition.SUCCESS;

@@ -1,8 +1,7 @@
 package org.mwolff.command.samplecommands;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-
+import org.hamcrest.CoreMatchers;
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -22,8 +21,8 @@ public class SimpleTestCommandTest {
         final GenericParameterObject context = new DefaultParameterObject();
         final Command<GenericParameterObject> command = new SimpleTestCommand<>();
         command.execute(context);
-        assertThat(context.getAsString("SimpleTestCommand"), is("SimpleTestCommand"));
-        assertThat(context.getAsString("priority"), is("S-"));
+        Assert.assertThat(context.getAsString("SimpleTestCommand"), CoreMatchers.is("SimpleTestCommand"));
+        Assert.assertThat(context.getAsString("priority"), CoreMatchers.is("S-"));
     }
 
     @SuppressWarnings("deprecation")

@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -34,8 +34,8 @@ import org.mwolff.command.chain.ChainCommand;
 /**
  * Command interface for the command framework. Commands may act with generic
  * command contexts.
- * 
- * @author Manfred Wolff 
+ *
+ * @author Manfred Wolff
  */
 public interface ProcessCommand<T extends Object> extends ChainCommand<T> {
 
@@ -51,7 +51,7 @@ public interface ProcessCommand<T extends Object> extends ChainCommand<T> {
      * @return The next process step to execute. Null stops the process.
      */
     String executeAsProcess(String startCommand, T context);
-    
+
     /**
      * Execute a command as a process. The result is the decision which process
      * step should be executed next.
@@ -63,7 +63,7 @@ public interface ProcessCommand<T extends Object> extends ChainCommand<T> {
 
     /**
      * Finds the next command with the processID next.
-     * 
+     *
      * @param next The process id to find.
      * @return The process id of the next command
      */

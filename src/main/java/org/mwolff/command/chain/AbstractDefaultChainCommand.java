@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -45,15 +45,14 @@ public abstract class AbstractDefaultChainCommand<T extends Object> implements C
     @Override
     public abstract void execute(T context) throws CommandException;
 
-
     /**
      * @see org.mwolff.command.chain.ChainCommand#executeAsChain(java.lang.Object)
      */
     @Override
     public boolean executeAsChain(final T context) {
-        
+
         boolean result = true;
-        
+
         try {
             execute(context);
         } catch (final Exception e) {
@@ -70,8 +69,8 @@ public abstract class AbstractDefaultChainCommand<T extends Object> implements C
     public CommandTransition executeCommand(T parameterObject) {
         try {
             execute(parameterObject);
-        } catch (CommandException e) {
-            LOG.error(e);
+        } catch (final CommandException e) {
+            AbstractDefaultChainCommand.LOG.error(e);
             return CommandTransition.FAILURE;
         }
         return CommandTransition.SUCCESS;
@@ -82,7 +81,7 @@ public abstract class AbstractDefaultChainCommand<T extends Object> implements C
      */
     @Override
     public CommandTransition executeCommandAsChain(T parameterObject) {
-        boolean result = executeAsChain(parameterObject);
+        final boolean result = executeAsChain(parameterObject);
         return result ? CommandTransition.SUCCESS : CommandTransition.DONE;
     }
 }

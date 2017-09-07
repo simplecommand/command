@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -53,18 +53,18 @@ import org.mwolff.command.process.Transition;
  */
 public class XMLChainBuilder<T extends Object> implements ChainBuilder<T> {
 
-    private static final Logger                  LOG   = Logger.getLogger(XMLChainBuilder.class);
-    private static final String                  ROOT  = "//process/action";
-    private static final String                  TRANS = "//process/action[@id='%s']/transition";
-    private static final String                  CLASS = "class";
+    private static final Logger         LOG   = Logger.getLogger(XMLChainBuilder.class);
+    private static final String         ROOT  = "//process/action";
+    private static final String         TRANS = "//process/action[@id='%s']/transition";
+    private static final String         CLASS = "class";
 
-    private static final String                  ID    = "id";
-    private static final String                  NAME  = "name";
-    private static final String                  TO    = "to";
-    private final String                         xmlFileName;
+    private static final String         ID    = "id";
+    private static final String         NAME  = "name";
+    private static final String         TO    = "to";
+    private final String                xmlFileName;
 
     private final List<Command<Object>> actions;
-    Document                                     document;
+    Document                            document;
 
     /**
      * Constructor.
@@ -242,8 +242,7 @@ public class XMLChainBuilder<T extends Object> implements ChainBuilder<T> {
     }
 
     @SuppressWarnings("unchecked")
-    private void extractAttributesOfTransitionElement(final ProcessCommand<Object> command,
-            final String commandID) {
+    private void extractAttributesOfTransitionElement(final ProcessCommand<Object> command, final String commandID) {
 
         final List<Element> transitionElementList = document
                 .selectNodes(String.format(XMLChainBuilder.TRANS, commandID));
@@ -270,7 +269,7 @@ public class XMLChainBuilder<T extends Object> implements ChainBuilder<T> {
 
     @Override
     public CommandTransition executeCommandAsChain(T parameterObject) {
-        boolean result = executeAsChain(parameterObject);
+        final boolean result = executeAsChain(parameterObject);
         return result ? CommandTransition.SUCCESS : CommandTransition.DONE;
     }
 }

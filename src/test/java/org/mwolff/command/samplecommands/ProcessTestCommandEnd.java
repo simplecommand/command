@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -58,7 +58,7 @@ public class ProcessTestCommandEnd<T extends GenericParameterObject> extends Abs
     public CommandTransition executeCommand(T parameterObject) {
         try {
             execute(parameterObject);
-        } catch (CommandException e) {
+        } catch (final CommandException e) {
             return CommandTransition.FAILURE;
         }
         return CommandTransition.SUCCESS;
@@ -76,7 +76,7 @@ public class ProcessTestCommandEnd<T extends GenericParameterObject> extends Abs
 
     @Override
     public boolean executeAsChain(T parameterObject) {
-        LOG.error("nothing to do");
+        ProcessTestCommandEnd.LOG.error("nothing to do");
         return true;
     }
 
@@ -87,7 +87,7 @@ public class ProcessTestCommandEnd<T extends GenericParameterObject> extends Abs
 
     @Override
     public CommandTransition executeCommandAsChain(T parameterObject) {
-        boolean result = executeAsChain(parameterObject);
+        final boolean result = executeAsChain(parameterObject);
         return (result == true) ? CommandTransition.SUCCESS : CommandTransition.DONE;
     }
 }

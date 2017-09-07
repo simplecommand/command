@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -33,10 +33,10 @@ import org.mwolff.command.process.ProcessCommand;
  * A chain builder interface to build chains via configuration. Known builder so
  * far are the <code>InjectionChainBuilder</code> and the
  * <code>XMLChainBuilder</code>.
- * 
+ *
  * The builder takes information out of meta data and builds the chain of
  * commands.
- * 
+ *
  * @author Manfred Wolff
  */
 public interface ChainBuilder<T extends Object> extends Command<T>, ProcessCommand<T>, ChainCommand<T> {

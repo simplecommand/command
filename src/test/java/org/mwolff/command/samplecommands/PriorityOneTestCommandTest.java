@@ -1,8 +1,7 @@
 package org.mwolff.command.samplecommands;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-
+import org.hamcrest.CoreMatchers;
+import org.junit.Assert;
 import org.junit.Test;
 import org.mwolff.command.chain.ChainCommand;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
@@ -16,18 +15,18 @@ public class PriorityOneTestCommandTest {
         final GenericParameterObject context = new DefaultParameterObject();
         final ChainCommand<GenericParameterObject> command = new PriorityOneTestCommand<>();
         command.execute(context);
-        assertThat(context.getAsString("PriorityOneTestCommand"), is("PriorityOneTestCommand"));
-        assertThat(context.getAsString("priority"), is("1-"));
+        Assert.assertThat(context.getAsString("PriorityOneTestCommand"), CoreMatchers.is("PriorityOneTestCommand"));
+        Assert.assertThat(context.getAsString("priority"), CoreMatchers.is("1-"));
     }
-    
+
     @SuppressWarnings("deprecation")
     @Test
     public void testExecuteAsChain() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
         final ChainCommand<GenericParameterObject> command = new PriorityOneTestCommand<>();
-        boolean result = command.executeAsChain(context);
-        assertThat(context.getAsString("PriorityOneTestCommand"), is("PriorityOneTestCommand"));
-        assertThat(context.getAsString("priority"), is("1-"));
-        assertThat(result, is(Boolean.FALSE));
+        final boolean result = command.executeAsChain(context);
+        Assert.assertThat(context.getAsString("PriorityOneTestCommand"), CoreMatchers.is("PriorityOneTestCommand"));
+        Assert.assertThat(context.getAsString("priority"), CoreMatchers.is("1-"));
+        Assert.assertThat(result, CoreMatchers.is(Boolean.FALSE));
     }
 }

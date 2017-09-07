@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -36,7 +36,8 @@ import org.mwolff.command.chain.AbstractDefaultChainCommand;
  * <code>executeAsProcess</code> for all executions of the <code>command</code> or
  * <code>commandContainer</code>.
  */
-public abstract class AbstractDefaultProcessCommand<T extends Object> extends AbstractDefaultChainCommand<T> implements ProcessCommand<T> {
+public abstract class AbstractDefaultProcessCommand<T extends Object> extends AbstractDefaultChainCommand<T>
+        implements ProcessCommand<T> {
 
     protected String           processID;
     protected List<Transition> transitionList = new ArrayList<>();
@@ -47,7 +48,7 @@ public abstract class AbstractDefaultProcessCommand<T extends Object> extends Ab
     }
 
     /** Constructor with process ID
-     * @param processID The process id for this command.  
+     * @param processID The process id for this command.
      */
     public AbstractDefaultProcessCommand(final String processID) {
         this.processID = processID;
@@ -97,5 +98,5 @@ public abstract class AbstractDefaultProcessCommand<T extends Object> extends Ab
     public void setProcessID(final String processID) {
         this.processID = processID;
     }
-    
+
 }

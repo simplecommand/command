@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -30,8 +30,7 @@ import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.chain.AbstractDefaultChainCommand;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
-public class FailureTestCommand<T extends GenericParameterObject> extends AbstractDefaultChainCommand<T>
-       {
+public class FailureTestCommand<T extends GenericParameterObject> extends AbstractDefaultChainCommand<T> {
 
     /*
      * @see de.mwolff.commons.command.Command#execute()
@@ -46,7 +45,7 @@ public class FailureTestCommand<T extends GenericParameterObject> extends Abstra
         execute(context);
         return false;
     }
-    
+
     @Override
     public CommandTransition executeCommand(T parameterObject) {
         execute(parameterObject);
@@ -55,7 +54,7 @@ public class FailureTestCommand<T extends GenericParameterObject> extends Abstra
 
     @Override
     public CommandTransition executeCommandAsChain(T parameterObject) {
-        boolean result = executeAsChain(parameterObject);
+        final boolean result = executeAsChain(parameterObject);
         return (result == true) ? CommandTransition.SUCCESS : CommandTransition.FAILURE;
     }
 

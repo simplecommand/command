@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -34,14 +34,14 @@ public class SimpleTestCommand<T extends GenericParameterObject> extends Abstrac
 
     @Override
     public void execute(final T context) throws CommandException {
-        
+
         if (context == null) {
             throw new CommandException("Command is null");
         }
 
-       context.put("SimpleTestCommand", "SimpleTestCommand");
-       String priorString = context.getAsString("priority");
-       priorString += "S-";
-       context.put("priority", priorString);
+        context.put("SimpleTestCommand", "SimpleTestCommand");
+        String priorString = context.getAsString("priority");
+        priorString += "S-";
+        context.put("priority", priorString);
     }
 }

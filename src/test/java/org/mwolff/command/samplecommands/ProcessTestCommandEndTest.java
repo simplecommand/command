@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -25,9 +25,8 @@
  */
 package org.mwolff.command.samplecommands;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-
+import org.hamcrest.CoreMatchers;
+import org.junit.Assert;
 import org.junit.Test;
 import org.mwolff.command.chain.XMLChainBuilder;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
@@ -36,13 +35,12 @@ public class ProcessTestCommandEndTest {
 
     @Test
     public void testEndCommand() throws Exception {
-        final XMLChainBuilder<Object> xmlChainBuilder = new XMLChainBuilder<>(
-                "/commandChainEnd.xml");
+        final XMLChainBuilder<Object> xmlChainBuilder = new XMLChainBuilder<>("/commandChainEnd.xml");
         final DefaultParameterObject context = new DefaultParameterObject();
         final String result = xmlChainBuilder.executeAsProcess("END", context);
-        assertNull(result);
-        String contextResult = context.getAsString("result");
-        assertThat(contextResult, is("END - "));
+        Assert.assertNull(result);
+        final String contextResult = context.getAsString("result");
+        Assert.assertThat(contextResult, CoreMatchers.is("END - "));
 
     }
 }

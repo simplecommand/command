@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -72,7 +72,7 @@ public class InjectionChainBuilder<T extends Object> implements ChainBuilder<T> 
     public boolean executeAsChain(final T context) {
         return buildChain().executeAsChain(context);
     }
-    
+
     /**
      * @see org.mwolff.command.chain.ChainCommand#executeCommandAsChain(java.lang.Object)
      */
@@ -100,7 +100,7 @@ public class InjectionChainBuilder<T extends Object> implements ChainBuilder<T> 
 
     /**
      * Sets the list of commands.
-     * 
+     *
      * @param commands
      *            Command to set from the injection framework.
      */
@@ -124,4 +124,4 @@ public class InjectionChainBuilder<T extends Object> implements ChainBuilder<T> 
         return null;
     }
 
- }
+}

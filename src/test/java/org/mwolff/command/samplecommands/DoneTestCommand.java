@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -34,7 +34,7 @@ import org.mwolff.command.parameterobject.GenericParameterObject;
 public class DoneTestCommand<T extends GenericParameterObject> extends AbstractDefaultChainCommand<T> {
 
     @Override
-    public void execute(final T context) throws CommandException{
+    public void execute(final T context) throws CommandException {
         throw new CommandException("DONE.");
     }
 
@@ -42,7 +42,7 @@ public class DoneTestCommand<T extends GenericParameterObject> extends AbstractD
     public CommandTransition executeCommand(T parameterObject) {
         try {
             execute(parameterObject);
-        } catch (CommandException e) {
+        } catch (final CommandException e) {
             // Only for test porpuse
         }
         return CommandTransition.DONE;

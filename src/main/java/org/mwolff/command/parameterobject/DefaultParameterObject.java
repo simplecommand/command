@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -46,11 +46,11 @@ public class DefaultParameterObject implements GenericParameterObject {
     public static final GenericParameterObject getInstance() {
         return new DefaultParameterObject();
     }
-    
+
     /**
      * A generic map storing the key/value pairs.
      */
-    private final Map<String, Object>          genericMap  = new HashMap<>();
+    private final Map<String, Object> genericMap = new HashMap<>();
 
     /**
      *

@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -25,9 +25,6 @@
  */
 package org.mwolff.command.parameterobject;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
@@ -47,11 +44,11 @@ public class DefaultParameterObjectTest {
         final String value = context.getAsString("file.list");
         Assert.assertThat(value, CoreMatchers.is("filelist"));
     }
-    
+
     @Test
     public void getInstanceTest() throws Exception {
-        GenericParameterObject instance = DefaultParameterObject.getInstance();
-        assertThat(instance, notNullValue());
-        assertThat(instance, CoreMatchers.instanceOf(DefaultParameterObject.class));
+        final GenericParameterObject instance = DefaultParameterObject.getInstance();
+        Assert.assertThat(instance, CoreMatchers.notNullValue());
+        Assert.assertThat(instance, CoreMatchers.instanceOf(DefaultParameterObject.class));
     }
 }

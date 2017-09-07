@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -29,7 +29,7 @@ package org.mwolff.command.parameterobject;
 /**
  * Simple context interface for pass values across commands.
  */
-public interface GenericParameterObject  {
+public interface GenericParameterObject {
 
     /**
      * Returns the object of the given key.

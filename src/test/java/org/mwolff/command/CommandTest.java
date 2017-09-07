@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -26,9 +26,7 @@
 
 package org.mwolff.command;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-
+import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -49,7 +47,7 @@ public class CommandTest {
 
     @Test
     public void testInterfaceDefaultExecuteCommand() {
-        
+
         final GenericParameterObject context = new DefaultParameterObject();
         final Command<GenericParameterObject> command = new Command<GenericParameterObject>() {
 
@@ -57,22 +55,22 @@ public class CommandTest {
             public void execute(GenericParameterObject parameterObject) throws CommandException {
                 throw new UnsupportedOperationException("Use executeCommand() instead");
             }
-            
+
             @Override
             public CommandTransition executeCommand(GenericParameterObject parameterObject) {
                 return Command.super.executeCommand(parameterObject);
             }
 
         };
-        
-        CommandTransition transition = command.executeCommand(context);
-        assertThat(transition, is(CommandTransition.SUCCESS));
+
+        final CommandTransition transition = command.executeCommand(context);
+        Assert.assertThat(transition, CoreMatchers.is(CommandTransition.SUCCESS));
     }
-    
+
     @SuppressWarnings("deprecation")
     @Test
     public void testInterfaceDefaultExecute() throws Exception {
-        
+
         final GenericParameterObject context = new DefaultParameterObject();
         final Command<GenericParameterObject> command = new Command<GenericParameterObject>() {
 
@@ -80,14 +78,14 @@ public class CommandTest {
             public void execute(GenericParameterObject parameterObject) throws CommandException {
                 throw new UnsupportedOperationException("Use executeCommand() instead");
             }
-            
+
             @Override
             public CommandTransition executeCommand(GenericParameterObject parameterObject) {
                 return Command.super.executeCommand(parameterObject);
             }
 
         };
-        
+
         thrown.expect(UnsupportedOperationException.class);
         thrown.expectMessage("Use executeCommand() instead");
         command.execute(context);
@@ -95,25 +93,24 @@ public class CommandTest {
 
     @Test
     public void testInterfaceDefaultExecuteWithNoContext() throws Exception {
-        
+
         final Command<GenericParameterObject> command = new Command<GenericParameterObject>() {
 
             @Override
             public void execute(GenericParameterObject parameterObject) throws CommandException {
                 throw new UnsupportedOperationException("Use executeCommand() instead");
             }
-            
+
             @Override
             public CommandTransition executeCommand(GenericParameterObject parameterObject) {
                 return Command.super.executeCommand(parameterObject);
             }
 
         };
-        
-        CommandTransition transition = command.executeCommand(null);
-        assertThat(transition, is(CommandTransition.FAILURE));
+
+        final CommandTransition transition = command.executeCommand(null);
+        Assert.assertThat(transition, CoreMatchers.is(CommandTransition.FAILURE));
     }
- 
 
     @SuppressWarnings("deprecation")
     @Test
@@ -171,6 +168,5 @@ public class CommandTest {
         command.execute(context);
         Assert.assertEquals("PriorityTwoTestCommand", context.getAsString("PriorityTwoTestCommand"));
     }
-
 
 }

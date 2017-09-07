@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -28,8 +28,8 @@ package org.mwolff.command.process;
 
 /**
  * Interface for a transition used for the process mode of the framework.
- * 
- * @author Manfred Wolff 
+ *
+ * @author Manfred Wolff
  *
  */
 public interface Transition {
@@ -44,13 +44,13 @@ public interface Transition {
      */
     String getTarget();
 
-    /** 
-     * @param returnValue The return value of the transition. 
+    /**
+     * @param returnValue The return value of the transition.
      */
     void setReturnValue(final String returnValue);
 
     /**
-     * @param target The target of the transition. 
+     * @param target The target of the transition.
      */
     void setTarget(final String target);
 

@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -25,8 +25,6 @@
  */
 
 package org.mwolff.command.chain;
-
-import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -177,15 +175,15 @@ public class XMLChainBuilderTest {
     @Test
     public void testExecuteAsProcess() throws Exception {
         final XMLChainBuilder<GenericParameterObject> builder = new XMLChainBuilder<>("/commandChainProcess.xml");
-        String result = builder.executeAsProcess(DefaultParameterObject.NULLCONTEXT);
-        assertNull(result);
+        final String result = builder.executeAsProcess(DefaultParameterObject.NULLCONTEXT);
+        Assert.assertNull(result);
     }
 
     @Test
     public void testExecuteMethodForBuilder() throws Exception {
         final XMLChainBuilder<Object> xmlChainBuilder = new XMLChainBuilder<>("/commandChainPriority.xml");
         final DefaultParameterObject context = new DefaultParameterObject();
-        context.put("priority","");
+        context.put("priority", "");
         xmlChainBuilder.execute(context);
         Assert.assertEquals("1-2-", context.getAsString("priority"));
     }
@@ -194,8 +192,8 @@ public class XMLChainBuilderTest {
     public void testExecuteCommand() throws Exception {
         final XMLChainBuilder<Object> xmlChainBuilder = new XMLChainBuilder<>("/commandChainPriority.xml");
         final DefaultParameterObject context = new DefaultParameterObject();
-        context.put("priority","");
-        CommandTransition transition = xmlChainBuilder.executeCommand(context);
+        context.put("priority", "");
+        final CommandTransition transition = xmlChainBuilder.executeCommand(context);
         Assert.assertEquals("", context.getAsString("priority"));
         Assert.assertEquals(transition, CommandTransition.SUCCESS);
     }
@@ -204,7 +202,7 @@ public class XMLChainBuilderTest {
     public void testsetProcessID() throws Exception {
         final XMLChainBuilder<Object> xmlChainBuilder = new XMLChainBuilder<>("");
         final DefaultParameterObject context = new DefaultParameterObject();
-        CommandTransition transition = xmlChainBuilder.executeCommand(context);
+        final CommandTransition transition = xmlChainBuilder.executeCommand(context);
         Assert.assertEquals(transition, CommandTransition.SUCCESS);
     }
 
@@ -224,8 +222,8 @@ public class XMLChainBuilderTest {
     public void testExecuteCommandSUCCESS() throws Exception {
         final XMLChainBuilder<Object> xmlChainBuilder = new XMLChainBuilder<>("/commandChainEnd.xml");
         final DefaultParameterObject context = new DefaultParameterObject();
-        context.put("priority","");
-        CommandTransition transition = xmlChainBuilder.executeCommandAsChain(context);
+        context.put("priority", "");
+        final CommandTransition transition = xmlChainBuilder.executeCommandAsChain(context);
         Assert.assertEquals(transition, CommandTransition.SUCCESS);
     }
 
@@ -233,8 +231,8 @@ public class XMLChainBuilderTest {
     public void testExecuteCommandAsChainABORT() throws Exception {
         final XMLChainBuilder<Object> xmlChainBuilder = new XMLChainBuilder<>("/commandChainAbort.xml");
         final DefaultParameterObject context = new DefaultParameterObject();
-        CommandTransition transition = xmlChainBuilder.executeCommandAsChain(context);
+        final CommandTransition transition = xmlChainBuilder.executeCommandAsChain(context);
         Assert.assertEquals(CommandTransition.DONE, transition);
     }
-    
+
 }

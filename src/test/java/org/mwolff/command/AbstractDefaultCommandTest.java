@@ -13,17 +13,17 @@ public class AbstractDefaultCommandTest {
         public CommandTransition executeCommand(String parameterObject) {
             return null;
         }
-        
+
     }
-    
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void testExecute() throws Exception {
         thrown.expect(UnsupportedOperationException.class);
-        MyTestClass instance = new MyTestClass();
+        final MyTestClass instance = new MyTestClass();
         instance.execute(null);
     }
-    
+
 }

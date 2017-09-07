@@ -5,7 +5,7 @@ import org.junit.Test;
 /**
  * This is a fake test for coverage the enum. Enums generates byte codes which
  * eclemma cannot deal with.
- * 
+ *
  * @author mwolff
  *
  */

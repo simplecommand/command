@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -25,9 +25,8 @@
  */
 package org.mwolff.command.process;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-
+import org.hamcrest.CoreMatchers;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -39,39 +38,38 @@ import org.mwolff.command.parameterobject.GenericParameterObject;
 public class DefaultEndCommandTest {
 
     private DefaultEndCommand defaultEndCommand;
-    
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
+    @Rule
+    public ExpectedException  thrown = ExpectedException.none();
 
     @Before
     public void setUp() {
         defaultEndCommand = new DefaultEndCommand();
     }
-    
+
     @Test
     public void testExecuteAsProcessSimple() throws Exception {
-        assertThat(defaultEndCommand.executeAsProcess(null), is("END"));
+        Assert.assertThat(defaultEndCommand.executeAsProcess(null), CoreMatchers.is("END"));
     }
 
     @Test
     public void testEndCommandInProcessChain() throws Exception {
-        DefaultCommandContainer<GenericParameterObject> defaultCommandContainer = new DefaultCommandContainer<>();
+        final DefaultCommandContainer<GenericParameterObject> defaultCommandContainer = new DefaultCommandContainer<>();
         defaultEndCommand.setProcessID("END");
-        DefaultParameterObject context = new DefaultParameterObject();
+        final DefaultParameterObject context = new DefaultParameterObject();
         defaultCommandContainer.addCommand(defaultEndCommand);
-        assertThat(defaultCommandContainer.executeAsProcess("END", context), is("END"));
+        Assert.assertThat(defaultCommandContainer.executeAsProcess("END", context), CoreMatchers.is("END"));
     }
-    
+
     @Test
     public void testExecuteAsProcessComplex() throws Exception {
-        assertThat(defaultEndCommand.executeAsProcess("START", null), is("END"));
+        Assert.assertThat(defaultEndCommand.executeAsProcess("START", null), CoreMatchers.is("END"));
     }
-    
+
     @Test
     public void testExecute() throws Exception {
         thrown.expect(UnsupportedOperationException.class);
         defaultEndCommand.execute(null);
     }
-    
+
 }

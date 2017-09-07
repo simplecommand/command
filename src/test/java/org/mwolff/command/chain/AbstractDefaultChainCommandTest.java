@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -25,9 +25,8 @@
  */
 package org.mwolff.command.chain;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-
+import org.hamcrest.CoreMatchers;
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -39,7 +38,7 @@ import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.samplecommands.SimpleTestCommand;
 
 public class AbstractDefaultChainCommandTest {
-    
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -49,8 +48,8 @@ public class AbstractDefaultChainCommandTest {
         final GenericParameterObject context = new DefaultParameterObject();
         final Command<GenericParameterObject> command = new SimpleTestCommand<>();
         command.execute(context);
-        assertThat(context.getAsString("SimpleTestCommand"), is("SimpleTestCommand"));
-        assertThat(context.getAsString("priority"), is("S-"));
+        Assert.assertThat(context.getAsString("SimpleTestCommand"), CoreMatchers.is("SimpleTestCommand"));
+        Assert.assertThat(context.getAsString("priority"), CoreMatchers.is("S-"));
     }
 
     @SuppressWarnings("deprecation")
@@ -60,56 +59,56 @@ public class AbstractDefaultChainCommandTest {
         final Command<GenericParameterObject> command = new SimpleTestCommand<>();
         command.execute(null);
     }
-    
+
     @SuppressWarnings("deprecation")
     public void testExecuteAsChain() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
         final ChainCommand<GenericParameterObject> command = new SimpleTestCommand<>();
-        boolean result = command.executeAsChain(context);
-        assertThat(context.getAsString("SimpleTestCommand"), is("SimpleTestCommand"));
-        assertThat(context.getAsString("priority"), is("S-"));
-        assertThat(result, is(Boolean.TRUE));
+        final boolean result = command.executeAsChain(context);
+        Assert.assertThat(context.getAsString("SimpleTestCommand"), CoreMatchers.is("SimpleTestCommand"));
+        Assert.assertThat(context.getAsString("priority"), CoreMatchers.is("S-"));
+        Assert.assertThat(result, CoreMatchers.is(Boolean.TRUE));
     }
-    
+
     @SuppressWarnings("deprecation")
     public void testExecuteAsChainNull() throws Exception {
         final ChainCommand<GenericParameterObject> command = new SimpleTestCommand<>();
-        boolean result = command.executeAsChain(null);
-        assertThat(result, is(Boolean.FALSE));
+        final boolean result = command.executeAsChain(null);
+        Assert.assertThat(result, CoreMatchers.is(Boolean.FALSE));
     }
-    
+
     @Test
     public void testExecuteCommand() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
         final Command<GenericParameterObject> command = new SimpleTestCommand<>();
-        CommandTransition result = command.executeCommand(context);
-        assertThat(context.getAsString("SimpleTestCommand"), is("SimpleTestCommand"));
-        assertThat(context.getAsString("priority"), is("S-"));
-        assertThat(result, is(CommandTransition.SUCCESS));
+        final CommandTransition result = command.executeCommand(context);
+        Assert.assertThat(context.getAsString("SimpleTestCommand"), CoreMatchers.is("SimpleTestCommand"));
+        Assert.assertThat(context.getAsString("priority"), CoreMatchers.is("S-"));
+        Assert.assertThat(result, CoreMatchers.is(CommandTransition.SUCCESS));
     }
 
     @Test
     public void testExecuteCommandNull() throws Exception {
         final Command<GenericParameterObject> command = new SimpleTestCommand<>();
-        CommandTransition result = command.executeCommand(null);
-        assertThat(result, is(CommandTransition.FAILURE));
+        final CommandTransition result = command.executeCommand(null);
+        Assert.assertThat(result, CoreMatchers.is(CommandTransition.FAILURE));
     }
-    
+
     @Test
     public void testExecuteCommandAsChain() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
         final ChainCommand<GenericParameterObject> command = new SimpleTestCommand<>();
-        CommandTransition result = command.executeCommandAsChain(context);
-        assertThat(context.getAsString("SimpleTestCommand"), is("SimpleTestCommand"));
-        assertThat(context.getAsString("priority"), is("S-"));
-        assertThat(result, is(CommandTransition.SUCCESS));
+        final CommandTransition result = command.executeCommandAsChain(context);
+        Assert.assertThat(context.getAsString("SimpleTestCommand"), CoreMatchers.is("SimpleTestCommand"));
+        Assert.assertThat(context.getAsString("priority"), CoreMatchers.is("S-"));
+        Assert.assertThat(result, CoreMatchers.is(CommandTransition.SUCCESS));
     }
 
     @Test
     public void testExecuteCommandAsChainNull() throws Exception {
         final ChainCommand<GenericParameterObject> command = new SimpleTestCommand<>();
-        CommandTransition result = command.executeCommandAsChain(null);
-        assertThat(result, is(CommandTransition.DONE));
+        final CommandTransition result = command.executeCommandAsChain(null);
+        Assert.assertThat(result, CoreMatchers.is(CommandTransition.DONE));
     }
 
 }

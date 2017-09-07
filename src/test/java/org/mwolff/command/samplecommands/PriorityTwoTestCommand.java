@@ -3,7 +3,7 @@
 
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
-    
+
     Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
@@ -49,7 +49,9 @@ public class PriorityTwoTestCommand<T extends GenericParameterObject> extends Ab
     @Override
     public boolean executeAsChain(final T context) {
         String priorString = context.getAsString("priority");
-        if (StringUtils.isEmpty(priorString)) priorString = "";
+        if (StringUtils.isEmpty(priorString)) {
+            priorString = "";
+        }
         priorString += "B-";
         context.put("priority", priorString);
         return true;
