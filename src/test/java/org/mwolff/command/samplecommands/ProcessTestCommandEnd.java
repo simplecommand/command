@@ -79,9 +79,4 @@ public class ProcessTestCommandEnd<T extends GenericParameterObject> extends Abs
         ProcessTestCommandEnd.LOG.error("nothing to do");
         return true;
     }
-
-    @Override
-    public String executeAsProcess(String startCommand, T context) {
-        return null;
-    }
-}
+ }

@@ -51,6 +51,12 @@ public class PriorityOneTestCommand<T extends GenericParameterObject> extends Ab
     }
 
     @Override
+    public CommandTransition executeCommandAsChain(final T context) {
+        execute(context);
+        return CommandTransition.NEXT;
+    }
+
+    @Override
     public CommandTransition executeCommand(T parameterObject) {
         execute(parameterObject);
         return CommandTransition.SUCCESS;

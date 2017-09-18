@@ -30,6 +30,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mwolff.command.chain.XMLChainBuilder;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
+import org.mwolff.command.parameterobject.GenericParameterObject;
 
 public class ProcessTestCommandEndTest {
 
@@ -41,6 +42,13 @@ public class ProcessTestCommandEndTest {
         Assert.assertNull(result);
         final String contextResult = context.getAsString("result");
         Assert.assertThat(contextResult, CoreMatchers.is("END - "));
+    }
 
+    @Test
+    public void testEndCommandStandalone() throws Exception {
+        ProcessTestCommandEnd<GenericParameterObject> command = new ProcessTestCommandEnd<>();
+        final DefaultParameterObject context = new DefaultParameterObject();
+        final String result = command.executeAsProcess("END", context);
+        Assert.assertNull(result);
     }
 }

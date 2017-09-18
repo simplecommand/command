@@ -82,11 +82,6 @@ public class ProcessTestCommandNext<T extends GenericParameterObject> extends Ab
     }
 
     @Override
-    public String executeAsProcess(String startCommand, T context) {
-        return null;
-    }
-
-    @Override
     public CommandTransition executeCommand(T parameterObject) {
         try {
             execute(parameterObject);
