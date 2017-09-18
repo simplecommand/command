@@ -26,6 +26,7 @@
 
 package org.mwolff.command.samplecommands;
 
+import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.chain.AbstractDefaultChainCommand;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.springframework.util.StringUtils;
@@ -47,6 +48,12 @@ public class PriorityOneTestCommand<T extends GenericParameterObject> extends Ab
     public boolean executeAsChain(final T context) {
         execute(context);
         return false;
+    }
+
+    @Override
+    public CommandTransition executeCommand(T parameterObject) {
+        execute(parameterObject);
+        return CommandTransition.SUCCESS;
     }
 
 }

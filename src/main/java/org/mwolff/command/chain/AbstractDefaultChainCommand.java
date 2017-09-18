@@ -27,6 +27,7 @@
 package org.mwolff.command.chain;
 
 import org.apache.log4j.Logger;
+import org.mwolff.command.AbstractDefaultCommand;
 import org.mwolff.command.CommandException;
 import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 
@@ -35,16 +36,10 @@ import org.mwolff.command.CommandTransitionEnum.CommandTransition;
  * <code>executeAsChain</code> for all executions of the <code>command</code> or
  * <code>commandContainer</code>.
  */
-public abstract class AbstractDefaultChainCommand<T extends Object> implements ChainCommand<T> {
+public abstract class AbstractDefaultChainCommand<T extends Object> extends AbstractDefaultCommand<T> implements ChainCommand<T> {
 
     private static final Logger LOG = Logger.getLogger(AbstractDefaultChainCommand.class);
-
-    /**
-     * @see org.mwolff.command.Command#execute(java.lang.Object)
-     */
-    @Override
-    public abstract void execute(T context) throws CommandException;
-
+ 
     /**
      * @see org.mwolff.command.chain.ChainCommand#executeAsChain(java.lang.Object)
      */
@@ -66,16 +61,7 @@ public abstract class AbstractDefaultChainCommand<T extends Object> implements C
      * @see org.mwolff.command.Command#executeCommand(java.lang.Object)
      */
     @Override
-    public CommandTransition executeCommand(T parameterObject) {
-        try {
-            execute(parameterObject);
-        } catch (final CommandException e) {
-            AbstractDefaultChainCommand.LOG.error(e);
-            return CommandTransition.FAILURE;
-        }
-        return CommandTransition.SUCCESS;
-    }
-
+    public abstract CommandTransition executeCommand(T parameterObject);
     /**
      * @see org.mwolff.command.chain.ChainCommand#executeCommandAsChain(java.lang.Object)
      */

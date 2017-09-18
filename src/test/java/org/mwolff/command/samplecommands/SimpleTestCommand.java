@@ -27,6 +27,7 @@
 package org.mwolff.command.samplecommands;
 
 import org.mwolff.command.CommandException;
+import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.chain.AbstractDefaultChainCommand;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
@@ -43,5 +44,15 @@ public class SimpleTestCommand<T extends GenericParameterObject> extends Abstrac
         String priorString = context.getAsString("priority");
         priorString += "S-";
         context.put("priority", priorString);
+    }
+
+    @Override
+    public CommandTransition executeCommand(T parameterObject) {
+        try {
+            execute(parameterObject);
+        } catch (CommandException e) {
+            return CommandTransition.FAILURE;
+        }
+        return CommandTransition.SUCCESS;
     }
 }
