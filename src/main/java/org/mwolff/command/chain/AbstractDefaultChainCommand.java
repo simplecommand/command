@@ -58,12 +58,6 @@ public abstract class AbstractDefaultChainCommand<T extends Object> extends Abst
     }
 
     /**
-     * @see org.mwolff.command.Command#executeCommand(java.lang.Object)
-     */
-    @Override
-    public abstract CommandTransition executeCommand(T parameterObject);
-
-    /**
      * @see org.mwolff.command.chain.ChainCommand#executeCommandAsChain(java.lang.Object)
      */
     @Override
