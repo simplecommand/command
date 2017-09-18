@@ -115,13 +115,13 @@ public class DefaultCommandContainerTest {
 
     @Test
     public void testExecuteCommandAsChainSuccessFAIL() throws Exception {
-        commandContainer.addCommand(new FailureTestCommand<>()).addCommand(new PriorityTwoTestCommand<>());
+        commandContainer.addCommand(new FailureTestCommand<>());
         context.put("priority", "");
 
         final CommandTransition transition = commandContainer.executeCommandAsChain(context);
         final String priorString = context.getAsString("priority");
         Assert.assertEquals(priorString, "");
-        Assert.assertEquals(transition, CommandTransition.DONE);
+        Assert.assertEquals(transition, CommandTransition.FAILURE);
 
     }
 

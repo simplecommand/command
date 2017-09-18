@@ -26,7 +26,6 @@
 
 package org.mwolff.command.process;
 
-import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
 public class DefaultEndCommand extends AbstractDefaultProcessCommand<GenericParameterObject> {
@@ -45,10 +44,4 @@ public class DefaultEndCommand extends AbstractDefaultProcessCommand<GenericPara
     public void execute(GenericParameterObject context) {
         throw new UnsupportedOperationException("Don't call execute on processes");
     }
-
-    @Override
-    public CommandTransition executeCommand(GenericParameterObject parameterObject) {
-        return null;
-    }
-
 }

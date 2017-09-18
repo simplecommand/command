@@ -26,8 +26,6 @@
 
 package org.mwolff.command;
 
-import org.mwolff.command.CommandTransitionEnum.CommandTransition;
-
 /**
  * Default implementation for a command. You may use
  * <code>executeAsChain</code> for all executions of the <code>command</code> or
@@ -44,7 +42,4 @@ public abstract class AbstractDefaultCommand<T extends Object> implements Comman
     public void execute(T context) throws CommandException {
         throw new UnsupportedOperationException("Deprecated, use executeCommand instead.");
     }
-
-    @Override
-    public abstract CommandTransition executeCommand(T parameterObject);
 }
