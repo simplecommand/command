@@ -33,12 +33,13 @@ import org.mwolff.command.Command;
 import org.mwolff.command.CommandContainer;
 import org.mwolff.command.CommandException;
 import org.mwolff.command.CommandTransitionEnum.CommandTransition;
+import org.mwolff.command.process.ProcessCommand;
 import org.mwolff.command.DefaultCommandContainer;
 
 /**
  * Generic chain builder for configuration with the spring framework.
  */
-public class InjectionChainBuilder<T extends Object> implements ChainBuilder<T> {
+public class InjectionChainBuilder<T extends Object> implements Command<T>, ProcessCommand<T>, ChainCommand<T> {
 
     private List<Command<T>> commands = new ArrayList<>();
 

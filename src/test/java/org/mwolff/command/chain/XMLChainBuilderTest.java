@@ -61,7 +61,7 @@ public class XMLChainBuilderTest {
     @Test
     public void chainbuilderExists() throws Exception {
         final XMLChainBuilder<Object> xmlChainBuilder = new XMLChainBuilder<>("");
-        Assert.assertThat(xmlChainBuilder, CoreMatchers.instanceOf(ChainBuilder.class));
+        Assert.assertThat(xmlChainBuilder, CoreMatchers.instanceOf(XMLChainBuilder.class));
     }
 
     @Test

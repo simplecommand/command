@@ -51,7 +51,7 @@ import org.mwolff.command.process.Transition;
  *
  * @author Manfred Wolff
  */
-public class XMLChainBuilder<T extends Object> implements ChainBuilder<T> {
+public class XMLChainBuilder<T extends Object> implements Command<T>, ProcessCommand<T>, ChainCommand<T> {
 
     private static final Logger         LOG   = Logger.getLogger(XMLChainBuilder.class);
     private static final String         ROOT  = "//process/action";
