@@ -98,10 +98,10 @@ public abstract class AbstractDefaultProcessCommand<T extends Object> extends Ab
     public void setProcessID(final String processID) {
         this.processID = processID;
     }
-    
+
     @Override
     public String executeAsProcess(String startCommand, T context) {
         return null;
     }
-    
+
 }

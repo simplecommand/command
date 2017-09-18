@@ -51,7 +51,7 @@ public abstract class AbstractDefaultChainCommand<T extends Object> extends Abst
         try {
             execute(context);
         } catch (final Exception e) {
-            LOG.info("Chain is aborted.", e);
+            AbstractDefaultChainCommand.LOG.info("Chain is aborted.", e);
             result = false;
         }
         return result;
@@ -63,8 +63,9 @@ public abstract class AbstractDefaultChainCommand<T extends Object> extends Abst
     @Override
     public CommandTransition executeCommandAsChain(T parameterObject) {
         final CommandTransition result = executeCommand(parameterObject);
-        if (result == CommandTransition.SUCCESS)
+        if (result == CommandTransition.SUCCESS) {
             return CommandTransition.NEXT;
+        }
         return CommandTransition.DONE;
     }
 }

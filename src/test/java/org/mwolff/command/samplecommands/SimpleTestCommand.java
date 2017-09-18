@@ -50,7 +50,7 @@ public class SimpleTestCommand<T extends GenericParameterObject> extends Abstrac
     public CommandTransition executeCommand(T parameterObject) {
         try {
             execute(parameterObject);
-        } catch (CommandException e) {
+        } catch (final CommandException e) {
             return CommandTransition.FAILURE;
         }
         return CommandTransition.SUCCESS;

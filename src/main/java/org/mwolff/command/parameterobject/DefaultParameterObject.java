@@ -42,7 +42,7 @@ public class DefaultParameterObject implements GenericParameterObject {
     /**
      * A generic map storing the key/value pairs.
      */
-    private final Map<String, Object> genericMap = new HashMap<>();
+    private final Map<String, Object>          genericMap  = new HashMap<>();
 
     /**
      * Gets a fresh instance of an GenericParameterObject
