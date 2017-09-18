@@ -51,11 +51,4 @@ public class FailureTestCommand<T extends GenericParameterObject> extends Abstra
         execute(parameterObject);
         return CommandTransition.FAILURE;
     }
-
-    @Override
-    public CommandTransition executeCommandAsChain(T parameterObject) {
-        final boolean result = executeAsChain(parameterObject);
-        return (result == true) ? CommandTransition.SUCCESS : CommandTransition.FAILURE;
-    }
-
 }

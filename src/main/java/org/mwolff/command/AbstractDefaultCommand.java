@@ -32,6 +32,7 @@ import org.mwolff.command.CommandTransitionEnum.CommandTransition;
  * Default implementation for a command. You may use
  * <code>executeAsChain</code> for all executions of the <code>command</code> or
  * <code>commandContainer</code>.
+ * 
  * @since 1.5.1
  */
 public abstract class AbstractDefaultCommand<T extends Object> implements Command<T> {

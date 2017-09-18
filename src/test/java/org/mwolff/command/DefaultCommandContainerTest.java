@@ -108,8 +108,8 @@ public class DefaultCommandContainerTest {
         context.put("priority", "");
         final CommandTransition transition = commandContainer.executeCommandAsChain(context);
         final String priorString = context.getAsString("priority");
-        Assert.assertEquals("1-", priorString);
-        Assert.assertEquals(transition, CommandTransition.DONE);
+        Assert.assertEquals("1-2-3-", priorString);
+        Assert.assertEquals(transition, CommandTransition.NEXT);
 
     }
 
@@ -121,7 +121,7 @@ public class DefaultCommandContainerTest {
         final CommandTransition transition = commandContainer.executeCommandAsChain(context);
         final String priorString = context.getAsString("priority");
         Assert.assertEquals(priorString, "");
-        Assert.assertEquals(transition, CommandTransition.FAILURE);
+        Assert.assertEquals(transition, CommandTransition.DONE);
 
     }
 

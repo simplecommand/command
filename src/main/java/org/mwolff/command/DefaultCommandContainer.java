@@ -90,7 +90,8 @@ public class DefaultCommandContainer<T extends Object> implements CommandContain
 
     @Override
     public CommandTransition executeCommandAsChain(T parameterObject) {
-        CommandTransition result = CommandTransition.SUCCESS;
+        
+        CommandTransition result = CommandTransition.NEXT;
         for (final Command<T> command : commandList.values()) {
             result = ((ChainCommand<T>) command).executeCommandAsChain(parameterObject);
             if ((result == CommandTransition.DONE) || (result == CommandTransition.FAILURE)) {

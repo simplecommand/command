@@ -101,7 +101,7 @@ public class AbstractDefaultChainCommandTest {
         final CommandTransition result = command.executeCommandAsChain(context);
         Assert.assertThat(context.getAsString("SimpleTestCommand"), CoreMatchers.is("SimpleTestCommand"));
         Assert.assertThat(context.getAsString("priority"), CoreMatchers.is("S-"));
-        Assert.assertThat(result, CoreMatchers.is(CommandTransition.SUCCESS));
+        Assert.assertThat(result, CoreMatchers.is(CommandTransition.NEXT));
     }
 
     @Test

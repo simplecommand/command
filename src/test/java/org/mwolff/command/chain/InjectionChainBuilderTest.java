@@ -70,7 +70,7 @@ public class InjectionChainBuilderTest {
         commandList.add(failureTestCommand);
         builder.setCommands(commandList);
         final CommandTransition result = builder.executeCommandAsChain(context);
-        Assert.assertEquals(CommandTransition.FAILURE, result);
+        Assert.assertEquals(CommandTransition.DONE, result);
         Assert.assertEquals("proceeded", context.getAsString("status"));
     }
 

@@ -28,7 +28,6 @@ package org.mwolff.command.chain;
 
 import org.apache.log4j.Logger;
 import org.mwolff.command.AbstractDefaultCommand;
-import org.mwolff.command.CommandException;
 import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 
 /**
@@ -36,10 +35,11 @@ import org.mwolff.command.CommandTransitionEnum.CommandTransition;
  * <code>executeAsChain</code> for all executions of the <code>command</code> or
  * <code>commandContainer</code>.
  */
-public abstract class AbstractDefaultChainCommand<T extends Object> extends AbstractDefaultCommand<T> implements ChainCommand<T> {
+public abstract class AbstractDefaultChainCommand<T extends Object> extends AbstractDefaultCommand<T>
+        implements ChainCommand<T> {
 
     private static final Logger LOG = Logger.getLogger(AbstractDefaultChainCommand.class);
- 
+
     /**
      * @see org.mwolff.command.chain.ChainCommand#executeAsChain(java.lang.Object)
      */
@@ -51,7 +51,7 @@ public abstract class AbstractDefaultChainCommand<T extends Object> extends Abst
         try {
             execute(context);
         } catch (final Exception e) {
-            AbstractDefaultChainCommand.LOG.info("Chain is aborted.", e);
+            LOG.info("Chain is aborted.", e);
             result = false;
         }
         return result;
@@ -62,12 +62,15 @@ public abstract class AbstractDefaultChainCommand<T extends Object> extends Abst
      */
     @Override
     public abstract CommandTransition executeCommand(T parameterObject);
+
     /**
      * @see org.mwolff.command.chain.ChainCommand#executeCommandAsChain(java.lang.Object)
      */
     @Override
     public CommandTransition executeCommandAsChain(T parameterObject) {
-        final boolean result = executeAsChain(parameterObject);
-        return result ? CommandTransition.SUCCESS : CommandTransition.DONE;
+        final CommandTransition result = executeCommand(parameterObject);
+        if (result == CommandTransition.SUCCESS)
+            return CommandTransition.NEXT;
+        return CommandTransition.DONE;
     }
 }
