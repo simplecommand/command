@@ -9,8 +9,8 @@
 
 	<name>Simple Command Framework</name>
 	<description>A framework to build up SOLID-save applications.</description>
-    <url>http://mwolff.info/wiki/display/SCF/The+Simple+Command+Framework</url>
-	
+	<url>http://mwolff.info/wiki/display/SCF/The+Simple+Command+Framework</url>
+
 	<licenses>
 		<license>
 			<name>GNU Lesser General Public License</name>
@@ -62,6 +62,19 @@
 				<exclusion>
 					<artifactId>hamcrest-core</artifactId>
 					<groupId>org.hamcrest</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.9.5</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.hamcrest</groupId>
+					<artifactId>hamcrest-core</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>

@@ -16,13 +16,8 @@ public class ActionContentHandler extends DefaultHandler {
         return actions;
     }
 
-    private String     currentValue;
     private Action     action;
     private Transition transition;
-
-    public void characters(char[] ch, int start, int length) throws SAXException {
-        currentValue = new String(ch, start, length);
-    }
 
     public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
 
