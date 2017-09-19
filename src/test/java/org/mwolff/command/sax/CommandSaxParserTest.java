@@ -16,7 +16,7 @@ import org.mwolff.command.process.Transition;
 public class CommandSaxParserTest {
 
     private CommandTransition startParsing(GenericParameterObject context, String filename) {
-        CommandSaxParser commandSaxParser = CommandSaxParser.getInstance();
+        CommandSaxParser<GenericParameterObject> commandSaxParser = new CommandSaxParser<>();
         context.put(file_name, filename);
         return commandSaxParser.executeCommand(context);
     }

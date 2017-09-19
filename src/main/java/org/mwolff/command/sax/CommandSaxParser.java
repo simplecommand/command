@@ -12,18 +12,14 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-public class CommandSaxParser extends AbstractDefaultCommand<GenericParameterObject>{
+public class CommandSaxParser<T extends GenericParameterObject> extends AbstractDefaultCommand<T>{
     
     public static String file_name = "file.name";
     public static String action_list = "action.list";
     public static String error_string = "error.string";
     
-    public final static CommandSaxParser getInstance() {
-        return new CommandSaxParser();
-    }
-    
     @Override
-    public CommandTransition executeCommand(GenericParameterObject parameterObject) {
+    public CommandTransition executeCommand(T parameterObject) {
         
         try {
             XMLReader xmlReader = XMLReaderFactory.createXMLReader();

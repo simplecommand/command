@@ -31,8 +31,10 @@ import org.mwolff.command.Command;
 import org.mwolff.command.CommandContainer;
 import org.mwolff.command.CommandException;
 import org.mwolff.command.CommandTransitionEnum.CommandTransition;
+import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.DefaultCommandContainer;
 import org.mwolff.command.process.ProcessCommand;
+import org.mwolff.command.sax.CommandSaxParser;
 
 /**
  * Chain builder parsing an XML file for building chains or process chains.
@@ -47,7 +49,7 @@ public class XMLSaxChainBuilder<T extends Object> implements Command<T>, Process
     public boolean executeAsChain(T parameterObject) {
         CommandContainer<T> chain = null;
         try {
-            chain = buildChain();
+            chain = buildChain(parameterObject);
         } catch (final Exception e) {
             LOG.error("Operation aborted via command implementation.", e);
             return false;
@@ -58,7 +60,7 @@ public class XMLSaxChainBuilder<T extends Object> implements Command<T>, Process
     @Override
     public String executeAsProcess(String startCommand, T context) {
         try {
-            return buildChain().executeAsProcess(startCommand, context);
+            return buildChain(context).executeAsProcess(startCommand, context);
         } catch (final CommandException e) {
             LOG.error(e);
             return null;
@@ -83,14 +85,19 @@ public class XMLSaxChainBuilder<T extends Object> implements Command<T>, Process
     @Override
     public void execute(T parameterObject) throws CommandException {
         try {
-            buildChain().execute(parameterObject);
+            buildChain(parameterObject).execute(parameterObject);
         } catch (final Exception e) {
             // Just log, do nothing else
             LOG.error("Error while executing chain.", e);
         }
     }
     
-    protected CommandContainer<T> buildChain() throws CommandException {
+    protected CommandContainer<T> buildChain(T parameterObject) throws CommandException {
+        CommandSaxParser<GenericParameterObject> commandSaxParser = new CommandSaxParser<>();
+        CommandTransition result = commandSaxParser.executeCommand((GenericParameterObject) parameterObject);
+        if (result == CommandTransition.FAILURE) {
+            throw new CommandException("XML Document could not created");
+        }
         return new DefaultCommandContainer<>();
     }
     

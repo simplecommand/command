@@ -1,9 +1,9 @@
 package org.mwolff.command.chain;
 
+import static org.hamcrest.CoreMatchers.*;
+
 import java.util.List;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Rule;
@@ -17,6 +17,7 @@ import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.ProcessCommand;
 import org.mwolff.command.process.Transition;
+import org.mwolff.command.sax.CommandSaxParser;
 import org.springframework.test.util.ReflectionTestUtils;
 
 public class XMLSaxChainBuilderTest {
@@ -24,43 +25,42 @@ public class XMLSaxChainBuilderTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    @Ignore
     public void testExecuteOnly() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
         context.put("key", "value");
-        final XMLChainBuilder<GenericParameterObject> builder = new XMLChainBuilder<>("/invalidXMLDocument.xml");
+        final XMLSaxChainBuilder<GenericParameterObject> builder = new XMLSaxChainBuilder<>();
         builder.execute(context);
         Assert.assertEquals("value", context.getAsString("key"));
     }
 
     @Test
-    @Ignore
     public void chainbuilderExists() throws Exception {
-        final XMLChainBuilder<Object> xmlChainBuilder = new XMLChainBuilder<>("");
-        Assert.assertThat(xmlChainBuilder, CoreMatchers.instanceOf(XMLChainBuilder.class));
+        final XMLSaxChainBuilder<Object> xmlChainBuilder = new XMLSaxChainBuilder<>();
+        Assert.assertThat(xmlChainBuilder, instanceOf(XMLSaxChainBuilder.class));
     }
 
     @Test
-    @Ignore
     public void createInvalidXMLDocument() throws Exception {
         thrown.expect(CommandException.class);
         thrown.expectMessage("XML Document could not created");
-        final XMLChainBuilder<Object> xmlChainBuilder = new XMLChainBuilder<>("/invalidXMLDocument.xml");
-        xmlChainBuilder.buildChain();
+        GenericParameterObject context = DefaultParameterObject.getInstance();
+        context.put(CommandSaxParser.file_name, "/invalidXMLDocument.xml");
+        final XMLSaxChainBuilder<Object> xmlChainBuilder = new XMLSaxChainBuilder<>();
+        xmlChainBuilder.buildChain(context);
     }
 
     @Test
-    @Ignore
     public void emptyCommand() throws Exception {
-        final XMLChainBuilder<Object> xmlChainBuilder = new XMLChainBuilder<>("/commandChainEmpty.xml");
-        final DefaultParameterObject context = new DefaultParameterObject();
+        GenericParameterObject context = DefaultParameterObject.getInstance();
+        context.put(CommandSaxParser.file_name, "/commandChainEmpty.xml");
+        final XMLSaxChainBuilder<GenericParameterObject> xmlChainBuilder = new XMLSaxChainBuilder<>();
         final boolean returnvalue = xmlChainBuilder.executeAsChain(context);
         @SuppressWarnings("unchecked")
         final List<Command<Object>> commands = (List<Command<Object>>) ReflectionTestUtils.getField(xmlChainBuilder,
                 "actions");
-        Assert.assertThat(returnvalue, Matchers.is(true));
-        Assert.assertThat(commands, Matchers.notNullValue());
-        Assert.assertThat(commands.isEmpty(), Matchers.is(true));
+        Assert.assertThat(returnvalue, is(true));
+        Assert.assertThat(commands, notNullValue());
+        Assert.assertThat(commands.isEmpty(), is(true));
     }
 
     @Test
@@ -78,7 +78,7 @@ public class XMLSaxChainBuilderTest {
         final XMLChainBuilder<Object> xmlChainBuilder = new XMLChainBuilder<>("/invalidCommandChain.xml");
         final DefaultParameterObject context = new DefaultParameterObject();
         final boolean result = xmlChainBuilder.executeAsChain(context);
-        Assert.assertThat(result, Matchers.is(false));
+        Assert.assertThat(result, is(false));
     }
 
     @Test
@@ -108,10 +108,10 @@ public class XMLSaxChainBuilderTest {
         @SuppressWarnings("unchecked")
         final List<Command<Object>> commands = (List<Command<Object>>) ReflectionTestUtils.getField(xmlChainBuilder,
                 "actions");
-        Assert.assertThat(returnvalue, Matchers.is(true));
-        Assert.assertThat(commands, Matchers.notNullValue());
-        Assert.assertThat(commands.isEmpty(), Matchers.is(false));
-        Assert.assertThat(commands.size(), Matchers.is(1));
+        Assert.assertThat(returnvalue, is(true));
+        Assert.assertThat(commands, notNullValue());
+        Assert.assertThat(commands.isEmpty(), is(false));
+        Assert.assertThat(commands.size(), is(1));
     }
 
     @Test
@@ -123,10 +123,9 @@ public class XMLSaxChainBuilderTest {
         @SuppressWarnings("unchecked")
         final List<Command<Object>> commands = (List<Command<Object>>) ReflectionTestUtils.getField(xmlChainBuilder,
                 "actions");
-        Assert.assertThat(returnvalue, Matchers.is(false));
-        Assert.assertThat(commands, Matchers.notNullValue());
-        Assert.assertThat(commands.isEmpty(), Matchers.is(false));
-        Assert.assertThat(commands.size(), Matchers.is(1));
+        Assert.assertThat(returnvalue, is(false));
+        Assert.assertThat(commands, notNullValue());
+        Assert.assertThat(commands.isEmpty(), is(false));
     }
 
     @Test
