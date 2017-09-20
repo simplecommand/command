@@ -3,7 +3,8 @@ package org.mwolff.command.sax;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import static org.mwolff.command.CommandTransitionEnum.CommandTransition.*;
-import static org.mwolff.command.sax.CommandSaxParser.*;
+import static org.mwolff.command.sax.InputSourceReaderCommand.*;
+import static org.mwolff.command.sax.SaxParserCommand.*;
 
 import java.util.List;
 
@@ -13,26 +14,15 @@ import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.Transition;
 
-public class CommandSaxParserTest {
+public class SaxParserCommandTest {
 
     private CommandTransition startParsing(GenericParameterObject context, String filename) {
-        CommandSaxParser<GenericParameterObject> commandSaxParser = new CommandSaxParser<>();
+        SaxParserCommand<GenericParameterObject> commandSaxParser = new SaxParserCommand<>();
         context.put(file_name, filename);
         return commandSaxParser.executeCommand(context);
     }
     
-    @Test
-    public void testInvalidFilenName() throws Exception {
-
-        GenericParameterObject  context = DefaultParameterObject.getInstance(); 
-        CommandTransition result = startParsing(context, "doesNotExsist.xml");
-        
-        assertThat(result, is(FAILURE));
-        String error = context.getAsString(error_string);
-        assertThat(error, is(""));        
-        
-    }
-
+ 
     @Test
     public void testSingleActionWithClassName() throws Exception {
         

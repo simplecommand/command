@@ -1,8 +1,9 @@
 package org.mwolff.command.sax;
 
+import static org.mwolff.command.CommandTransitionEnum.CommandTransition.*;
+import static org.mwolff.command.sax.InputSourceReaderCommand.*;
+
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 
 import org.mwolff.command.AbstractDefaultCommand;
 import org.mwolff.command.CommandTransitionEnum.CommandTransition;
@@ -12,22 +13,23 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-public class CommandSaxParser<T extends GenericParameterObject> extends AbstractDefaultCommand<T>{
+public class SaxParserCommand<T extends GenericParameterObject> extends AbstractDefaultCommand<T>{
     
-    public static String file_name = "file.name";
     public static String action_list = "action.list";
-    public static String error_string = "error.string";
     
     @Override
     public CommandTransition executeCommand(T parameterObject) {
         
         try {
-            XMLReader xmlReader = XMLReaderFactory.createXMLReader();
-
-            final InputStream inputStream = this.getClass().getResourceAsStream("/" + parameterObject.getAsString(file_name));
+            InputSourceReaderCommand<T> inputSourceReaderCommand = new InputSourceReaderCommand<T>();
+            CommandTransition result = inputSourceReaderCommand.executeCommand(parameterObject);
+            if (result == FAILURE) {
+                return result;
+            }
             
-            InputSource inputSource = new InputSource(inputStream);
-
+            InputSource inputSource = (InputSource) parameterObject.get(input_source);
+            
+            XMLReader xmlReader = XMLReaderFactory.createXMLReader();
             ActionContentHandler handler = new ActionContentHandler();
             xmlReader.setContentHandler(handler);
             xmlReader.parse(inputSource);

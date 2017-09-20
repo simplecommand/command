@@ -26,6 +26,9 @@
 
 package org.mwolff.command.chain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.mwolff.command.Command;
 import org.mwolff.command.CommandContainer;
@@ -34,7 +37,7 @@ import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.DefaultCommandContainer;
 import org.mwolff.command.process.ProcessCommand;
-import org.mwolff.command.sax.CommandSaxParser;
+import org.mwolff.command.sax.SaxParserCommand;
 
 /**
  * Chain builder parsing an XML file for building chains or process chains.
@@ -43,7 +46,8 @@ import org.mwolff.command.sax.CommandSaxParser;
  */
 public class XMLSaxChainBuilder<T extends Object> implements Command<T>, ProcessCommand<T>, ChainCommand<T> {
 
-    private static final Logger         LOG   = Logger.getLogger(XMLSaxChainBuilder.class);
+    private static final Logger         LOG = Logger.getLogger(XMLSaxChainBuilder.class);
+    private final List<Command<Object>> actions = new ArrayList<>();
 
     @Override
     public boolean executeAsChain(T parameterObject) {
@@ -91,16 +95,16 @@ public class XMLSaxChainBuilder<T extends Object> implements Command<T>, Process
             LOG.error("Error while executing chain.", e);
         }
     }
-    
+
     protected CommandContainer<T> buildChain(T parameterObject) throws CommandException {
-        CommandSaxParser<GenericParameterObject> commandSaxParser = new CommandSaxParser<>();
+        SaxParserCommand<GenericParameterObject> commandSaxParser = new SaxParserCommand<>();
         CommandTransition result = commandSaxParser.executeCommand((GenericParameterObject) parameterObject);
         if (result == CommandTransition.FAILURE) {
             throw new CommandException("XML Document could not created");
         }
         return new DefaultCommandContainer<>();
     }
-    
+
     @Override
     public CommandTransition executeCommandAsChain(T parameterObject) {
         final boolean result = executeAsChain(parameterObject);
