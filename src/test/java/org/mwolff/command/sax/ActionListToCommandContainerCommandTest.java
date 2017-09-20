@@ -2,7 +2,6 @@ package org.mwolff.command.sax;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
 import static org.mwolff.command.CommandTransitionEnum.CommandTransition.*;
 import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
@@ -77,5 +76,20 @@ public class ActionListToCommandContainerCommandTest {
         List<Transition> transitions = command.getTransitionList();
         assertThat(transitions, notNullValue());
         assertThat(transitions.size(), is(1));
+    }
+    
+    @Test
+    public void testInvalidClassname() throws Exception {
+        Action action = new Action();
+        action.setClassname("false.package.name.Class");
+        action.setId("action");
+        actionList.add(action);
+        ActionListToCommandContainerCommand<GenericParameterObject> actionListToCommandContainerCommand = new ActionListToCommandContainerCommand<>();
+        GenericParameterObject context = DefaultParameterObject.getInstance();
+        context.put(action_list, actionList);
+        CommandTransition result = actionListToCommandContainerCommand.executeCommand(context);
+        assertThat(result, is(FAILURE));
+        String error = context.getAsString(error_string);
+        assertThat(error, is("Error while instaciating class via reflection"));
     }
 }
