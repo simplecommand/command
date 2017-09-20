@@ -1,6 +1,9 @@
 package org.mwolff.command.sax;
 
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 import static org.mwolff.command.CommandTransitionEnum.CommandTransition.*;
+import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,16 +85,16 @@ public class ActionListToCommandContainerCommandTest {
 
     @Test
     public void testInvalidClassname() throws Exception {
-        final Action action = new Action();
+        Action action = new Action();
         action.setClassname("false.package.name.Class");
         action.setId("action");
         actionList.add(action);
-        final ActionListToCommandContainerCommand<GenericParameterObject> actionListToCommandContainerCommand = new ActionListToCommandContainerCommand<>();
-        final GenericParameterObject context = DefaultParameterObject.getInstance();
-        context.put(GlobalCommandConstants.action_list, actionList);
-        final CommandTransition result = actionListToCommandContainerCommand.executeCommand(context);
-        Assert.assertThat(result, CoreMatchers.is(FAILURE));
-        final String error = context.getAsString(GlobalCommandConstants.error_string);
-        Assert.assertThat(error, CoreMatchers.is("Error while instaciating class via reflection"));
+        ActionListToCommandContainerCommand<GenericParameterObject> actionListToCommandContainerCommand = new ActionListToCommandContainerCommand<>();
+        GenericParameterObject context = DefaultParameterObject.getInstance();
+        context.put(action_list, actionList);
+        CommandTransition result = actionListToCommandContainerCommand.executeCommand(context);
+        assertThat(result, is(FAILURE));
+        String error = context.getAsString(error_string);
+        assertThat(error, is("Error while instaciating class via reflection"));
     }
 }

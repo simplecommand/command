@@ -1,5 +1,7 @@
 package org.mwolff.command.chain;
 
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 import static org.mwolff.command.CommandTransitionEnum.CommandTransition.*;
 
 import org.hamcrest.CoreMatchers;
@@ -37,15 +39,14 @@ public class XMLSaxChainBuilderTest {
         final XMLSaxChainBuilder<Object> xmlChainBuilder = new XMLSaxChainBuilder<>("");
         xmlChainBuilder.setProcessID("");
         Assert.assertThat(xmlChainBuilder, CoreMatchers.instanceOf(XMLSaxChainBuilder.class));
-
     }
 
     @Test
     public void createInvalidXMLDocument() throws Exception {
-        final GenericParameterObject context = DefaultParameterObject.getInstance();
+        GenericParameterObject context = DefaultParameterObject.getInstance();
         final XMLSaxChainBuilder<Object> xmlChainBuilder = new XMLSaxChainBuilder<>("/invalidXMLDocument.xml");
-        final CommandTransition result = xmlChainBuilder.executeCommand(context);
-        Assert.assertThat(result, CoreMatchers.is(FAILURE));
+        CommandTransition result = xmlChainBuilder.executeCommand(context);
+        assertThat(result, is(FAILURE));
     }
 
     @Test
