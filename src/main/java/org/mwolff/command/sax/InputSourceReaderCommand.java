@@ -15,7 +15,7 @@ public class InputSourceReaderCommand<T extends GenericParameterObject> extends 
     @Override
     public CommandTransition executeCommand(T parameterObject) {
 
-        String filename = parameterObject.getAsString(file_name.toString());
+        String filename = parameterObject.getAsString(FILE_NAME.toString());
         if ( ! filename.startsWith("/")) {
             filename = "/" + filename;
         }
@@ -24,11 +24,11 @@ public class InputSourceReaderCommand<T extends GenericParameterObject> extends 
                 .getResourceAsStream(filename);
 
         if (inputStream == null) {
-            parameterObject.put(error_string.toString(), "Error reading resource. Resource not found.");
+            parameterObject.put(ERROR_STRING.toString(), "Error reading resource. Resource not found.");
             return FAILURE;
         }
         final InputSource inputSource = new InputSource(inputStream);
-        parameterObject.put(input_source.toString(), inputSource);
+        parameterObject.put(INPUT_SOURCE.toString(), inputSource);
         return SUCCESS;
     }
 

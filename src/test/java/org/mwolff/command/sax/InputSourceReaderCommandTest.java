@@ -17,10 +17,10 @@ public class InputSourceReaderCommandTest {
     public void testInvalidFilenName() throws Exception {
         final GenericParameterObject context = DefaultParameterObject.getInstance();
         final InputSourceReaderCommand<GenericParameterObject> inputSourceReaderCommand = new InputSourceReaderCommand<>();
-        context.put(file_name.toString(), "invalidFile.xml");
+        context.put(FILE_NAME.toString(), "invalidFile.xml");
         final CommandTransition result = inputSourceReaderCommand.executeCommand(context);
         Assert.assertThat(result, CoreMatchers.is(FAILURE));
-        final String error = context.getAsString(error_string.toString());
+        final String error = context.getAsString(ERROR_STRING.toString());
         Assert.assertThat(error, CoreMatchers.is("Error reading resource. Resource not found."));
     }
 
@@ -28,10 +28,10 @@ public class InputSourceReaderCommandTest {
     public void testValidFilenName() throws Exception {
         final GenericParameterObject context = DefaultParameterObject.getInstance();
         final InputSourceReaderCommand<GenericParameterObject> inputSourceReaderCommand = new InputSourceReaderCommand<>();
-        context.put(file_name.toString(), "commandChainProcess.xml");
+        context.put(FILE_NAME.toString(), "commandChainProcess.xml");
         final CommandTransition result = inputSourceReaderCommand.executeCommand(context);
         Assert.assertThat(result, CoreMatchers.is(SUCCESS));
-        final InputSource source = (InputSource) context.get(input_source.toString());
+        final InputSource source = (InputSource) context.get(INPUT_SOURCE.toString());
         Assert.assertThat(source, CoreMatchers.notNullValue());
     }
 

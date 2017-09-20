@@ -64,10 +64,10 @@ public class ActionListToCommandContainerCommandTest {
 
         final ActionListToCommandContainerCommand<GenericParameterObject> actionListToCommandContainerCommand = new ActionListToCommandContainerCommand<>();
         final GenericParameterObject context = DefaultParameterObject.getInstance();
-        context.put(action_list.toString(), actionList);
+        context.put(ACTION_LIST.toString(), actionList);
         final CommandTransition result = actionListToCommandContainerCommand.executeCommand(context);
         final CommandContainer<GenericParameterObject> container = (CommandContainer<GenericParameterObject>) context
-                .get(command_container.toString());
+                .get(COMMAND_CONTAINER.toString());
         Assert.assertThat(container, CoreMatchers.notNullValue());
         Assert.assertThat(result, CoreMatchers.is(SUCCESS));
         final Map<Integer, Command<GenericParameterObject>> commandList = (Map<Integer, Command<GenericParameterObject>>) ReflectionTestUtils
@@ -91,10 +91,10 @@ public class ActionListToCommandContainerCommandTest {
         actionList.add(action);
         ActionListToCommandContainerCommand<GenericParameterObject> actionListToCommandContainerCommand = new ActionListToCommandContainerCommand<>();
         GenericParameterObject context = DefaultParameterObject.getInstance();
-        context.put(action_list.toString(), actionList);
+        context.put(ACTION_LIST.toString(), actionList);
         CommandTransition result = actionListToCommandContainerCommand.executeCommand(context);
         assertThat(result, is(FAILURE));
-        String error = context.getAsString(error_string.toString());
+        String error = context.getAsString(ERROR_STRING.toString());
         assertThat(error, is("Error while instaciating class via reflection"));
     }
 }

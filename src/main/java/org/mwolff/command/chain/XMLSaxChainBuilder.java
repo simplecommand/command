@@ -90,7 +90,7 @@ public class XMLSaxChainBuilder<T extends Object> implements Command<T>, Process
     protected CommandContainer<T> buildChain() throws CommandException {
 
         GenericParameterObject context = DefaultParameterObject.getInstance();
-        context.put(file_name.toString(), this.xmlFilename);
+        context.put(FILE_NAME.toString(), this.xmlFilename);
 
         InputSourceReaderCommand<GenericParameterObject> inputSourceReaderCommand = new InputSourceReaderCommand<>();
         SaxParserCommand<GenericParameterObject> commandSaxParser = new SaxParserCommand<>();
@@ -103,10 +103,10 @@ public class XMLSaxChainBuilder<T extends Object> implements Command<T>, Process
         CommandTransition result = defaultCommandContainer.executeCommand((T) context);
 
         if (result == FAILURE) {
-            throw new CommandException(context.getAsString(error_string.toString()));
+            throw new CommandException(context.getAsString(ERROR_STRING.toString()));
         }
 
-        return (DefaultCommandContainer<T>) context.get(command_container.toString());
+        return (DefaultCommandContainer<T>) context.get(COMMAND_CONTAINER.toString());
 
     }
 

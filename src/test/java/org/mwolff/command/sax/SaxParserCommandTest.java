@@ -21,7 +21,7 @@ public class SaxParserCommandTest {
 
         final InputStream inputStream = this.getClass().getResourceAsStream("/" + filename);
         final InputSource inputSource = new InputSource(inputStream);
-        context.put(input_source.toString(), inputSource);
+        context.put(INPUT_SOURCE.toString(), inputSource);
 
         final SaxParserCommand<GenericParameterObject> commandSaxParser = new SaxParserCommand<>();
         return commandSaxParser.executeCommand(context);
@@ -33,7 +33,7 @@ public class SaxParserCommandTest {
         final CommandTransition result = startParsing(context, "invalidXMLDocument.xml");
         Assert.assertThat(result, CoreMatchers.is(FAILURE));
         // Because of different OS (English vs. German) you cannot parse the actual error message.
-        Assert.assertThat(context.getAsString(error_string.toString()),
+        Assert.assertThat(context.getAsString(ERROR_STRING.toString()),
                 CoreMatchers.is(CoreMatchers.not("")));
     }
 
@@ -44,7 +44,7 @@ public class SaxParserCommandTest {
         final CommandTransition result = startParsing(context, "commandChainOneComandSimple.xml");
 
         @SuppressWarnings("unchecked")
-        final List<Action> actions = (List<Action>) context.get(action_list.toString());
+        final List<Action> actions = (List<Action>) context.get(ACTION_LIST.toString());
         Assert.assertThat(actions.size(), CoreMatchers.is(1));
         Assert.assertThat(actions.get(0).getId(), CoreMatchers.nullValue());
         Assert.assertThat(actions.get(0).getClassname(),
@@ -59,7 +59,7 @@ public class SaxParserCommandTest {
         final CommandTransition result = startParsing(context, "commandChainProcess.xml");
 
         @SuppressWarnings("unchecked")
-        final List<Action> actions = (List<Action>) context.get(action_list.toString());
+        final List<Action> actions = (List<Action>) context.get(ACTION_LIST.toString());
         Assert.assertThat(actions.size(), CoreMatchers.is(2));
         Assert.assertThat(actions.get(0).getId(), CoreMatchers.is("Start"));
         Assert.assertThat(actions.get(0).getClassname(),
@@ -73,7 +73,7 @@ public class SaxParserCommandTest {
         final CommandTransition result = startParsing(context, "commandChainProcess.xml");
 
         @SuppressWarnings("unchecked")
-        final List<Action> actions = (List<Action>) context.get(action_list.toString());
+        final List<Action> actions = (List<Action>) context.get(ACTION_LIST.toString());
         final Transition transition = actions.get(0).getTransitions().get(0);
         Assert.assertThat(transition.getTarget(), CoreMatchers.is("Next"));
         Assert.assertThat(transition.getReturnValue(), CoreMatchers.is("OK"));
