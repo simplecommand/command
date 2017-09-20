@@ -60,12 +60,11 @@ public class PriorityThreeTestCommand<T extends GenericParameterObject> extends 
         execute(parameterObject);
         return CommandTransition.SUCCESS;
     }
-    
+
     @Override
     public CommandTransition executeCommandAsChain(final T context) {
         execute(context);
         return CommandTransition.NEXT;
     }
-
 
 }

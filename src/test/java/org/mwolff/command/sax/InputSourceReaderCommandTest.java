@@ -1,11 +1,9 @@
 package org.mwolff.command.sax;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
 import static org.mwolff.command.CommandTransitionEnum.CommandTransition.*;
-import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
-
+import org.hamcrest.CoreMatchers;
+import org.junit.Assert;
 import org.junit.Test;
 import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
@@ -16,24 +14,24 @@ public class InputSourceReaderCommandTest {
 
     @Test
     public void testInvalidFilenName() throws Exception {
-        GenericParameterObject context = DefaultParameterObject.getInstance();
-        InputSourceReaderCommand<GenericParameterObject> inputSourceReaderCommand = new InputSourceReaderCommand<>();
-        context.put(file_name, "invalidFile.xml");
-        CommandTransition result = inputSourceReaderCommand.executeCommand(context);
-        assertThat(result, is(FAILURE));
-        String error = context.getAsString(error_string);
-        assertThat(error, is("Error reading resource. Resource not found."));
+        final GenericParameterObject context = DefaultParameterObject.getInstance();
+        final InputSourceReaderCommand<GenericParameterObject> inputSourceReaderCommand = new InputSourceReaderCommand<>();
+        context.put(GlobalCommandConstants.file_name, "invalidFile.xml");
+        final CommandTransition result = inputSourceReaderCommand.executeCommand(context);
+        Assert.assertThat(result, CoreMatchers.is(FAILURE));
+        final String error = context.getAsString(GlobalCommandConstants.error_string);
+        Assert.assertThat(error, CoreMatchers.is("Error reading resource. Resource not found."));
     }
 
     @Test
     public void testValidFilenName() throws Exception {
-        GenericParameterObject context = DefaultParameterObject.getInstance();
-        InputSourceReaderCommand<GenericParameterObject> inputSourceReaderCommand = new InputSourceReaderCommand<>();
-        context.put(file_name, "commandChainProcess.xml");
-        CommandTransition result = inputSourceReaderCommand.executeCommand(context);
-        assertThat(result, is(SUCCESS));
-        InputSource source = (InputSource) context.get(input_source);
-        assertThat(source, notNullValue());
+        final GenericParameterObject context = DefaultParameterObject.getInstance();
+        final InputSourceReaderCommand<GenericParameterObject> inputSourceReaderCommand = new InputSourceReaderCommand<>();
+        context.put(GlobalCommandConstants.file_name, "commandChainProcess.xml");
+        final CommandTransition result = inputSourceReaderCommand.executeCommand(context);
+        Assert.assertThat(result, CoreMatchers.is(SUCCESS));
+        final InputSource source = (InputSource) context.get(GlobalCommandConstants.input_source);
+        Assert.assertThat(source, CoreMatchers.notNullValue());
     }
 
 }

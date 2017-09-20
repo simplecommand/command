@@ -10,7 +10,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 public class ActionContentHandler extends DefaultHandler {
 
-    private ArrayList<Action> actions = new ArrayList<>();
+    private final ArrayList<Action> actions = new ArrayList<>();
 
     public ArrayList<Action> getActions() {
         return actions;
@@ -19,6 +19,7 @@ public class ActionContentHandler extends DefaultHandler {
     private Action     action;
     private Transition transition;
 
+    @Override
     public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
 
         if (localName.equals("action")) {
@@ -35,6 +36,7 @@ public class ActionContentHandler extends DefaultHandler {
         }
     }
 
+    @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
 
         if (localName.equals("action")) {

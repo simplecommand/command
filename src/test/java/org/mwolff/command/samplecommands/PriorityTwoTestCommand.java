@@ -63,12 +63,11 @@ public class PriorityTwoTestCommand<T extends GenericParameterObject> extends Ab
         execute(parameterObject);
         return CommandTransition.SUCCESS;
     }
-    
+
     @Override
     public CommandTransition executeCommandAsChain(final T context) {
         execute(context);
         return CommandTransition.NEXT;
     }
-
 
 }

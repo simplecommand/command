@@ -1,14 +1,13 @@
 package org.mwolff.command.sax;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
 import static org.mwolff.command.CommandTransitionEnum.CommandTransition.*;
-import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.hamcrest.CoreMatchers;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mwolff.command.AbstractDefaultCommand;
@@ -23,16 +22,16 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 public class ActionListToCommandContainerCommandTest {
 
-    private List<Action> actionList= new ArrayList<>();
-    
+    private final List<Action> actionList = new ArrayList<>();
+
     @Before
     public void setUp() {
 
-        Action action = new Action();
+        final Action action = new Action();
         action.setClassname("org.mwolff.command.samplecommands.ProcessTestCommandNext");
         action.setId("action");
 
-        Transition transition = new Transition() {
+        final Transition transition = new Transition() {
 
             @Override
             public void setTarget(String target) {
@@ -60,36 +59,39 @@ public class ActionListToCommandContainerCommandTest {
     @Test
     public void testActionCreationOK() throws Exception {
 
-        ActionListToCommandContainerCommand<GenericParameterObject> actionListToCommandContainerCommand = new ActionListToCommandContainerCommand<>();
-        GenericParameterObject context = DefaultParameterObject.getInstance();
-        context.put(action_list, actionList);
-        CommandTransition result = actionListToCommandContainerCommand.executeCommand(context);
-        CommandContainer<GenericParameterObject> container = (CommandContainer<GenericParameterObject>) context.get(command_container);
-        assertThat(container, notNullValue());
-        assertThat(result, is(SUCCESS));
-        Map<Integer, Command<GenericParameterObject>> commandList = (Map<Integer, Command<GenericParameterObject>>) ReflectionTestUtils.getField(container, "commandList");
-        assertThat(commandList, notNullValue());
-        assertThat(commandList.size(), is(1));
-        ProcessCommand<GenericParameterObject> command = (ProcessCommand<GenericParameterObject>) commandList.values().iterator().next();
-        assertThat(command, notNullValue());
-        assertThat(command, instanceOf(AbstractDefaultCommand.class));
-        List<Transition> transitions = command.getTransitionList();
-        assertThat(transitions, notNullValue());
-        assertThat(transitions.size(), is(1));
+        final ActionListToCommandContainerCommand<GenericParameterObject> actionListToCommandContainerCommand = new ActionListToCommandContainerCommand<>();
+        final GenericParameterObject context = DefaultParameterObject.getInstance();
+        context.put(GlobalCommandConstants.action_list, actionList);
+        final CommandTransition result = actionListToCommandContainerCommand.executeCommand(context);
+        final CommandContainer<GenericParameterObject> container = (CommandContainer<GenericParameterObject>) context
+                .get(GlobalCommandConstants.command_container);
+        Assert.assertThat(container, CoreMatchers.notNullValue());
+        Assert.assertThat(result, CoreMatchers.is(SUCCESS));
+        final Map<Integer, Command<GenericParameterObject>> commandList = (Map<Integer, Command<GenericParameterObject>>) ReflectionTestUtils
+                .getField(container, "commandList");
+        Assert.assertThat(commandList, CoreMatchers.notNullValue());
+        Assert.assertThat(commandList.size(), CoreMatchers.is(1));
+        final ProcessCommand<GenericParameterObject> command = (ProcessCommand<GenericParameterObject>) commandList
+                .values().iterator().next();
+        Assert.assertThat(command, CoreMatchers.notNullValue());
+        Assert.assertThat(command, CoreMatchers.instanceOf(AbstractDefaultCommand.class));
+        final List<Transition> transitions = command.getTransitionList();
+        Assert.assertThat(transitions, CoreMatchers.notNullValue());
+        Assert.assertThat(transitions.size(), CoreMatchers.is(1));
     }
-    
+
     @Test
     public void testInvalidClassname() throws Exception {
-        Action action = new Action();
+        final Action action = new Action();
         action.setClassname("false.package.name.Class");
         action.setId("action");
         actionList.add(action);
-        ActionListToCommandContainerCommand<GenericParameterObject> actionListToCommandContainerCommand = new ActionListToCommandContainerCommand<>();
-        GenericParameterObject context = DefaultParameterObject.getInstance();
-        context.put(action_list, actionList);
-        CommandTransition result = actionListToCommandContainerCommand.executeCommand(context);
-        assertThat(result, is(FAILURE));
-        String error = context.getAsString(error_string);
-        assertThat(error, is("Error while instaciating class via reflection"));
+        final ActionListToCommandContainerCommand<GenericParameterObject> actionListToCommandContainerCommand = new ActionListToCommandContainerCommand<>();
+        final GenericParameterObject context = DefaultParameterObject.getInstance();
+        context.put(GlobalCommandConstants.action_list, actionList);
+        final CommandTransition result = actionListToCommandContainerCommand.executeCommand(context);
+        Assert.assertThat(result, CoreMatchers.is(FAILURE));
+        final String error = context.getAsString(GlobalCommandConstants.error_string);
+        Assert.assertThat(error, CoreMatchers.is("Error while instaciating class via reflection"));
     }
 }

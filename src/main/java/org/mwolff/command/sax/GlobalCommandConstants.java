@@ -7,5 +7,5 @@ public interface GlobalCommandConstants {
     public static String error_string      = "global.error.string";
     public static String action_list       = "global.action.list";
     public static String command_container = "global.command.container";
-    
+
 }

@@ -1,7 +1,5 @@
 package org.mwolff.command.sax;
 
-import static org.mwolff.command.sax.GlobalCommandConstants.*;
-
 import java.io.IOException;
 
 import org.mwolff.command.AbstractDefaultCommand;
@@ -18,16 +16,16 @@ public class SaxParserCommand<T extends GenericParameterObject> extends Abstract
     public CommandTransition executeCommand(T parameterObject) {
 
         try {
-            InputSource inputSource = (InputSource) parameterObject.get(input_source);
+            final InputSource inputSource = (InputSource) parameterObject.get(GlobalCommandConstants.input_source);
 
-            XMLReader xmlReader = XMLReaderFactory.createXMLReader();
-            ActionContentHandler handler = new ActionContentHandler();
+            final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
+            final ActionContentHandler handler = new ActionContentHandler();
             xmlReader.setContentHandler(handler);
             xmlReader.parse(inputSource);
-            parameterObject.put(action_list, handler.getActions());
+            parameterObject.put(GlobalCommandConstants.action_list, handler.getActions());
 
         } catch (IOException | SAXException e) {
-            parameterObject.put(error_string, e.getMessage());
+            parameterObject.put(GlobalCommandConstants.error_string, e.getMessage());
             return CommandTransition.FAILURE;
         }
         return CommandTransition.SUCCESS;

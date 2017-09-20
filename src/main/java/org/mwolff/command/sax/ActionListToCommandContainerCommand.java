@@ -1,7 +1,6 @@
 package org.mwolff.command.sax;
 
 import static org.mwolff.command.CommandTransitionEnum.CommandTransition.*;
-import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
 import java.util.List;
 
@@ -17,35 +16,36 @@ public class ActionListToCommandContainerCommand<T extends GenericParameterObjec
 
     @SuppressWarnings({ "unchecked" })
     @Override
-    public CommandTransition executeCommand(T parameterObject)  {
-        
-        DefaultCommandContainer<T> defaultCommandContainer = new DefaultCommandContainer<T>();
-        
-        List<Action> actionList = (List<Action>) parameterObject.get(action_list);
-        
-        for (Action action : actionList) {
-        
-            String classname = action.getClassname();
+    public CommandTransition executeCommand(T parameterObject) {
+
+        final DefaultCommandContainer<T> defaultCommandContainer = new DefaultCommandContainer<>();
+
+        final List<Action> actionList = (List<Action>) parameterObject.get(GlobalCommandConstants.action_list);
+
+        for (final Action action : actionList) {
+
+            final String classname = action.getClassname();
             Command<Object> command;
             try {
                 command = (Command<Object>) Class.forName(classname).newInstance();
                 defaultCommandContainer.addCommand((Command<T>) command);
             } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-                parameterObject.put(error_string, "Error while instaciating class via reflection");
+                parameterObject.put(GlobalCommandConstants.error_string,
+                        "Error while instaciating class via reflection");
                 return FAILURE;
             }
-            
+
             if (command instanceof AbstractDefaultProcessCommand<?>) {
                 ((AbstractDefaultProcessCommand<T>) command).setProcessID(action.getId());
-                List<Transition> transitions = action.getTransitions();
-                for (Transition transition : transitions) {
+                final List<Transition> transitions = action.getTransitions();
+                for (final Transition transition : transitions) {
                     ((AbstractDefaultProcessCommand<T>) command).addTransition(transition);
                 }
             }
-            
+
         }
-        parameterObject.put(command_container, defaultCommandContainer);
+        parameterObject.put(GlobalCommandConstants.command_container, defaultCommandContainer);
         return SUCCESS;
     }
-    
+
 }

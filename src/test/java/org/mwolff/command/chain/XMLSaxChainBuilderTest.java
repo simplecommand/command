@@ -1,39 +1,51 @@
 package org.mwolff.command.chain;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
 import static org.mwolff.command.CommandTransitionEnum.CommandTransition.*;
 
-import java.util.List;
-
+import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
-import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
-import org.mwolff.command.Command;
-import org.mwolff.command.CommandContainer;
+import org.junit.rules.ExpectedException;
 import org.mwolff.command.CommandTransitionEnum.CommandTransition;
-import org.mwolff.command.DefaultCommandContainer;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
-import org.mwolff.command.process.ProcessCommand;
-import org.mwolff.command.process.Transition;
-import org.mwolff.command.sax.GlobalCommandConstants;
-import org.springframework.test.util.ReflectionTestUtils;
 
 public class XMLSaxChainBuilderTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void testDeprecatedExecute() throws Exception {
+        thrown.expect(UnsupportedOperationException.class);
+        thrown.expectMessage("Use executeCommand instead.");
+        final XMLSaxChainBuilder<Object> xmlChainBuilder = new XMLSaxChainBuilder<>("commandChainProcess.xml");
+        xmlChainBuilder.execute(DefaultParameterObject.NULLCONTEXT);
+    }
+
+    @Test
+    public void testDeprecatedExecuteAsChain() throws Exception {
+        thrown.expect(UnsupportedOperationException.class);
+        thrown.expectMessage("Use executeCommandAsChain instead.");
+        final XMLSaxChainBuilder<Object> xmlChainBuilder = new XMLSaxChainBuilder<>("commandChainProcess.xml");
+        xmlChainBuilder.executeAsChain(DefaultParameterObject.NULLCONTEXT);
+    }
 
     @Test
     public void chainbuilderExists() throws Exception {
         final XMLSaxChainBuilder<Object> xmlChainBuilder = new XMLSaxChainBuilder<>("");
-        assertThat(xmlChainBuilder, instanceOf(XMLSaxChainBuilder.class));
+        xmlChainBuilder.setProcessID("");
+        Assert.assertThat(xmlChainBuilder, CoreMatchers.instanceOf(XMLSaxChainBuilder.class));
+
     }
 
     @Test
     public void createInvalidXMLDocument() throws Exception {
-        GenericParameterObject context = DefaultParameterObject.getInstance();
+        final GenericParameterObject context = DefaultParameterObject.getInstance();
         final XMLSaxChainBuilder<Object> xmlChainBuilder = new XMLSaxChainBuilder<>("/invalidXMLDocument.xml");
-        CommandTransition result = xmlChainBuilder.executeCommand(context);
-        assertThat(result, is(FAILURE));
+        final CommandTransition result = xmlChainBuilder.executeCommand(context);
+        Assert.assertThat(result, CoreMatchers.is(FAILURE));
     }
 
     @Test
@@ -56,7 +68,8 @@ public class XMLSaxChainBuilderTest {
 
     @Test
     public void testExecuteAsProcessWithException() throws Exception {
-        final XMLSaxChainBuilder<Object> xmlChainBuilder = new XMLSaxChainBuilder<>("/commandChainProcessNotExists.xml");
+        final XMLSaxChainBuilder<Object> xmlChainBuilder = new XMLSaxChainBuilder<>(
+                "/commandChainProcessNotExists.xml");
         final DefaultParameterObject context = new DefaultParameterObject();
         final String result = xmlChainBuilder.executeAsProcess("Start", context);
         Assert.assertNull(result);
@@ -87,7 +100,6 @@ public class XMLSaxChainBuilderTest {
         Assert.assertEquals("1-2-", context.getAsString("priority"));
         Assert.assertEquals(transition, CommandTransition.SUCCESS);
     }
-
 
     @Test
     public void testExecuteCommandSUCCESS() throws Exception {
