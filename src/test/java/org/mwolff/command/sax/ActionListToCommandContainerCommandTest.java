@@ -62,12 +62,12 @@ public class ActionListToCommandContainerCommandTest {
     @Test
     public void testActionCreationOK() throws Exception {
 
-        final ActionListToCommandContainerCommand<GenericParameterObject> actionListToCommandContainerCommand = new ActionListToCommandContainerCommand<>();
-        final GenericParameterObject context = DefaultParameterObject.getInstance();
-        context.put(ACTION_LIST.toString(), actionList);
+        final ActionListToCommandContainerCommand actionListToCommandContainerCommand = new ActionListToCommandContainerCommand();
+        final SaxParameterObject context = new SaxParameterObject();
+        context.put(ACTION_LIST, actionList);
         final CommandTransition result = actionListToCommandContainerCommand.executeCommand(context);
         final CommandContainer<GenericParameterObject> container = (CommandContainer<GenericParameterObject>) context
-                .get(COMMAND_CONTAINER.toString());
+                .get(COMMAND_CONTAINER);
         Assert.assertThat(container, CoreMatchers.notNullValue());
         Assert.assertThat(result, CoreMatchers.is(SUCCESS));
         final Map<Integer, Command<GenericParameterObject>> commandList = (Map<Integer, Command<GenericParameterObject>>) ReflectionTestUtils
@@ -89,12 +89,12 @@ public class ActionListToCommandContainerCommandTest {
         action.setClassname("false.package.name.Class");
         action.setId("action");
         actionList.add(action);
-        ActionListToCommandContainerCommand<GenericParameterObject> actionListToCommandContainerCommand = new ActionListToCommandContainerCommand<>();
-        GenericParameterObject context = DefaultParameterObject.getInstance();
-        context.put(ACTION_LIST.toString(), actionList);
-        CommandTransition result = actionListToCommandContainerCommand.executeCommand(context);
+        ActionListToCommandContainerCommand actionListToCommandContainerCommand = new ActionListToCommandContainerCommand();
+        SaxParameterObject context = new SaxParameterObject();
+        context.put(ACTION_LIST, actionList);
+        CommandTransition result = actionListToCommandContainerCommand.executeCommand((SaxParameterObject) context);
         assertThat(result, is(FAILURE));
-        String error = context.getAsString(ERROR_STRING.toString());
+        String error = context.getAsString(ERROR_STRING);
         assertThat(error, is("Error while instaciating class via reflection"));
     }
 }

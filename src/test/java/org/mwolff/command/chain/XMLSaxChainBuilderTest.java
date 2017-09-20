@@ -6,7 +6,6 @@ import static org.mwolff.command.CommandTransition.*;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -52,7 +51,7 @@ public class XMLSaxChainBuilderTest {
     @Test
     public void createInvalidXMLDocument() throws Exception {
         GenericParameterObject context = DefaultParameterObject.getInstance();
-        final XMLSaxChainBuilder<Object> xmlChainBuilder = new XMLSaxChainBuilder<>("/invalidXMLDocument.xml");
+        final XMLSaxChainBuilder<GenericParameterObject> xmlChainBuilder = new XMLSaxChainBuilder<>("invalidXMLDocument.xml");
         CommandTransition result = xmlChainBuilder.executeCommand(context);
         assertThat(result, is(FAILURE));
     }
@@ -74,7 +73,7 @@ public class XMLSaxChainBuilderTest {
         xmlChainBuilder.executeCommand(context);
         Assert.assertNull(xmlChainBuilder.getProcessID());
     }
-
+    
     @Test
     public void testExecuteAsProcessWithException() throws Exception {
         final XMLSaxChainBuilder<Object> xmlChainBuilder = new XMLSaxChainBuilder<>(
@@ -107,7 +106,7 @@ public class XMLSaxChainBuilderTest {
         context.put("priority", "");
         final CommandTransition transition = xmlChainBuilder.executeCommand(context);
         Assert.assertEquals("1-2-", context.getAsString("priority"));
-        Assert.assertEquals(transition, CommandTransition.SUCCESS);
+        Assert.assertEquals(transition, SUCCESS);
     }
 
     @Test
@@ -116,7 +115,7 @@ public class XMLSaxChainBuilderTest {
         final DefaultParameterObject context = new DefaultParameterObject();
         context.put("priority", "");
         final CommandTransition transition = xmlChainBuilder.executeCommandAsChain(context);
-        Assert.assertEquals(transition, CommandTransition.SUCCESS);
+        Assert.assertEquals(transition, SUCCESS);
     }
 
     @Test
@@ -124,7 +123,6 @@ public class XMLSaxChainBuilderTest {
         final XMLSaxChainBuilder<Object> xmlChainBuilder = new XMLSaxChainBuilder<>("/commandChainAbort.xml");
         final DefaultParameterObject context = new DefaultParameterObject();
         final CommandTransition transition = xmlChainBuilder.executeCommandAsChain(context);
-        Assert.assertEquals(CommandTransition.FAILURE, transition);
+        Assert.assertEquals(FAILURE, transition);
     }
-
 }

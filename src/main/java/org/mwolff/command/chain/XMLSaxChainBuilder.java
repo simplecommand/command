@@ -40,6 +40,7 @@ import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.ProcessCommand;
 import org.mwolff.command.sax.ActionListToCommandContainerCommand;
 import org.mwolff.command.sax.InputSourceReaderCommand;
+import org.mwolff.command.sax.SaxParameterObject;
 import org.mwolff.command.sax.SaxParserCommand;
 
 /**
@@ -89,24 +90,24 @@ public class XMLSaxChainBuilder<T extends Object> implements Command<T>, Process
     @SuppressWarnings("unchecked")
     protected CommandContainer<T> buildChain() throws CommandException {
 
-        GenericParameterObject context = DefaultParameterObject.getInstance();
+        SaxParameterObject context = new SaxParameterObject();
         context.put(FILE_NAME.toString(), this.xmlFilename);
 
-        InputSourceReaderCommand<GenericParameterObject> inputSourceReaderCommand = new InputSourceReaderCommand<>();
-        SaxParserCommand<GenericParameterObject> commandSaxParser = new SaxParserCommand<>();
-        ActionListToCommandContainerCommand<GenericParameterObject> actionListToCommandContainerCommand = new ActionListToCommandContainerCommand<>();
-        CommandContainer<T> defaultCommandContainer = new DefaultCommandContainer<>();
-        defaultCommandContainer.addCommand(1, (Command<T>) inputSourceReaderCommand);
-        defaultCommandContainer.addCommand(2, (Command<T>) commandSaxParser);
-        defaultCommandContainer.addCommand(3, (Command<T>) actionListToCommandContainerCommand);
+        InputSourceReaderCommand inputSourceReaderCommand = new InputSourceReaderCommand();
+        SaxParserCommand commandSaxParser = new SaxParserCommand();
+        ActionListToCommandContainerCommand actionListToCommandContainerCommand = new ActionListToCommandContainerCommand();
+        CommandContainer<SaxParameterObject> defaultCommandContainer = new DefaultCommandContainer<>();
+        defaultCommandContainer.addCommand(1, inputSourceReaderCommand);
+        defaultCommandContainer.addCommand(2, commandSaxParser);
+        defaultCommandContainer.addCommand(3, actionListToCommandContainerCommand);
 
-        CommandTransition result = defaultCommandContainer.executeCommand((T) context);
+        CommandTransition result = defaultCommandContainer.executeCommand((SaxParameterObject) context);
 
         if (result == FAILURE) {
             throw new CommandException(context.getAsString(ERROR_STRING.toString()));
         }
 
-        return (DefaultCommandContainer<T>) context.get(COMMAND_CONTAINER.toString());
+        return (CommandContainer<T>) context.get(COMMAND_CONTAINER.toString());
 
     }
 

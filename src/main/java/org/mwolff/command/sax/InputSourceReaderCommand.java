@@ -10,10 +10,10 @@ import org.mwolff.command.CommandTransition;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.xml.sax.InputSource;
 
-public class InputSourceReaderCommand<T extends GenericParameterObject> extends AbstractDefaultCommand<T> {
+public class InputSourceReaderCommand extends AbstractDefaultCommand<SaxParameterObject> {
 
     @Override
-    public CommandTransition executeCommand(T parameterObject) {
+    public CommandTransition executeCommand(SaxParameterObject parameterObject) {
 
         String filename = parameterObject.getAsString(FILE_NAME.toString());
         if ( ! filename.startsWith("/")) {
