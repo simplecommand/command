@@ -3,7 +3,6 @@ package org.mwolff.command;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mwolff.command.CommandTransition;
 
 public class AbstractDefaultCommandTest {
 

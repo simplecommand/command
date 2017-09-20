@@ -16,7 +16,7 @@ import org.xml.sax.helpers.XMLReaderFactory;
 public class SaxParserCommand extends AbstractDefaultCommand<SaxParameterObject> {
 
     private static final Logger LOG = Logger.getLogger(SaxParserCommand.class);
-    
+
     @Override
     public CommandTransition executeCommand(SaxParameterObject parameterObject) {
 
@@ -30,7 +30,7 @@ public class SaxParserCommand extends AbstractDefaultCommand<SaxParameterObject>
             parameterObject.put(ACTION_LIST, handler.getActions());
 
         } catch (IOException | SAXException e) {
-            LOG.error(e);
+            SaxParserCommand.LOG.error(e);
             parameterObject.put(ERROR_STRING, e.getMessage());
             return FAILURE;
         }

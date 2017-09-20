@@ -7,7 +7,6 @@ import java.io.InputStream;
 
 import org.mwolff.command.AbstractDefaultCommand;
 import org.mwolff.command.CommandTransition;
-import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.xml.sax.InputSource;
 
 public class InputSourceReaderCommand extends AbstractDefaultCommand<SaxParameterObject> {
@@ -16,12 +15,11 @@ public class InputSourceReaderCommand extends AbstractDefaultCommand<SaxParamete
     public CommandTransition executeCommand(SaxParameterObject parameterObject) {
 
         String filename = parameterObject.getAsString(FILE_NAME.toString());
-        if ( ! filename.startsWith("/")) {
+        if (!filename.startsWith("/")) {
             filename = "/" + filename;
         }
-        
-        final InputStream inputStream = this.getClass()
-                .getResourceAsStream(filename);
+
+        final InputStream inputStream = this.getClass().getResourceAsStream(filename);
 
         if (inputStream == null) {
             parameterObject.put(ERROR_STRING.toString(), "Error reading resource. Resource not found.");

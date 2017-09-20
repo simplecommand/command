@@ -1,7 +1,5 @@
 package org.mwolff.command.sax;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
 import static org.mwolff.command.CommandTransition.*;
 import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
@@ -17,7 +15,6 @@ import org.mwolff.command.AbstractDefaultCommand;
 import org.mwolff.command.Command;
 import org.mwolff.command.CommandContainer;
 import org.mwolff.command.CommandTransition;
-import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.ProcessCommand;
 import org.mwolff.command.process.Transition;
@@ -85,16 +82,16 @@ public class ActionListToCommandContainerCommandTest {
 
     @Test
     public void testInvalidClassname() throws Exception {
-        Action action = new Action();
+        final Action action = new Action();
         action.setClassname("false.package.name.Class");
         action.setId("action");
         actionList.add(action);
-        ActionListToCommandContainerCommand actionListToCommandContainerCommand = new ActionListToCommandContainerCommand();
-        SaxParameterObject context = new SaxParameterObject();
+        final ActionListToCommandContainerCommand actionListToCommandContainerCommand = new ActionListToCommandContainerCommand();
+        final SaxParameterObject context = new SaxParameterObject();
         context.put(ACTION_LIST, actionList);
-        CommandTransition result = actionListToCommandContainerCommand.executeCommand((SaxParameterObject) context);
-        assertThat(result, is(FAILURE));
-        String error = context.getAsString(ERROR_STRING);
-        assertThat(error, is("Error while instaciating class via reflection"));
+        final CommandTransition result = actionListToCommandContainerCommand.executeCommand(context);
+        Assert.assertThat(result, CoreMatchers.is(FAILURE));
+        final String error = context.getAsString(ERROR_STRING);
+        Assert.assertThat(error, CoreMatchers.is("Error while instaciating class via reflection"));
     }
 }

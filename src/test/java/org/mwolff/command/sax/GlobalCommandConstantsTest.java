@@ -1,7 +1,6 @@
 package org.mwolff.command.sax;
 
 import org.junit.Test;
-import org.mwolff.command.CommandTransition;
 
 public class GlobalCommandConstantsTest {
 
@@ -13,5 +12,5 @@ public class GlobalCommandConstantsTest {
         GlobalCommandConstants.valueOf(GlobalCommandConstants.ACTION_LIST.toString());
         GlobalCommandConstants.valueOf(GlobalCommandConstants.COMMAND_CONTAINER.toString());
     }
-    
+
 }

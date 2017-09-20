@@ -10,8 +10,6 @@ import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mwolff.command.CommandTransition;
-import org.mwolff.command.parameterobject.DefaultParameterObject;
-import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.Transition;
 import org.xml.sax.InputSource;
 
@@ -33,8 +31,7 @@ public class SaxParserCommandTest {
         final CommandTransition result = startParsing(context, "invalidXMLDocument.xml");
         Assert.assertThat(result, CoreMatchers.is(FAILURE));
         // Because of different OS (English vs. German) you cannot parse the actual error message.
-        Assert.assertThat(context.getAsString(ERROR_STRING.toString()),
-                CoreMatchers.is(CoreMatchers.not("")));
+        Assert.assertThat(context.getAsString(ERROR_STRING.toString()), CoreMatchers.is(CoreMatchers.not("")));
     }
 
     @Test

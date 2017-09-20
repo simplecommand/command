@@ -10,15 +10,13 @@ import org.mwolff.command.AbstractDefaultCommand;
 import org.mwolff.command.Command;
 import org.mwolff.command.CommandTransition;
 import org.mwolff.command.DefaultCommandContainer;
-import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.AbstractDefaultProcessCommand;
 import org.mwolff.command.process.Transition;
 
 public class ActionListToCommandContainerCommand extends AbstractDefaultCommand<SaxParameterObject> {
 
-    private static final Logger         LOG   = Logger.getLogger(ActionListToCommandContainerCommand.class);
+    private static final Logger LOG = Logger.getLogger(ActionListToCommandContainerCommand.class);
 
-    
     @SuppressWarnings({ "unchecked" })
     @Override
     public CommandTransition executeCommand(SaxParameterObject parameterObject) {
@@ -33,11 +31,10 @@ public class ActionListToCommandContainerCommand extends AbstractDefaultCommand<
             Command<Object> command;
             try {
                 command = (Command<Object>) Class.forName(classname).newInstance();
-                defaultCommandContainer.addCommand((Command<Object>) command);
+                defaultCommandContainer.addCommand(command);
             } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-                LOG.error(e);
-                parameterObject.put(ERROR_STRING.toString(),
-                        "Error while instaciating class via reflection");
+                ActionListToCommandContainerCommand.LOG.error(e);
+                parameterObject.put(ERROR_STRING.toString(), "Error while instaciating class via reflection");
                 return FAILURE;
             }
 

@@ -1,7 +1,5 @@
 package org.mwolff.command.chain;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
 import static org.mwolff.command.CommandTransition.*;
 
 import org.hamcrest.CoreMatchers;
@@ -33,7 +31,7 @@ public class XMLSaxChainBuilderTest {
         final XMLSaxChainBuilder<Object> xmlChainBuilder = new XMLSaxChainBuilder<>("commandChainProcess.xml");
         xmlChainBuilder.setProcessID("");
     }
-    
+
     @Test
     public void testDeprecatedExecuteAsChain() throws Exception {
         thrown.expect(UnsupportedOperationException.class);
@@ -50,10 +48,11 @@ public class XMLSaxChainBuilderTest {
 
     @Test
     public void createInvalidXMLDocument() throws Exception {
-        GenericParameterObject context = DefaultParameterObject.getInstance();
-        final XMLSaxChainBuilder<GenericParameterObject> xmlChainBuilder = new XMLSaxChainBuilder<>("invalidXMLDocument.xml");
-        CommandTransition result = xmlChainBuilder.executeCommand(context);
-        assertThat(result, is(FAILURE));
+        final GenericParameterObject context = DefaultParameterObject.getInstance();
+        final XMLSaxChainBuilder<GenericParameterObject> xmlChainBuilder = new XMLSaxChainBuilder<>(
+                "invalidXMLDocument.xml");
+        final CommandTransition result = xmlChainBuilder.executeCommand(context);
+        Assert.assertThat(result, CoreMatchers.is(FAILURE));
     }
 
     @Test
@@ -73,7 +72,7 @@ public class XMLSaxChainBuilderTest {
         xmlChainBuilder.executeCommand(context);
         Assert.assertNull(xmlChainBuilder.getProcessID());
     }
-    
+
     @Test
     public void testExecuteAsProcessWithException() throws Exception {
         final XMLSaxChainBuilder<Object> xmlChainBuilder = new XMLSaxChainBuilder<>(

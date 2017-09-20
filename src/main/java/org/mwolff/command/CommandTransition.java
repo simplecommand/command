@@ -40,6 +40,6 @@ public enum CommandTransition {
      *
      * @since 1.5.0
      */
-        SUCCESS, FAILURE, NEXT, DONE
+    SUCCESS, FAILURE, NEXT, DONE
 
 }

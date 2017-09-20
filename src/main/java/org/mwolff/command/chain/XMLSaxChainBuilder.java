@@ -35,8 +35,6 @@ import org.mwolff.command.CommandContainer;
 import org.mwolff.command.CommandException;
 import org.mwolff.command.CommandTransition;
 import org.mwolff.command.DefaultCommandContainer;
-import org.mwolff.command.parameterobject.DefaultParameterObject;
-import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.ProcessCommand;
 import org.mwolff.command.sax.ActionListToCommandContainerCommand;
 import org.mwolff.command.sax.InputSourceReaderCommand;
@@ -90,18 +88,18 @@ public class XMLSaxChainBuilder<T extends Object> implements Command<T>, Process
     @SuppressWarnings("unchecked")
     protected CommandContainer<T> buildChain() throws CommandException {
 
-        SaxParameterObject context = new SaxParameterObject();
+        final SaxParameterObject context = new SaxParameterObject();
         context.put(FILE_NAME.toString(), this.xmlFilename);
 
-        InputSourceReaderCommand inputSourceReaderCommand = new InputSourceReaderCommand();
-        SaxParserCommand commandSaxParser = new SaxParserCommand();
-        ActionListToCommandContainerCommand actionListToCommandContainerCommand = new ActionListToCommandContainerCommand();
-        CommandContainer<SaxParameterObject> defaultCommandContainer = new DefaultCommandContainer<>();
+        final InputSourceReaderCommand inputSourceReaderCommand = new InputSourceReaderCommand();
+        final SaxParserCommand commandSaxParser = new SaxParserCommand();
+        final ActionListToCommandContainerCommand actionListToCommandContainerCommand = new ActionListToCommandContainerCommand();
+        final CommandContainer<SaxParameterObject> defaultCommandContainer = new DefaultCommandContainer<>();
         defaultCommandContainer.addCommand(1, inputSourceReaderCommand);
         defaultCommandContainer.addCommand(2, commandSaxParser);
         defaultCommandContainer.addCommand(3, actionListToCommandContainerCommand);
 
-        CommandTransition result = defaultCommandContainer.executeCommand((SaxParameterObject) context);
+        final CommandTransition result = defaultCommandContainer.executeCommand(context);
 
         if (result == FAILURE) {
             throw new CommandException(context.getAsString(ERROR_STRING.toString()));
@@ -115,8 +113,8 @@ public class XMLSaxChainBuilder<T extends Object> implements Command<T>, Process
     public CommandTransition executeCommand(T parameterObject) {
         try {
             buildChain().executeCommand(parameterObject);
-        } catch (CommandException e) {
-            LOG.error(e);
+        } catch (final CommandException e) {
+            XMLSaxChainBuilder.LOG.error(e);
             return FAILURE;
         }
         return SUCCESS;
@@ -127,7 +125,7 @@ public class XMLSaxChainBuilder<T extends Object> implements Command<T>, Process
         try {
             buildChain().executeCommandAsChain(parameterObject);
         } catch (final CommandException e) {
-            LOG.error(e);
+            XMLSaxChainBuilder.LOG.error(e);
             return FAILURE;
         }
         return SUCCESS;

@@ -12,8 +12,8 @@ import org.xml.sax.helpers.DefaultHandler;
 public class ActionContentHandler extends DefaultHandler {
 
     private final ArrayList<Action> actions = new ArrayList<>();
-    private Action     action;
-    private Transition transition;
+    private Action                  action;
+    private Transition              transition;
 
     public List<Action> getActions() {
         return actions;
