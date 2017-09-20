@@ -2,6 +2,7 @@ package org.mwolff.command.sax;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.*;
 import static org.mwolff.command.CommandTransitionEnum.CommandTransition.*;
 import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
@@ -11,11 +12,13 @@ import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mwolff.command.AbstractDefaultCommand;
 import org.mwolff.command.Command;
 import org.mwolff.command.CommandContainer;
 import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
+import org.mwolff.command.process.ProcessCommand;
 import org.mwolff.command.process.Transition;
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -27,7 +30,7 @@ public class ActionListToCommandContainerCommandTest {
     public void setUp() {
 
         Action action = new Action();
-        action.setClassname("org.mwolff.command.sax.SaxParserCommand");
+        action.setClassname("org.mwolff.command.samplecommands.ProcessTestCommandNext");
         action.setId("action");
 
         Transition transition = new Transition() {
@@ -54,7 +57,7 @@ public class ActionListToCommandContainerCommandTest {
         actionList.add(action);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked" })
     @Test
     public void testActionCreationOK() throws Exception {
 
@@ -68,5 +71,11 @@ public class ActionListToCommandContainerCommandTest {
         Map<Integer, Command<GenericParameterObject>> commandList = (Map<Integer, Command<GenericParameterObject>>) ReflectionTestUtils.getField(container, "commandList");
         assertThat(commandList, notNullValue());
         assertThat(commandList.size(), is(1));
+        ProcessCommand<GenericParameterObject> command = (ProcessCommand<GenericParameterObject>) commandList.values().iterator().next();
+        assertThat(command, notNullValue());
+        assertThat(command, instanceOf(AbstractDefaultCommand.class));
+        List<Transition> transitions = command.getTransitionList();
+        assertThat(transitions, notNullValue());
+        assertThat(transitions.size(), is(1));
     }
 }
