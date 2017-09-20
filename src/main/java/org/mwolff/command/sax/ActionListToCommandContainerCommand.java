@@ -15,7 +15,7 @@ import org.mwolff.command.process.Transition;
 
 public class ActionListToCommandContainerCommand<T extends GenericParameterObject> extends AbstractDefaultCommand<T> {
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({ "unchecked" })
     @Override
     public CommandTransition executeCommand(T parameterObject)  {
         
@@ -36,6 +36,7 @@ public class ActionListToCommandContainerCommand<T extends GenericParameterObjec
             }
             
             if (command instanceof AbstractDefaultProcessCommand<?>) {
+                ((AbstractDefaultProcessCommand<T>) command).setProcessID(action.getId());
                 List<Transition> transitions = action.getTransitions();
                 for (Transition transition : transitions) {
                     ((AbstractDefaultProcessCommand<T>) command).addTransition(transition);
