@@ -178,18 +178,6 @@ public class DefaultCommandContainerTest {
         Assert.assertEquals("1-", priorString);
     }
 
-    // Remark: Even ExceptionCommand throws an exception SimpleTextCommand is
-    // executed
-    @SuppressWarnings("deprecation")
-    @Ignore
-    @Test
-    public void testChainWithError() throws Exception {
-        commandContainer.addCommand(1, new ExceptionCommand<>());
-        commandContainer.addCommand(2, new SimpleTestCommand<>());
-        commandContainer.execute(context);
-        final String priorString = context.getAsString("priority");
-        Assert.assertEquals("S-", priorString);
-    }
 
     @Test
     public void testChainWithFailure() throws Exception {
