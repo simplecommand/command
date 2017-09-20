@@ -28,7 +28,7 @@ package org.mwolff.command.samplecommands;
 
 import org.apache.log4j.Logger;
 import org.mwolff.command.CommandException;
-import org.mwolff.command.CommandTransitionEnum.CommandTransition;
+import org.mwolff.command.CommandTransition;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.AbstractDefaultProcessCommand;
 

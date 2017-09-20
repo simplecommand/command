@@ -1,6 +1,7 @@
 package org.mwolff.command.sax;
 
-import static org.mwolff.command.CommandTransitionEnum.CommandTransition.*;
+import static org.mwolff.command.CommandTransition.*;
+import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
 import java.io.InputStream;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
-import org.mwolff.command.CommandTransitionEnum.CommandTransition;
+import org.mwolff.command.CommandTransition;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.Transition;
@@ -20,7 +21,7 @@ public class SaxParserCommandTest {
 
         final InputStream inputStream = this.getClass().getResourceAsStream("/" + filename);
         final InputSource inputSource = new InputSource(inputStream);
-        context.put(GlobalCommandConstants.input_source, inputSource);
+        context.put(input_source.toString(), inputSource);
 
         final SaxParserCommand<GenericParameterObject> commandSaxParser = new SaxParserCommand<>();
         return commandSaxParser.executeCommand(context);
@@ -32,7 +33,7 @@ public class SaxParserCommandTest {
         final CommandTransition result = startParsing(context, "invalidXMLDocument.xml");
         Assert.assertThat(result, CoreMatchers.is(FAILURE));
         // Because of different OS (English vs. German) you cannot parse the actual error message.
-        Assert.assertThat(context.getAsString(GlobalCommandConstants.error_string),
+        Assert.assertThat(context.getAsString(error_string.toString()),
                 CoreMatchers.is(CoreMatchers.not("")));
     }
 
@@ -43,7 +44,7 @@ public class SaxParserCommandTest {
         final CommandTransition result = startParsing(context, "commandChainOneComandSimple.xml");
 
         @SuppressWarnings("unchecked")
-        final List<Action> actions = (List<Action>) context.get(GlobalCommandConstants.action_list);
+        final List<Action> actions = (List<Action>) context.get(action_list.toString());
         Assert.assertThat(actions.size(), CoreMatchers.is(1));
         Assert.assertThat(actions.get(0).getId(), CoreMatchers.nullValue());
         Assert.assertThat(actions.get(0).getClassname(),
@@ -58,7 +59,7 @@ public class SaxParserCommandTest {
         final CommandTransition result = startParsing(context, "commandChainProcess.xml");
 
         @SuppressWarnings("unchecked")
-        final List<Action> actions = (List<Action>) context.get(GlobalCommandConstants.action_list);
+        final List<Action> actions = (List<Action>) context.get(action_list.toString());
         Assert.assertThat(actions.size(), CoreMatchers.is(2));
         Assert.assertThat(actions.get(0).getId(), CoreMatchers.is("Start"));
         Assert.assertThat(actions.get(0).getClassname(),
@@ -72,7 +73,7 @@ public class SaxParserCommandTest {
         final CommandTransition result = startParsing(context, "commandChainProcess.xml");
 
         @SuppressWarnings("unchecked")
-        final List<Action> actions = (List<Action>) context.get(GlobalCommandConstants.action_list);
+        final List<Action> actions = (List<Action>) context.get(action_list.toString());
         final Transition transition = actions.get(0).getTransitions().get(0);
         Assert.assertThat(transition.getTarget(), CoreMatchers.is("Next"));
         Assert.assertThat(transition.getReturnValue(), CoreMatchers.is("OK"));

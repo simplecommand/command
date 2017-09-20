@@ -2,7 +2,7 @@ package org.mwolff.command.sax;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
-import static org.mwolff.command.CommandTransitionEnum.CommandTransition.*;
+import static org.mwolff.command.CommandTransition.*;
 import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.mwolff.command.AbstractDefaultCommand;
 import org.mwolff.command.Command;
 import org.mwolff.command.CommandContainer;
-import org.mwolff.command.CommandTransitionEnum.CommandTransition;
+import org.mwolff.command.CommandTransition;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.ProcessCommand;
@@ -64,10 +64,10 @@ public class ActionListToCommandContainerCommandTest {
 
         final ActionListToCommandContainerCommand<GenericParameterObject> actionListToCommandContainerCommand = new ActionListToCommandContainerCommand<>();
         final GenericParameterObject context = DefaultParameterObject.getInstance();
-        context.put(GlobalCommandConstants.action_list, actionList);
+        context.put(action_list.toString(), actionList);
         final CommandTransition result = actionListToCommandContainerCommand.executeCommand(context);
         final CommandContainer<GenericParameterObject> container = (CommandContainer<GenericParameterObject>) context
-                .get(GlobalCommandConstants.command_container);
+                .get(command_container.toString());
         Assert.assertThat(container, CoreMatchers.notNullValue());
         Assert.assertThat(result, CoreMatchers.is(SUCCESS));
         final Map<Integer, Command<GenericParameterObject>> commandList = (Map<Integer, Command<GenericParameterObject>>) ReflectionTestUtils
@@ -91,10 +91,10 @@ public class ActionListToCommandContainerCommandTest {
         actionList.add(action);
         ActionListToCommandContainerCommand<GenericParameterObject> actionListToCommandContainerCommand = new ActionListToCommandContainerCommand<>();
         GenericParameterObject context = DefaultParameterObject.getInstance();
-        context.put(action_list, actionList);
+        context.put(action_list.toString(), actionList);
         CommandTransition result = actionListToCommandContainerCommand.executeCommand(context);
         assertThat(result, is(FAILURE));
-        String error = context.getAsString(error_string);
+        String error = context.getAsString(error_string.toString());
         assertThat(error, is("Error while instaciating class via reflection"));
     }
 }

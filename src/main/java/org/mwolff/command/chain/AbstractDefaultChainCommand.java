@@ -28,7 +28,7 @@ package org.mwolff.command.chain;
 
 import org.apache.log4j.Logger;
 import org.mwolff.command.AbstractDefaultCommand;
-import org.mwolff.command.CommandTransitionEnum.CommandTransition;
+import org.mwolff.command.CommandTransition;
 
 /**
  * Default implementation for a chain-command. You may use

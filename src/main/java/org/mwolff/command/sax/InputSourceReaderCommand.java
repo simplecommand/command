@@ -1,12 +1,12 @@
 package org.mwolff.command.sax;
 
-import static org.mwolff.command.CommandTransitionEnum.CommandTransition.*;
+import static org.mwolff.command.CommandTransition.*;
 import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
 import java.io.InputStream;
 
 import org.mwolff.command.AbstractDefaultCommand;
-import org.mwolff.command.CommandTransitionEnum.CommandTransition;
+import org.mwolff.command.CommandTransition;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.xml.sax.InputSource;
 
@@ -15,7 +15,7 @@ public class InputSourceReaderCommand<T extends GenericParameterObject> extends 
     @Override
     public CommandTransition executeCommand(T parameterObject) {
 
-        String filename = parameterObject.getAsString(file_name);
+        String filename = parameterObject.getAsString(file_name.toString());
         if ( ! filename.startsWith("/")) {
             filename = "/" + filename;
         }
@@ -24,11 +24,11 @@ public class InputSourceReaderCommand<T extends GenericParameterObject> extends 
                 .getResourceAsStream(filename);
 
         if (inputStream == null) {
-            parameterObject.put(error_string, "Error reading resource. Resource not found.");
+            parameterObject.put(error_string.toString(), "Error reading resource. Resource not found.");
             return FAILURE;
         }
         final InputSource inputSource = new InputSource(inputStream);
-        parameterObject.put(GlobalCommandConstants.input_source, inputSource);
+        parameterObject.put(input_source.toString(), inputSource);
         return SUCCESS;
     }
 

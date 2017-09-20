@@ -25,7 +25,7 @@
  */
 package org.mwolff.command;
 
-import org.mwolff.command.CommandTransitionEnum.CommandTransition;
+import static org.mwolff.command.CommandTransition.*;
 
 /**
  * Command interface for the command framework.
@@ -48,9 +48,9 @@ public interface Command<T extends Object> {
      */
     default CommandTransition executeCommand(T parameterObject) {
         if (parameterObject == null) {
-            return CommandTransition.FAILURE;
+            return FAILURE;
         }
-        return CommandTransition.SUCCESS;
+        return SUCCESS;
     }
 
     /**

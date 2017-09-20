@@ -2,14 +2,15 @@ package org.mwolff.command.chain;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
-import static org.mwolff.command.CommandTransitionEnum.CommandTransition.*;
+import static org.mwolff.command.CommandTransition.*;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mwolff.command.CommandTransitionEnum.CommandTransition;
+import org.mwolff.command.CommandTransition;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
@@ -27,6 +28,14 @@ public class XMLSaxChainBuilderTest {
     }
 
     @Test
+    public void testUnUsedSetProcessID() throws Exception {
+        thrown.expect(UnsupportedOperationException.class);
+        thrown.expectMessage("Chainbuilder has no process id.");
+        final XMLSaxChainBuilder<Object> xmlChainBuilder = new XMLSaxChainBuilder<>("commandChainProcess.xml");
+        xmlChainBuilder.setProcessID("");
+    }
+    
+    @Test
     public void testDeprecatedExecuteAsChain() throws Exception {
         thrown.expect(UnsupportedOperationException.class);
         thrown.expectMessage("Use executeCommandAsChain instead.");
@@ -37,7 +46,6 @@ public class XMLSaxChainBuilderTest {
     @Test
     public void chainbuilderExists() throws Exception {
         final XMLSaxChainBuilder<Object> xmlChainBuilder = new XMLSaxChainBuilder<>("");
-        xmlChainBuilder.setProcessID("");
         Assert.assertThat(xmlChainBuilder, CoreMatchers.instanceOf(XMLSaxChainBuilder.class));
     }
 

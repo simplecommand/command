@@ -27,7 +27,7 @@
 package org.mwolff.command.samplecommands;
 
 import org.mwolff.command.AbstractDefaultCommand;
-import org.mwolff.command.CommandTransitionEnum.CommandTransition;
+import org.mwolff.command.CommandTransition;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
 public class VerySimpleTestCommand<T extends GenericParameterObject> extends AbstractDefaultCommand<T> {

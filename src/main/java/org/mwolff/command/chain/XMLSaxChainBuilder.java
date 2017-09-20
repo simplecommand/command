@@ -26,14 +26,14 @@
 
 package org.mwolff.command.chain;
 
-import static org.mwolff.command.CommandTransitionEnum.CommandTransition.*;
+import static org.mwolff.command.CommandTransition.*;
 import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
 import org.apache.log4j.Logger;
 import org.mwolff.command.Command;
 import org.mwolff.command.CommandContainer;
 import org.mwolff.command.CommandException;
-import org.mwolff.command.CommandTransitionEnum.CommandTransition;
+import org.mwolff.command.CommandTransition;
 import org.mwolff.command.DefaultCommandContainer;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
@@ -49,17 +49,17 @@ import org.mwolff.command.sax.SaxParserCommand;
  */
 public class XMLSaxChainBuilder<T extends Object> implements Command<T>, ProcessCommand<T>, ChainCommand<T> {
 
-    private static final Logger         LOG     = Logger.getLogger(XMLSaxChainBuilder.class);
-    private final String                xmlFilename;
+    private static final Logger LOG = Logger.getLogger(XMLSaxChainBuilder.class);
+    private final String        xmlFilename;
 
     public XMLSaxChainBuilder(final String xmlFilename) {
         this.xmlFilename = xmlFilename;
     }
-    
+
     @Override
     public String executeAsProcess(String startCommand, T context) {
         try {
-            return buildChain(context).executeAsProcess(startCommand, context);
+            return buildChain().executeAsProcess(startCommand, context);
         } catch (final CommandException e) {
             XMLSaxChainBuilder.LOG.error(e);
             return null;
@@ -78,6 +78,7 @@ public class XMLSaxChainBuilder<T extends Object> implements Command<T>, Process
 
     @Override
     public void setProcessID(String processID) {
+        throw new UnsupportedOperationException("Chainbuilder has no process id.");
     }
 
     @Override
@@ -86,15 +87,15 @@ public class XMLSaxChainBuilder<T extends Object> implements Command<T>, Process
     }
 
     @SuppressWarnings("unchecked")
-    protected CommandContainer<T> buildChain(T parameterObject) throws CommandException {
+    protected CommandContainer<T> buildChain() throws CommandException {
 
         GenericParameterObject context = DefaultParameterObject.getInstance();
-        context.put(file_name, this.xmlFilename);
-        
-        InputSourceReaderCommand<GenericParameterObject> inputSourceReaderCommand = new InputSourceReaderCommand<GenericParameterObject>();
+        context.put(file_name.toString(), this.xmlFilename);
+
+        InputSourceReaderCommand<GenericParameterObject> inputSourceReaderCommand = new InputSourceReaderCommand<>();
         SaxParserCommand<GenericParameterObject> commandSaxParser = new SaxParserCommand<>();
-        ActionListToCommandContainerCommand<GenericParameterObject> actionListToCommandContainerCommand = new ActionListToCommandContainerCommand<GenericParameterObject>();
-        CommandContainer<T> defaultCommandContainer = new DefaultCommandContainer<T>();
+        ActionListToCommandContainerCommand<GenericParameterObject> actionListToCommandContainerCommand = new ActionListToCommandContainerCommand<>();
+        CommandContainer<T> defaultCommandContainer = new DefaultCommandContainer<>();
         defaultCommandContainer.addCommand(1, (Command<T>) inputSourceReaderCommand);
         defaultCommandContainer.addCommand(2, (Command<T>) commandSaxParser);
         defaultCommandContainer.addCommand(3, (Command<T>) actionListToCommandContainerCommand);
@@ -102,30 +103,30 @@ public class XMLSaxChainBuilder<T extends Object> implements Command<T>, Process
         CommandTransition result = defaultCommandContainer.executeCommand((T) context);
 
         if (result == FAILURE) {
-            throw new CommandException(context.getAsString(error_string));
+            throw new CommandException(context.getAsString(error_string.toString()));
         }
 
-        final DefaultCommandContainer<T> container = (DefaultCommandContainer<T>) context
-                .get(command_container);
+        return (DefaultCommandContainer<T>) context.get(command_container.toString());
 
-        return container;
     }
 
     @Override
     public CommandTransition executeCommand(T parameterObject) {
         try {
-            buildChain(parameterObject).executeCommand(parameterObject);
+            buildChain().executeCommand(parameterObject);
         } catch (CommandException e) {
+            LOG.error(e);
             return FAILURE;
         }
         return SUCCESS;
     }
-    
+
     @Override
     public CommandTransition executeCommandAsChain(T parameterObject) {
         try {
-            buildChain(parameterObject).executeCommandAsChain(parameterObject);
+            buildChain().executeCommandAsChain(parameterObject);
         } catch (final CommandException e) {
+            LOG.error(e);
             return FAILURE;
         }
         return SUCCESS;

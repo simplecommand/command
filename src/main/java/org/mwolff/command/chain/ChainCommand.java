@@ -26,8 +26,10 @@
 
 package org.mwolff.command.chain;
 
+import static org.mwolff.command.CommandTransition.*;
+
 import org.mwolff.command.Command;
-import org.mwolff.command.CommandTransitionEnum.CommandTransition;
+import org.mwolff.command.CommandTransition;
 
 /**
  * ChainCommand interface for the command framework. The behavior of this method
@@ -61,8 +63,8 @@ public interface ChainCommand<T extends Object> extends Command<T> {
      */
     default CommandTransition executeCommandAsChain(T parameterObject) {
         if (parameterObject == null) {
-            return CommandTransition.FAILURE;
+            return FAILURE;
         }
-        return CommandTransition.SUCCESS;
+        return SUCCESS;
     }
 }
