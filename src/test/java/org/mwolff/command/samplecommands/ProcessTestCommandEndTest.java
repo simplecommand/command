@@ -28,7 +28,7 @@ package org.mwolff.command.samplecommands;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
-import org.mwolff.command.chain.XMLChainBuilder;
+import org.mwolff.command.chain.XMLSaxChainBuilder;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
@@ -36,7 +36,7 @@ public class ProcessTestCommandEndTest {
 
     @Test
     public void testEndCommand() throws Exception {
-        final XMLChainBuilder<Object> xmlChainBuilder = new XMLChainBuilder<>("/commandChainEnd.xml");
+        final XMLSaxChainBuilder<Object> xmlChainBuilder = new XMLSaxChainBuilder<>("/commandChainEnd.xml");
         final DefaultParameterObject context = new DefaultParameterObject();
         final String result = xmlChainBuilder.executeAsProcess("END", context);
         Assert.assertNull(result);

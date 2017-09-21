@@ -52,4 +52,25 @@ public class ChainCommandTest {
         transition = command.executeCommandAsChain(null);
         Assert.assertThat(transition, CoreMatchers.is(CommandTransition.NEXT));
     }
+
+    @SuppressWarnings("deprecation")
+    @Test
+    public void testInterfaceDefaultExecute() throws Exception {
+
+        final GenericParameterObject context = new DefaultParameterObject();
+        final ChainCommand<GenericParameterObject> command = new AbstractDefaultChainCommand<GenericParameterObject>() {
+
+            @Override
+            public CommandTransition executeCommand(GenericParameterObject parameterObject) {
+                return SUCCESS;
+            }
+
+        };
+
+        thrown.expect(UnsupportedOperationException.class);
+        thrown.expectMessage("Use executeCommandAsChain() instead");
+        command.executeAsChain(context);
+    }
+
+    
 }
