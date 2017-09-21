@@ -29,7 +29,6 @@ package org.mwolff.command;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
-import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.DefaultTransition;
@@ -73,21 +72,12 @@ public class ProcessCommandTest {
         final ProcessCommand<Object> pc = new ProcessCommand<Object>() {
 
             @Override
-            public void execute(final Object context) throws CommandException {
-            }
-
-            @Override
             public String getProcessID() {
                 return "getProcessID";
             }
 
             @Override
             public void setProcessID(final String processID) {
-            }
-
-            @Override
-            public boolean executeAsChain(Object parameterObject) {
-                return false;
             }
 
             @Override

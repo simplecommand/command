@@ -4,7 +4,7 @@
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
 
-    Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
+    Download: https://mwolff.info/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
 
@@ -23,29 +23,41 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
+package org.mwolff.command.sax;
 
-package org.mwolff.command.chain;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.mwolff.command.AbstractDefaultCommand;
-import org.mwolff.command.CommandTransition;
+import org.mwolff.command.process.Transition;
 
-/**
- * Default implementation for a chain-command. You may use
- * <code>executeAsChain</code> for all executions of the <code>command</code> or
- * <code>commandContainer</code>.
- */
-public abstract class AbstractDefaultChainCommand<T extends Object> extends AbstractDefaultCommand<T>
-        implements ChainCommand<T> {
+public class Action {
 
-    /**
-     * @see org.mwolff.command.chain.ChainCommand#executeCommandAsChain(java.lang.Object)
-     */
-    @Override
-    public CommandTransition executeCommandAsChain(T parameterObject) {
-        final CommandTransition result = executeCommand(parameterObject);
-        if (result == CommandTransition.SUCCESS) {
-            return CommandTransition.NEXT;
-        }
-        return CommandTransition.DONE;
+    private String                 classname;
+    private String                 id;
+    private final List<Transition> transitions = new ArrayList<>();
+
+    public void setTransition(final Transition transition) {
+        transitions.add(transition);
     }
+
+    public List<Transition> getTransitions() {
+        return new ArrayList<>(transitions);
+    }
+
+    public String getClassname() {
+        return classname;
+    }
+
+    public void setClassname(final String classname) {
+        this.classname = classname;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(final String id) {
+        this.id = id;
+    }
+
 }

@@ -2,14 +2,7 @@ package org.mwolff.command;
 
 import org.junit.Test;
 
-/**
- * This is a fake test for coverage the enum. Enums generates byte codes which
- * eclemma cannot deal with.
- *
- * @author mwolff
- *
- */
-public class CommandTransitionEnumTest implements CommandTransitionEnum {
+public class CommandTransitionTest {
 
     @Test
     public void testName() throws Exception {
@@ -17,4 +10,5 @@ public class CommandTransitionEnumTest implements CommandTransitionEnum {
         CommandTransition.valueOf(CommandTransition.FAILURE.toString());
         CommandTransition.valueOf(CommandTransition.DONE.toString());
     }
+
 }

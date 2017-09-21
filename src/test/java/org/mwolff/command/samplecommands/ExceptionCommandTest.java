@@ -28,28 +28,12 @@ package org.mwolff.command.samplecommands;
 
 import org.hamcrest.Matchers;
 import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.mwolff.command.CommandException;
-import org.mwolff.command.CommandTransitionEnum.CommandTransition;
+import org.mwolff.command.CommandTransition;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
 public class ExceptionCommandTest {
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
-    @Test
-    public void testExceptionThrow() throws Exception {
-        thrown.expect(CommandException.class);
-        final GenericParameterObject context = new DefaultParameterObject();
-        final ExceptionCommand<GenericParameterObject> exceptionCommand = new ExceptionCommand<>();
-        exceptionCommand.execute(context);
-        final String value = context.getAsString("executed");
-        Assert.assertThat(value, Matchers.is("true"));
-    }
 
     @Test
     public void testFailure() throws Exception {

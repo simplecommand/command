@@ -26,7 +26,7 @@
 
 package org.mwolff.command.samplecommands;
 
-import org.mwolff.command.CommandTransitionEnum.CommandTransition;
+import org.mwolff.command.CommandTransition;
 import org.mwolff.command.chain.AbstractDefaultChainCommand;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.springframework.util.StringUtils;
@@ -34,31 +34,20 @@ import org.springframework.util.StringUtils;
 public class PriorityOneTestCommand<T extends GenericParameterObject> extends AbstractDefaultChainCommand<T> {
 
     @Override
-    public void execute(final T context) {
-        context.put("PriorityOneTestCommand", "PriorityOneTestCommand");
-        String priorString = context.getAsString("priority");
-        if (StringUtils.isEmpty(priorString)) {
-            priorString = "";
-        }
-        priorString += "1-";
-        context.put("priority", priorString);
-    }
-
-    @Override
-    public boolean executeAsChain(final T context) {
-        execute(context);
-        return false;
-    }
-
-    @Override
     public CommandTransition executeCommandAsChain(final T context) {
-        execute(context);
+        executeCommand(context);
         return CommandTransition.NEXT;
     }
 
     @Override
     public CommandTransition executeCommand(T parameterObject) {
-        execute(parameterObject);
+        parameterObject.put("PriorityOneTestCommand", "PriorityOneTestCommand");
+        String priorString = parameterObject.getAsString("priority");
+        if (StringUtils.isEmpty(priorString)) {
+            priorString = "";
+        }
+        priorString += "1-";
+        parameterObject.put("priority", priorString);
         return CommandTransition.SUCCESS;
     }
 

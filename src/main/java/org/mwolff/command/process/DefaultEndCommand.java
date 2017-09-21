@@ -39,9 +39,4 @@ public class DefaultEndCommand extends AbstractDefaultProcessCommand<GenericPara
     public String executeAsProcess(GenericParameterObject context) {
         return "END";
     }
-
-    @Override
-    public void execute(GenericParameterObject context) {
-        throw new UnsupportedOperationException("Don't call execute on processes");
-    }
 }
