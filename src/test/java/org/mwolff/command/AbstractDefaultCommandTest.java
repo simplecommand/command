@@ -24,7 +24,7 @@ public class AbstractDefaultCommandTest {
         final CommandTransition result = instance.executeCommand("valid");
         Assert.assertThat(result, CoreMatchers.is(SUCCESS));
         instance.executeCommand(null);
-        Assert.assertThat(instance.executeCommand(null), CoreMatchers.nullValue());
+        Assert.assertThat(instance.executeCommand(null), CoreMatchers.is(FAILURE));
     }
 
 }
