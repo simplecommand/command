@@ -26,11 +26,15 @@
  *         USA */
 package org.mwolff.command.process;
 
+import static org.hamcrest.CoreMatchers.*;
+
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.DefaultCommandContainer;
+import org.mwolff.command.chain.XMLChainBuilder;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
@@ -62,4 +66,19 @@ public class DefaultEndCommandTest {
         Assert.assertThat(defaultEndCommand.executeAsProcess("START", null), CoreMatchers.is("END"));
     }
 
+    @Test
+    public void testCommandWithoutTransiton() throws Exception {
+        final XMLChainBuilder<GenericParameterObject> xmlChainBuilder = new XMLChainBuilder<>("commandChainProcessEnd.xml");
+        String result = xmlChainBuilder.executeAsProcess("End", DefaultParameterObject.NULLCONTEXT);
+        Assert.assertThat(result, CoreMatchers.is("END"));
+
+    }
+    @Test
+    public void testCommandWithTransitonFails() throws Exception {
+        final XMLChainBuilder<GenericParameterObject> xmlChainBuilder = new XMLChainBuilder<>("commandChainProcessEndFails.xml");
+        String result = xmlChainBuilder.executeAsProcess("End", DefaultParameterObject.NULLCONTEXT);
+        Assert.assertThat(result, nullValue());
+    }
+
+    
 }
