@@ -28,6 +28,7 @@ package org.mwolff.command.sax;
 import static org.mwolff.command.CommandTransition.*;
 import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
+import java.io.File;
 import java.io.InputStream;
 
 import org.mwolff.command.AbstractDefaultCommand;
@@ -40,8 +41,8 @@ public class InputSourceReaderCommand extends AbstractDefaultCommand<SaxParamete
     public CommandTransition executeCommand(SaxParameterObject parameterObject) {
 
         String filename = parameterObject.getAsString(FILE_NAME.toString());
-        if (!filename.startsWith("/")) {
-            filename = "/" + filename;
+        if (!filename.startsWith(File.separator)) {
+            filename = File.separator + filename;
         }
 
         final InputStream inputStream = this.getClass().getResourceAsStream(filename);
