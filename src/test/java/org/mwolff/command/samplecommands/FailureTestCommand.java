@@ -26,35 +26,20 @@
 
 package org.mwolff.command.samplecommands;
 
-import org.mwolff.command.CommandTransitionEnum.CommandTransition;
+import org.mwolff.command.CommandTransition;
 import org.mwolff.command.chain.AbstractDefaultChainCommand;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
 public class FailureTestCommand<T extends GenericParameterObject> extends AbstractDefaultChainCommand<T> {
 
-    /*
-     * @see de.mwolff.commons.command.Command#execute()
-     */
-    @Override
-    public void execute(final T context) {
-        context.put("status", "proceeded");
-    }
-
-    @Override
-    public boolean executeAsChain(T context) {
-        execute(context);
-        return false;
-    }
-
     @Override
     public CommandTransition executeCommand(T parameterObject) {
-        execute(parameterObject);
         return CommandTransition.FAILURE;
     }
 
     @Override
     public CommandTransition executeCommandAsChain(T parameterObject) {
-        execute(parameterObject);
+        executeCommand(parameterObject);
         return CommandTransition.FAILURE;
     }
 }

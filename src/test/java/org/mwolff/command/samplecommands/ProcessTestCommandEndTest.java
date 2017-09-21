@@ -46,7 +46,7 @@ public class ProcessTestCommandEndTest {
 
     @Test
     public void testEndCommandStandalone() throws Exception {
-        ProcessTestCommandEnd<GenericParameterObject> command = new ProcessTestCommandEnd<>();
+        final ProcessTestCommandEnd<GenericParameterObject> command = new ProcessTestCommandEnd<>();
         final DefaultParameterObject context = new DefaultParameterObject();
         final String result = command.executeAsProcess("END", context);
         Assert.assertNull(result);

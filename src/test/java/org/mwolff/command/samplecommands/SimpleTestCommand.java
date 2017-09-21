@@ -26,33 +26,23 @@
 
 package org.mwolff.command.samplecommands;
 
-import org.mwolff.command.CommandException;
-import org.mwolff.command.CommandTransitionEnum.CommandTransition;
+import org.mwolff.command.CommandTransition;
 import org.mwolff.command.chain.AbstractDefaultChainCommand;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
 public class SimpleTestCommand<T extends GenericParameterObject> extends AbstractDefaultChainCommand<T> {
 
     @Override
-    public void execute(final T context) throws CommandException {
+    public CommandTransition executeCommand(T context) {
 
         if (context == null) {
-            throw new CommandException("Command is null");
+            return CommandTransition.FAILURE;
         }
 
         context.put("SimpleTestCommand", "SimpleTestCommand");
         String priorString = context.getAsString("priority");
         priorString += "S-";
         context.put("priority", priorString);
-    }
-
-    @Override
-    public CommandTransition executeCommand(T parameterObject) {
-        try {
-            execute(parameterObject);
-        } catch (final CommandException e) {
-            return CommandTransition.FAILURE;
-        }
         return CommandTransition.SUCCESS;
     }
 }

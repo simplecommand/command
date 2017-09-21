@@ -66,10 +66,4 @@ public class DefaultEndCommandTest {
         Assert.assertThat(defaultEndCommand.executeAsProcess("START", null), CoreMatchers.is("END"));
     }
 
-    @Test
-    public void testExecute() throws Exception {
-        thrown.expect(UnsupportedOperationException.class);
-        defaultEndCommand.execute(null);
-    }
-
 }

@@ -26,11 +26,12 @@
 
 package org.mwolff.command;
 
+import static org.mwolff.command.CommandTransition.*;
+
 import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
-import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.chain.ChainCommand;
 import org.mwolff.command.process.ProcessCommand;
 
@@ -71,30 +72,13 @@ public class DefaultCommandContainer<T extends Object> implements CommandContain
         return this;
     }
 
-    /**
-     * Executes the commands as a chain. If one command returns false the chain
-     * will be aborted.
-     */
-    @SuppressWarnings("deprecation")
-    @Override
-    public boolean executeAsChain(final T context) {
-        boolean result = true;
-        for (final Command<T> command : commandList.values()) {
-            result = ((ChainCommand<T>) command).executeAsChain(context);
-            if (!result) {
-                break;
-            }
-        }
-        return result;
-    }
-
     @Override
     public CommandTransition executeCommandAsChain(T parameterObject) {
 
-        CommandTransition result = CommandTransition.NEXT;
+        CommandTransition result = NEXT;
         for (final Command<T> command : commandList.values()) {
             result = ((ChainCommand<T>) command).executeCommandAsChain(parameterObject);
-            if ((result == CommandTransition.DONE) || (result == CommandTransition.FAILURE)) {
+            if ((result == DONE) || (result == FAILURE)) {
                 break;
             }
         }
@@ -171,25 +155,15 @@ public class DefaultCommandContainer<T extends Object> implements CommandContain
     @Override
     public CommandTransition executeCommand(T parameterObject) {
 
-        CommandTransition transition = CommandTransition.SUCCESS;
+        CommandTransition transition = SUCCESS;
 
         for (final Command<T> command : commandList.values()) {
             transition = command.executeCommand(parameterObject);
-            if (transition.equals(CommandTransition.FAILURE)) {
+            if (transition.equals(FAILURE)) {
                 break;
             }
         }
 
         return transition;
     }
-
-    @SuppressWarnings("deprecation")
-    @Override
-    public void execute(T parameterObject) throws CommandException {
-
-        for (final Command<T> command : commandList.values()) {
-            command.execute(parameterObject);
-        }
-    }
-
 }

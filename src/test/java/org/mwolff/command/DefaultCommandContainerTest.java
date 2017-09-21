@@ -31,7 +31,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mwolff.command.CommandTransitionEnum.CommandTransition;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.DefaultEndCommand;
@@ -47,200 +46,194 @@ import org.mwolff.command.samplecommands.SimpleTestCommand;
 
 public class DefaultCommandContainerTest {
 
-   @Rule
-   public ExpectedException thrown = ExpectedException.none();
+    @Rule
+    public ExpectedException                         thrown = ExpectedException.none();
 
-   private GenericParameterObject context;
-   private CommandContainer<GenericParameterObject> commandContainer;
+    private GenericParameterObject                   context;
+    private CommandContainer<GenericParameterObject> commandContainer;
 
-   @Before
-   public void setUp() {
-      context = new DefaultParameterObject();
-      commandContainer = new DefaultCommandContainer<>();
-   }
+    @Before
+    public void setUp() {
+        context = new DefaultParameterObject();
+        commandContainer = new DefaultCommandContainer<>();
+    }
 
-   /*
+    /*
     * Creates some Commands in different Order. There are two commands with prio
     * 1!
     */
-   public CommandContainer<GenericParameterObject> createCommandInOrder() {
-      commandContainer.addCommand(2, new PriorityThreeTestCommand<>()).addCommand(1, new PriorityOneTestCommand<>())
-            .addCommand(1, new PriorityTwoTestCommand<>());
-      return commandContainer;
-   }
+    public CommandContainer<GenericParameterObject> createCommandInOrder() {
+        commandContainer.addCommand(2, new PriorityThreeTestCommand<>()).addCommand(1, new PriorityOneTestCommand<>())
+                .addCommand(1, new PriorityTwoTestCommand<>());
+        return commandContainer;
+    }
 
-   /*
+    /*
     * Creating three commands with prio 1-2-3 for execution
     */
-   private CommandContainer<GenericParameterObject> createDefaultCommands() {
-      commandContainer.addCommand(new PriorityOneTestCommand<>()).addCommand(new PriorityTwoTestCommand<>())
-            .addCommand(new PriorityThreeTestCommand<>());
-      return commandContainer;
-   }
+    private CommandContainer<GenericParameterObject> createDefaultCommands() {
+        commandContainer.addCommand(new PriorityOneTestCommand<>()).addCommand(new PriorityTwoTestCommand<>())
+                .addCommand(new PriorityThreeTestCommand<>());
+        return commandContainer;
+    }
 
-   /*
+    /*
     * Remark: If there are two commands with the same priority, the first
     * inserted Command wins ... etc.
     */
-   @SuppressWarnings("deprecation")
-   @Test
-   public void testAddCommandWithPriorityInCommandContainerAndExecute() throws Exception {
-      final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrder();
-      context.put("priority", "");
-      commandContainer.execute(context);
-      final String priorString = context.getAsString("priority");
-      Assert.assertEquals("1-2-3-", priorString);
-   }
+    @Test
+    public void testAddCommandWithPriorityInCommandContainerAndExecute() throws Exception {
+        final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrder();
+        context.put("priority", "");
+        commandContainer.executeCommand(context);
+        final String priorString = context.getAsString("priority");
+        Assert.assertEquals("1-2-3-", priorString);
+    }
 
-   @Test
-   public void testExecuteCommandSuccess() throws Exception {
-      final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrder();
-      context.put("priority", "");
-      commandContainer.executeCommand(context);
-      final String priorString = context.getAsString("priority");
-      Assert.assertEquals("1-2-3-", priorString);
-   }
+    @Test
+    public void testExecuteCommandSuccess() throws Exception {
+        final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrder();
+        context.put("priority", "");
+        commandContainer.executeCommand(context);
+        final String priorString = context.getAsString("priority");
+        Assert.assertEquals("1-2-3-", priorString);
+    }
 
-   @Test
-   public void testExecuteCommandAsChainSuccessABORT() throws Exception {
-      final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrder();
-      context.put("priority", "");
-      final CommandTransition transition = commandContainer.executeCommandAsChain(context);
-      final String priorString = context.getAsString("priority");
-      Assert.assertEquals("1-2-3-", priorString);
-      Assert.assertEquals(transition, CommandTransition.NEXT);
+    @Test
+    public void testExecuteCommandAsChainSuccessABORT() throws Exception {
+        final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrder();
+        context.put("priority", "");
+        final CommandTransition transition = commandContainer.executeCommandAsChain(context);
+        final String priorString = context.getAsString("priority");
+        Assert.assertEquals("1-2-3-", priorString);
+        Assert.assertEquals(transition, CommandTransition.NEXT);
 
-   }
+    }
 
-   @Test
-   public void testExecuteCommandAsChainSuccessFAIL() throws Exception {
-      commandContainer.addCommand(new FailureTestCommand<>());
-      context.put("priority", "");
+    @Test
+    public void testExecuteCommandAsChainSuccessFAIL() throws Exception {
+        commandContainer.addCommand(new FailureTestCommand<>());
+        context.put("priority", "");
 
-      final CommandTransition transition = commandContainer.executeCommandAsChain(context);
-      final String priorString = context.getAsString("priority");
-      Assert.assertEquals(priorString, "");
-      Assert.assertEquals(transition, CommandTransition.FAILURE);
+        final CommandTransition transition = commandContainer.executeCommandAsChain(context);
+        final String priorString = context.getAsString("priority");
+        Assert.assertEquals(priorString, "");
+        Assert.assertEquals(transition, CommandTransition.FAILURE);
 
-   }
+    }
 
-   @SuppressWarnings("deprecation")
-   @Test
-   public void testExecuteOnlyOnContainer() throws Exception {
-      final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrder();
-      context.put("priority", "");
-      commandContainer.execute(context);
-      final String priorString = context.getAsString("priority");
-      Assert.assertEquals("1-2-3-", priorString);
-   }
+    @Test
+    public void testExecuteOnlyOnContainer() throws Exception {
+        final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrder();
+        context.put("priority", "");
+        commandContainer.executeCommand(context);
+        final String priorString = context.getAsString("priority");
+        Assert.assertEquals("1-2-3-", priorString);
+    }
 
-   /*
+    /*
     * Remark: If there are two commands with the same priority, the first
     * inserted Command wins ... etc.
     */
-   @SuppressWarnings("deprecation")
-   @Test
-   public void testAddCommandWithPriorityInCommandContainerAndExecuteAsChain() throws Exception {
-      final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrder();
-      context.put("priority", "");
-      commandContainer.executeAsChain(context);
-      final String priorString = context.getAsString("priority");
-      Assert.assertEquals("1-", priorString);
-   }
+    @Test
+    public void testAddCommandWithPriorityInCommandContainerAndExecuteAsChain() throws Exception {
+        final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrder();
+        context.put("priority", "");
+        commandContainer.executeCommandAsChain(context);
+        final String priorString = context.getAsString("priority");
+        Assert.assertEquals("1-2-3-", priorString);
+    }
 
-   /*
+    /*
     * Remark: Adding commands without priority will mark all with priority 0. So
     * the execution is in natural order.
     */
-   @SuppressWarnings("deprecation")
-   @Test
-   public void testAddNoPriorityInCommandContainerAndExecute() throws Exception {
-      final CommandContainer<GenericParameterObject> commandContainer = createDefaultCommands();
-      context.put("priority", "");
+    @Test
+    public void testAddNoPriorityInCommandContainerAndExecute() throws Exception {
+        final CommandContainer<GenericParameterObject> commandContainer = createDefaultCommands();
+        context.put("priority", "");
 
-      commandContainer.execute(context);
-      final String priorString = context.getAsString("priority");
-      Assert.assertEquals("1-2-3-", priorString);
-   }
+        commandContainer.executeCommand(context);
+        final String priorString = context.getAsString("priority");
+        Assert.assertEquals("1-2-3-", priorString);
+    }
 
-   /*
+    /*
     * Remark: Adding commands without priority will mark all with priority 0. So
     * the execution is in natural order.
     */
-   @SuppressWarnings("deprecation")
-   @Test
-   public void testAddNoPriorityInCommandContainerAndExecuteAsChain() throws Exception {
-      final CommandContainer<GenericParameterObject> commandContainer = createDefaultCommands();
-      context.put("priority", "");
+    @Test
+    public void testAddNoPriorityInCommandContainerAndExecuteAsChain() throws Exception {
+        final CommandContainer<GenericParameterObject> commandContainer = createDefaultCommands();
+        context.put("priority", "");
 
-      commandContainer.executeAsChain(context);
-      final String priorString = context.getAsString("priority");
-      Assert.assertEquals("1-", priorString);
-   }
+        commandContainer.executeCommandAsChain(context);
+        final String priorString = context.getAsString("priority");
+        Assert.assertEquals("1-2-3-", priorString);
+    }
 
-   @Test
-   public void testChainWithFailure() throws Exception {
-      commandContainer.addCommand(1, new ExceptionCommand<>());
-      commandContainer.addCommand(2, new SimpleTestCommand<>());
-      final CommandTransition transition = commandContainer.executeCommand(context);
-      context.getAsString("priority");
-      Assert.assertEquals(CommandTransition.FAILURE, transition);
+    @Test
+    public void testChainWithFailure() throws Exception {
+        commandContainer.addCommand(1, new ExceptionCommand<>());
+        commandContainer.addCommand(2, new SimpleTestCommand<>());
+        final CommandTransition transition = commandContainer.executeCommand(context);
+        context.getAsString("priority");
+        Assert.assertEquals(CommandTransition.FAILURE, transition);
 
-   }
+    }
 
-   @Test
-   public void testEndCommand() throws Exception {
-      final ProcessCommand<GenericParameterObject> search = new DefaultEndCommand();
-      search.setProcessID("END");
-      commandContainer.addCommand(search);
-      final String result = commandContainer.executeAsProcess(context);
-      Assert.assertEquals(null, result);
-   }
+    @Test
+    public void testEndCommand() throws Exception {
+        final ProcessCommand<GenericParameterObject> search = new DefaultEndCommand();
+        search.setProcessID("END");
+        commandContainer.addCommand(search);
+        final String result = commandContainer.executeAsProcess(context);
+        Assert.assertEquals(null, result);
+    }
 
-   // Remark: Should work if no command is inserted
-   @Test
-   public void testExecuteWithNullCommands() throws Exception {
-      final String result = commandContainer.executeAsProcess(null, context);
-      Assert.assertEquals(null, result);
+    // Remark: Should work if no command is inserted
+    @Test
+    public void testExecuteWithNullCommands() throws Exception {
+        final String result = commandContainer.executeAsProcess(null, context);
+        Assert.assertEquals(null, result);
 
-   }
+    }
 
-   @Test
-   public void testGetCommandWithProcessID() throws Exception {
-      final Command<GenericParameterObject> search = new ProcessTestCommandStart<>("StartCommand");
-      commandContainer.addCommand(1, search);
-      commandContainer.addCommand(2, new ProcessTestCommandNext<>("NextCommand"));
+    @Test
+    public void testGetCommandWithProcessID() throws Exception {
+        final Command<GenericParameterObject> search = new ProcessTestCommandStart<>("StartCommand");
+        commandContainer.addCommand(1, search);
+        commandContainer.addCommand(2, new ProcessTestCommandNext<>("NextCommand"));
 
-      final Command<GenericParameterObject> found = commandContainer.getCommandByProcessID("StartCommand");
-      Assert.assertSame(found, search);
-   }
+        final Command<GenericParameterObject> found = commandContainer.getCommandByProcessID("StartCommand");
+        Assert.assertSame(found, search);
+    }
 
-   /*
+    /*
     * Remark: You can add either commands or command lists.
     */
-   @SuppressWarnings("deprecation")
-   @Test
-   public void testMixedModeInCommandContainer() throws Exception {
-      commandContainer.addCommand(1, new PriorityOneTestCommand<>());
-      commandContainer.addCommand(2, new PriorityTwoTestCommand<>());
-      commandContainer.addCommand(3, new PriorityThreeTestCommand<>());
+    @Test
+    public void testMixedModeInCommandContainer() throws Exception {
+        commandContainer.addCommand(1, new PriorityOneTestCommand<>());
+        commandContainer.addCommand(2, new PriorityTwoTestCommand<>());
+        commandContainer.addCommand(3, new PriorityThreeTestCommand<>());
 
-      final CommandContainer<GenericParameterObject> mixedList = new DefaultCommandContainer<>();
-      mixedList.addCommand(new SimpleTestCommand<>());
-      mixedList.addCommand(commandContainer);
+        final CommandContainer<GenericParameterObject> mixedList = new DefaultCommandContainer<>();
+        mixedList.addCommand(new SimpleTestCommand<>());
+        mixedList.addCommand(commandContainer);
 
-      mixedList.execute(context);
-      String priorString = context.getAsString("priority");
-      Assert.assertEquals("S-1-2-3-", priorString);
-      mixedList.executeAsChain(context);
-      priorString = context.getAsString("priority");
-      Assert.assertEquals("S-1-2-3-S-1-", priorString);
-   }
+        mixedList.executeCommand(context);
+        String priorString = context.getAsString("priority");
+        Assert.assertEquals("S-1-2-3-", priorString);
+        mixedList.executeCommandAsChain(context);
+        priorString = context.getAsString("priority");
+        Assert.assertEquals("S-1-2-3-S-1-2-3-", priorString);
+    }
 
-   @Test
-   public void testsetProcessID() throws Exception {
-      thrown.expect(IllegalArgumentException.class);
-      thrown.expectMessage("ProcessID cannot be set on Container.");
-      commandContainer.setProcessID("something");
-   }
+    @Test
+    public void testsetProcessID() throws Exception {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("ProcessID cannot be set on Container.");
+        commandContainer.setProcessID("something");
+    }
 }

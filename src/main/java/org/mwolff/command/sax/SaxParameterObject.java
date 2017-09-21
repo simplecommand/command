@@ -4,7 +4,7 @@
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
 
-    Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
+    Download: https://mwolff.info/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
 
@@ -23,29 +23,40 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
+package org.mwolff.command.sax;
 
-package org.mwolff.command.chain;
+import org.mwolff.command.parameterobject.DefaultParameterObject;
+import org.mwolff.command.parameterobject.GenericParameterObject;
 
-import org.mwolff.command.AbstractDefaultCommand;
-import org.mwolff.command.CommandTransition;
+public class SaxParameterObject implements GenericParameterObject {
 
-/**
- * Default implementation for a chain-command. You may use
- * <code>executeAsChain</code> for all executions of the <code>command</code> or
- * <code>commandContainer</code>.
- */
-public abstract class AbstractDefaultChainCommand<T extends Object> extends AbstractDefaultCommand<T>
-        implements ChainCommand<T> {
+    GenericParameterObject context = DefaultParameterObject.getInstance();
 
-    /**
-     * @see org.mwolff.command.chain.ChainCommand#executeCommandAsChain(java.lang.Object)
-     */
     @Override
-    public CommandTransition executeCommandAsChain(T parameterObject) {
-        final CommandTransition result = executeCommand(parameterObject);
-        if (result == CommandTransition.SUCCESS) {
-            return CommandTransition.NEXT;
-        }
-        return CommandTransition.DONE;
+    public Object get(String key) {
+        return context.get(key);
     }
+
+    public Object get(GlobalCommandConstants key) {
+        return context.get(key.toString());
+    }
+
+    @Override
+    public String getAsString(String key) {
+        return context.getAsString(key);
+    }
+
+    public String getAsString(GlobalCommandConstants key) {
+        return context.getAsString(key.toString());
+    }
+
+    @Override
+    public void put(String key, Object value) {
+        context.put(key, value);
+    }
+
+    public void put(GlobalCommandConstants key, Object value) {
+        context.put(key.toString(), value);
+    }
+
 }

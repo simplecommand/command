@@ -4,7 +4,7 @@
     Framework for easy building software that fits the SOLID principles.
     @author Manfred Wolff <m.wolff@neusta.de>
 
-    Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
+    Download: https://mwolff.info/bitbucket/scm/scf/simplecommandframework.git
 
     Copyright (C) 2018 Manfred Wolff and the simple command community
 
@@ -23,29 +23,36 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
     USA
  */
+package org.mwolff.command.sax;
 
-package org.mwolff.command.chain;
+import static org.mwolff.command.CommandTransition.*;
+import static org.mwolff.command.sax.GlobalCommandConstants.*;
+
+import java.io.InputStream;
 
 import org.mwolff.command.AbstractDefaultCommand;
 import org.mwolff.command.CommandTransition;
+import org.xml.sax.InputSource;
 
-/**
- * Default implementation for a chain-command. You may use
- * <code>executeAsChain</code> for all executions of the <code>command</code> or
- * <code>commandContainer</code>.
- */
-public abstract class AbstractDefaultChainCommand<T extends Object> extends AbstractDefaultCommand<T>
-        implements ChainCommand<T> {
+public class InputSourceReaderCommand extends AbstractDefaultCommand<SaxParameterObject> {
 
-    /**
-     * @see org.mwolff.command.chain.ChainCommand#executeCommandAsChain(java.lang.Object)
-     */
     @Override
-    public CommandTransition executeCommandAsChain(T parameterObject) {
-        final CommandTransition result = executeCommand(parameterObject);
-        if (result == CommandTransition.SUCCESS) {
-            return CommandTransition.NEXT;
+    public CommandTransition executeCommand(SaxParameterObject parameterObject) {
+
+        String filename = parameterObject.getAsString(FILE_NAME.toString());
+        if (!filename.startsWith("/")) {
+            filename = "/" + filename;
         }
-        return CommandTransition.DONE;
+
+        final InputStream inputStream = this.getClass().getResourceAsStream(filename);
+
+        if (inputStream == null) {
+            parameterObject.put(ERROR_STRING.toString(), "Error reading resource. Resource not found.");
+            return FAILURE;
+        }
+        final InputSource inputSource = new InputSource(inputStream);
+        parameterObject.put(INPUT_SOURCE.toString(), inputSource);
+        return SUCCESS;
     }
+
 }

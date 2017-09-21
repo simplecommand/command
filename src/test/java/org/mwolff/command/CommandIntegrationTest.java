@@ -26,11 +26,11 @@
 
 package org.mwolff.command;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Assert;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.mwolff.command.chain.InjectionChainBuilder;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
@@ -41,130 +41,125 @@ import org.mwolff.command.samplecommands.SimpleTestCommand;
 
 public class CommandIntegrationTest {
 
-   /**
-    * You can use the builder to build and execute the chain. Usually you will
-    * use the builder together with a dependency framework just as Spring. In
-    * this case Spring instantiates the builder as well as all commands and
-    * injects all commands as a list.
-    *
-    * &lt;bean id="firstCommand"
-    * class="de.mwolff.commons.command.PriorityOneCommand"&gt; &lt;/bean&gt;
-    *
-    * &lt;bean id="secondCommand"
-    * class="de.mwolff.commons.command.PriorityTwoCommand"&gt; &lt;/bean&gt;
-    *
-    * &lt;bean id="chainBuilder"
-    * class="de.mwolff.command.chainbuilder.InjectionChainBuilder"&gt;
-    * &lt;property name="commands"&gt; &lt;list&gt; &lt;ref bean="firstCommand"
-    * /&gt; &lt;ref bean="secondCommand" /&gt; &lt;/list&gt; &lt;/property&gt;
-    * &lt;/bean&gt;
-    */
-   @Test
-   @DisplayName("")
-   public void testBuilderExample() throws Exception {
+    /**
+     * You can use the builder to build and execute the chain. Usually you will
+     * use the builder together with a dependency framework just as Spring. In
+     * this case Spring instantiates the builder as well as all commands and
+     * injects all commands as a list.
+     *
+     * &lt;bean id="firstCommand"
+     * class="de.mwolff.commons.command.PriorityOneCommand"&gt; &lt;/bean&gt;
+     *
+     * &lt;bean id="secondCommand"
+     * class="de.mwolff.commons.command.PriorityTwoCommand"&gt; &lt;/bean&gt;
+     *
+     * &lt;bean id="chainBuilder"
+     * class="de.mwolff.command.chainbuilder.InjectionChainBuilder"&gt;
+     * &lt;property name="commands"&gt; &lt;list&gt; &lt;ref bean="firstCommand"
+     * /&gt; &lt;ref bean="secondCommand" /&gt; &lt;/list&gt; &lt;/property&gt;
+     * &lt;/bean&gt;
+     */
+    @Test
+    public void testBuilderExample() throws Exception {
 
-      final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
-      // injection usually will be done by a injection container
-      builder.setCommands(Arrays.asList(new PriorityOneTestCommand<>(), new PriorityTwoTestCommand<>()));
+        final List<Command<GenericParameterObject>> commands = new ArrayList<>();
+        commands.add(new PriorityOneTestCommand<>());
+        commands.add(new PriorityTwoTestCommand<>());
+        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
+        // injection usually will be done by a injection container
+        builder.setCommands(commands);
+        final GenericParameterObject context = new DefaultParameterObject();
+        context.put("priority", "");
+        builder.executeCommandAsChain(context);
+        final String priorString = context.getAsString("priority");
+        Assert.assertEquals("1-2-", priorString);
+    }
 
-      final GenericParameterObject context = new DefaultParameterObject();
-      context.put("priority", "");
+    /*
+     * Chain example. You can execute commands as a chain. The execution is
+     * stopped if one command returns false.
+     */
+    @Test
+    public void testExecuteCommandsAsChain() throws Exception {
 
-      builder.executeAsChain(context);
-      final String priorString = context.getAsString("priority");
-      Assert.assertEquals("1-", priorString);
-   }
+        final GenericParameterObject context = new DefaultParameterObject();
+        final CommandContainer<GenericParameterObject> commandContainer = new DefaultCommandContainer<>();
+        commandContainer.addCommand(1, new PriorityOneTestCommand<>());
+        commandContainer.addCommand(2, new PriorityTwoTestCommand<>());
+        commandContainer.addCommand(3, new PriorityThreeTestCommand<>());
 
-   /*
-    * Chain example. You can execute commands as a chain. The execution is
-    * stopped if one command returns false.
-    */
-   @SuppressWarnings({ "deprecation" })
-   @Test
-   public void testExecuteCommandsAsChain() throws Exception {
+        final CommandContainer<GenericParameterObject> mixedList = new DefaultCommandContainer<>();
+        mixedList.addCommand(1, new SimpleTestCommand<>());
+        mixedList.addCommand(2, commandContainer);
 
-      final GenericParameterObject context = new DefaultParameterObject();
-      final CommandContainer<GenericParameterObject> commandContainer = new DefaultCommandContainer<>();
-      commandContainer.addCommand(1, new PriorityOneTestCommand<>());
-      commandContainer.addCommand(2, new PriorityTwoTestCommand<>());
-      commandContainer.addCommand(3, new PriorityThreeTestCommand<>());
+        mixedList.executeCommandAsChain(context);
+        final String priorString = context.getAsString("priority");
+        Assert.assertEquals("S-1-2-3-", priorString);
+    }
 
-      final CommandContainer<GenericParameterObject> mixedList = new DefaultCommandContainer<>();
-      mixedList.addCommand(1, new SimpleTestCommand<>());
-      mixedList.addCommand(2, commandContainer);
+    /*
+     * Simple example. Put all commands in a container and execute it by
+     * bypassing a context. All commands in the container will be executed in
+     * the sequence they were inserted.
+     */
+    @Test
+    public void testExecuteCommandsWithContext() throws Exception {
+        final GenericParameterObject context = new DefaultParameterObject();
+        final CommandContainer<GenericParameterObject> container = new DefaultCommandContainer<>();
+        context.put("priority", "");
+        container.addCommand(new PriorityOneTestCommand<>());
+        container.addCommand(new PriorityTwoTestCommand<>());
+        container.executeCommand(context);
+        Assert.assertEquals("1-2-", context.getAsString("priority"));
+    }
 
-      mixedList.executeAsChain(context);
-      final String priorString = context.getAsString("priority");
-      Assert.assertEquals("S-1-", priorString);
-   }
+    /*
+     * Priority example. Put all commands in a container by adding a priority.
+     * All commands in the container will be executed in order of the priority.
+     */
+    @Test
+    public void testExecuteCommandsWithContextAndPriority() throws Exception {
+        final GenericParameterObject context = new DefaultParameterObject();
+        final CommandContainer<GenericParameterObject> container = new DefaultCommandContainer<>();
+        context.put("priority", "");
+        container.addCommand(3, new PriorityThreeTestCommand<>());
+        container.addCommand(2, new PriorityOneTestCommand<>());
+        container.addCommand(1, new PriorityTwoTestCommand<>());
+        container.executeCommand(context);
+        Assert.assertEquals("2-1-3-", context.getAsString("priority"));
+    }
 
-   /*
-    * Simple example. Put all commands in a container and execute it by
-    * bypassing a context. All commands in the container will be executed in the
-    * sequence they were inserted.
-    */
-   @SuppressWarnings("deprecation")
-   @Test
-   public void testExecuteCommandsWithContext() throws Exception {
-      final GenericParameterObject context = new DefaultParameterObject();
-      final CommandContainer<GenericParameterObject> container = new DefaultCommandContainer<>();
-      context.put("priority", "");
-      container.addCommand(new PriorityOneTestCommand<>());
-      container.addCommand(new PriorityTwoTestCommand<>());
-      container.execute(context);
-      Assert.assertEquals("1-2-", context.getAsString("priority"));
-   }
+    /*
+     * Composite example. You can add commands as well as command containers in
+     * a simple container.
+     */
+    @Test
+    public void testExecuteCommandsWithMixedContent() throws Exception {
+        final GenericParameterObject context = new DefaultParameterObject();
+        final CommandContainer<GenericParameterObject> commandContainer = new DefaultCommandContainer<>();
+        commandContainer.addCommand(1, new PriorityOneTestCommand<>());
+        commandContainer.addCommand(2, new PriorityTwoTestCommand<>());
+        commandContainer.addCommand(3, new PriorityThreeTestCommand<>());
 
-   /*
-    * Priority example. Put all commands in a container by adding a priority.
-    * All commands in the container will be executed in order of the priority.
-    */
-   @SuppressWarnings("deprecation")
-   @Test
-   public void testExecuteCommandsWithContextAndPriority() throws Exception {
-      final GenericParameterObject context = new DefaultParameterObject();
-      final CommandContainer<GenericParameterObject> container = new DefaultCommandContainer<>();
-      context.put("priority", "");
-      container.addCommand(3, new PriorityThreeTestCommand<>());
-      container.addCommand(2, new PriorityOneTestCommand<>());
-      container.addCommand(1, new PriorityTwoTestCommand<>());
-      container.execute(context);
-      Assert.assertEquals("2-1-3-", context.getAsString("priority"));
-   }
+        final CommandContainer<GenericParameterObject> mixedList = new DefaultCommandContainer<>();
+        mixedList.addCommand(new SimpleTestCommand<>());
+        mixedList.addCommand(commandContainer);
 
-   /*
-    * Composite example. You can add commands as well as command containers in a
-    * simple container.
-    */
-   @SuppressWarnings("deprecation")
-   @Test
-   public void testExecuteCommandsWithMixedContent() throws Exception {
-      final GenericParameterObject context = new DefaultParameterObject();
-      final CommandContainer<GenericParameterObject> commandContainer = new DefaultCommandContainer<>();
-      commandContainer.addCommand(1, new PriorityOneTestCommand<>());
-      commandContainer.addCommand(2, new PriorityTwoTestCommand<>());
-      commandContainer.addCommand(3, new PriorityThreeTestCommand<>());
+        mixedList.executeCommand(context);
+        final String priorString = context.getAsString("priority");
+        Assert.assertEquals("S-1-2-3-", priorString);
+    }
 
-      final CommandContainer<GenericParameterObject> mixedList = new DefaultCommandContainer<>();
-      mixedList.addCommand(new SimpleTestCommand<>());
-      mixedList.addCommand(commandContainer);
-
-      mixedList.execute(context);
-      final String priorString = context.getAsString("priority");
-      Assert.assertEquals("S-1-2-3-", priorString);
-   }
-
-   /*
-    * Simplest example. Put all commands in a container and execute it. All
-    * commands in the container will be executed in the sequence they were
-    * inserted.
-    */
-   @SuppressWarnings("deprecation")
-   @Test
-   public void testExecuteCommandsWithoutContext() throws Exception {
-      final CommandContainer<GenericParameterObject> container = new DefaultCommandContainer<>();
-      container.addCommand(new PriorityOneTestCommand<>());
-      container.addCommand(new PriorityTwoTestCommand<>());
-      container.execute(DefaultParameterObject.NULLCONTEXT);
-   }
+    /*
+     * Simplest example. Put all commands in a container and execute it. All
+     * commands in the container will be executed in the sequence they were
+     * inserted.
+     */
+    @Test
+    public void testExecuteCommandsWithoutContext() throws Exception {
+        final CommandContainer<GenericParameterObject> container = new DefaultCommandContainer<>();
+        container.addCommand(new PriorityOneTestCommand<>());
+        container.addCommand(new PriorityTwoTestCommand<>());
+        container.executeCommand(DefaultParameterObject.NULLCONTEXT);
+    }
 }

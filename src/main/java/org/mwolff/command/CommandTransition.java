@@ -25,7 +25,7 @@
  */
 package org.mwolff.command;
 
-public interface CommandTransitionEnum {
+public enum CommandTransition {
 
     /**
      * @since 1.5.0
@@ -40,8 +40,6 @@ public interface CommandTransitionEnum {
      *
      * @since 1.5.0
      */
-    public enum CommandTransition {
-        SUCCESS, FAILURE, NEXT, DONE
-    }
+    SUCCESS, FAILURE, NEXT, DONE
 
 }
