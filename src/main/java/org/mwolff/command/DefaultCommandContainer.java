@@ -183,14 +183,4 @@ public class DefaultCommandContainer<T extends Object> implements CommandContain
 
         return transition;
     }
-
-    @SuppressWarnings("deprecation")
-    @Override
-    public void execute(T parameterObject) throws CommandException {
-
-        for (final Command<T> command : commandList.values()) {
-            command.execute(parameterObject);
-        }
-    }
-
 }

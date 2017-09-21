@@ -104,7 +104,6 @@ public class ExampleCommandTest {
      * bypassing a context. All commands in the container will be executed in
      * the sequence they were inserted.
      */
-    @SuppressWarnings("deprecation")
     @Test
     public void testExecuteCommandsWithContext() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
@@ -112,7 +111,7 @@ public class ExampleCommandTest {
         final CommandContainer<GenericParameterObject> container = new DefaultCommandContainer<>();
         container.addCommand(new PriorityOneTestCommand<>());
         container.addCommand(new PriorityTwoTestCommand<>());
-        container.execute(context);
+        container.executeCommand(context);
         Assert.assertEquals("1-2-", context.getAsString("priority"));
     }
 
@@ -120,7 +119,6 @@ public class ExampleCommandTest {
      * Priority example. Put all commands in a container by adding a priority.
      * All commands in the container will be executed in order of the priority.
      */
-    @SuppressWarnings("deprecation")
     @Test
     public void testExecuteCommandsWithContextAndPriority() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
@@ -129,7 +127,7 @@ public class ExampleCommandTest {
         container.addCommand(3, new PriorityThreeTestCommand<>());
         container.addCommand(2, new PriorityOneTestCommand<>());
         container.addCommand(1, new PriorityTwoTestCommand<>());
-        container.execute(context);
+        container.executeCommand(context);
         Assert.assertEquals("2-1-3-", context.getAsString("priority"));
     }
 
@@ -137,7 +135,6 @@ public class ExampleCommandTest {
      * Composite example. You can add commands as well as command containers in
      * a simple container.
      */
-    @SuppressWarnings("deprecation")
     @Test
     public void testExecuteCommandsWithMixedContent() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
@@ -151,7 +148,7 @@ public class ExampleCommandTest {
         mixedList.addCommand(new SimpleTestCommand<>());
         mixedList.addCommand(commandContainer);
 
-        mixedList.execute(context);
+        mixedList.executeCommand(context);
         final String priorString = context.getAsString("priority");
         Assert.assertEquals("S-1-2-3-", priorString);
     }
@@ -161,12 +158,11 @@ public class ExampleCommandTest {
      * commands in the container will be executed in the sequence they were
      * inserted.
      */
-    @SuppressWarnings("deprecation")
     @Test
     public void testExecuteCommandsWithoutContext() throws Exception {
         final CommandContainer<GenericParameterObject> container = new DefaultCommandContainer<>();
         container.addCommand(new PriorityOneTestCommand<>());
         container.addCommand(new PriorityTwoTestCommand<>());
-        container.execute(DefaultParameterObject.NULLCONTEXT);
+        container.executeCommand(DefaultParameterObject.NULLCONTEXT);
     }
 }

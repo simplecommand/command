@@ -72,10 +72,6 @@ public class ProcessCommandTest {
         final ProcessCommand<Object> pc = new ProcessCommand<Object>() {
 
             @Override
-            public void execute(final Object context) throws CommandException {
-            }
-
-            @Override
             public String getProcessID() {
                 return "getProcessID";
             }

@@ -31,7 +31,6 @@ import java.util.List;
 
 import org.mwolff.command.Command;
 import org.mwolff.command.CommandContainer;
-import org.mwolff.command.CommandException;
 import org.mwolff.command.CommandTransition;
 import org.mwolff.command.DefaultCommandContainer;
 import org.mwolff.command.process.ProcessCommand;
@@ -44,25 +43,9 @@ public class InjectionChainBuilder<T extends Object> implements Command<T>, Proc
     private List<Command<T>> commands = new ArrayList<>();
 
     /**
-     * Builds the chain for this builder.
-     * @return Returns the command container build.
-     */
-    protected CommandContainer<T> buildChain() {
-
-        final CommandContainer<T> commandContainer = new DefaultCommandContainer<>();
-        for (final Command<T> command : commands) {
-            commandContainer.addCommand(command);
-        }
-        return commandContainer;
-    }
-
-    /**
-     * @see org.mwolff.command.Command#execute(java.lang.Object)
-     */
-    @SuppressWarnings("deprecation")
     @Override
-    public void execute(final T context) throws CommandException {
-        buildChain().execute(context);
+    public CommandTransition executeCommand(T parameterObject) {
+        return buildChain().executeCommand(parameterObject);
     }
 
     /**
@@ -72,6 +55,11 @@ public class InjectionChainBuilder<T extends Object> implements Command<T>, Proc
     @Override
     public boolean executeAsChain(final T context) {
         return buildChain().executeAsChain(context);
+    }
+
+    @Override
+    public CommandTransition executeCommand(T parameterObject) {
+        return buildChain().executeCommand(parameterObject);
     }
 
     /**
@@ -89,6 +77,19 @@ public class InjectionChainBuilder<T extends Object> implements Command<T>, Proc
     @Override
     public String executeAsProcess(final String startCommand, final T context) {
         return buildChain().executeAsProcess(startCommand, context);
+    }
+
+    /**
+    * Builds the chain for this builder.
+    * @return Returns the command container build.
+    */
+    protected CommandContainer<T> buildChain() {
+
+        final CommandContainer<T> commandContainer = new DefaultCommandContainer<>();
+        for (final Command<T> command : commands) {
+            commandContainer.addCommand(command);
+        }
+        return commandContainer;
     }
 
     /**
@@ -114,7 +115,7 @@ public class InjectionChainBuilder<T extends Object> implements Command<T>, Proc
      */
     @Override
     public void setProcessID(final String processID) {
-        throw new IllegalArgumentException("ProcessID cannot be set on Container.");
+        throw new UnsupportedOperationException("ProcessID cannot be set on Container.");
     }
 
     /**
@@ -122,7 +123,7 @@ public class InjectionChainBuilder<T extends Object> implements Command<T>, Proc
      */
     @Override
     public String executeAsProcess(T context) {
-        return null;
+        throw new UnsupportedOperationException("Use executeAsProcess(String start, T context");
     }
 
 }

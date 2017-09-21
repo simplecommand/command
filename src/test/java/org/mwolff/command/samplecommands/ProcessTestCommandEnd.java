@@ -27,7 +27,6 @@
 package org.mwolff.command.samplecommands;
 
 import org.apache.log4j.Logger;
-import org.mwolff.command.CommandException;
 import org.mwolff.command.CommandTransition;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.AbstractDefaultProcessCommand;
@@ -45,32 +44,19 @@ public class ProcessTestCommandEnd<T extends GenericParameterObject> extends Abs
     }
 
     @Override
-    public void execute(final T context) throws CommandException {
+    public CommandTransition executeCommand(T context) {
         String result = context.getAsString("result");
         if ((result == null) || ("NullObject".equals(result))) {
             result = "";
         }
         result += processID + " - ";
         context.put("result", result);
-    }
-
-    @Override
-    public CommandTransition executeCommand(T parameterObject) {
-        try {
-            execute(parameterObject);
-        } catch (final CommandException e) {
-            return CommandTransition.FAILURE;
-        }
         return CommandTransition.SUCCESS;
     }
 
     @Override
     public String executeAsProcess(final T context) {
-        try {
-            execute(context);
-        } catch (final CommandException e) {
-            ProcessTestCommandEnd.LOG.error(e);
-        }
+        executeCommand(context);
         return null;
     }
 

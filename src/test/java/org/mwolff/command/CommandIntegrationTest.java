@@ -111,7 +111,7 @@ public class CommandIntegrationTest {
         context.put("priority", "");
         container.addCommand(new PriorityOneTestCommand<>());
         container.addCommand(new PriorityTwoTestCommand<>());
-        container.execute(context);
+        container.executeCommand(context);
         Assert.assertEquals("1-2-", context.getAsString("priority"));
     }
 
@@ -128,7 +128,7 @@ public class CommandIntegrationTest {
         container.addCommand(3, new PriorityThreeTestCommand<>());
         container.addCommand(2, new PriorityOneTestCommand<>());
         container.addCommand(1, new PriorityTwoTestCommand<>());
-        container.execute(context);
+        container.executeCommand(context);
         Assert.assertEquals("2-1-3-", context.getAsString("priority"));
     }
 
@@ -149,7 +149,7 @@ public class CommandIntegrationTest {
         mixedList.addCommand(new SimpleTestCommand<>());
         mixedList.addCommand(commandContainer);
 
-        mixedList.execute(context);
+        mixedList.executeCommand(context);
         final String priorString = context.getAsString("priority");
         Assert.assertEquals("S-1-2-3-", priorString);
     }
@@ -165,6 +165,6 @@ public class CommandIntegrationTest {
         final CommandContainer<GenericParameterObject> container = new DefaultCommandContainer<>();
         container.addCommand(new PriorityOneTestCommand<>());
         container.addCommand(new PriorityTwoTestCommand<>());
-        container.execute(DefaultParameterObject.NULLCONTEXT);
+        container.executeCommand(DefaultParameterObject.NULLCONTEXT);
     }
 }

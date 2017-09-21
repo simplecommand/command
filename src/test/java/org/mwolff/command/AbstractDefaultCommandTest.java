@@ -1,8 +1,8 @@
 package org.mwolff.command;
 
-import org.junit.Rule;
+import org.hamcrest.CoreMatchers;
+import org.junit.Assert;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class AbstractDefaultCommandTest {
 
@@ -15,14 +15,11 @@ public class AbstractDefaultCommandTest {
 
     }
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     @Test
     public void testExecute() throws Exception {
-        thrown.expect(UnsupportedOperationException.class);
         final MyTestClass instance = new MyTestClass();
-        instance.execute(null);
+        instance.executeCommand(null);
+        Assert.assertThat(instance.executeCommand(null), CoreMatchers.nullValue());
     }
 
 }

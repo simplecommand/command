@@ -32,11 +32,8 @@ import org.mwolff.command.parameterobject.GenericParameterObject;
 
 public class VerySimpleTestCommand<T extends GenericParameterObject> extends AbstractDefaultCommand<T> {
 
-    /*
-     * @see de.mwolff.commons.command.Command#execute()
-     */
     @Override
-    public void execute(final GenericParameterObject context) {
+    public CommandTransition executeCommand(T context) {
         context.put("SimpleTestCommand", "SimpleTestCommand");
         String priorString = context.getAsString("priority");
         if ("NullObject".equals(priorString)) {
@@ -44,11 +41,6 @@ public class VerySimpleTestCommand<T extends GenericParameterObject> extends Abs
         }
         priorString += "S-";
         context.put("priority", priorString);
-    }
-
-    @Override
-    public CommandTransition executeCommand(T parameterObject) {
-        execute(parameterObject);
         return CommandTransition.SUCCESS;
     }
 

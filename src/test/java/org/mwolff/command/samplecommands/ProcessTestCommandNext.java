@@ -27,7 +27,6 @@
 package org.mwolff.command.samplecommands;
 
 import org.apache.log4j.Logger;
-import org.mwolff.command.CommandException;
 import org.mwolff.command.CommandTransition;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.AbstractDefaultProcessCommand;
@@ -45,21 +44,8 @@ public class ProcessTestCommandNext<T extends GenericParameterObject> extends Ab
     }
 
     @Override
-    public void execute(final T context) throws CommandException {
-        String result = context.getAsString("result");
-        result += processID + " - ";
-        context.put("result", result);
-    }
-
-    @Override
     public String executeAsProcess(final T context) {
-
-        try {
-            execute(context);
-        } catch (final CommandException e) {
-            ProcessTestCommandNext.LOG.error(e);
-        }
-
+        executeCommand(context);
         // Decision: The first time we redirect to Start, otherwise we end it.
         Integer counter = (Integer) context.get("counter");
         if (counter == null) {
@@ -83,11 +69,6 @@ public class ProcessTestCommandNext<T extends GenericParameterObject> extends Ab
 
     @Override
     public CommandTransition executeCommand(T parameterObject) {
-        try {
-            execute(parameterObject);
-        } catch (final CommandException e) {
-            return CommandTransition.FAILURE;
-        }
         return CommandTransition.SUCCESS;
     }
 }

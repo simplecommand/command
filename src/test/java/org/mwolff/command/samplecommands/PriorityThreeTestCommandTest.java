@@ -9,12 +9,11 @@ import org.mwolff.command.parameterobject.GenericParameterObject;
 
 public class PriorityThreeTestCommandTest {
 
-    @SuppressWarnings("deprecation")
     @Test
-    public void testExecute() throws Exception {
+    public void testExecuteCommand() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
         final ChainCommand<GenericParameterObject> command = new PriorityThreeTestCommand<>();
-        command.execute(context);
+        command.executeCommand(context);
         Assert.assertThat(context.getAsString("PriorityThreeTestCommand"), CoreMatchers.is("PriorityThreeTestCommand"));
         Assert.assertThat(context.getAsString("priority"), CoreMatchers.is("3-"));
     }

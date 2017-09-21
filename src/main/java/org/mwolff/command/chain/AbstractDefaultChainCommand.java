@@ -49,7 +49,7 @@ public abstract class AbstractDefaultChainCommand<T extends Object> extends Abst
         boolean result = true;
 
         try {
-            execute(context);
+            executeCommand(context);
         } catch (final Exception e) {
             AbstractDefaultChainCommand.LOG.info("Chain is aborted.", e);
             result = false;

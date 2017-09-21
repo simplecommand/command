@@ -17,14 +17,6 @@ public class XMLSaxChainBuilderTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void testDeprecatedExecute() throws Exception {
-        thrown.expect(UnsupportedOperationException.class);
-        thrown.expectMessage("Use executeCommand instead.");
-        final XMLSaxChainBuilder<Object> xmlChainBuilder = new XMLSaxChainBuilder<>("commandChainProcess.xml");
-        xmlChainBuilder.execute(DefaultParameterObject.NULLCONTEXT);
-    }
-
-    @Test
     public void testUnUsedSetProcessID() throws Exception {
         thrown.expect(UnsupportedOperationException.class);
         thrown.expectMessage("Chainbuilder has no process id.");
@@ -56,16 +48,6 @@ public class XMLSaxChainBuilderTest {
     }
 
     @Test
-    public void testExecuteAsProcessMethodForBuilder() throws Exception {
-        final XMLSaxChainBuilder<Object> xmlChainBuilder = new XMLSaxChainBuilder<>("commandChainProcess.xml");
-        final DefaultParameterObject context = new DefaultParameterObject();
-        final String result = xmlChainBuilder.executeAsProcess("Start", context);
-        Assert.assertNull(result);
-        final String processflow = context.getAsString("result");
-        Assert.assertEquals("Start - Next - Start - Next - ", processflow);
-    }
-
-    @Test
     public void testExecuteAsProcessMethodForBuilderWIthException() throws Exception {
         final XMLSaxChainBuilder<Object> xmlChainBuilder = new XMLSaxChainBuilder<>("notExists.xml");
         final DefaultParameterObject context = new DefaultParameterObject();
@@ -84,18 +66,9 @@ public class XMLSaxChainBuilderTest {
 
     @Test
     public void testExecuteAsProcess() throws Exception {
+        thrown.expect(UnsupportedOperationException.class);
         final XMLSaxChainBuilder<GenericParameterObject> builder = new XMLSaxChainBuilder<>("/commandChainProcess.xml");
         final String result = builder.executeAsProcess(DefaultParameterObject.NULLCONTEXT);
-        Assert.assertNull(result);
-    }
-
-    @Test
-    public void testExecuteMethodForBuilder() throws Exception {
-        final XMLSaxChainBuilder<Object> xmlChainBuilder = new XMLSaxChainBuilder<>("/commandChainPriority.xml");
-        final DefaultParameterObject context = new DefaultParameterObject();
-        context.put("priority", "");
-        xmlChainBuilder.executeCommand(context);
-        Assert.assertEquals("1-2-", context.getAsString("priority"));
     }
 
     @Test

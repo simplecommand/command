@@ -57,7 +57,7 @@ public class InjectionChainBuilderTest {
         final GenericParameterObject context = new DefaultParameterObject();
         context.put("key", "value");
         final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
-        builder.execute(context);
+        builder.executeCommand(context);
         Assert.assertEquals("value", context.getAsString("key"));
     }
 
@@ -71,7 +71,6 @@ public class InjectionChainBuilderTest {
         builder.setCommands(commandList);
         final CommandTransition result = builder.executeCommandAsChain(context);
         Assert.assertEquals(CommandTransition.FAILURE, result);
-        Assert.assertEquals("proceeded", context.getAsString("status"));
     }
 
     @Test
@@ -124,13 +123,13 @@ public class InjectionChainBuilderTest {
         command = new PriorityTwoTestCommand<>();
         commandList.add(command);
         builder.setCommands(commandList);
-        builder.execute(context);
+        builder.executeCommand(context);
         Assert.assertEquals("1-2-", context.getAsString("priority"));
     }
 
     @Test
     public void testsetProcessID() throws Exception {
-        thrown.expect(IllegalArgumentException.class);
+        thrown.expect(UnsupportedOperationException.class);
         thrown.expectMessage("ProcessID cannot be set on Container.");
         final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
         builder.setProcessID("something");
@@ -138,6 +137,7 @@ public class InjectionChainBuilderTest {
 
     @Test
     public void testExecuteAsProcess() throws Exception {
+        thrown.expect(UnsupportedOperationException.class);
         final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
         final String result = builder.executeAsProcess(DefaultParameterObject.NULLCONTEXT);
         Assert.assertNull(result);
@@ -148,18 +148,6 @@ public class InjectionChainBuilderTest {
         final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
         final CommandTransition result = builder.executeCommand(DefaultParameterObject.NULLCONTEXT);
         Assert.assertEquals(result, CommandTransition.SUCCESS);
-    }
-
-    @Test
-    public void testSpringChainBuilder() throws Exception {
-        final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
-        final List<Command<GenericParameterObject>> commandList = new ArrayList<>();
-        final GenericParameterObject context = new DefaultParameterObject();
-        final Command<GenericParameterObject> command = new ExceptionCommand<>();
-        commandList.add(command);
-        builder.setCommands(commandList);
-        final boolean result = builder.executeAsChain(context);
-        Assert.assertFalse(result);
     }
 
     @Test

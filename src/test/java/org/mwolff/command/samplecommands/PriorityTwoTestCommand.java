@@ -35,19 +35,6 @@ import org.springframework.util.StringUtils;
 public class PriorityTwoTestCommand<T extends GenericParameterObject> extends AbstractDefaultChainCommand<T> {
 
     @Override
-    public void execute(final T context) {
-        if (context != DefaultParameterObject.NULLCONTEXT) {
-            context.put("PriorityTwoTestCommand", "PriorityTwoTestCommand");
-            String priorString = context.getAsString("priority");
-            if (StringUtils.isEmpty(priorString)) {
-                priorString = "";
-            }
-            priorString += "2-";
-            context.put("priority", priorString);
-        }
-    }
-
-    @Override
     public boolean executeAsChain(final T context) {
         String priorString = context.getAsString("priority");
         if (StringUtils.isEmpty(priorString)) {
@@ -59,14 +46,22 @@ public class PriorityTwoTestCommand<T extends GenericParameterObject> extends Ab
     }
 
     @Override
-    public CommandTransition executeCommand(T parameterObject) {
-        execute(parameterObject);
+    public CommandTransition executeCommand(T context) {
+        if (context != DefaultParameterObject.NULLCONTEXT) {
+            context.put("PriorityTwoTestCommand", "PriorityTwoTestCommand");
+            String priorString = context.getAsString("priority");
+            if (StringUtils.isEmpty(priorString)) {
+                priorString = "";
+            }
+            priorString += "2-";
+            context.put("priority", priorString);
+        }
         return CommandTransition.SUCCESS;
     }
 
     @Override
     public CommandTransition executeCommandAsChain(final T context) {
-        execute(context);
+        executeCommand(context);
         return CommandTransition.NEXT;
     }
 

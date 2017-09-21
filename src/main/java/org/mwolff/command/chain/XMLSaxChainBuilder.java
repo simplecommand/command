@@ -67,7 +67,7 @@ public class XMLSaxChainBuilder<T extends Object> implements Command<T>, Process
 
     @Override
     public String executeAsProcess(T context) {
-        return null;
+        throw new UnsupportedOperationException("Use executeAsProcess(String start, T context");
     }
 
     @Override
@@ -78,11 +78,6 @@ public class XMLSaxChainBuilder<T extends Object> implements Command<T>, Process
     @Override
     public void setProcessID(String processID) {
         throw new UnsupportedOperationException("Chainbuilder has no process id.");
-    }
-
-    @Override
-    public void execute(T parameterObject) throws CommandException {
-        throw new UnsupportedOperationException("Use executeCommand instead.");
     }
 
     @SuppressWarnings("unchecked")

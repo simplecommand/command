@@ -1,11 +1,12 @@
 package org.mwolff.command.chain;
 
+import static org.mwolff.command.CommandTransition.*;
+
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mwolff.command.CommandException;
 import org.mwolff.command.CommandTransition;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
@@ -22,11 +23,6 @@ public class ChainCommandTest {
         final ChainCommand<GenericParameterObject> command = new ChainCommand<GenericParameterObject>() {
 
             @Override
-            public void execute(GenericParameterObject parameterObject) throws CommandException {
-                throw new UnsupportedOperationException("Use executeCommand() instead");
-            }
-
-            @Override
             public boolean executeAsChain(GenericParameterObject parameterObject) {
                 return false;
             }
@@ -36,12 +32,17 @@ public class ChainCommandTest {
                 return ChainCommand.super.executeCommandAsChain(parameterObject);
             }
 
+            @Override
+            public CommandTransition executeCommand(GenericParameterObject parameterObject) {
+                return SUCCESS;
+            }
+
         };
 
         CommandTransition transition = command.executeCommand(context);
-        Assert.assertThat(transition, CoreMatchers.is(CommandTransition.SUCCESS));
+        Assert.assertThat(transition, CoreMatchers.is(SUCCESS));
         transition = command.executeCommandAsChain(context);
-        Assert.assertThat(transition, CoreMatchers.is(CommandTransition.SUCCESS));
+        Assert.assertThat(transition, CoreMatchers.is(SUCCESS));
     }
 
     @Test
@@ -50,11 +51,6 @@ public class ChainCommandTest {
         final ChainCommand<GenericParameterObject> command = new ChainCommand<GenericParameterObject>() {
 
             @Override
-            public void execute(GenericParameterObject parameterObject) throws CommandException {
-                throw new UnsupportedOperationException("Use executeCommand() instead");
-            }
-
-            @Override
             public boolean executeAsChain(GenericParameterObject parameterObject) {
                 return false;
             }
@@ -64,10 +60,15 @@ public class ChainCommandTest {
                 return ChainCommand.super.executeCommandAsChain(parameterObject);
             }
 
+            @Override
+            public CommandTransition executeCommand(GenericParameterObject parameterObject) {
+                return SUCCESS;
+            }
+
         };
 
         CommandTransition transition = command.executeCommand(null);
-        Assert.assertThat(transition, CoreMatchers.is(CommandTransition.FAILURE));
+        Assert.assertThat(transition, CoreMatchers.is(CommandTransition.SUCCESS));
         transition = command.executeCommandAsChain(null);
         Assert.assertThat(transition, CoreMatchers.is(CommandTransition.FAILURE));
     }
@@ -80,11 +81,6 @@ public class ChainCommandTest {
         final ChainCommand<GenericParameterObject> command = new ChainCommand<GenericParameterObject>() {
 
             @Override
-            public void execute(GenericParameterObject parameterObject) throws CommandException {
-                throw new UnsupportedOperationException("Use executeCommand() instead");
-            }
-
-            @Override
             public boolean executeAsChain(GenericParameterObject parameterObject) {
                 throw new UnsupportedOperationException("Use executeCommandAsChain() instead");
             }
@@ -92,6 +88,11 @@ public class ChainCommandTest {
             @Override
             public CommandTransition executeCommandAsChain(GenericParameterObject parameterObject) {
                 return ChainCommand.super.executeCommandAsChain(parameterObject);
+            }
+
+            @Override
+            public CommandTransition executeCommand(GenericParameterObject parameterObject) {
+                return SUCCESS;
             }
 
         };

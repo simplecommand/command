@@ -25,8 +25,6 @@
  */
 package org.mwolff.command;
 
-import static org.mwolff.command.CommandTransition.*;
-
 /**
  * Command interface for the command framework.
  *
@@ -46,23 +44,5 @@ public interface Command<T extends Object> {
      * @param parameterObject The parameter object to pass.
      * @return FAILURE if something went wrong, SUCCESS otherwise.
      */
-    default CommandTransition executeCommand(T parameterObject) {
-        if (parameterObject == null) {
-            return FAILURE;
-        }
-        return SUCCESS;
-    }
-
-    /**
-     * Executes the command.
-     *
-     * @deprecated use executeCommand instead.
-     * @param parameterObject
-     *            The parameter object to pass.
-     * @throws CommandException
-     *             if something happens.
-     */
-    @Deprecated
-    void execute(T parameterObject) throws CommandException;
-
+    CommandTransition executeCommand(T parameterObject);
 }

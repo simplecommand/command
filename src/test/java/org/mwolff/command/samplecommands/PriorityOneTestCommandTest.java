@@ -11,16 +11,6 @@ public class PriorityOneTestCommandTest {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void testExecute() throws Exception {
-        final GenericParameterObject context = new DefaultParameterObject();
-        final ChainCommand<GenericParameterObject> command = new PriorityOneTestCommand<>();
-        command.execute(context);
-        Assert.assertThat(context.getAsString("PriorityOneTestCommand"), CoreMatchers.is("PriorityOneTestCommand"));
-        Assert.assertThat(context.getAsString("priority"), CoreMatchers.is("1-"));
-    }
-
-    @SuppressWarnings("deprecation")
-    @Test
     public void testExecuteAsChain() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
         final ChainCommand<GenericParameterObject> command = new PriorityOneTestCommand<>();
