@@ -3,7 +3,7 @@ package org.mwolff.command.samplecommands;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.rules.ExpectedException;
 import org.mwolff.command.Command;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
