@@ -25,7 +25,7 @@
  */
 package org.mwolff.command.sax;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class GlobalCommandConstantsTest {
 

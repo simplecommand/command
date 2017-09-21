@@ -28,7 +28,7 @@ package org.mwolff.command;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.DefaultTransition;

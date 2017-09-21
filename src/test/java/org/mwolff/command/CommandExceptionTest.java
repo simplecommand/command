@@ -26,35 +26,44 @@
 
 package org.mwolff.command;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.mockito.Mockito.mock;
+
 import org.hamcrest.Matchers;
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 public class CommandExceptionTest {
 
-    @Test
-    public void commandExceptionDefaultConstructorTest() throws Exception {
-        Assert.assertThat(new CommandException(), Matchers.notNullValue());
-    }
+   @Test
+   @DisplayName("Default construction of CommandException is possible.")
+   public void commandExceptionDefaultConstructorTest() throws Exception {
+      Assert.assertThat(new CommandException(), Matchers.notNullValue());
+   }
 
-    @Test
-    public void commandExceptionWithMessageAndThrowableTest() throws Exception {
-        final CommandException commandException = new CommandException("message", null);
-        Assert.assertThat(commandException.getMessage(), Matchers.is("message"));
-        Assert.assertThat(commandException.getCause(), Matchers.nullValue());
-    }
+   @Test
+   @DisplayName("Construction of CommandException with Message and Throwable is possible")
+   public void commandExceptionWithMessageAndThrowableTest() throws Exception {
+      Throwable throwable = mock(Throwable.class);
+      final CommandException commandException = new CommandException("message", throwable);
+      Assert.assertThat(commandException.getMessage(), Matchers.is("message"));
+      Assert.assertThat(commandException.getCause(), is(throwable));
+   }
 
-    @Test
-    public void commandExceptionWithMessageTest() throws Exception {
-        final CommandException commandException = new CommandException("message");
-        Assert.assertThat(commandException.getMessage(), Matchers.is("message"));
-    }
+   @Test
+   @DisplayName("Construction of CommandException with (only) Message is possible")
+   public void commandExceptionWithMessageTest() throws Exception {
+      final CommandException commandException = new CommandException("message");
+      Assert.assertThat(commandException.getMessage(), Matchers.is("message"));
+   }
 
-    @Test
-    public void commandExceptionWithThrowableTest() throws Exception {
-        final Exception exception = new Exception();
-        final CommandException commandException = new CommandException(exception);
-        Assert.assertThat(commandException.getCause(), Matchers.is(exception));
-    }
+   @Test
+   @DisplayName("Construction of CommandException with (only) Throwable is possible")
+   public void commandExceptionWithThrowableTest() throws Exception {
+      final Exception exception = new Exception();
+      final CommandException commandException = new CommandException(exception);
+      Assert.assertThat(commandException.getCause(), Matchers.is(exception));
+   }
 
 }

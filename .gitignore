@@ -2,3 +2,7 @@
 /log/
 /simple-command-sources.jar
 /source.directory/
+.classpath
+.project
+/bin/
+.settings/
