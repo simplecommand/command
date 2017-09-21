@@ -77,7 +77,7 @@ public class XMLChainBuilderTest {
         final DefaultParameterObject context = new DefaultParameterObject();
         context.put("priority", "");
         final CommandTransition transition = xmlChainBuilder.executeCommandAsChain(context);
-        Assert.assertEquals(transition, SUCCESS);
+        Assert.assertEquals(transition, DONE);
     }
 
     @Test

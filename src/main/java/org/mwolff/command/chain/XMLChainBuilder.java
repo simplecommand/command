@@ -123,6 +123,6 @@ public class XMLChainBuilder<T extends Object> implements Command<T>, ProcessCom
             XMLChainBuilder.LOG.error(e);
             return FAILURE;
         }
-        return SUCCESS;
+        return DONE;
     }
 }
