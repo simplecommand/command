@@ -38,7 +38,6 @@ public class ActionContentHandler extends DefaultHandler {
 
     private final ArrayList<Action> actions = new ArrayList<>();
     private Action                  action;
-    private Transition              transition;
 
     public List<Action> getActions() {
         return actions;
@@ -47,6 +46,7 @@ public class ActionContentHandler extends DefaultHandler {
     @Override
     public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
 
+        Transition transition;
         if ("action".equals(localName)) {
             action = new Action();
             action.setId(atts.getValue("id"));
