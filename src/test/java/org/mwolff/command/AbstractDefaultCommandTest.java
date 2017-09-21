@@ -18,7 +18,7 @@ public class AbstractDefaultCommandTest {
    }
 
    @Test
-   @DisplayName("The method call execute is possible because of API reasons, but should not be supported.")
+   @DisplayName("The method call execute is possible because of inheritance of AbstractDefaultCommand, but should not be supported.")
    void testExecute() throws Exception {
       final MyTestClass instance = new MyTestClass();
       Throwable exception = assertThrows(UnsupportedOperationException.class, () -> {

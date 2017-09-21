@@ -30,8 +30,6 @@ import static org.hamcrest.CoreMatchers.is;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.runner.JUnitPlatform;
-import org.junit.runner.RunWith;
 import org.mwolff.command.Command;
 import org.mwolff.command.CommandException;
 import org.mwolff.command.CommandTransitionEnum.CommandTransition;
@@ -43,7 +41,6 @@ import com.googlecode.catchexception.CatchException;
 
 import static org.junit.Assert.assertThat;
 
-@RunWith(JUnitPlatform.class)
 public class AbstractDefaultChainCommandTest {
 
    @SuppressWarnings("deprecation")
