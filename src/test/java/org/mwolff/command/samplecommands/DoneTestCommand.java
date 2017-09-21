@@ -26,7 +26,6 @@
 
 package org.mwolff.command.samplecommands;
 
-import org.mwolff.command.CommandException;
 import org.mwolff.command.CommandTransition;
 import org.mwolff.command.chain.AbstractDefaultChainCommand;
 import org.mwolff.command.parameterobject.GenericParameterObject;
@@ -34,17 +33,7 @@ import org.mwolff.command.parameterobject.GenericParameterObject;
 public class DoneTestCommand<T extends GenericParameterObject> extends AbstractDefaultChainCommand<T> {
 
     @Override
-    public void execute(final T context) throws CommandException {
-        throw new CommandException("DONE.");
-    }
-
-    @Override
     public CommandTransition executeCommand(T parameterObject) {
-        try {
-            execute(parameterObject);
-        } catch (final CommandException e) {
-            // Only for test porpuse
-        }
         return CommandTransition.DONE;
     }
 }

@@ -26,15 +26,12 @@
 
 package org.mwolff.command.samplecommands;
 
-import org.apache.log4j.Logger;
-import org.mwolff.command.CommandException;
 import org.mwolff.command.CommandTransition;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.AbstractDefaultProcessCommand;
 
 public class ProcessTestCommandStart<T extends GenericParameterObject> extends AbstractDefaultProcessCommand<T> {
 
-    private static final Logger LOG = Logger.getLogger(ProcessTestCommandStart.class);
 
     public ProcessTestCommandStart() {
         super();
@@ -45,51 +42,25 @@ public class ProcessTestCommandStart<T extends GenericParameterObject> extends A
     }
 
     @Override
-    public void execute(final T context) throws CommandException {
-        String result = context.getAsString("result");
-        if (result.equals("NullObject")) {
-            result = "";
-        }
-        result += processID + " - ";
-        context.put("result", result);
-    }
-
-    @Override
     public String executeAsProcess(final T context) {
-        try {
-            execute(context);
-        } catch (final CommandException e) {
-            ProcessTestCommandStart.LOG.error(e);
-        }
+        executeCommand(context);
         return "OK";
     }
 
     @Override
-    public boolean executeAsChain(T parameterObject) {
-        ProcessTestCommandStart.LOG.error("nothing to do");
-        return false;
-    }
-
-    @Override
     public String executeAsProcess(String startCommand, T context) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public CommandTransition executeCommand(T parameterObject) {
-        try {
-            execute(parameterObject);
-        } catch (final CommandException e) {
-            return CommandTransition.FAILURE;
+        String result = parameterObject.getAsString("result");
+        if (result.equals("NullObject")) {
+            result = "";
         }
+        result += processID + " - ";
+        parameterObject.put("result", result);
         return CommandTransition.SUCCESS;
-    }
-
-    @Override
-    public CommandTransition executeCommandAsChain(T parameterObject) {
-        final boolean result = executeAsChain(parameterObject);
-        return (result == true) ? CommandTransition.SUCCESS : CommandTransition.DONE;
     }
 
 }

@@ -26,6 +26,8 @@
 
 package org.mwolff.command;
 
+import static org.mwolff.command.CommandTransition.*;
+
 /**
  * Default implementation for a command. You may use
  * <code>executeAsChain</code> for all executions of the <code>command</code> or
@@ -35,11 +37,11 @@ package org.mwolff.command;
  */
 public abstract class AbstractDefaultCommand<T extends Object> implements Command<T> {
 
-    /**
-     * @see org.mwolff.command.Command#execute(java.lang.Object)
-     */
     @Override
-    public void execute(T context) throws CommandException {
-        throw new UnsupportedOperationException("Deprecated, use executeCommand instead.");
+    public CommandTransition executeCommand(T parameterObject) {
+        if (parameterObject == null) {
+            return FAILURE;
+        }
+        return SUCCESS;
     }
 }

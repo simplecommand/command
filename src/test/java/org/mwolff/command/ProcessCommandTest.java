@@ -72,21 +72,12 @@ public class ProcessCommandTest {
         final ProcessCommand<Object> pc = new ProcessCommand<Object>() {
 
             @Override
-            public void execute(final Object context) throws CommandException {
-            }
-
-            @Override
             public String getProcessID() {
                 return "getProcessID";
             }
 
             @Override
             public void setProcessID(final String processID) {
-            }
-
-            @Override
-            public boolean executeAsChain(Object parameterObject) {
-                return false;
             }
 
             @Override

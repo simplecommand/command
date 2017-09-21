@@ -26,25 +26,20 @@
 
 package org.mwolff.command.chain;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import static org.mwolff.command.CommandTransition.*;
+import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
 import org.apache.log4j.Logger;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
 import org.mwolff.command.Command;
 import org.mwolff.command.CommandContainer;
 import org.mwolff.command.CommandException;
 import org.mwolff.command.CommandTransition;
 import org.mwolff.command.DefaultCommandContainer;
-import org.mwolff.command.process.DefaultTransition;
 import org.mwolff.command.process.ProcessCommand;
-import org.mwolff.command.process.Transition;
+import org.mwolff.command.sax.ActionListToCommandContainerCommand;
+import org.mwolff.command.sax.InputSourceReaderCommand;
+import org.mwolff.command.sax.SaxParameterObject;
+import org.mwolff.command.sax.SaxParserCommand;
 
 /**
  * Chain builder parsing an XML file for building chains or process chains.
@@ -53,87 +48,15 @@ import org.mwolff.command.process.Transition;
  */
 public class XMLChainBuilder<T extends Object> implements Command<T>, ProcessCommand<T>, ChainCommand<T> {
 
-    private static final Logger         LOG   = Logger.getLogger(XMLChainBuilder.class);
-    private static final String         ROOT  = "//process/action";
-    private static final String         TRANS = "//process/action[@id='%s']/transition";
-    private static final String         CLASS = "class";
+    private static final Logger LOG = Logger.getLogger(XMLChainBuilder.class);
+    private final String        xmlFilename;
 
-    private static final String         ID    = "id";
-    private static final String         NAME  = "name";
-    private static final String         TO    = "to";
-    private final String                xmlFileName;
-
-    private final List<Command<Object>> actions;
-    Document                            document;
-
-    /**
-     * Constructor.
-     *
-     * @param xmlFileName
-     *            Filename of the XML file. File has to reachable during
-     *            CLASSPATH.
-     */
-    public XMLChainBuilder(final String xmlFileName) {
-        this.xmlFileName = xmlFileName;
-        actions = new ArrayList<>();
+    public XMLChainBuilder(final String xmlFilename) {
+        this.xmlFilename = xmlFilename;
     }
 
-    // **** Methods from super type *****
-
-    /*
-     * @see de.mwolff.commons.command.iface.ChainBuilder#buildChain()
-     */
-    protected CommandContainer<T> buildChain() throws CommandException {
-
-        final String resource = xmlFileName;
-        final SAXReader reader = new SAXReader();
-        createXMLStream(reader, resource);
-        createCommandsOutOfXML(document);
-
-        return addCommandsToCommandContainer();
-    }
-
-    /*
-     * @see
-     * de.mwolff.commons.command.iface.Command#execute(de.mwolff.commons.command
-     * .iface.Object)
-     */
-    @SuppressWarnings("deprecation")
     @Override
-    public void execute(final T context) throws CommandException {
-        try {
-            buildChain().execute(context);
-        } catch (final Exception e) {
-            // Just log, do nothing else
-            XMLChainBuilder.LOG.error("Error while executing chain.", e);
-        }
-    }
-
-    /*
-     * @see
-     * de.mwolff.commons.command.iface.ChainCommand#executeAsChain(de.mwolff.
-     * commons.command.iface.Object)
-     */
-    @SuppressWarnings("deprecation")
-    @Override
-    public boolean executeAsChain(final T context) {
-        CommandContainer<T> chain = null;
-        try {
-            chain = buildChain();
-        } catch (final Exception e) {
-            XMLChainBuilder.LOG.error("Operation aborted via command implementation.", e);
-            return false;
-        }
-        return chain.executeAsChain(context);
-    }
-
-    /*
-     * @see
-     * de.mwolff.commons.command.iface.ProcessCommand#executeAsProcess(java.lang
-     * .String, de.mwolff.commons.command.iface.Object)
-     */
-    @Override
-    public String executeAsProcess(final String startCommand, final T context) {
+    public String executeAsProcess(String startCommand, T context) {
         try {
             return buildChain().executeAsProcess(startCommand, context);
         } catch (final CommandException e) {
@@ -142,134 +65,64 @@ public class XMLChainBuilder<T extends Object> implements Command<T>, ProcessCom
         }
     }
 
-    /*
-     * @see de.mwolff.commons.command.iface.ProcessCommand#getProcessID()
-     */
+    @Override
+    public String executeAsProcess(T context) {
+        throw new UnsupportedOperationException("Use executeAsProcess(String start, T context");
+    }
+
     @Override
     public String getProcessID() {
         return null;
     }
 
-    /*
-     * @see
-     * de.mwolff.commons.command.iface.ProcessCommand#setProcessID(java.lang.
-     * String)
-     */
     @Override
-    public void setProcessID(final String processID) {
-        throw new IllegalArgumentException("ProcessID cannot be set on Container.");
+    public void setProcessID(String processID) {
+        throw new UnsupportedOperationException("Chainbuilder has no process id.");
     }
 
     @SuppressWarnings("unchecked")
-    private void createCommandsOutOfXML(final Document document) throws CommandException {
+    protected CommandContainer<T> buildChain() throws CommandException {
 
-        final List<Element> list = document.selectNodes(XMLChainBuilder.ROOT);
+        final SaxParameterObject context = new SaxParameterObject();
+        context.put(FILE_NAME.toString(), this.xmlFilename);
 
-        if (!list.isEmpty()) {
-            for (final Element element : list) {
-                extractAttributesOfActionElement(element);
-            }
+        final InputSourceReaderCommand inputSourceReaderCommand = new InputSourceReaderCommand();
+        final SaxParserCommand commandSaxParser = new SaxParserCommand();
+        final ActionListToCommandContainerCommand actionListToCommandContainerCommand = new ActionListToCommandContainerCommand();
+        final CommandContainer<SaxParameterObject> defaultCommandContainer = new DefaultCommandContainer<>();
+        defaultCommandContainer.addCommand(1, inputSourceReaderCommand);
+        defaultCommandContainer.addCommand(2, commandSaxParser);
+        defaultCommandContainer.addCommand(3, actionListToCommandContainerCommand);
+
+        final CommandTransition result = defaultCommandContainer.executeCommand(context);
+
+        if (result == FAILURE) {
+            throw new CommandException(context.getAsString(ERROR_STRING.toString()));
         }
+
+        return (CommandContainer<T>) context.get(COMMAND_CONTAINER.toString());
+
     }
 
-    private void readXMLDocument(final SAXReader reader, final InputStream xmlStream) throws CommandException {
+    @Override
+    public CommandTransition executeCommand(T parameterObject) {
         try {
-            document = reader.read(xmlStream);
-        } catch (final DocumentException e) {
-            throw new CommandException("XML Document could not created", e);
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    private CommandContainer<T> addCommandsToCommandContainer() {
-        final CommandContainer<T> commandContainer = new DefaultCommandContainer<>();
-        for (final Command<Object> command : actions) {
-            commandContainer.addCommand((Command<T>) command);
-        }
-        return commandContainer;
-    }
-
-    @SuppressWarnings("unchecked")
-    private Command<Object> createAndAddAction(final String name)
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        Command<Object> command;
-        command = (Command<Object>) Class.forName(name).newInstance();
-        actions.add(command);
-        return command;
-    }
-
-    private void createXMLStream(final SAXReader reader, final String resource) throws CommandException {
-        final InputStream xmlStream = this.getClass().getResourceAsStream(resource);
-        if (xmlStream != null) {
-            readXMLDocument(reader, xmlStream);
-        } else {
-            throw new CommandException("Could not read xml file");
-        }
-    }
-
-    private void extractAttributesOfActionElement(final Element element) throws CommandException {
-
-        Command<Object> action = null;
-        String actionID = null;
-
-        final Map<String, String> attributeMap = XMLChainBuilder.getAttributeOfElement(element);
-
-        String value = attributeMap.get(XMLChainBuilder.CLASS);
-        try {
-            action = createAndAddAction(value);
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            buildChain().executeCommand(parameterObject);
+        } catch (final CommandException e) {
             XMLChainBuilder.LOG.error(e);
-            throw new CommandException("Error creating class via reflection out of xml definition.", e);
+            return FAILURE;
         }
-
-        value = attributeMap.get(XMLChainBuilder.ID);
-        if (value != null) {
-            ((ProcessCommand<Object>) action).setProcessID(value);
-            actionID = value;
-        }
-
-        if (actionID != null) {
-            extractAttributesOfTransitionElement((ProcessCommand<Object>) action, actionID);
-        }
-    }
-
-    private static Map<String, String> getAttributeOfElement(final Element element) {
-        final Map<String, String> attributeMap = new HashMap<>();
-        for (int i = 0; i < element.attributeCount(); i++) {
-            attributeMap.put(element.attribute(i).getName(), element.attribute(i).getValue());
-        }
-        return attributeMap;
-    }
-
-    @SuppressWarnings("unchecked")
-    private void extractAttributesOfTransitionElement(final ProcessCommand<Object> command, final String commandID) {
-
-        final List<Element> transitionElementList = document
-                .selectNodes(String.format(XMLChainBuilder.TRANS, commandID));
-
-        for (final Element transition : transitionElementList) {
-            final Transition transitionClass = new DefaultTransition();
-
-            final Map<String, String> attributeMap = XMLChainBuilder.getAttributeOfElement(transition);
-
-            String value = attributeMap.get(XMLChainBuilder.NAME);
-            transitionClass.setReturnValue(value);
-
-            value = attributeMap.get(XMLChainBuilder.TO);
-            transitionClass.setTarget(value);
-
-            command.addTransition(transitionClass);
-        }
-    }
-
-    @Override
-    public String executeAsProcess(T context) {
-        return null;
+        return SUCCESS;
     }
 
     @Override
     public CommandTransition executeCommandAsChain(T parameterObject) {
-        final boolean result = executeAsChain(parameterObject);
-        return result ? CommandTransition.SUCCESS : CommandTransition.DONE;
+        try {
+            buildChain().executeCommandAsChain(parameterObject);
+        } catch (final CommandException e) {
+            XMLChainBuilder.LOG.error(e);
+            return FAILURE;
+        }
+        return SUCCESS;
     }
 }

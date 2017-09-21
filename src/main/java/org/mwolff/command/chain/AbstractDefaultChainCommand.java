@@ -26,7 +26,6 @@
 
 package org.mwolff.command.chain;
 
-import org.apache.log4j.Logger;
 import org.mwolff.command.AbstractDefaultCommand;
 import org.mwolff.command.CommandTransition;
 
@@ -37,25 +36,6 @@ import org.mwolff.command.CommandTransition;
  */
 public abstract class AbstractDefaultChainCommand<T extends Object> extends AbstractDefaultCommand<T>
         implements ChainCommand<T> {
-
-    private static final Logger LOG = Logger.getLogger(AbstractDefaultChainCommand.class);
-
-    /**
-     * @see org.mwolff.command.chain.ChainCommand#executeAsChain(java.lang.Object)
-     */
-    @Override
-    public boolean executeAsChain(final T context) {
-
-        boolean result = true;
-
-        try {
-            execute(context);
-        } catch (final Exception e) {
-            AbstractDefaultChainCommand.LOG.info("Chain is aborted.", e);
-            result = false;
-        }
-        return result;
-    }
 
     /**
      * @see org.mwolff.command.chain.ChainCommand#executeCommandAsChain(java.lang.Object)

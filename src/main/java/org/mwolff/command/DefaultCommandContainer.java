@@ -72,23 +72,6 @@ public class DefaultCommandContainer<T extends Object> implements CommandContain
         return this;
     }
 
-    /**
-     * Executes the commands as a chain. If one command returns false the chain
-     * will be aborted.
-     */
-    @SuppressWarnings("deprecation")
-    @Override
-    public boolean executeAsChain(final T context) {
-        boolean result = true;
-        for (final Command<T> command : commandList.values()) {
-            result = ((ChainCommand<T>) command).executeAsChain(context);
-            if (!result) {
-                break;
-            }
-        }
-        return result;
-    }
-
     @Override
     public CommandTransition executeCommandAsChain(T parameterObject) {
 
@@ -183,14 +166,4 @@ public class DefaultCommandContainer<T extends Object> implements CommandContain
 
         return transition;
     }
-
-    @SuppressWarnings("deprecation")
-    @Override
-    public void execute(T parameterObject) throws CommandException {
-
-        for (final Command<T> command : commandList.values()) {
-            command.execute(parameterObject);
-        }
-    }
-
 }

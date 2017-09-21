@@ -1,28 +1,28 @@
 package org.mwolff.command;
 
-import org.junit.Rule;
+import static org.mwolff.command.CommandTransition.*;
+
+import org.hamcrest.CoreMatchers;
+import org.junit.Assert;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class AbstractDefaultCommandTest {
 
     class MyTestClass extends AbstractDefaultCommand<String> {
-
-        @Override
-        public CommandTransition executeCommand(String parameterObject) {
-            return null;
-        }
-
     }
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
+    @Test
+    public void testExecuteCommandWithNullContext() throws Exception {
+        final MyTestClass instance = new MyTestClass();
+        final CommandTransition result = instance.executeCommand(null);
+        Assert.assertThat(result, CoreMatchers.is(FAILURE));
+    }
 
     @Test
-    public void testExecute() throws Exception {
-        thrown.expect(UnsupportedOperationException.class);
+    public void testExecuteCommandWithValidContext() throws Exception {
         final MyTestClass instance = new MyTestClass();
-        instance.execute(null);
+        final CommandTransition result = instance.executeCommand("valid");
+        Assert.assertThat(result, CoreMatchers.is(SUCCESS));
     }
 
 }

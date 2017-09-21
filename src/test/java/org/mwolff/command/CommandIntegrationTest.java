@@ -70,16 +70,15 @@ public class CommandIntegrationTest {
         builder.setCommands(commands);
         final GenericParameterObject context = new DefaultParameterObject();
         context.put("priority", "");
-        builder.executeAsChain(context);
+        builder.executeCommandAsChain(context);
         final String priorString = context.getAsString("priority");
-        Assert.assertEquals("1-", priorString);
+        Assert.assertEquals("1-2-", priorString);
     }
 
     /*
      * Chain example. You can execute commands as a chain. The execution is
      * stopped if one command returns false.
      */
-    @SuppressWarnings({ "deprecation" })
     @Test
     public void testExecuteCommandsAsChain() throws Exception {
 
@@ -93,9 +92,9 @@ public class CommandIntegrationTest {
         mixedList.addCommand(1, new SimpleTestCommand<>());
         mixedList.addCommand(2, commandContainer);
 
-        mixedList.executeAsChain(context);
+        mixedList.executeCommandAsChain(context);
         final String priorString = context.getAsString("priority");
-        Assert.assertEquals("S-1-", priorString);
+        Assert.assertEquals("S-1-2-3-", priorString);
     }
 
     /*
@@ -103,7 +102,6 @@ public class CommandIntegrationTest {
      * bypassing a context. All commands in the container will be executed in
      * the sequence they were inserted.
      */
-    @SuppressWarnings("deprecation")
     @Test
     public void testExecuteCommandsWithContext() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
@@ -111,7 +109,7 @@ public class CommandIntegrationTest {
         context.put("priority", "");
         container.addCommand(new PriorityOneTestCommand<>());
         container.addCommand(new PriorityTwoTestCommand<>());
-        container.execute(context);
+        container.executeCommand(context);
         Assert.assertEquals("1-2-", context.getAsString("priority"));
     }
 
@@ -119,7 +117,6 @@ public class CommandIntegrationTest {
      * Priority example. Put all commands in a container by adding a priority.
      * All commands in the container will be executed in order of the priority.
      */
-    @SuppressWarnings("deprecation")
     @Test
     public void testExecuteCommandsWithContextAndPriority() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
@@ -128,7 +125,7 @@ public class CommandIntegrationTest {
         container.addCommand(3, new PriorityThreeTestCommand<>());
         container.addCommand(2, new PriorityOneTestCommand<>());
         container.addCommand(1, new PriorityTwoTestCommand<>());
-        container.execute(context);
+        container.executeCommand(context);
         Assert.assertEquals("2-1-3-", context.getAsString("priority"));
     }
 
@@ -136,7 +133,6 @@ public class CommandIntegrationTest {
      * Composite example. You can add commands as well as command containers in
      * a simple container.
      */
-    @SuppressWarnings("deprecation")
     @Test
     public void testExecuteCommandsWithMixedContent() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
@@ -149,7 +145,7 @@ public class CommandIntegrationTest {
         mixedList.addCommand(new SimpleTestCommand<>());
         mixedList.addCommand(commandContainer);
 
-        mixedList.execute(context);
+        mixedList.executeCommand(context);
         final String priorString = context.getAsString("priority");
         Assert.assertEquals("S-1-2-3-", priorString);
     }
@@ -159,12 +155,11 @@ public class CommandIntegrationTest {
      * commands in the container will be executed in the sequence they were
      * inserted.
      */
-    @SuppressWarnings("deprecation")
     @Test
     public void testExecuteCommandsWithoutContext() throws Exception {
         final CommandContainer<GenericParameterObject> container = new DefaultCommandContainer<>();
         container.addCommand(new PriorityOneTestCommand<>());
         container.addCommand(new PriorityTwoTestCommand<>());
-        container.execute(DefaultParameterObject.NULLCONTEXT);
+        container.executeCommand(DefaultParameterObject.NULLCONTEXT);
     }
 }

@@ -26,6 +26,8 @@
 
 package org.mwolff.command;
 
+import static org.mwolff.command.CommandTransition.*;
+
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -51,13 +53,8 @@ public class CommandTest {
         final Command<GenericParameterObject> command = new Command<GenericParameterObject>() {
 
             @Override
-            public void execute(GenericParameterObject parameterObject) throws CommandException {
-                throw new UnsupportedOperationException("Use executeCommand() instead");
-            }
-
-            @Override
             public CommandTransition executeCommand(GenericParameterObject parameterObject) {
-                return Command.super.executeCommand(parameterObject);
+                return SUCCESS;
             }
 
         };
@@ -66,105 +63,61 @@ public class CommandTest {
         Assert.assertThat(transition, CoreMatchers.is(CommandTransition.SUCCESS));
     }
 
-    @SuppressWarnings("deprecation")
-    @Test
-    public void testInterfaceDefaultExecute() throws Exception {
-
-        final GenericParameterObject context = new DefaultParameterObject();
-        final Command<GenericParameterObject> command = new Command<GenericParameterObject>() {
-
-            @Override
-            public void execute(GenericParameterObject parameterObject) throws CommandException {
-                throw new UnsupportedOperationException("Use executeCommand() instead");
-            }
-
-            @Override
-            public CommandTransition executeCommand(GenericParameterObject parameterObject) {
-                return Command.super.executeCommand(parameterObject);
-            }
-
-        };
-
-        thrown.expect(UnsupportedOperationException.class);
-        thrown.expectMessage("Use executeCommand() instead");
-        command.execute(context);
-    }
-
     @Test
     public void testInterfaceDefaultExecuteWithNoContext() throws Exception {
 
         final Command<GenericParameterObject> command = new Command<GenericParameterObject>() {
 
             @Override
-            public void execute(GenericParameterObject parameterObject) throws CommandException {
-                throw new UnsupportedOperationException("Use executeCommand() instead");
-            }
-
-            @Override
             public CommandTransition executeCommand(GenericParameterObject parameterObject) {
-                return Command.super.executeCommand(parameterObject);
+                if (parameterObject == null) {
+                    return FAILURE;
+                }
+                return SUCCESS;
             }
 
         };
 
         final CommandTransition transition = command.executeCommand(null);
-        Assert.assertThat(transition, CoreMatchers.is(CommandTransition.FAILURE));
+        Assert.assertThat(transition, CoreMatchers.is(FAILURE));
     }
 
-    @SuppressWarnings("deprecation")
     @Test
     public void testDefaultBehaviorWithException() throws Exception {
         final ChainCommand<DefaultParameterObject> command = new ExceptionCommand<>();
         final DefaultParameterObject context = new DefaultParameterObject();
-        command.executeAsChain(context);
+        command.executeCommandAsChain(context);
         final String result = context.getAsString("executed");
         Assert.assertEquals("true", result);
     }
 
     @Test
-    public void testDefaultCommandAsChainFalse() throws Exception {
-        final ExceptionCommand<GenericParameterObject> defaultCommand = new ExceptionCommand<>();
-        Assert.assertFalse(defaultCommand.executeAsChain(DefaultParameterObject.NULLCONTEXT));
-    }
-
-    @SuppressWarnings("deprecation")
-    @Test
-    public void testException() throws Exception {
-        final ChainCommand<DefaultParameterObject> command = new ExceptionCommand<>();
-        final DefaultParameterObject context = new DefaultParameterObject();
-        Assert.assertFalse(command.executeAsChain(context));
-    }
-
-    @SuppressWarnings("deprecation")
-    @Test
     public void testPriorityCommands() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
         Command<GenericParameterObject> command = new PriorityOneTestCommand<>();
-        command.execute(context);
+        command.executeCommand(context);
         Assert.assertEquals("PriorityOneTestCommand", context.getAsString("PriorityOneTestCommand"));
         command = new PriorityTwoTestCommand<>();
-        command.execute(context);
+        command.executeCommand(context);
         Assert.assertEquals("PriorityTwoTestCommand", context.getAsString("PriorityTwoTestCommand"));
         command = new PriorityThreeTestCommand<>();
-        command.execute(context);
+        command.executeCommand(context);
         Assert.assertEquals("PriorityThreeTestCommand", context.getAsString("PriorityThreeTestCommand"));
     }
 
-    @SuppressWarnings("deprecation")
     @Test
     public void testPriorThreeFirstCall() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
         final Command<GenericParameterObject> command = new PriorityThreeTestCommand<>();
-        command.execute(context);
+        command.executeCommand(context);
         Assert.assertEquals("PriorityThreeTestCommand", context.getAsString("PriorityThreeTestCommand"));
     }
 
-    @SuppressWarnings("deprecation")
     @Test
     public void testPriorTwoFirstCall() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
         final Command<GenericParameterObject> command = new PriorityTwoTestCommand<>();
-        command.execute(context);
+        command.executeCommand(context);
         Assert.assertEquals("PriorityTwoTestCommand", context.getAsString("PriorityTwoTestCommand"));
     }
 
