@@ -52,5 +52,5 @@ public class ChainCommandTest {
         transition = command.executeCommandAsChain(null);
         Assert.assertThat(transition, CoreMatchers.is(CommandTransition.NEXT));
     }
-   
+
 }

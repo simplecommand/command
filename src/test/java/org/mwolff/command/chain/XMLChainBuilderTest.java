@@ -33,8 +33,7 @@ public class XMLChainBuilderTest {
     @Test
     public void createInvalidXMLDocument() throws Exception {
         final GenericParameterObject context = DefaultParameterObject.getInstance();
-        final XMLChainBuilder<GenericParameterObject> xmlChainBuilder = new XMLChainBuilder<>(
-                "invalidXMLDocument.xml");
+        final XMLChainBuilder<GenericParameterObject> xmlChainBuilder = new XMLChainBuilder<>("invalidXMLDocument.xml");
         final CommandTransition result = xmlChainBuilder.executeCommand(context);
         Assert.assertThat(result, CoreMatchers.is(FAILURE));
     }
@@ -49,8 +48,7 @@ public class XMLChainBuilderTest {
 
     @Test
     public void testExecuteAsProcessWithException() throws Exception {
-        final XMLChainBuilder<Object> xmlChainBuilder = new XMLChainBuilder<>(
-                "/commandChainProcessNotExists.xml");
+        final XMLChainBuilder<Object> xmlChainBuilder = new XMLChainBuilder<>("/commandChainProcessNotExists.xml");
         final DefaultParameterObject context = new DefaultParameterObject();
         final String result = xmlChainBuilder.executeAsProcess("Start", context);
         Assert.assertNull(result);

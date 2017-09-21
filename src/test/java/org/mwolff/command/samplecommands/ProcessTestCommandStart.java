@@ -32,7 +32,6 @@ import org.mwolff.command.process.AbstractDefaultProcessCommand;
 
 public class ProcessTestCommandStart<T extends GenericParameterObject> extends AbstractDefaultProcessCommand<T> {
 
-
     public ProcessTestCommandStart() {
         super();
     }
