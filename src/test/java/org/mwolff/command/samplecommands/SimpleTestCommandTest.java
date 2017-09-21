@@ -9,12 +9,12 @@ import org.mwolff.command.parameterobject.GenericParameterObject;
 
 public class SimpleTestCommandTest {
 
-   @Test
-   public void testExecuteCommand() throws Exception {
-      final GenericParameterObject context = new DefaultParameterObject();
-      final Command<GenericParameterObject> command = new SimpleTestCommand<>();
-      command.executeCommand(context);
-      Assert.assertThat(context.getAsString("SimpleTestCommand"), CoreMatchers.is("SimpleTestCommand"));
-      Assert.assertThat(context.getAsString("priority"), CoreMatchers.is("S-"));
-   }
+    @Test
+    public void testExecuteCommand() throws Exception {
+        final GenericParameterObject context = new DefaultParameterObject();
+        final Command<GenericParameterObject> command = new SimpleTestCommand<>();
+        command.executeCommand(context);
+        Assert.assertThat(context.getAsString("SimpleTestCommand"), CoreMatchers.is("SimpleTestCommand"));
+        Assert.assertThat(context.getAsString("priority"), CoreMatchers.is("S-"));
+    }
 }

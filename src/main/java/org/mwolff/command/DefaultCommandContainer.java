@@ -1,28 +1,29 @@
-/**
-    Simple Command Framework.
-
-    Framework for easy building software that fits the SOLID principles.
-    @author Manfred Wolff <m.wolff@neusta.de>
-
-    Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
-
-    Copyright (C) 2018 Manfred Wolff and the simple command community
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Lesser General Public
-    License as published by the Free Software Foundation; either
-    version 2.1 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Lesser General Public License for more details.
-
-    You should have received a copy of the GNU Lesser General Public
-    License along with this library; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
-    USA
- */
+/** Simple Command Framework.
+ * 
+ * Framework for easy building software that fits the SOLID principles.
+ * 
+ * @author Manfred Wolff <m.wolff@neusta.de>
+ * 
+ *         Download:
+ *         https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
+ * 
+ *         Copyright (C) 2018 Manfred Wolff and the simple command community
+ * 
+ *         This library is free software; you can redistribute it and/or
+ *         modify it under the terms of the GNU Lesser General Public
+ *         License as published by the Free Software Foundation; either
+ *         version 2.1 of the License, or (at your option) any later version.
+ * 
+ *         This library is distributed in the hope that it will be useful,
+ *         but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ *         Lesser General Public License for more details.
+ * 
+ *         You should have received a copy of the GNU Lesser General Public
+ *         License along with this library; if not, write to the Free Software
+ *         Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ *         02110-1301
+ *         USA */
 
 package org.mwolff.command;
 
@@ -35,12 +36,11 @@ import org.apache.log4j.Logger;
 import org.mwolff.command.chain.ChainCommand;
 import org.mwolff.command.process.ProcessCommand;
 
-/**
- * CommandContainer that holds Command-objects. Should have the same behavior as
+/** CommandContainer that holds Command-objects. Should have the same behavior
+ * as
  * a command (Composite Pattern).
  *
- * @author Manfred Wolff
- */
+ * @author Manfred Wolff */
 public class DefaultCommandContainer<T extends Object> implements CommandContainer<T> {
 
     private static final Logger            LOG         = Logger.getLogger(DefaultCommandContainer.class);
@@ -53,19 +53,15 @@ public class DefaultCommandContainer<T extends Object> implements CommandContain
                                                            }
                                                        });
 
-    /**
-     * @see org.mwolff.command.CommandContainer#addCommand(org.mwolff.command.Command)
-     */
+    /** @see org.mwolff.command.CommandContainer#addCommand(org.mwolff.command.Command) */
     @Override
     public CommandContainer<T> addCommand(final Command<T> command) {
         commandList.put(Integer.valueOf(0), command);
         return this;
     }
 
-    /**
-     * @see org.mwolff.command.CommandContainer#addCommand(int,
-     *      org.mwolff.command.Command)
-     */
+    /** @see org.mwolff.command.CommandContainer#addCommand(int,
+     *      org.mwolff.command.Command) */
     @Override
     public CommandContainer<T> addCommand(final int priority, final Command<T> command) {
         commandList.put(Integer.valueOf(priority), command);
@@ -85,10 +81,8 @@ public class DefaultCommandContainer<T extends Object> implements CommandContain
         return result;
     }
 
-    /**
-     * @see org.mwolff.command.process.ProcessCommand#executeAsProcess(java.lang.String,
-     *      java.lang.Object)
-     */
+    /** @see org.mwolff.command.process.ProcessCommand#executeAsProcess(java.lang.String,
+     *      java.lang.Object) */
     @Override
     public String executeAsProcess(final String startCommand, final T context) {
 

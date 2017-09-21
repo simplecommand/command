@@ -1,28 +1,29 @@
-/**
-    Simple Command Framework.
-
-    Framework for easy building software that fits the SOLID principles.
-    @author Manfred Wolff <m.wolff@neusta.de>
-
-    Download: https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
-
-    Copyright (C) 2018 Manfred Wolff and the simple command community
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Lesser General Public
-    License as published by the Free Software Foundation; either
-    version 2.1 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Lesser General Public License for more details.
-
-    You should have received a copy of the GNU Lesser General Public
-    License along with this library; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
-    USA
- */
+/** Simple Command Framework.
+ * 
+ * Framework for easy building software that fits the SOLID principles.
+ * 
+ * @author Manfred Wolff <m.wolff@neusta.de>
+ * 
+ *         Download:
+ *         https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
+ * 
+ *         Copyright (C) 2018 Manfred Wolff and the simple command community
+ * 
+ *         This library is free software; you can redistribute it and/or
+ *         modify it under the terms of the GNU Lesser General Public
+ *         License as published by the Free Software Foundation; either
+ *         version 2.1 of the License, or (at your option) any later version.
+ * 
+ *         This library is distributed in the hope that it will be useful,
+ *         but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ *         Lesser General Public License for more details.
+ * 
+ *         You should have received a copy of the GNU Lesser General Public
+ *         License along with this library; if not, write to the Free Software
+ *         Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ *         02110-1301
+ *         USA */
 
 package org.mwolff.command;
 
@@ -41,8 +42,7 @@ import org.mwolff.command.samplecommands.SimpleTestCommand;
 
 public class ExampleCommandTest {
 
-    /**
-     * You can use the builder to build and execute the chain. Usually you will
+    /** You can use the builder to build and execute the chain. Usually you will
      * use the builder together with a dependency framework just as Spring. In
      * this case Spring instantiates the builder as well as all commands and
      * injects all commands as a list.
@@ -57,8 +57,7 @@ public class ExampleCommandTest {
      * class="de.mwolff.command.chainbuilder.InjectionChainBuilder"&gt;
      * &lt;property name="commands"&gt; &lt;list&gt; &lt;ref bean="firstCommand"
      * /&gt; &lt;ref bean="secondCommand" /&gt; &lt;/list&gt; &lt;/property&gt;
-     * &lt;/bean&gt;
-     */
+     * &lt;/bean&gt; */
     @Test
     public void testBuilderExample() throws Exception {
 
