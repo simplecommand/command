@@ -31,6 +31,12 @@
 			<organization>neusta software development GmbH</organization>
 			<organizationUrl>http://www.neusta-se.de</organizationUrl>
 		</developer>
+		<developer>
+			<name>Michael Albrecht</name>
+			<email>m.albrecht@neusta.de</email>
+			<organization>neusta software development GmbH</organization>
+			<organizationUrl>http://www.neusta-se.de</organizationUrl>
+		</developer>
 	</developers>
 
 	<scm>
