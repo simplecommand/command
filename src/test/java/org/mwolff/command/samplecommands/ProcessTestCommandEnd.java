@@ -44,9 +44,6 @@ public class ProcessTestCommandEnd<T extends GenericParameterObject> extends Abs
     @Override
     public CommandTransition executeCommand(T context) {
         String result = context.getAsString("result");
-        if ((result == null) || ("NullObject".equals(result))) {
-            result = "";
-        }
         result += processID + " - ";
         context.put("result", result);
         return CommandTransition.SUCCESS;

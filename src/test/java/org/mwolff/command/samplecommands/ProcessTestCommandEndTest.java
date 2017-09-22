@@ -26,9 +26,12 @@
  *         USA */
 package org.mwolff.command.samplecommands;
 
-import org.hamcrest.CoreMatchers;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import org.mwolff.command.CommandTransition;
 import org.mwolff.command.chain.XMLChainBuilder;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
@@ -42,7 +45,7 @@ public class ProcessTestCommandEndTest {
         final String result = xmlChainBuilder.executeAsProcess("END", context);
         Assert.assertNull(result);
         final String contextResult = context.getAsString("result");
-        Assert.assertThat(contextResult, CoreMatchers.is("END - "));
+        assertThat(contextResult, is("END - "));
     }
 
     @Test
@@ -50,6 +53,38 @@ public class ProcessTestCommandEndTest {
         final ProcessTestCommandEnd<GenericParameterObject> command = new ProcessTestCommandEnd<>();
         final DefaultParameterObject context = new DefaultParameterObject();
         final String result = command.executeAsProcess("END", context);
-        Assert.assertNull(result);
+        assertNull(result);
+    }
+
+    @Test
+    void executCommandResultNull() {
+        final ProcessTestCommandEnd<GenericParameterObject> command = new ProcessTestCommandEnd<>();
+        final DefaultParameterObject context = new DefaultParameterObject();
+        context.put("result", null);
+        CommandTransition result = command.executeCommand(context);
+        assertThat(result, is(CommandTransition.SUCCESS));
+        final String contextResult = context.getAsString("result");
+        assertThat(contextResult, is("null - "));
+    }
+
+    @Test
+    void executCommandResultElsewhere() {
+        final ProcessTestCommandEnd<GenericParameterObject> command = new ProcessTestCommandEnd<>();
+        final DefaultParameterObject context = new DefaultParameterObject();
+        context.put("result", "elsewhere");
+        CommandTransition result = command.executeCommand(context);
+        assertThat(result, is(CommandTransition.SUCCESS));
+        final String contextResult = context.getAsString("result");
+        assertThat(contextResult, is("elsewherenull - "));
+    }
+
+    @Test
+    void executCommandResultEmpty() {
+        final ProcessTestCommandEnd<GenericParameterObject> command = new ProcessTestCommandEnd<>();
+        final DefaultParameterObject context = new DefaultParameterObject();
+        CommandTransition result = command.executeCommand(context);
+        assertThat(result, is(CommandTransition.SUCCESS));
+        final String contextResult = context.getAsString("result");
+        assertThat(contextResult, is("null - "));
     }
 }

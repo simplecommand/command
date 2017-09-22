@@ -55,9 +55,6 @@ public class ProcessTestCommandStart<T extends GenericParameterObject> extends A
     @Override
     public CommandTransition executeCommand(T parameterObject) {
         String result = parameterObject.getAsString("result");
-        if (result.equals("NullObject")) {
-            result = "";
-        }
         result += processID + " - ";
         parameterObject.put("result", result);
         return CommandTransition.SUCCESS;

@@ -46,6 +46,7 @@ public class AbstractDefaultChainCommandTest {
         Assert.assertThat(context.getAsString("priority"), CoreMatchers.is("S-"));
     }
 
+    @Test
     public void testExecuteAsChainNull() throws Exception {
         final ChainCommand<GenericParameterObject> command = new SimpleTestCommand<>();
         final CommandTransition result = command.executeCommandAsChain(null);

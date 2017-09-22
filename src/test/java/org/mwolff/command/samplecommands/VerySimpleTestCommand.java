@@ -37,9 +37,6 @@ public class VerySimpleTestCommand<T extends GenericParameterObject> extends Abs
     public CommandTransition executeCommand(T context) {
         context.put("SimpleTestCommand", "SimpleTestCommand");
         String priorString = context.getAsString("priority");
-        if ("NullObject".equals(priorString)) {
-            priorString = "";
-        }
         priorString += "S-";
         context.put("priority", priorString);
         return CommandTransition.SUCCESS;

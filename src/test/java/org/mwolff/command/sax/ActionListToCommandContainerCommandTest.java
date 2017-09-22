@@ -49,6 +49,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 public class ActionListToCommandContainerCommandTest {
 
     private final List<Action> actionList = new ArrayList<>();
+    private Transition transition;
 
     @BeforeEach
     public void setUp() {
@@ -57,7 +58,7 @@ public class ActionListToCommandContainerCommandTest {
         action.setClassname("org.mwolff.command.samplecommands.ProcessTestCommandNext");
         action.setId("action");
 
-        final Transition transition = new Transition() {
+        transition = new Transition() {
 
             @Override
             public void setTarget(final String target) {
@@ -119,5 +120,13 @@ public class ActionListToCommandContainerCommandTest {
         Assert.assertThat(result, CoreMatchers.is(FAILURE));
         final String error = context.getAsString(ERROR_STRING);
         Assert.assertThat(error, CoreMatchers.is("Error while instaciating class via reflection"));
+    }
+    
+    @Test
+    void testCoverage() {
+        transition.setTarget("");
+        transition.setReturnValue("");
+        Assert.assertThat(transition.getTarget(), CoreMatchers.is("target"));
+        Assert.assertThat(transition.getReturnValue(), CoreMatchers.is("START"));
     }
 }

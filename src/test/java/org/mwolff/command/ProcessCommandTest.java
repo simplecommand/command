@@ -98,7 +98,6 @@ public class ProcessCommandTest {
 
             @Override
             public CommandTransition executeCommandAsChain(Object parameterObject) {
-                // TODO Auto-generated method stub
                 return null;
             }
 
@@ -110,5 +109,8 @@ public class ProcessCommandTest {
         Assert.assertThat(pc.findNext("Hello"), CoreMatchers.is("Hello"));
         final Transition transition = new DefaultTransition();
         pc.addTransition(transition);
+        pc.setProcessID("");
+        pc.executeCommand(null);
+        pc.executeCommandAsChain(null);
     }
 }

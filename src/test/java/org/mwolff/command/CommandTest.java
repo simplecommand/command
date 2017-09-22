@@ -29,6 +29,8 @@ package org.mwolff.command;
 
 import static org.mwolff.command.CommandTransition.*;
 
+import java.lang.reflect.Executable;
+
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -68,14 +70,17 @@ public class CommandTest {
             public CommandTransition executeCommand(final GenericParameterObject parameterObject) {
                 if (parameterObject == null) {
                     return FAILURE;
+                } else {
+                    return SUCCESS;
                 }
-                return SUCCESS;
             }
 
         };
 
-        final CommandTransition transition = command.executeCommand(null);
+        CommandTransition transition = command.executeCommand(null);
         Assert.assertThat(transition, CoreMatchers.is(FAILURE));
+        transition = command.executeCommand(DefaultParameterObject.NULLCONTEXT);
+        Assert.assertThat(transition, CoreMatchers.is(SUCCESS));
     }
 
     @Test
