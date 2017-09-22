@@ -1,9 +1,9 @@
 package org.mwolff.command.testcommand;
 
-import static org.mwolff.command.CommandTransitionEnum.CommandTransition.*;
+import static org.mwolff.command.CommandTransition.*;
 
 import org.mwolff.command.CommandException;
-import org.mwolff.command.CommandTransitionEnum.CommandTransition;
+import org.mwolff.command.CommandTransition;
 import org.mwolff.command.chain.AbstractDefaultChainCommand;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
@@ -29,10 +29,6 @@ public class TestCommand extends AbstractDefaultChainCommand<GenericParameterObj
     public CommandTransition executeCommandAsChain(GenericParameterObject parameterObject) {
         executeCommand(parameterObject);
         return chainResult;
-    }
-
-    @Override
-    public void execute(GenericParameterObject context) throws CommandException {
     }
 
 }
