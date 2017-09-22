@@ -2,11 +2,11 @@ package org.mwolff.command.testcommand;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
-import static org.mwolff.command.CommandTransitionEnum.CommandTransition.*;
+import static org.mwolff.command.CommandTransition.*;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.mwolff.command.CommandTransitionEnum.CommandTransition;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mwolff.command.CommandTransition;
 import org.mwolff.command.DefaultCommandContainer;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
@@ -15,7 +15,7 @@ public class TestCommandTest {
 
     private GenericParameterObject defaultParameterObject;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         defaultParameterObject = DefaultParameterObject.getInstance();
     }
@@ -26,7 +26,6 @@ public class TestCommandTest {
         TestCommand testCommand = new TestCommand("1-", null);
         
         // when
-        testCommand.execute(defaultParameterObject);
         CommandTransition result = testCommand.executeCommand(defaultParameterObject);
         String strResult = getResult();
         
@@ -97,9 +96,9 @@ public class TestCommandTest {
         
         // when
         DefaultCommandContainer<GenericParameterObject> defaultCommandContainer = new DefaultCommandContainer<>();
-        CommandTransition result = defaultCommandContainer.addCommand(new TestCommand("1-", CommandTransition.SUCCESS))
-                                                          .addCommand(new TestCommand("2-", CommandTransition.DONE))
-                                                          .addCommand(new TestCommand("3-", CommandTransition.SUCCESS))
+        CommandTransition result = defaultCommandContainer.addCommand(new TestCommand("1-", NEXT))
+                                                          .addCommand(new TestCommand("2-", DONE))
+                                                          .addCommand(new TestCommand("3-", NEXT))
                                                           .executeCommandAsChain(defaultParameterObject);
         String strResult = getResult();
         
