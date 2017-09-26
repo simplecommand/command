@@ -30,6 +30,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import static org.mwolff.command.CommandTransition.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.CommandTransition;
 
@@ -50,6 +51,7 @@ public class AbstractDefaultChainCommandTest {
     }
     
     @Test
+    @DisplayName("Default Behavior: Asserts that the chain results DONE if underlying executeCommand() results FAILURE.")
     void executeAsChainNull() throws Exception {
         final TestClassFailure command = new TestClassFailure();
         final CommandTransition result = command.executeCommandAsChain(null);
@@ -57,6 +59,7 @@ public class AbstractDefaultChainCommandTest {
     }
 
     @Test
+    @DisplayName("Default Behavior: Asserts that the chain results NEXT if underlying executeCommand() results SUCCESS.")
     void executeAsChainNotNull() throws Exception {
         final TestClassSuccess command = new TestClassSuccess();
         final CommandTransition result = command.executeCommandAsChain("Hello chain!");

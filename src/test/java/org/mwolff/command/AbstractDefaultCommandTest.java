@@ -30,6 +30,7 @@ import static org.mwolff.command.CommandTransition.*;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class AbstractDefaultCommandTest {
@@ -38,6 +39,7 @@ public class AbstractDefaultCommandTest {
     }
 
     @Test
+    @DisplayName("Returns SUCCESS if context is not null.")
     void testDefaultExecuteCommandSuccess() {
         final Testclass testclass = new Testclass();
         final CommandTransition result = testclass.executeCommand("notnull");
@@ -45,6 +47,7 @@ public class AbstractDefaultCommandTest {
     }
 
     @Test
+    @DisplayName("Returns FAILURE if context is null.")
     void testDefaultExecuteCommandFailed() {
         final Testclass testclass = new Testclass();
         final CommandTransition result = testclass.executeCommand(null);
