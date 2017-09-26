@@ -71,22 +71,47 @@ public class DefaultCommandContainerTest {
         commandContainer.addCommand(new TestCommand("test", SUCCESS));
         GenericParameterObject context = DefaultParameterObject.getInstance();
         @SuppressWarnings("unchecked")
-        Map<Integer,Command<Object>> commandMap = (Map<Integer, Command<Object>>) ReflectionTestUtils.getField(commandContainer, "commandList");
+        Map<Integer, Command<GenericParameterObject>> commandMap = (Map<Integer, Command<GenericParameterObject>>) ReflectionTestUtils
+                .getField(commandContainer, "commandList");
         assertThat(commandMap.size(), is(1));
-        CommandTransition result = commandContainer.executeCommand(context);
+        TestCommand command = (TestCommand) commandMap.values().iterator().next();
+        assertThat(command, notNullValue());
+
+        CommandTransition result = command.executeCommand(context);
         String strResult = context.getAsString("resultString");
         assertThat(strResult, is("test"));
         assertThat(result, is(SUCCESS));
     }
-    
+
+    @Test
+    @DisplayName("addCommand with priority works proper.")
+    void addCommandWithPriority() {
+        commandContainer.addCommand(20, new TestCommand("test", SUCCESS));
+        GenericParameterObject context = DefaultParameterObject.getInstance();
+        @SuppressWarnings("unchecked")
+        Map<Integer, TestCommand> commandMap = (Map<Integer, TestCommand>) ReflectionTestUtils
+                .getField(commandContainer, "commandList");
+        assertThat(commandMap.size(), is(1));
+        Integer res = commandMap.keySet().iterator().next();
+        assertThat(res, is(20));
+        CommandTransition result = null;
+        for (final TestCommand command : commandMap.values()) {
+            result = command.executeCommand(context);
+            assertThat(command, notNullValue());
+        }
+        String strResult = context.getAsString("resultString");
+        assertThat(strResult, is("test"));
+        assertThat(result, is(SUCCESS));
+    }
+
     /*
      * Creates some Commands in different Order. There are two commands with
-     * prio
-     * 1!
+     * prio 1!
      */
-    public CommandContainer<GenericParameterObject> createCommandInOrder() {
-        commandContainer.addCommand(2, new PriorityThreeTestCommand<>()).addCommand(1, new PriorityOneTestCommand<>())
-                .addCommand(1, new PriorityTwoTestCommand<>());
+    private CommandContainer<GenericParameterObject> createCommandInOrderWithPrioritySUCCESSes() {
+        commandContainer.addCommand(1, new TestCommand("1-", SUCCESS))
+        .addCommand(3, new TestCommand("3-", SUCCESS))
+        .addCommand(1, new TestCommand("2-", SUCCESS));
         return commandContainer;
     }
 
@@ -105,30 +130,30 @@ public class DefaultCommandContainerTest {
      */
     @Test
     public void testAddCommandWithPriorityInCommandContainerAndExecute() throws Exception {
-        final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrder();
+        final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrderWithPrioritySUCCESSes();
         context.put("priority", "");
         commandContainer.executeCommand(context);
-        final String priorString = context.getAsString("priority");
+        final String priorString = context.getAsString("resultString");
         Assert.assertEquals("1-2-3-", priorString);
     }
 
     @Test
     public void testExecuteCommandSuccess() throws Exception {
-        final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrder();
+        final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrderWithPrioritySUCCESSes();
         context.put("priority", "");
         commandContainer.executeCommand(context);
-        final String priorString = context.getAsString("priority");
+        final String priorString = context.getAsString("resultString");
         Assert.assertEquals("1-2-3-", priorString);
     }
 
     @Test
     public void testExecuteCommandAsChainSuccessABORT() throws Exception {
-        final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrder();
+        final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrderWithPrioritySUCCESSes();
         context.put("priority", "");
         final CommandTransition transition = commandContainer.executeCommandAsChain(context);
-        final String priorString = context.getAsString("priority");
+        final String priorString = context.getAsString("resultString");
         Assert.assertEquals("1-2-3-", priorString);
-        Assert.assertEquals(transition, CommandTransition.NEXT);
+        Assert.assertEquals(transition, CommandTransition.SUCCESS);
 
     }
 
@@ -146,10 +171,10 @@ public class DefaultCommandContainerTest {
 
     @Test
     public void testExecuteOnlyOnContainer() throws Exception {
-        final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrder();
+        final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrderWithPrioritySUCCESSes();
         context.put("priority", "");
         commandContainer.executeCommand(context);
-        final String priorString = context.getAsString("priority");
+        final String priorString = context.getAsString("resultString");
         Assert.assertEquals("1-2-3-", priorString);
     }
 
@@ -159,10 +184,10 @@ public class DefaultCommandContainerTest {
      */
     @Test
     public void testAddCommandWithPriorityInCommandContainerAndExecuteAsChain() throws Exception {
-        final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrder();
+        final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrderWithPrioritySUCCESSes();
         context.put("priority", "");
         commandContainer.executeCommandAsChain(context);
-        final String priorString = context.getAsString("priority");
+        final String priorString = context.getAsString("resultString");
         Assert.assertEquals("1-2-3-", priorString);
     }
 
