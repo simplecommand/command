@@ -26,65 +26,40 @@
  *         USA */
 package org.mwolff.command.chain;
 
-import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+import static org.mwolff.command.CommandTransition.*;
+
 import org.junit.jupiter.api.Test;
-import org.mwolff.command.Command;
 import org.mwolff.command.CommandTransition;
-import org.mwolff.command.parameterobject.DefaultParameterObject;
-import org.mwolff.command.parameterobject.GenericParameterObject;
-import org.mwolff.command.samplecommands.SimpleTestCommand;
 
 public class AbstractDefaultChainCommandTest {
 
-    @Test
-    public void testExecute() throws Exception {
-        final GenericParameterObject context = new DefaultParameterObject();
-        final Command<GenericParameterObject> command = new SimpleTestCommand<>();
-        command.executeCommand(context);
-        Assert.assertThat(context.getAsString("SimpleTestCommand"), CoreMatchers.is("SimpleTestCommand"));
-        Assert.assertThat(context.getAsString("priority"), CoreMatchers.is("S-"));
+    final class TestClassSuccess extends AbstractDefaultChainCommand<String> {
+        @Override
+        public CommandTransition executeCommand(String parameterObject) {
+            return SUCCESS;
+        }
     }
 
+    final class TestClassFailure extends AbstractDefaultChainCommand<String> {
+        @Override
+        public CommandTransition executeCommand(String parameterObject) {
+            return FAILURE;
+        }
+    }
+    
     @Test
-    public void testExecuteAsChainNull() throws Exception {
-        final ChainCommand<GenericParameterObject> command = new SimpleTestCommand<>();
+    void executeAsChainNull() throws Exception {
+        final TestClassFailure command = new TestClassFailure();
         final CommandTransition result = command.executeCommandAsChain(null);
-        Assert.assertThat(result, CoreMatchers.is(CommandTransition.DONE));
+        assertThat(result, is(CommandTransition.DONE));
     }
 
     @Test
-    public void testExecuteCommand() throws Exception {
-        final GenericParameterObject context = new DefaultParameterObject();
-        final Command<GenericParameterObject> command = new SimpleTestCommand<>();
-        final CommandTransition result = command.executeCommand(context);
-        Assert.assertThat(context.getAsString("SimpleTestCommand"), CoreMatchers.is("SimpleTestCommand"));
-        Assert.assertThat(context.getAsString("priority"), CoreMatchers.is("S-"));
-        Assert.assertThat(result, CoreMatchers.is(CommandTransition.SUCCESS));
+    void executeAsChainNotNull() throws Exception {
+        final TestClassSuccess command = new TestClassSuccess();
+        final CommandTransition result = command.executeCommandAsChain("Hello chain!");
+        assertThat(result, is(CommandTransition.NEXT));
     }
-
-    @Test
-    public void testExecuteCommandNull() throws Exception {
-        final Command<GenericParameterObject> command = new SimpleTestCommand<>();
-        final CommandTransition result = command.executeCommand(null);
-        Assert.assertThat(result, CoreMatchers.is(CommandTransition.FAILURE));
-    }
-
-    @Test
-    public void testExecuteCommandAsChain() throws Exception {
-        final GenericParameterObject context = new DefaultParameterObject();
-        final ChainCommand<GenericParameterObject> command = new SimpleTestCommand<>();
-        final CommandTransition result = command.executeCommandAsChain(context);
-        Assert.assertThat(context.getAsString("SimpleTestCommand"), CoreMatchers.is("SimpleTestCommand"));
-        Assert.assertThat(context.getAsString("priority"), CoreMatchers.is("S-"));
-        Assert.assertThat(result, CoreMatchers.is(CommandTransition.NEXT));
-    }
-
-    @Test
-    public void testExecuteCommandAsChainNull() throws Exception {
-        final ChainCommand<GenericParameterObject> command = new SimpleTestCommand<>();
-        final CommandTransition result = command.executeCommandAsChain(null);
-        Assert.assertThat(result, CoreMatchers.is(CommandTransition.DONE));
-    }
-
 }
