@@ -26,11 +26,10 @@
  *         USA */
 package org.mwolff.command.process;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.nullValue;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.DefaultCommandContainer;
@@ -40,45 +39,47 @@ import org.mwolff.command.parameterobject.GenericParameterObject;
 
 public class DefaultEndCommandTest {
 
-    private DefaultEndCommand defaultEndCommand;
+   private DefaultEndCommand defaultEndCommand;
 
-    @BeforeEach
-    public void setUp() {
-        defaultEndCommand = new DefaultEndCommand();
-    }
+   @BeforeEach
+   public void setUp() {
+      defaultEndCommand = new DefaultEndCommand();
+   }
 
-    @Test
-    public void testExecuteAsProcessSimple() throws Exception {
-        Assert.assertThat(defaultEndCommand.executeAsProcess(null), CoreMatchers.is("END"));
-    }
+   @Test
+   public void testExecuteAsProcessSimple() throws Exception {
+      Assert.assertThat(defaultEndCommand.executeAsProcess(null), CoreMatchers.is("END"));
+   }
 
-    @Test
-    public void testEndCommandInProcessChain() throws Exception {
-        final DefaultCommandContainer<GenericParameterObject> defaultCommandContainer = new DefaultCommandContainer<>();
-        defaultEndCommand.setProcessID("END");
-        final DefaultParameterObject context = new DefaultParameterObject();
-        defaultCommandContainer.addCommand(defaultEndCommand);
-        Assert.assertThat(defaultCommandContainer.executeAsProcess("END", context), CoreMatchers.is("END"));
-    }
+   @Test
+   public void testEndCommandInProcessChain() throws Exception {
+      final DefaultCommandContainer<GenericParameterObject> defaultCommandContainer = new DefaultCommandContainer<>();
+      defaultEndCommand.setProcessID("END");
+      final DefaultParameterObject context = new DefaultParameterObject();
+      defaultCommandContainer.addCommand(defaultEndCommand);
+      Assert.assertThat(defaultCommandContainer.executeAsProcess("END", context), CoreMatchers.is("END"));
+   }
 
-    @Test
-    public void testExecuteAsProcessComplex() throws Exception {
-        Assert.assertThat(defaultEndCommand.executeAsProcess("START", null), CoreMatchers.is("END"));
-    }
+   @Test
+   public void testExecuteAsProcessComplex() throws Exception {
+      Assert.assertThat(defaultEndCommand.executeAsProcess("START", null), CoreMatchers.is("END"));
+   }
 
-    @Test
-    public void testCommandWithoutTransiton() throws Exception {
-        final XMLChainBuilder<GenericParameterObject> xmlChainBuilder = new XMLChainBuilder<>("commandChainProcessEnd.xml");
-        String result = xmlChainBuilder.executeAsProcess("End", DefaultParameterObject.NULLCONTEXT);
-        Assert.assertThat(result, CoreMatchers.is("END"));
+   @Test
+   public void testCommandWithoutTransiton() throws Exception {
+      final XMLChainBuilder<GenericParameterObject> xmlChainBuilder = new XMLChainBuilder<>(
+            "commandChainProcessEnd.xml");
+      String result = xmlChainBuilder.executeAsProcess("End", DefaultParameterObject.NULLCONTEXT);
+      Assert.assertThat(result, CoreMatchers.is("END"));
 
-    }
-    @Test
-    public void testCommandWithTransitonFails() throws Exception {
-        final XMLChainBuilder<GenericParameterObject> xmlChainBuilder = new XMLChainBuilder<>("commandChainProcessEndFails.xml");
-        String result = xmlChainBuilder.executeAsProcess("End", DefaultParameterObject.NULLCONTEXT);
-        Assert.assertThat(result, nullValue());
-    }
+   }
 
-    
+   @Test
+   public void testCommandWithTransitonFails() throws Exception {
+      final XMLChainBuilder<GenericParameterObject> xmlChainBuilder = new XMLChainBuilder<>(
+            "commandChainProcessEndFails.xml");
+      String result = xmlChainBuilder.executeAsProcess("End", DefaultParameterObject.NULLCONTEXT);
+      Assert.assertThat(result, nullValue());
+   }
+
 }
