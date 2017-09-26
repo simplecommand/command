@@ -27,10 +27,17 @@
 
 package org.mwolff.command;
 
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+import static org.mwolff.command.CommandTransition.*;
+
+import java.util.Map;
+
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
@@ -44,6 +51,8 @@ import org.mwolff.command.samplecommands.PriorityTwoTestCommand;
 import org.mwolff.command.samplecommands.ProcessTestCommandNext;
 import org.mwolff.command.samplecommands.ProcessTestCommandStart;
 import org.mwolff.command.samplecommands.SimpleTestCommand;
+import org.mwolff.command.testcommand.TestCommand;
+import org.springframework.test.util.ReflectionTestUtils;
 
 public class DefaultCommandContainerTest {
 
@@ -53,9 +62,23 @@ public class DefaultCommandContainerTest {
     @BeforeEach
     public void setUp() {
         context = new DefaultParameterObject();
-        commandContainer = new DefaultCommandContainer<>();
+        commandContainer = new DefaultCommandContainer<GenericParameterObject>();
     }
 
+    @Test
+    @DisplayName("addCommand works proper.")
+    void addCommand() {
+        commandContainer.addCommand(new TestCommand("test", SUCCESS));
+        GenericParameterObject context = DefaultParameterObject.getInstance();
+        @SuppressWarnings("unchecked")
+        Map<Integer,Command<Object>> commandMap = (Map<Integer, Command<Object>>) ReflectionTestUtils.getField(commandContainer, "commandList");
+        assertThat(commandMap.size(), is(1));
+        CommandTransition result = commandContainer.executeCommand(context);
+        String strResult = context.getAsString("resultString");
+        assertThat(strResult, is("test"));
+        assertThat(result, is(SUCCESS));
+    }
+    
     /*
      * Creates some Commands in different Order. There are two commands with
      * prio
