@@ -45,9 +45,6 @@ import org.mwolff.command.process.DefaultEndCommand;
 import org.mwolff.command.process.ProcessCommand;
 import org.mwolff.command.samplecommands.ExceptionCommand;
 import org.mwolff.command.samplecommands.FailureTestCommand;
-import org.mwolff.command.samplecommands.PriorityOneTestCommand;
-import org.mwolff.command.samplecommands.PriorityThreeTestCommand;
-import org.mwolff.command.samplecommands.PriorityTwoTestCommand;
 import org.mwolff.command.samplecommands.ProcessTestCommandNext;
 import org.mwolff.command.samplecommands.ProcessTestCommandStart;
 import org.mwolff.command.samplecommands.SimpleTestCommand;
@@ -119,8 +116,8 @@ public class DefaultCommandContainerTest {
      * Creating three commands with prio 1-2-3 for execution
      */
     private CommandContainer<GenericParameterObject> createDefaultCommands() {
-        commandContainer.addCommand(new PriorityOneTestCommand<>()).addCommand(new PriorityTwoTestCommand<>())
-                .addCommand(new PriorityThreeTestCommand<>());
+        commandContainer.addCommand(new TestCommand("1-", NEXT)).addCommand(new TestCommand("2-", NEXT))
+                .addCommand(new TestCommand("3-", NEXT));
         return commandContainer;
     }
 
@@ -131,7 +128,7 @@ public class DefaultCommandContainerTest {
     @Test
     public void testAddCommandWithPriorityInCommandContainerAndExecute() throws Exception {
         final CommandContainer<GenericParameterObject> commandContainer = createCommandInOrderWithPrioritySUCCESSes();
-        context.put("priority", "");
+        context.put("resultString", "");
         commandContainer.executeCommand(context);
         final String priorString = context.getAsString("resultString");
         Assert.assertEquals("1-2-3-", priorString);
@@ -199,10 +196,10 @@ public class DefaultCommandContainerTest {
     @Test
     public void testAddNoPriorityInCommandContainerAndExecute() throws Exception {
         final CommandContainer<GenericParameterObject> commandContainer = createDefaultCommands();
-        context.put("priority", "");
+        context.put("resultString", "");
 
         commandContainer.executeCommand(context);
-        final String priorString = context.getAsString("priority");
+        final String priorString = context.getAsString("resultString");
         Assert.assertEquals("1-2-3-", priorString);
     }
 
@@ -214,10 +211,10 @@ public class DefaultCommandContainerTest {
     @Test
     public void testAddNoPriorityInCommandContainerAndExecuteAsChain() throws Exception {
         final CommandContainer<GenericParameterObject> commandContainer = createDefaultCommands();
-        context.put("priority", "");
+        context.put("resultString", "");
 
         commandContainer.executeCommandAsChain(context);
-        final String priorString = context.getAsString("priority");
+        final String priorString = context.getAsString("resultString");
         Assert.assertEquals("1-2-3-", priorString);
     }
 
@@ -263,19 +260,19 @@ public class DefaultCommandContainerTest {
      */
     @Test
     public void testMixedModeInCommandContainer() throws Exception {
-        commandContainer.addCommand(1, new PriorityOneTestCommand<>());
-        commandContainer.addCommand(2, new PriorityTwoTestCommand<>());
-        commandContainer.addCommand(3, new PriorityThreeTestCommand<>());
+        commandContainer.addCommand(1, new TestCommand("1-", SUCCESS));
+        commandContainer.addCommand(2, new TestCommand("2-", SUCCESS));
+        commandContainer.addCommand(3, new TestCommand("3-", SUCCESS));
 
         final CommandContainer<GenericParameterObject> mixedList = new DefaultCommandContainer<>();
         mixedList.addCommand(new SimpleTestCommand<>());
         mixedList.addCommand(commandContainer);
 
         mixedList.executeCommand(context);
-        String priorString = context.getAsString("priority");
+        String priorString = context.getAsString("resultString");
         Assert.assertEquals("S-1-2-3-", priorString);
         mixedList.executeCommandAsChain(context);
-        priorString = context.getAsString("priority");
+        priorString = context.getAsString("resultString");
         Assert.assertEquals("S-1-2-3-S-1-2-3-", priorString);
     }
 

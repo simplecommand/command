@@ -27,8 +27,7 @@
 
 package org.mwolff.command;
 
-import static org.mwolff.command.CommandTransition.FAILURE;
-import static org.mwolff.command.CommandTransition.SUCCESS;
+import static org.mwolff.command.CommandTransition.*;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
@@ -37,9 +36,6 @@ import org.mwolff.command.chain.ChainCommand;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.samplecommands.ExceptionCommand;
-import org.mwolff.command.samplecommands.PriorityOneTestCommand;
-import org.mwolff.command.samplecommands.PriorityThreeTestCommand;
-import org.mwolff.command.samplecommands.PriorityTwoTestCommand;
 
 public class CommandTest {
 
@@ -89,36 +85,6 @@ public class CommandTest {
       command.executeCommandAsChain(context);
       final String result = context.getAsString("executed");
       Assert.assertEquals("true", result);
-   }
-
-   @Test
-   public void testPriorityCommands() throws Exception {
-      final GenericParameterObject context = new DefaultParameterObject();
-      Command<GenericParameterObject> command = new PriorityOneTestCommand<>();
-      command.executeCommand(context);
-      Assert.assertEquals("PriorityOneTestCommand", context.getAsString("PriorityOneTestCommand"));
-      command = new PriorityTwoTestCommand<>();
-      command.executeCommand(context);
-      Assert.assertEquals("PriorityTwoTestCommand", context.getAsString("PriorityTwoTestCommand"));
-      command = new PriorityThreeTestCommand<>();
-      command.executeCommand(context);
-      Assert.assertEquals("PriorityThreeTestCommand", context.getAsString("PriorityThreeTestCommand"));
-   }
-
-   @Test
-   public void testPriorThreeFirstCall() throws Exception {
-      final GenericParameterObject context = new DefaultParameterObject();
-      final Command<GenericParameterObject> command = new PriorityThreeTestCommand<>();
-      command.executeCommand(context);
-      Assert.assertEquals("PriorityThreeTestCommand", context.getAsString("PriorityThreeTestCommand"));
-   }
-
-   @Test
-   public void testPriorTwoFirstCall() throws Exception {
-      final GenericParameterObject context = new DefaultParameterObject();
-      final Command<GenericParameterObject> command = new PriorityTwoTestCommand<>();
-      command.executeCommand(context);
-      Assert.assertEquals("PriorityTwoTestCommand", context.getAsString("PriorityTwoTestCommand"));
    }
 
 }
