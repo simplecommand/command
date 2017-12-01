@@ -43,10 +43,9 @@ import org.mwolff.command.process.Transition;
 import org.mwolff.command.samplecommands.DoneTestCommand;
 import org.mwolff.command.samplecommands.ExceptionCommand;
 import org.mwolff.command.samplecommands.FailureTestCommand;
-import org.mwolff.command.samplecommands.PriorityOneTestCommand;
-import org.mwolff.command.samplecommands.PriorityTwoTestCommand;
 import org.mwolff.command.samplecommands.ProcessTestCommandEnd;
 import org.mwolff.command.samplecommands.ProcessTestCommandStart;
+import org.mwolff.command.testcommand.TestCommand;
 
 public class InjectionChainBuilderTest {
 
@@ -115,14 +114,14 @@ public class InjectionChainBuilderTest {
         final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
         final List<Command<GenericParameterObject>> commandList = new ArrayList<>();
         final GenericParameterObject context = new DefaultParameterObject();
-        Command<GenericParameterObject> command = new PriorityOneTestCommand<>();
-        context.put("priority", "");
+        Command<GenericParameterObject> command = new TestCommand("1-", CommandTransition.NEXT);
+        context.put("resultString", "");
         commandList.add(command);
-        command = new PriorityTwoTestCommand<>();
+        command = new TestCommand("2-", CommandTransition.NEXT);
         commandList.add(command);
         builder.setCommands(commandList);
         builder.executeCommand(context);
-        Assert.assertEquals("1-2-", context.getAsString("priority"));
+        Assert.assertEquals("1-2-", context.getAsString("resultString"));
     }
 
     @Test

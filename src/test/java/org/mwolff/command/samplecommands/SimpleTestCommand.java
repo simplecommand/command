@@ -41,9 +41,9 @@ public class SimpleTestCommand<T extends GenericParameterObject> extends Abstrac
         }
 
         context.put("SimpleTestCommand", "SimpleTestCommand");
-        String priorString = context.getAsString("priority");
+        String priorString = context.getAsString("resultString");
         priorString += "S-";
-        context.put("priority", priorString);
+        context.put("resultString", priorString);
         return CommandTransition.SUCCESS;
     }
 }

@@ -65,9 +65,9 @@ public class XMLChainBuilderTest {
     public void testExecuteCommand() throws Exception {
         final XMLChainBuilder<Object> xmlChainBuilder = new XMLChainBuilder<>("/commandChainPriority.xml");
         final DefaultParameterObject context = new DefaultParameterObject();
-        context.put("priority", "");
+        context.put("resultString", "");
         final CommandTransition transition = xmlChainBuilder.executeCommand(context);
-        Assert.assertEquals("1-2-", context.getAsString("priority"));
+        Assert.assertEquals("S-S-", context.getAsString("resultString"));
         Assert.assertEquals(transition, SUCCESS);
     }
 

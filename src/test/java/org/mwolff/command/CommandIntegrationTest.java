@@ -27,6 +27,8 @@
 
 package org.mwolff.command;
 
+import static org.mwolff.command.CommandTransition.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,10 +37,8 @@ import org.junit.jupiter.api.Test;
 import org.mwolff.command.chain.InjectionChainBuilder;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
-import org.mwolff.command.samplecommands.PriorityOneTestCommand;
-import org.mwolff.command.samplecommands.PriorityThreeTestCommand;
-import org.mwolff.command.samplecommands.PriorityTwoTestCommand;
 import org.mwolff.command.samplecommands.SimpleTestCommand;
+import org.mwolff.command.testcommand.TestCommand;
 
 public class CommandIntegrationTest {
 
@@ -62,15 +62,15 @@ public class CommandIntegrationTest {
     public void testBuilderExample() throws Exception {
 
         final List<Command<GenericParameterObject>> commands = new ArrayList<>();
-        commands.add(new PriorityOneTestCommand<>());
-        commands.add(new PriorityTwoTestCommand<>());
+        commands.add(new TestCommand("1-", NEXT));
+        commands.add(new TestCommand("2-", NEXT));
         final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
         // injection usually will be done by a injection container
         builder.setCommands(commands);
         final GenericParameterObject context = new DefaultParameterObject();
-        context.put("priority", "");
+        context.put("resultString", "");
         builder.executeCommandAsChain(context);
-        final String priorString = context.getAsString("priority");
+        final String priorString = context.getAsString("resultString");
         Assert.assertEquals("1-2-", priorString);
     }
 
@@ -83,16 +83,16 @@ public class CommandIntegrationTest {
 
         final GenericParameterObject context = new DefaultParameterObject();
         final CommandContainer<GenericParameterObject> commandContainer = new DefaultCommandContainer<>();
-        commandContainer.addCommand(1, new PriorityOneTestCommand<>());
-        commandContainer.addCommand(2, new PriorityTwoTestCommand<>());
-        commandContainer.addCommand(3, new PriorityThreeTestCommand<>());
+        commandContainer.addCommand(1, new TestCommand("1-", NEXT));
+        commandContainer.addCommand(2, new TestCommand("2-", NEXT));
+        commandContainer.addCommand(3, new TestCommand("3-", NEXT));
 
         final CommandContainer<GenericParameterObject> mixedList = new DefaultCommandContainer<>();
         mixedList.addCommand(1, new SimpleTestCommand<>());
         mixedList.addCommand(2, commandContainer);
 
         mixedList.executeCommandAsChain(context);
-        final String priorString = context.getAsString("priority");
+        final String priorString = context.getAsString("resultString");
         Assert.assertEquals("S-1-2-3-", priorString);
     }
 
@@ -105,11 +105,11 @@ public class CommandIntegrationTest {
     public void testExecuteCommandsWithContext() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
         final CommandContainer<GenericParameterObject> container = new DefaultCommandContainer<>();
-        context.put("priority", "");
-        container.addCommand(new PriorityOneTestCommand<>());
-        container.addCommand(new PriorityTwoTestCommand<>());
+        context.put("resultString", "");
+        container.addCommand(new TestCommand("1-", NEXT));
+        container.addCommand(new TestCommand("2-", NEXT));
         container.executeCommand(context);
-        Assert.assertEquals("1-2-", context.getAsString("priority"));
+        Assert.assertEquals("1-2-", context.getAsString("resultString"));
     }
 
     /*
@@ -120,12 +120,12 @@ public class CommandIntegrationTest {
     public void testExecuteCommandsWithContextAndPriority() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
         final CommandContainer<GenericParameterObject> container = new DefaultCommandContainer<>();
-        context.put("priority", "");
-        container.addCommand(3, new PriorityThreeTestCommand<>());
-        container.addCommand(2, new PriorityOneTestCommand<>());
-        container.addCommand(1, new PriorityTwoTestCommand<>());
+        context.put("resultString", "");
+        container.addCommand(3, new TestCommand("3-", NEXT));
+        container.addCommand(2, new TestCommand("1-", NEXT));
+        container.addCommand(1, new TestCommand("2-", NEXT));
         container.executeCommand(context);
-        Assert.assertEquals("2-1-3-", context.getAsString("priority"));
+        Assert.assertEquals("2-1-3-", context.getAsString("resultString"));
     }
 
     /*
@@ -136,16 +136,16 @@ public class CommandIntegrationTest {
     public void testExecuteCommandsWithMixedContent() throws Exception {
         final GenericParameterObject context = new DefaultParameterObject();
         final CommandContainer<GenericParameterObject> commandContainer = new DefaultCommandContainer<>();
-        commandContainer.addCommand(1, new PriorityOneTestCommand<>());
-        commandContainer.addCommand(2, new PriorityTwoTestCommand<>());
-        commandContainer.addCommand(3, new PriorityThreeTestCommand<>());
+        commandContainer.addCommand(1, new TestCommand("1-", NEXT));
+        commandContainer.addCommand(2, new TestCommand("2-", NEXT));
+        commandContainer.addCommand(3, new TestCommand("3-", NEXT));
 
         final CommandContainer<GenericParameterObject> mixedList = new DefaultCommandContainer<>();
         mixedList.addCommand(new SimpleTestCommand<>());
         mixedList.addCommand(commandContainer);
 
         mixedList.executeCommand(context);
-        final String priorString = context.getAsString("priority");
+        final String priorString = context.getAsString("resultString");
         Assert.assertEquals("S-1-2-3-", priorString);
     }
 
@@ -157,8 +157,8 @@ public class CommandIntegrationTest {
     @Test
     public void testExecuteCommandsWithoutContext() throws Exception {
         final CommandContainer<GenericParameterObject> container = new DefaultCommandContainer<>();
-        container.addCommand(new PriorityOneTestCommand<>());
-        container.addCommand(new PriorityTwoTestCommand<>());
+        container.addCommand(new TestCommand("1-", NEXT));
+        container.addCommand(new TestCommand("2-", NEXT));
         container.executeCommand(DefaultParameterObject.NULLCONTEXT);
     }
 }
