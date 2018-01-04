@@ -30,7 +30,7 @@ public class ActionListToCommandContainerCommand extends AbstractDefaultCommand<
             final String classname = action.getClassname();
             Command<Object> command;
             try {
-                command = (Command<Object>) Class.forName(classname).newInstance();
+                command = (AbstractDefaultCommand<Object>) Class.forName(classname).newInstance();
                 defaultCommandContainer.addCommand(command);
             } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
                 ActionListToCommandContainerCommand.LOG.error(e);
