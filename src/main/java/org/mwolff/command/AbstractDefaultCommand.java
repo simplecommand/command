@@ -31,7 +31,7 @@ package org.mwolff.command;
 import static org.mwolff.command.CommandTransition.*;
 
 /** Default implementation for a command. The command interface offers only the
- * executeCommand method which returns as a default SUSSESS. Event the paramter
+ * executeCommand method which returns as a default SUSSESS. If the parameter
  * object equals null, FAILURE is returned.
  *
  * @since 1.5.1 */

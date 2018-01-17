@@ -33,6 +33,7 @@ package org.mwolff.command;
  * parameter object which passes information along the whole chain.
  *
  * @author Manfred Wolff */
+
 @FunctionalInterface
 public interface Command<T extends Object> {
 
