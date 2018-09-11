@@ -1,0 +1,7 @@
+/target/
+/log/
+/simple-command-sources.jar
+/source.directory/
+.classpath
+/bin/
+.settings/
