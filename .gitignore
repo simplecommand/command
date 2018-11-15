@@ -1,5 +1,6 @@
 /target/
 /log/
+/.idea/
 /simple-command-sources.jar
 /source.directory/
 .classpath
