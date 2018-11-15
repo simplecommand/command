@@ -45,11 +45,8 @@
 	</scm>
 
 	<properties>
-<<<<<<< HEAD
 		<springframework.version>5.0.4.RELEASE</springframework.version>
-=======
-		<springframework.version>4.2.0.RELEASE</springframework.version>
->>>>>>> 5ea24681fa3848db8637170bc7adc4da93bb0d93
+		<!-- springframework.version>4.2.0.RELEASE</springframework.version -->
 		<hamcrest.version>1.3</hamcrest.version>
 		<junit.version>4.12</junit.version>
 		<junit.jupiter.version>5.0.0</junit.jupiter.version>
@@ -153,7 +150,14 @@
 			<plugin>
 				<groupId>org.pitest</groupId>
 				<artifactId>pitest-maven</artifactId>
-				<version>1.2.3</version>
+				<version>1.4.2</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.pitest</groupId>
+						<artifactId>pitest-junit5-plugin</artifactId>
+						<version>0.7</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

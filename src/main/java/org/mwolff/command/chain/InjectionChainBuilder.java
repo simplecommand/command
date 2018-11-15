@@ -1,29 +1,31 @@
-/** Simple Command Framework.
- * 
+/**
+ * Simple Command Framework.
+ * <p>
  * Framework for easy building software that fits the SOLID principles.
- * 
+ *
  * @author Manfred Wolff <m.wolff@neusta.de>
- * 
- *         Download:
- *         https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
- * 
- *         Copyright (C) 2018 Manfred Wolff and the simple command community
- * 
- *         This library is free software; you can redistribute it and/or
- *         modify it under the terms of the GNU Lesser General Public
- *         License as published by the Free Software Foundation; either
- *         version 2.1 of the License, or (at your option) any later version.
- * 
- *         This library is distributed in the hope that it will be useful,
- *         but WITHOUT ANY WARRANTY; without even the implied warranty of
- *         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- *         Lesser General Public License for more details.
- * 
- *         You should have received a copy of the GNU Lesser General Public
- *         License along with this library; if not, write to the Free Software
- *         Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- *         02110-1301
- *         USA */
+ * <p>
+ * Download:
+ * https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
+ * <p>
+ * Copyright (C) 2018 Manfred Wolff and the simple command community
+ * <p>
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ * <p>
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301
+ * USA
+ */
 
 package org.mwolff.command.chain;
 
@@ -60,14 +62,11 @@ public class InjectionChainBuilder<T extends Object> implements Command<T>, Proc
     }
 
     /** Builds the chain for this builder.
-     * 
+     *
      * @return Returns the command container build. */
     protected CommandContainer<T> buildChain() {
-
         final CommandContainer<T> commandContainer = new DefaultCommandContainer<>();
-        for (final Command<T> command : commands) {
-            commandContainer.addCommand(command);
-        }
+        commands.forEach(commandContainer::addCommand);
         return commandContainer;
     }
 
@@ -96,5 +95,4 @@ public class InjectionChainBuilder<T extends Object> implements Command<T>, Proc
     public String executeAsProcess(T context) {
         throw new UnsupportedOperationException("Use executeAsProcess(String start, T context");
     }
-
 }
