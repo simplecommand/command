@@ -1,4 +1,4 @@
-<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" 
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN"
 	"http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
 <log4j:configuration>
 
@@ -38,8 +38,14 @@
 		<appender-ref ref="STDOUT" />
 	</logger>
 
+	<logger name="de.neusta" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="SW_ROLLING_FILE" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+
 	<root>
-		<level value="ERROR" />
+		<level value="DEBUG" />
 		<appender-ref ref="STDERR" />
 	</root>
 
