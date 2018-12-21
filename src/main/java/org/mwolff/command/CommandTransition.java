@@ -34,8 +34,7 @@ public enum CommandTransition {
      *        State can be:
      *
      *        SUCCESS : Execution was Successfully done. Used for Command-Mode
-     *        DONE : For CoR: The work is successfully done, the chain can be
-     *        aborted.
+     *        DONE : For CoR: The work is successfully done, the chain can be aborted.
      *        NEXT : For CoR: The work is not done, next chain should overtake.
      *        FAILURE : An fatal error has occurred. The chain should be aborted
      *

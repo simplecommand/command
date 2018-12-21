@@ -27,12 +27,14 @@
 
 package org.mwolff.command;
 
-import static org.mwolff.command.CommandTransition.*;
+import static org.mwolff.command.CommandTransition.DONE;
+import static org.mwolff.command.CommandTransition.FAILURE;
+import static org.mwolff.command.CommandTransition.NEXT;
+import static org.mwolff.command.CommandTransition.SUCCESS;
 
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.apache.log4j.Logger;
 import org.mwolff.command.chain.ChainCommand;
 import org.mwolff.command.process.ProcessCommand;
 
@@ -42,8 +44,6 @@ import org.mwolff.command.process.ProcessCommand;
  *
  * @author Manfred Wolff */
 public class DefaultCommandContainer<T extends Object> implements CommandContainer<T> {
-
-    private static final Logger            LOG         = Logger.getLogger(DefaultCommandContainer.class);
 
     private final Map<Integer, Command<T>> commandList = new TreeMap<>((final Integer o1, final Integer o2) -> {
                                                            if (o1.intValue() >= o2.intValue()) {
@@ -95,21 +95,16 @@ public class DefaultCommandContainer<T extends Object> implements CommandContain
         }
 
         String next = ((ProcessCommand<T>) command).executeAsProcess(context);
-        DefaultCommandContainer.LOG.info("Returnvalue    = ##> " + next);
-
-        // Special Node END
-        if ("END".equals(next)) {
-            // do first nothing
-        } else {
-            next = ((ProcessCommand<T>) command).findNext(next);
-        }
-        DefaultCommandContainer.LOG.info("Next ProcessID = --> " + next);
 
         if (next == null) {
             return null;
         }
-        if ("END".equals(next)) {
-            return "END";
+
+        // Special Node END
+        if (!END.equals(next)) {
+            next = ((ProcessCommand<T>) command).findNext(next);
+        } else {
+            return END;
         }
 
         // Recursion until next == null

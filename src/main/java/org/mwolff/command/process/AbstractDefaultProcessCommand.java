@@ -32,10 +32,9 @@ import java.util.List;
 
 import org.mwolff.command.chain.AbstractDefaultChainCommand;
 
-/** Default implementation for a process-command. You may use
- * <code>executeAsProcess</code> for all executions of the <code>command</code>
- * or
- * <code>commandContainer</code>. */
+/** Default implementation for a process-command. You may use  <code>executeAsProcess</code> for all executions of the
+ * <code>command</code> or  <code>commandContainer</code>.
+ */
 public abstract class AbstractDefaultProcessCommand<T extends Object> extends AbstractDefaultChainCommand<T>
         implements ProcessCommand<T> {
 

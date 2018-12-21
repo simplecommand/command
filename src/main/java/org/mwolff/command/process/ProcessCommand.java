@@ -38,31 +38,29 @@ import org.mwolff.command.chain.ChainCommand;
  * @author Manfred Wolff */
 public interface ProcessCommand<T extends Object> extends ChainCommand<T> {
 
+    final static String END = "End";
+
     default void addTransition(final Transition transition) {
     }
 
     /** Execute a command as a process. The result is the decision which process
      * step should be executed next.
      *
-     * @param startCommand
-     *            The command the process should start with.
-     * @param context
-     *            The context to work with.
+     * @param startCommand The command the process should start with.
+     * @param context      The context to work with.
      * @return The next process step to execute. Null stops the process. */
     String executeAsProcess(String startCommand, T context);
 
     /** Execute a command as a process. The result is the decision which process
      * step should be executed next.
      *
-     * @param context
-     *            The context to work with.
+     * @param context The context to work with.
      * @return The next process step to execute. Null stops the process. */
     String executeAsProcess(T context);
 
     /** Finds the next command with the processID next.
      *
-     * @param next
-     *            The process id to find.
+     * @param next The process id to find.
      * @return The process id of the next command */
     default String findNext(final String next) {
         return next;
@@ -79,7 +77,6 @@ public interface ProcessCommand<T extends Object> extends ChainCommand<T> {
 
     /** Sets the process ID of the command
      *
-     * @param processID
-     *            Sets the process id of this process command. */
+     * @param processID Sets the process id of this process command. */
     void setProcessID(String processID);
 }

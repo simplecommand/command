@@ -40,10 +40,9 @@ public abstract class AbstractDefaultCommand<T extends Object> implements Comman
     /** Executes the command and returns a CommandTransition as feedback.
      * Implementation should save errors in the parameter object.
      *
-     * @param parameterObject
-     *            The parameter object to pass. Should not be finalized.
-     * @return CommandTransion.SUCCESS by default, FAILURE if the parameter
-     *         equals null. */
+     * @param parameterObject The parameter object to pass. Should not be finalized.
+     * @return CommandTransion.SUCCESS by default, FAILURE if the parameter equals null.
+     */
     @Override
     public CommandTransition executeCommand(T parameterObject) {
         if (parameterObject == null) {
