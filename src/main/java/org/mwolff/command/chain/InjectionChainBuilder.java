@@ -38,7 +38,6 @@ import org.mwolff.command.CommandTransition;
 import org.mwolff.command.DefaultCommandContainer;
 import org.mwolff.command.process.ProcessCommand;
 
-/** Generic chain builder for configuration with the spring framework. */
 public class InjectionChainBuilder<T extends Object> implements Command<T>, ProcessCommand<T>, ChainCommand<T> {
 
     private List<Command<T>> commands = new ArrayList<>();

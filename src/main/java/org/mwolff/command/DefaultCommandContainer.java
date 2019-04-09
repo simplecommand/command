@@ -1,29 +1,26 @@
-/** Simple Command Framework.
- * 
- * Framework for easy building software that fits the SOLID principles.
- * 
- * @author Manfred Wolff <m.wolff@neusta.de>
- * 
- *         Download:
- *         https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
- * 
- *         Copyright (C) 2018 Manfred Wolff and the simple command community
- * 
+/* Simple Command Framework.
+ *
+ *          Framework for easy building software that fits the SOLID principles.
+ *
+ *         @author Manfred Wolff <m.wolff@neusta.de>
+ *
+ *         Copyright (C) 2018 - 2020 Manfred Wolff and the simple command community
+ *
  *         This library is free software; you can redistribute it and/or
  *         modify it under the terms of the GNU Lesser General Public
  *         License as published by the Free Software Foundation; either
  *         version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  *         This library is distributed in the hope that it will be useful,
  *         but WITHOUT ANY WARRANTY; without even the implied warranty of
  *         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  *         Lesser General Public License for more details.
- * 
+ *
  *         You should have received a copy of the GNU Lesser General Public
  *         License along with this library; if not, write to the Free Software
  *         Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- *         02110-1301
- *         USA */
+ *         02110-1301 USA
+ */
 
 package org.mwolff.command;
 
@@ -43,10 +40,10 @@ import org.mwolff.command.process.ProcessCommand;
  * a command (Composite Pattern).
  *
  * @author Manfred Wolff */
-public class DefaultCommandContainer<T extends Object> implements CommandContainer<T> {
+public class DefaultCommandContainer<T> implements CommandContainer<T> {
 
     private final Map<Integer, Command<T>> commandList = new TreeMap<>((final Integer o1, final Integer o2) -> {
-                                                           if (o1.intValue() >= o2.intValue()) {
+                                                           if (o1 >= o2) {
                                                                return 1;
                                                            } else {
                                                                return -1;
@@ -56,7 +53,7 @@ public class DefaultCommandContainer<T extends Object> implements CommandContain
     /** @see org.mwolff.command.CommandContainer#addCommand(org.mwolff.command.Command) */
     @Override
     public CommandContainer<T> addCommand(final Command<T> command) {
-        commandList.put(Integer.valueOf(0), command);
+        commandList.put(0, command);
         return this;
     }
 
@@ -64,7 +61,7 @@ public class DefaultCommandContainer<T extends Object> implements CommandContain
      *      org.mwolff.command.Command) */
     @Override
     public CommandContainer<T> addCommand(final int priority, final Command<T> command) {
-        commandList.put(Integer.valueOf(priority), command);
+        commandList.put(priority, command);
         return this;
     }
 
