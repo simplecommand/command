@@ -38,7 +38,7 @@ import org.mwolff.command.chain.ChainCommand;
  * @author Manfred Wolff */
 public interface ProcessCommand<T extends Object> extends ChainCommand<T> {
 
-    final static String END = "End";
+    final static String END = "END";
 
     default void addTransition(final Transition transition) {
     }

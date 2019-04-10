@@ -29,15 +29,17 @@ package org.mwolff.command.process;
 
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
+import static org.mwolff.command.process.ProcessCommand.*;
+
 public class DefaultEndCommand extends AbstractDefaultProcessCommand<GenericParameterObject> {
 
     @Override
     public String executeAsProcess(String startCommand, GenericParameterObject context) {
-        return "END";
+        return END;
     }
 
     @Override
     public String executeAsProcess(GenericParameterObject context) {
-        return "END";
+        return END;
     }
 }

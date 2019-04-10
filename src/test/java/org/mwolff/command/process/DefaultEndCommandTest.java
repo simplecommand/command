@@ -26,6 +26,7 @@
  *         USA */
 package org.mwolff.command.process;
 
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.CoreMatchers.nullValue;
 
 import org.hamcrest.CoreMatchers;
@@ -48,7 +49,7 @@ public class DefaultEndCommandTest {
 
    @Test
    public void testExecuteAsProcessSimple() throws Exception {
-      Assert.assertThat(defaultEndCommand.executeAsProcess(null), CoreMatchers.is("END"));
+      Assert.assertThat(defaultEndCommand.executeAsProcess(null), is("END"));
    }
 
    @Test
@@ -57,20 +58,20 @@ public class DefaultEndCommandTest {
       defaultEndCommand.setProcessID("END");
       final DefaultParameterObject context = new DefaultParameterObject();
       defaultCommandContainer.addCommand(defaultEndCommand);
-      Assert.assertThat(defaultCommandContainer.executeAsProcess("END", context), CoreMatchers.is("END"));
+      Assert.assertThat(defaultCommandContainer.executeAsProcess("END", context), is("END"));
    }
 
    @Test
    public void testExecuteAsProcessComplex() throws Exception {
-      Assert.assertThat(defaultEndCommand.executeAsProcess("START", null), CoreMatchers.is("END"));
+      Assert.assertThat(defaultEndCommand.executeAsProcess("START", null), is("END"));
    }
 
    @Test
    public void testCommandWithoutTransiton() throws Exception {
       final XMLChainBuilder<GenericParameterObject> xmlChainBuilder = new XMLChainBuilder<>(
             "commandChainProcessEnd.xml");
-      String result = xmlChainBuilder.executeAsProcess("End", DefaultParameterObject.NULLCONTEXT);
-      Assert.assertThat(result, CoreMatchers.is("END"));
+      String result = xmlChainBuilder.executeAsProcess("END", DefaultParameterObject.NULLCONTEXT);
+      Assert.assertThat(result, is("END"));
 
    }
 

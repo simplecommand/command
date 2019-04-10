@@ -30,6 +30,7 @@ package org.mwolff.command;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -41,6 +42,7 @@ public class CommandExceptionTest {
     public void commandExceptionDefaultConstructorTest() throws Exception {
         Assert.assertThat(new CommandException(), Matchers.notNullValue());
     }
+
 
     @Test
     @DisplayName("Construction of CommandException with Message and Throwable is possible")

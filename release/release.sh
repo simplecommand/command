@@ -6,11 +6,11 @@ fi
 
 echo Release version $1
 
-cp ../command-$1.jar .
-cp ../command-$1-javadoc.jar .
-cp ../../source.directory/simple-command-sources.jar .
+cp ../target/command-$1.jar .
+cp ../target/command-$1-javadoc.jar .
+cp ../source.directory/simple-command-sources.jar .
 mv simple-command-sources.jar command-$1-sources.jar
-cp ../../pom.xml .
+cp ../pom.xml .
 rm -rf bundle.jar
 
 gpg2 -ab pom.xml

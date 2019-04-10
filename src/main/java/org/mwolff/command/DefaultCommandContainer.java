@@ -30,35 +30,43 @@ import static org.mwolff.command.CommandTransition.NEXT;
 import static org.mwolff.command.CommandTransition.SUCCESS;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 
 import org.mwolff.command.chain.ChainCommand;
 import org.mwolff.command.process.ProcessCommand;
 
-/** CommandContainer that holds Command-objects. Should have the same behavior
+/**
+ * CommandContainer that holds Command-objects. Should have the same behavior
  * as
  * a command (Composite Pattern).
  *
- * @author Manfred Wolff */
+ * @author Manfred Wolff
+ */
 public class DefaultCommandContainer<T> implements CommandContainer<T> {
 
-    private final Map<Integer, Command<T>> commandList = new TreeMap<>((final Integer o1, final Integer o2) -> {
-                                                           if (o1 >= o2) {
-                                                               return 1;
-                                                           } else {
-                                                               return -1;
-                                                           }
-                                                       });
+    private final Map<Integer, Command<T>> commandList =
+            new TreeMap<>((final Integer o1, final Integer o2) -> {
+                if (o1 >= o2) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            });
 
-    /** @see org.mwolff.command.CommandContainer#addCommand(org.mwolff.command.Command) */
+    /**
+     * @see org.mwolff.command.CommandContainer#addCommand(org.mwolff.command.Command)
+     */
     @Override
     public CommandContainer<T> addCommand(final Command<T> command) {
         commandList.put(0, command);
         return this;
     }
 
-    /** @see org.mwolff.command.CommandContainer#addCommand(int,
-     *      org.mwolff.command.Command) */
+    /**
+     * @see org.mwolff.command.CommandContainer#addCommand(int,
+     * org.mwolff.command.Command)
+     */
     @Override
     public CommandContainer<T> addCommand(final int priority, final Command<T> command) {
         commandList.put(priority, command);
@@ -78,45 +86,46 @@ public class DefaultCommandContainer<T> implements CommandContainer<T> {
         return result;
     }
 
-    /** @see org.mwolff.command.process.ProcessCommand#executeAsProcess(java.lang.String,
-     *      java.lang.Object) */
+    /**
+     * @see org.mwolff.command.process.ProcessCommand#executeAsProcess(java.lang.String,
+     * java.lang.Object)
+     */
     @Override
     public String executeAsProcess(final String startCommand, final T context) {
 
-        Command<T> command;
+        Optional<ProcessCommand<T>> command = Optional.ofNullable(getCommandByProcessID(startCommand));
 
-        command = getCommandByProcessID(startCommand);
-
-        if (command == null) {
+        if (!command.isPresent()) {
             return null;
         }
 
-        String next = ((ProcessCommand<T>) command).executeAsProcess(context);
+        Optional<String> next = Optional.ofNullable(((ProcessCommand<T>) command.get()).executeAsProcess(context));
 
-        if (next == null) {
+        if (!next.isPresent()) {
             return null;
         }
 
         // Special Node END
-        if (!END.equals(next)) {
-            next = ((ProcessCommand<T>) command).findNext(next);
+        String nextCommand = null;
+        if (!END.equals(next.get())) {
+            nextCommand = command.get().findNext(next.get());
         } else {
             return END;
         }
 
         // Recursion until next == null
-        return executeAsProcess(next, context);
+        return executeAsProcess(nextCommand, context);
     }
 
     @Override
-    public Command<T> getCommandByProcessID(final String proceddID) {
+    public ProcessCommand<T> getCommandByProcessID(final String proceddID) {
 
-        Command<T> command = null;
+        ProcessCommand<T> command = null;
 
         for (final Command<T> actcommand : commandList.values()) {
             final String actualProcessId = ((ProcessCommand<T>) actcommand).getProcessID();
             if (actualProcessId.equals(proceddID)) {
-                command = actcommand;
+                command = (ProcessCommand<T>) actcommand;
                 break;
             }
         }
