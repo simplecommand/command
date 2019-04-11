@@ -1,10 +1,10 @@
-/* Simple Command Framework.
+/*         Simple Command Framework.
  *
- *          Framework for easy building software that fits the SOLID principles.
+ *         Framework for easy building software that fits the SOLID principles.
  *
  *         @author Manfred Wolff <m.wolff@neusta.de>
  *
- *         Copyright (C) 2018 - 2020 Manfred Wolff and the simple command community
+ *         Copyright (C) 2017-2020 Manfred Wolff and the simple command community
  *
  *         This library is free software; you can redistribute it and/or
  *         modify it under the terms of the GNU Lesser General Public
@@ -21,9 +21,9 @@
  *         Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  *         02110-1301 USA
  */
-
 package org.mwolff.command;
 
+import static java.util.Optional.ofNullable;
 import static org.mwolff.command.CommandTransition.DONE;
 import static org.mwolff.command.CommandTransition.FAILURE;
 import static org.mwolff.command.CommandTransition.NEXT;
@@ -91,18 +91,17 @@ public class DefaultCommandContainer<T> implements CommandContainer<T> {
      * java.lang.Object)
      */
     @Override
-    public String executeAsProcess(final String startCommand, final T context) {
+    public Optional<String> executeAsProcess(final String startCommand, final T context) {
 
-        return Optional.ofNullable(getCommandByProcessID(startCommand))
-                .flatMap(cmd ->
-                    Optional.ofNullable(cmd.executeAsProcess(context))
-                        .map(cmd::findNext))
-                        .map(nextCommand -> this.executeAsProcess(nextCommand, context))
-                .orElse(null);
+        return getCommandByProcessID(startCommand)
+                .flatMap(cmd ->cmd.executeAsProcess(context)
+                .flatMap(cmd::findNext))
+                .map(nextCommand -> this.executeAsProcess(nextCommand, context))
+                .orElse(Optional.empty());
     }
 
     @Override
-    public ProcessCommand<T> getCommandByProcessID(final String proceddID) {
+    public Optional<ProcessCommand<T>> getCommandByProcessID(final String proceddID) {
 
         ProcessCommand<T> command = null;
 
@@ -113,7 +112,7 @@ public class DefaultCommandContainer<T> implements CommandContainer<T> {
                 break;
             }
         }
-        return command;
+        return Optional.ofNullable(command);
     }
 
     @Override
@@ -127,8 +126,8 @@ public class DefaultCommandContainer<T> implements CommandContainer<T> {
     }
 
     @Override
-    public String executeAsProcess(T context) {
-        return null;
+    public Optional<String> executeAsProcess(T context) {
+        return Optional.empty();
     }
 
     @Override

@@ -1,34 +1,32 @@
-/** Simple Command Framework.
- * 
- * Framework for easy building software that fits the SOLID principles.
- * 
- * @author Manfred Wolff <m.wolff@neusta.de>
- * 
- *         Download:
- *         https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
- * 
- *         Copyright (C) 2018 Manfred Wolff and the simple command community
- * 
+/*         Simple Command Framework.
+ *
+ *         Framework for easy building software that fits the SOLID principles.
+ *
+ *         @author Manfred Wolff <m.wolff@neusta.de>
+ *
+ *         Copyright (C) 2017-2020 Manfred Wolff and the simple command community
+ *
  *         This library is free software; you can redistribute it and/or
  *         modify it under the terms of the GNU Lesser General Public
  *         License as published by the Free Software Foundation; either
  *         version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  *         This library is distributed in the hope that it will be useful,
  *         but WITHOUT ANY WARRANTY; without even the implied warranty of
  *         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  *         Lesser General Public License for more details.
- * 
+ *
  *         You should have received a copy of the GNU Lesser General Public
  *         License along with this library; if not, write to the Free Software
  *         Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- *         02110-1301
- *         USA */
-
+ *         02110-1301 USA
+ */
 package org.mwolff.command;
 
 import org.mwolff.command.chain.ChainCommand;
 import org.mwolff.command.process.ProcessCommand;
+
+import java.util.Optional;
 
 /** Interface of a command container. A command container implements all command
  * interfaces. So you can execute commandContainer as usual commands. Actually
@@ -64,5 +62,5 @@ public interface CommandContainer<T extends Object> extends ChainCommand<T>, Pro
      * @param processID
      *            The id to find the command.
      * @return The command with the certain processID */
-    Command<T> getCommandByProcessID(String processID);
+    Optional<ProcessCommand<T>> getCommandByProcessID(String processID);
 }

@@ -1,13 +1,10 @@
-/** Simple Command Framework.
+/*         Simple Command Framework.
  * 
- * Framework for easy building software that fits the SOLID principles.
+ *         Framework for easy building software that fits the SOLID principles.
  * 
- * @author Manfred Wolff <m.wolff@neusta.de>
+ *         @author Manfred Wolff <m.wolff@neusta.de>
  * 
- *         Download:
- *         https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
- * 
- *         Copyright (C) 2018 Manfred Wolff and the simple command community
+ *         Copyright (C) 2017-2020 Manfred Wolff and the simple command community
  * 
  *         This library is free software; you can redistribute it and/or
  *         modify it under the terms of the GNU Lesser General Public
@@ -22,9 +19,8 @@
  *         You should have received a copy of the GNU Lesser General Public
  *         License along with this library; if not, write to the Free Software
  *         Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- *         02110-1301
- *         USA */
-
+ *         02110-1301 USA
+ */
 package org.mwolff.command.process;
 
 import java.util.ArrayList;
@@ -32,6 +28,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.mwolff.command.chain.ChainCommand;
+
+import javax.swing.text.html.Option;
 
 /** Command interface for the command framework. Commands may act with generic
  * command contexts.
@@ -50,21 +48,21 @@ public interface ProcessCommand<T extends Object> extends ChainCommand<T> {
      * @param startCommand The command the process should start with.
      * @param context      The context to work with.
      * @return The next process step to execute. Null stops the process. */
-    String executeAsProcess(String startCommand, T context);
+    Optional<String> executeAsProcess(String startCommand, T context);
 
     /** Execute a command as a process. The result is the decision which process
      * step should be executed next.
      *
      * @param context The context to work with.
      * @return The next process step to execute. Null stops the process. */
-    String executeAsProcess(T context);
+    Optional<String> executeAsProcess(T context);
 
     /** Finds the next command with the processID next.
      *
      * @param next The process id to find.
      * @return The process id of the next command */
-    default String findNext(final String next) {
-        return next;
+    default Optional<String> findNext(final String next) {
+        return Optional.empty();
     }
 
     /** Gets the process ID of the command.

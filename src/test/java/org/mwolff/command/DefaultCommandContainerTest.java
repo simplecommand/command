@@ -1,30 +1,26 @@
-/** Simple Command Framework.
- * 
- * Framework for easy building software that fits the SOLID principles.
- * 
- * @author Manfred Wolff <m.wolff@neusta.de>
- * 
- *         Download:
- *         https://mwolff.info:7990/bitbucket/scm/scf/simplecommandframework.git
- * 
- *         Copyright (C) 2018 Manfred Wolff and the simple command community
- * 
+/*         Simple Command Framework.
+ *
+ *         Framework for easy building software that fits the SOLID principles.
+ *
+ *         @author Manfred Wolff <m.wolff@neusta.de>
+ *
+ *         Copyright (C) 2017-2020 Manfred Wolff and the simple command community
+ *
  *         This library is free software; you can redistribute it and/or
  *         modify it under the terms of the GNU Lesser General Public
  *         License as published by the Free Software Foundation; either
  *         version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  *         This library is distributed in the hope that it will be useful,
  *         but WITHOUT ANY WARRANTY; without even the implied warranty of
  *         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  *         Lesser General Public License for more details.
- * 
+ *
  *         You should have received a copy of the GNU Lesser General Public
  *         License along with this library; if not, write to the Free Software
  *         Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- *         02110-1301
- *         USA */
-
+ *         02110-1301 USA
+ */
 package org.mwolff.command;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -32,6 +28,7 @@ import static org.junit.Assert.*;
 import static org.mwolff.command.CommandTransition.*;
 
 import java.util.Map;
+import java.util.Optional;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
@@ -50,6 +47,8 @@ import org.mwolff.command.samplecommands.ProcessTestCommandStart;
 import org.mwolff.command.samplecommands.SimpleTestCommand;
 import org.mwolff.command.testcommand.TestCommand;
 import org.springframework.test.util.ReflectionTestUtils;
+
+import javax.print.attribute.standard.MediaSize;
 
 public class DefaultCommandContainerTest {
 
@@ -233,15 +232,15 @@ public class DefaultCommandContainerTest {
         final ProcessCommand<GenericParameterObject> search = new DefaultEndCommand();
         search.setProcessID("END");
         commandContainer.addCommand(search);
-        final String result = commandContainer.executeAsProcess(context);
-        Assert.assertEquals(null, result);
+        final Optional<String> result = commandContainer.executeAsProcess(context);
+        Assert.assertEquals(Optional.empty(), result);
     }
 
     // Remark: Should work if no command is inserted
     @Test
     public void testExecuteWithNullCommands() throws Exception {
-        final String result = commandContainer.executeAsProcess(null, context);
-        Assert.assertEquals(null, result);
+        final Optional<String> result = commandContainer.executeAsProcess(null, context);
+        Assert.assertEquals(Optional.empty(), result);
 
     }
 
@@ -251,8 +250,8 @@ public class DefaultCommandContainerTest {
         commandContainer.addCommand(1, search);
         commandContainer.addCommand(2, new ProcessTestCommandNext<>("NextCommand"));
 
-        final Command<GenericParameterObject> found = commandContainer.getCommandByProcessID("StartCommand");
-        Assert.assertSame(found, search);
+        final Optional<ProcessCommand<GenericParameterObject>> found = commandContainer.getCommandByProcessID("StartCommand");
+        Assert.assertSame(found.get(), search);
     }
 
     /*
