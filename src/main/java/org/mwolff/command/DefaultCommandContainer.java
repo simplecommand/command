@@ -93,41 +93,12 @@ public class DefaultCommandContainer<T> implements CommandContainer<T> {
     @Override
     public String executeAsProcess(final String startCommand, final T context) {
 
-        // Optional<ProcessCommand<T>> command = Optional.ofNullable(getCommandByProcessID(startCommand));
-
-
         return Optional.ofNullable(getCommandByProcessID(startCommand))
                 .flatMap(cmd ->
                     Optional.ofNullable(cmd.executeAsProcess(context))
                         .map(cmd::findNext))
                         .map(nextCommand -> this.executeAsProcess(nextCommand, context))
                 .orElse(null);
-
-//        if (nextCommand.isEmpty()) {
-//            return null;
-//        }
-
-
-        // if (!command.isPresent()) {
-        //    return null;
-        // }
-
-        // Optional<String> next = Optional.ofNullable(((ProcessCommand<T>) command.get()).executeAsProcess(context));
-
-//        if (!next.isPresent()) {
-//            return null;
-//        }
-//
-//        // Special Node END
-//        String nextCommand = null;
-//        if (!END.equals(next.get())) {
-//            nextCommand = command.get().findNext(next.get());
-//        } else {
-//            return END;
-//        }
-
-        // Recursion until next == null
-        //return executeAsProcess(nextCommand, context);
     }
 
     @Override

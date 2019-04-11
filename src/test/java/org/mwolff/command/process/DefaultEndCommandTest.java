@@ -58,7 +58,7 @@ public class DefaultEndCommandTest {
       defaultEndCommand.setProcessID("END");
       final DefaultParameterObject context = new DefaultParameterObject();
       defaultCommandContainer.addCommand(defaultEndCommand);
-      Assert.assertThat(defaultCommandContainer.executeAsProcess("END", context), is("END"));
+      Assert.assertThat(defaultCommandContainer.executeAsProcess("END", context), nullValue());
    }
 
    @Test
@@ -71,7 +71,7 @@ public class DefaultEndCommandTest {
       final XMLChainBuilder<GenericParameterObject> xmlChainBuilder = new XMLChainBuilder<>(
             "commandChainProcessEnd.xml");
       String result = xmlChainBuilder.executeAsProcess("END", DefaultParameterObject.NULLCONTEXT);
-      Assert.assertThat(result, is("END"));
+      Assert.assertThat(result, nullValue());
 
    }
 

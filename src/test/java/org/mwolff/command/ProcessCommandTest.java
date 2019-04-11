@@ -37,6 +37,8 @@ import org.mwolff.command.process.ProcessCommand;
 import org.mwolff.command.process.Transition;
 import org.mwolff.command.samplecommands.ProcessTestCommandStart;
 
+import java.util.Optional;
+
 public class ProcessCommandTest {
 
     @Test
