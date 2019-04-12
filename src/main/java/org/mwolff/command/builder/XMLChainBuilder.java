@@ -21,7 +21,7 @@
  *         Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  *         02110-1301 USA
  */
-package org.mwolff.command.chain;
+package org.mwolff.command.builder;
 
 import static org.mwolff.command.CommandTransition.*;
 import static org.mwolff.command.sax.GlobalCommandConstants.*;
@@ -32,6 +32,7 @@ import org.mwolff.command.CommandContainer;
 import org.mwolff.command.CommandException;
 import org.mwolff.command.CommandTransition;
 import org.mwolff.command.DefaultCommandContainer;
+import org.mwolff.command.chain.ChainCommand;
 import org.mwolff.command.process.ProcessCommand;
 import org.mwolff.command.sax.ActionListToCommandContainerCommand;
 import org.mwolff.command.sax.InputSourceReaderCommand;

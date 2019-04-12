@@ -26,11 +26,9 @@ package org.mwolff.command.samplecommands;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
-import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.CommandTransition;
-import org.mwolff.command.chain.XMLChainBuilder;
+import org.mwolff.command.builder.XMLChainBuilder;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 

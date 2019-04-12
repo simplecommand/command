@@ -21,7 +21,7 @@
  *         Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  *         02110-1301 USA
  */
-package org.mwolff.command.chain;
+package org.mwolff.command.builder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +31,7 @@ import org.mwolff.command.Command;
 import org.mwolff.command.CommandContainer;
 import org.mwolff.command.CommandTransition;
 import org.mwolff.command.DefaultCommandContainer;
+import org.mwolff.command.chain.ChainCommand;
 import org.mwolff.command.process.ProcessCommand;
 
 public class InjectionChainBuilder<T extends Object> implements Command<T>, ProcessCommand<T>, ChainCommand<T> {

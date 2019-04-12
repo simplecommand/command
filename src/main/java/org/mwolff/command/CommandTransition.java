@@ -25,7 +25,7 @@ package org.mwolff.command;
 
 public enum CommandTransition {
 
-    /** @since 1.5.0
+    /**
      *        Transition for an execute Method.
      *
      *        State can be:
@@ -35,7 +35,7 @@ public enum CommandTransition {
      *        NEXT : For CoR: The work is not done, next chain should overtake.
      *        FAILURE : An fatal error has occurred. The chain should be aborted
      *
-     * @since 1.5.0 */
+     */
     SUCCESS, FAILURE, NEXT, DONE
 
 }

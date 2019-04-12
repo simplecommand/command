@@ -28,7 +28,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import org.mwolff.command.chain.InjectionChainBuilder;
+import org.mwolff.command.builder.InjectionChainBuilder;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.samplecommands.SimpleTestCommand;

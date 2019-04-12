@@ -32,6 +32,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.Command;
 import org.mwolff.command.CommandTransition;
+import org.mwolff.command.builder.InjectionChainBuilder;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.DefaultTransition;
