@@ -78,6 +78,6 @@ public abstract class AbstractDefaultProcessCommand<T extends Object> extends Ab
 
     @Override
     public Optional<String> executeAsProcess(String startCommand, T context) {
-        return null;
+        return Optional.empty();
     }
 }

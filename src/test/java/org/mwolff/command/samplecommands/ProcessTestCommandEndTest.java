@@ -26,6 +26,7 @@ package org.mwolff.command.samplecommands;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.CommandTransition;
@@ -52,7 +53,7 @@ public class ProcessTestCommandEndTest {
         final ProcessTestCommandEnd<GenericParameterObject> command = new ProcessTestCommandEnd<>();
         final DefaultParameterObject context = new DefaultParameterObject();
         final Optional<String> result = command.executeAsProcess("END", context);
-        assertNull(result);
+        assertThat(result, is(Optional.empty()));
     }
 
     @Test
