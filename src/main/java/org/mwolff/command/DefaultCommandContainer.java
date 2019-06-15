@@ -23,18 +23,14 @@
  */
 package org.mwolff.command;
 
-import static java.util.Optional.ofNullable;
-import static org.mwolff.command.CommandTransition.DONE;
-import static org.mwolff.command.CommandTransition.FAILURE;
-import static org.mwolff.command.CommandTransition.NEXT;
-import static org.mwolff.command.CommandTransition.SUCCESS;
+import org.mwolff.command.chain.ChainCommand;
+import org.mwolff.command.process.ProcessCommand;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
 
-import org.mwolff.command.chain.ChainCommand;
-import org.mwolff.command.process.ProcessCommand;
+import static org.mwolff.command.CommandTransition.*;
 
 /**
  * CommandContainer that holds Command-objects. Should have the same behavior

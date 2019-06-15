@@ -22,16 +22,19 @@
  *         02110-1301 USA
  */
 package org.mwolff.command;
+
 import org.junit.jupiter.api.Test;
-import org.mwolff.command.CommandTransition;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class CommandTransitionTest {
 
     @Test
-    public void testName() throws Exception {
-        CommandTransition.valueOf(CommandTransition.SUCCESS.toString());
-        CommandTransition.valueOf(CommandTransition.FAILURE.toString());
-        CommandTransition.valueOf(CommandTransition.DONE.toString());
+    public void testEnaumValus() throws Exception {
+        assertThat(CommandTransition.valueOf(CommandTransition.SUCCESS.toString()), is(CommandTransition.SUCCESS));
+        assertThat(CommandTransition.valueOf(CommandTransition.FAILURE.toString()), is(CommandTransition.FAILURE));
+        assertThat(CommandTransition.valueOf(CommandTransition.DONE.toString()), is(CommandTransition.DONE));
     }
 
 }

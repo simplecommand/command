@@ -23,8 +23,6 @@
  */
 package org.mwolff.command.chain;
 
-import static org.mwolff.command.CommandTransition.*;
-
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
@@ -35,6 +33,8 @@ import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
 import java.util.Optional;
+
+import static org.mwolff.command.CommandTransition.*;
 
 public class XMLChainBuilderTest {
 
@@ -75,7 +75,7 @@ public class XMLChainBuilderTest {
         final XMLChainBuilder<Object> xmlChainBuilder = new XMLChainBuilder<>("/commandChainProcessNotExists.xml");
         final DefaultParameterObject context = new DefaultParameterObject();
         final Optional<String> result = xmlChainBuilder.executeAsProcess("Start", context);
-        Assert.assertNull(result);
+        Assert.assertThat(result, CoreMatchers.is(Optional.empty()));
     }
 
     @Test
@@ -94,7 +94,7 @@ public class XMLChainBuilderTest {
         context.put("resultString", "");
         final CommandTransition transition = xmlChainBuilder.executeCommand(context);
         Assert.assertEquals("S-S-", context.getAsString("resultString"));
-        Assert.assertEquals(transition, SUCCESS);
+        Assert.assertEquals(SUCCESS, transition);
     }
 
     @Test
@@ -103,7 +103,7 @@ public class XMLChainBuilderTest {
         final DefaultParameterObject context = new DefaultParameterObject();
         context.put("priority", "");
         final CommandTransition transition = xmlChainBuilder.executeCommandAsChain(context);
-        Assert.assertEquals(transition, DONE);
+        Assert.assertEquals(DONE, transition);
     }
 
     @Test

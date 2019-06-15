@@ -24,7 +24,6 @@
 package org.mwolff.command;
 
 import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
@@ -35,7 +34,6 @@ import org.mwolff.command.samplecommands.ProcessTestCommandStart;
 
 import java.util.Optional;
 
-import static net.bytebuddy.matcher.ElementMatchers.is;
 import static org.junit.Assert.*;
 
 public class ProcessCommandTest {

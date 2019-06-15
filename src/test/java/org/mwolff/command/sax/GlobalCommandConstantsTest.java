@@ -25,15 +25,19 @@ package org.mwolff.command.sax;
 
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
 public class GlobalCommandConstantsTest {
 
     @Test
-    public void testName() throws Exception {
-        GlobalCommandConstants.valueOf(GlobalCommandConstants.FILE_NAME.toString());
-        GlobalCommandConstants.valueOf(GlobalCommandConstants.INPUT_SOURCE.toString());
-        GlobalCommandConstants.valueOf(GlobalCommandConstants.ERROR_STRING.toString());
-        GlobalCommandConstants.valueOf(GlobalCommandConstants.ACTION_LIST.toString());
-        GlobalCommandConstants.valueOf(GlobalCommandConstants.COMMAND_CONTAINER.toString());
+    public void testEnumValues() throws Exception {
+
+        assertThat(GlobalCommandConstants.valueOf(GlobalCommandConstants.FILE_NAME.toString()), is(GlobalCommandConstants.FILE_NAME));
+        assertThat(GlobalCommandConstants.valueOf(GlobalCommandConstants.INPUT_SOURCE.toString()), is(GlobalCommandConstants.INPUT_SOURCE));
+        assertThat(GlobalCommandConstants.valueOf(GlobalCommandConstants.ERROR_STRING.toString()), is(GlobalCommandConstants.ERROR_STRING));
+        assertThat(GlobalCommandConstants.valueOf(GlobalCommandConstants.ACTION_LIST.toString()), is(GlobalCommandConstants.ACTION_LIST));
+        assertThat(GlobalCommandConstants.valueOf(GlobalCommandConstants.COMMAND_CONTAINER.toString()), is(GlobalCommandConstants.COMMAND_CONTAINER));
     }
 
 }

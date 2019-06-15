@@ -23,15 +23,16 @@
  */
 package org.mwolff.command.sax;
 
-import static org.mwolff.command.CommandTransition.*;
-import static org.mwolff.command.sax.GlobalCommandConstants.*;
+import org.mwolff.command.AbstractDefaultCommand;
+import org.mwolff.command.CommandTransition;
+import org.xml.sax.InputSource;
 
 import java.io.File;
 import java.io.InputStream;
 
-import org.mwolff.command.AbstractDefaultCommand;
-import org.mwolff.command.CommandTransition;
-import org.xml.sax.InputSource;
+import static org.mwolff.command.CommandTransition.FAILURE;
+import static org.mwolff.command.CommandTransition.SUCCESS;
+import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
 public class InputSourceReaderCommand extends AbstractDefaultCommand<SaxParameterObject> {
 

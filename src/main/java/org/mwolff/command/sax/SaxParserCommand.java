@@ -23,18 +23,22 @@
  */
 package org.mwolff.command.sax;
 
-import static org.mwolff.command.CommandTransition.*;
-import static org.mwolff.command.sax.GlobalCommandConstants.*;
-
-import java.io.IOException;
-
 import org.apache.log4j.Logger;
 import org.mwolff.command.AbstractDefaultCommand;
 import org.mwolff.command.CommandTransition;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.XMLReaderFactory;
+
+import javax.xml.XMLConstants;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import java.io.IOException;
+
+import static org.mwolff.command.CommandTransition.FAILURE;
+import static org.mwolff.command.CommandTransition.SUCCESS;
+import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
 public class SaxParserCommand extends AbstractDefaultCommand<SaxParameterObject> {
 
@@ -46,13 +50,17 @@ public class SaxParserCommand extends AbstractDefaultCommand<SaxParameterObject>
         try {
             final InputSource inputSource = (InputSource) parameterObject.get(INPUT_SOURCE);
 
-            final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+            SAXParser saxParser = factory.newSAXParser();
+            XMLReader xmlReader = saxParser.getXMLReader();
+
             final ActionContentHandler handler = new ActionContentHandler();
             xmlReader.setContentHandler(handler);
             xmlReader.parse(inputSource);
             parameterObject.put(ACTION_LIST, handler.getActions());
 
-        } catch (IOException | SAXException e) {
+        } catch (IOException | SAXException | ParserConfigurationException e) {
             SaxParserCommand.LOG.error(e);
             parameterObject.put(ERROR_STRING, e.getMessage());
             return FAILURE;

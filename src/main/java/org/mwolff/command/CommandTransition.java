@@ -37,5 +37,4 @@ public enum CommandTransition {
      *
      */
     SUCCESS, FAILURE, NEXT, DONE
-
 }

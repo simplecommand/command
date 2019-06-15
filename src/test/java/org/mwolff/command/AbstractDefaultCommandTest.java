@@ -23,12 +23,13 @@
  */
 package org.mwolff.command;
 
-import static org.mwolff.command.CommandTransition.*;
-
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.mwolff.command.CommandTransition.FAILURE;
+import static org.mwolff.command.CommandTransition.SUCCESS;
 
 public class AbstractDefaultCommandTest {
 

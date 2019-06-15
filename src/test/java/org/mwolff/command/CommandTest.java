@@ -23,8 +23,6 @@
  */
 package org.mwolff.command;
 
-import static org.mwolff.command.CommandTransition.*;
-
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -32,6 +30,9 @@ import org.mwolff.command.chain.ChainCommand;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.samplecommands.ExceptionCommand;
+
+import static org.mwolff.command.CommandTransition.FAILURE;
+import static org.mwolff.command.CommandTransition.SUCCESS;
 
 public class CommandTest {
 

@@ -23,11 +23,6 @@
  */
 package org.mwolff.command.sax;
 
-import static org.mwolff.command.CommandTransition.*;
-import static org.mwolff.command.sax.GlobalCommandConstants.*;
-
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.mwolff.command.AbstractDefaultCommand;
 import org.mwolff.command.Command;
@@ -35,6 +30,13 @@ import org.mwolff.command.CommandTransition;
 import org.mwolff.command.DefaultCommandContainer;
 import org.mwolff.command.process.AbstractDefaultProcessCommand;
 import org.mwolff.command.process.Transition;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+
+import static org.mwolff.command.CommandTransition.FAILURE;
+import static org.mwolff.command.CommandTransition.SUCCESS;
+import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
 public class ActionListToCommandContainerCommand extends AbstractDefaultCommand<SaxParameterObject> {
 
@@ -53,10 +55,10 @@ public class ActionListToCommandContainerCommand extends AbstractDefaultCommand<
             final String classname = action.getClassname();
             Command<Object> command;
             try {
-                command = (Command<Object>) Class.forName(classname).newInstance();
+                command = (Command<Object>) Class.forName(classname).getConstructor().newInstance();
                 defaultCommandContainer.addCommand(command);
-            } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-                ActionListToCommandContainerCommand.LOG.error(e);
+            } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException e) {
+                LOG.error(e);
                 parameterObject.put(ERROR_STRING.toString(), "Error while instaciating class via reflection");
                 return FAILURE;
             }

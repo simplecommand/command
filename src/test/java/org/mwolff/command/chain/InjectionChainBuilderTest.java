@@ -23,9 +23,6 @@
  */
 package org.mwolff.command.chain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
@@ -37,12 +34,11 @@ import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.DefaultTransition;
 import org.mwolff.command.process.Transition;
-import org.mwolff.command.samplecommands.DoneTestCommand;
-import org.mwolff.command.samplecommands.ExceptionCommand;
-import org.mwolff.command.samplecommands.FailureTestCommand;
-import org.mwolff.command.samplecommands.ProcessTestCommandEnd;
-import org.mwolff.command.samplecommands.ProcessTestCommandStart;
+import org.mwolff.command.samplecommands.*;
 import org.mwolff.command.testcommand.TestCommand;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class InjectionChainBuilderTest {
 
@@ -143,7 +139,7 @@ public class InjectionChainBuilderTest {
     public void testExecuteCommand() throws Exception {
         final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
         final CommandTransition result = builder.executeCommand(DefaultParameterObject.NULLCONTEXT);
-        Assert.assertEquals(result, CommandTransition.SUCCESS);
+        Assert.assertEquals(CommandTransition.SUCCESS, result);
     }
 
     @Test
@@ -155,6 +151,6 @@ public class InjectionChainBuilderTest {
         commandList.add(command);
         builder.setCommands(commandList);
         final CommandTransition result = builder.executeCommandAsChain(context);
-        Assert.assertEquals(result, CommandTransition.DONE);
+        Assert.assertEquals(CommandTransition.DONE, result);
     }
 }

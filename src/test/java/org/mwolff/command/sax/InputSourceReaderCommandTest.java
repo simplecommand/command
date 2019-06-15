@@ -23,14 +23,15 @@
  */
 package org.mwolff.command.sax;
 
-import static org.mwolff.command.CommandTransition.*;
-import static org.mwolff.command.sax.GlobalCommandConstants.*;
-
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.CommandTransition;
 import org.xml.sax.InputSource;
+
+import static org.mwolff.command.CommandTransition.FAILURE;
+import static org.mwolff.command.CommandTransition.SUCCESS;
+import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
 public class InputSourceReaderCommandTest {
 

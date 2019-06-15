@@ -23,14 +23,6 @@
  */
 package org.mwolff.command.sax;
 
-import static org.mwolff.command.CommandTransition.*;
-import static org.mwolff.command.sax.GlobalCommandConstants.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
@@ -43,6 +35,15 @@ import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.ProcessCommand;
 import org.mwolff.command.process.Transition;
 import org.springframework.test.util.ReflectionTestUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import static org.mwolff.command.CommandTransition.FAILURE;
+import static org.mwolff.command.CommandTransition.SUCCESS;
+import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
 public class ActionListToCommandContainerCommandTest {
 

@@ -23,44 +23,47 @@
  */
 package org.mwolff.command;
 
-import org.mwolff.command.chain.ChainCommand;
 import org.mwolff.command.process.ProcessCommand;
 
 import java.util.Optional;
 
-/** Interface of a command container. A command container implements all command
+/**
+ * Interface of a command container. A command container implements all command
  * interfaces. So you can execute commandContainer as usual commands. Actually
  * this implements the composite pattern. So you can mix commands and command
  * container to build chains.
  *
- * @author Manfred Wolff */
-public interface CommandContainer<T extends Object> extends ChainCommand<T>, ProcessCommand<T> {
+ * @author Manfred Wolff
+ */
+public interface CommandContainer<T extends Object> extends ProcessCommand<T> {
 
-    /** Adds a <code>Command</code> to the list. Because a
+    /**
+     * Adds a <code>Command</code> to the list. Because a
      * <code>CommandContainer</code> is a <code>Command</code> you can add
      * <code>CommandContainer</code> objects as well.
      *
-     * @param parameterObject
-     *            The command to add.
-     * @return this */
+     * @param parameterObject The command to add.
+     * @return this
+     */
     CommandContainer<T> addCommand(Command<T> parameterObject);
 
-    /** Adds a <code>Command</code> to the list via priority. Because a
+    /**
+     * Adds a <code>Command</code> to the list via priority. Because a
      * <code>CommandContainer</code> is a <code>Command</code> you can add
      * <code>CommandContainer</code> objects as well.
      *
-     * @param priority
-     *            A priority. If two commands has the same priority the first
-     *            wins.
-     * @param command
-     *            The command to add.
-     * @return this */
+     * @param priority A priority. If two commands has the same priority the first
+     *                 wins.
+     * @param command  The command to add.
+     * @return this
+     */
     CommandContainer<T> addCommand(int priority, Command<T> command);
 
-    /** Gets the command with the certain processID.
+    /**
+     * Gets the command with the certain processID.
      *
-     * @param processID
-     *            The id to find the command.
-     * @return The command with the certain processID */
+     * @param processID The id to find the command.
+     * @return The command with the certain processID
+     */
     Optional<ProcessCommand<T>> getCommandByProcessID(String processID);
 }

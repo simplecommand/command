@@ -23,14 +23,15 @@
  */
 package org.mwolff.command.chain;
 
-import static org.mwolff.command.CommandTransition.*;
-
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.CommandTransition;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
+
+import static org.mwolff.command.CommandTransition.NEXT;
+import static org.mwolff.command.CommandTransition.SUCCESS;
 
 public class ChainCommandTest {
 

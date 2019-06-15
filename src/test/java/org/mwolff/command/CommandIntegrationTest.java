@@ -23,11 +23,6 @@
  */
 package org.mwolff.command;
 
-import static org.mwolff.command.CommandTransition.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.builder.InjectionChainBuilder;
@@ -35,6 +30,11 @@ import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.samplecommands.SimpleTestCommand;
 import org.mwolff.command.testcommand.TestCommand;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mwolff.command.CommandTransition.NEXT;
 
 public class CommandIntegrationTest {
 
@@ -145,16 +145,4 @@ public class CommandIntegrationTest {
         Assert.assertEquals("S-1-2-3-", priorString);
     }
 
-    /*
-     * Simplest example. Put all commands in a container and execute it. All
-     * commands in the container will be executed in the sequence they were
-     * inserted.
-     */
-    @Test
-    public void testExecuteCommandsWithoutContext() throws Exception {
-        final CommandContainer<GenericParameterObject> container = new DefaultCommandContainer<>();
-        container.addCommand(new TestCommand("1-", NEXT));
-        container.addCommand(new TestCommand("2-", NEXT));
-        container.executeCommand(DefaultParameterObject.NULLCONTEXT);
-    }
 }

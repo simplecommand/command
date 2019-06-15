@@ -23,14 +23,14 @@
  */
 package org.mwolff.command.sax;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.mwolff.command.process.DefaultTransition;
 import org.mwolff.command.process.Transition;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ActionContentHandler extends DefaultHandler {
 
@@ -45,13 +45,13 @@ public class ActionContentHandler extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
 
         Transition transition;
-        if ("action".equals(localName)) {
+        if ("action".equals(qName)) {
             action = new Action();
             action.setId(atts.getValue("id"));
             action.setClassname(atts.getValue("class"));
         }
 
-        if ("transition".equals(localName)) {
+        if ("transition".equals(qName)) {
             transition = new DefaultTransition();
             transition.setTarget(atts.getValue("to"));
             transition.setReturnValue(atts.getValue("name"));
@@ -62,7 +62,7 @@ public class ActionContentHandler extends DefaultHandler {
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
 
-        if ("action".equals(localName)) {
+        if ("action".equals(qName)) {
             actions.add(action);
         }
     }

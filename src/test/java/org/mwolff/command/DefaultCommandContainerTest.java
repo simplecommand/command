@@ -23,13 +23,6 @@
  */
 package org.mwolff.command;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-import static org.mwolff.command.CommandTransition.*;
-
-import java.util.Map;
-import java.util.Optional;
-
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
@@ -40,15 +33,18 @@ import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.DefaultEndCommand;
 import org.mwolff.command.process.ProcessCommand;
-import org.mwolff.command.samplecommands.ExceptionCommand;
-import org.mwolff.command.samplecommands.FailureTestCommand;
-import org.mwolff.command.samplecommands.ProcessTestCommandNext;
-import org.mwolff.command.samplecommands.ProcessTestCommandStart;
-import org.mwolff.command.samplecommands.SimpleTestCommand;
+import org.mwolff.command.samplecommands.*;
 import org.mwolff.command.testcommand.TestCommand;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import javax.print.attribute.standard.MediaSize;
+import java.util.Map;
+import java.util.Optional;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
+import static org.mwolff.command.CommandTransition.NEXT;
+import static org.mwolff.command.CommandTransition.SUCCESS;
 
 public class DefaultCommandContainerTest {
 
@@ -149,7 +145,7 @@ public class DefaultCommandContainerTest {
         final CommandTransition transition = commandContainer.executeCommandAsChain(context);
         final String priorString = context.getAsString("resultString");
         Assert.assertEquals("1-2-3-", priorString);
-        Assert.assertEquals(transition, CommandTransition.SUCCESS);
+        Assert.assertEquals(CommandTransition.SUCCESS, transition);
 
     }
 
@@ -160,8 +156,8 @@ public class DefaultCommandContainerTest {
 
         final CommandTransition transition = commandContainer.executeCommandAsChain(context);
         final String priorString = context.getAsString("priority");
-        Assert.assertEquals(priorString, "");
-        Assert.assertEquals(transition, CommandTransition.FAILURE);
+        Assert.assertEquals("", priorString);
+        Assert.assertEquals( CommandTransition.FAILURE, transition);
 
     }
 

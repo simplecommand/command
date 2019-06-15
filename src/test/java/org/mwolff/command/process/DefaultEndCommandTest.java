@@ -23,9 +23,6 @@
  */
 package org.mwolff.command.process;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,6 +32,8 @@ import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
 import java.util.Optional;
+
+import static org.hamcrest.CoreMatchers.is;
 
 public class DefaultEndCommandTest {
 

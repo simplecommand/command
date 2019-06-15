@@ -27,8 +27,6 @@ import org.mwolff.command.parameterobject.GenericParameterObject;
 
 import java.util.Optional;
 
-import static org.mwolff.command.process.ProcessCommand.*;
-
 public class DefaultEndCommand extends AbstractDefaultProcessCommand<GenericParameterObject> {
 
     @Override

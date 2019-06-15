@@ -23,21 +23,17 @@
  */
 package org.mwolff.command.process;
 
+import org.mwolff.command.chain.ChainCommand;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import org.mwolff.command.chain.ChainCommand;
-
-import javax.swing.text.html.Option;
 
 /** Command interface for the command framework. Commands may act with generic
  * command contexts.
  *
  * @author Manfred Wolff */
 public interface ProcessCommand<T extends Object> extends ChainCommand<T> {
-
-    final static String END = "END";
 
     default void addTransition(final Transition transition) {
     }

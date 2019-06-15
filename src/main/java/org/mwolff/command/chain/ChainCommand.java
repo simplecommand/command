@@ -36,7 +36,7 @@ import org.mwolff.command.CommandTransition;
  * @author Manfred Wolff */
 public interface ChainCommand<T extends Object> extends Command<T> {
 
-    /** @since 1.5.0
+    /**
      * @param parameterObject The parameter object to pass.
      * @return SUCCESS is the next chain should overtake, ABORT otherwise. */
     CommandTransition executeCommandAsChain(T parameterObject);

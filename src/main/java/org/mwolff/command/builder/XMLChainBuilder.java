@@ -23,15 +23,8 @@
  */
 package org.mwolff.command.builder;
 
-import static org.mwolff.command.CommandTransition.*;
-import static org.mwolff.command.sax.GlobalCommandConstants.*;
-
 import org.apache.log4j.Logger;
-import org.mwolff.command.Command;
-import org.mwolff.command.CommandContainer;
-import org.mwolff.command.CommandException;
-import org.mwolff.command.CommandTransition;
-import org.mwolff.command.DefaultCommandContainer;
+import org.mwolff.command.*;
 import org.mwolff.command.chain.ChainCommand;
 import org.mwolff.command.process.ProcessCommand;
 import org.mwolff.command.sax.ActionListToCommandContainerCommand;
@@ -40,6 +33,9 @@ import org.mwolff.command.sax.SaxParameterObject;
 import org.mwolff.command.sax.SaxParserCommand;
 
 import java.util.Optional;
+
+import static org.mwolff.command.CommandTransition.*;
+import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
 /** Chain builder parsing an XML file for building chains or process chains.
  *
@@ -58,8 +54,8 @@ public class XMLChainBuilder<T extends Object> implements Command<T>, ProcessCom
         try {
             return buildChain().executeAsProcess(startCommand, context);
         } catch (final CommandException e) {
-            XMLChainBuilder.LOG.error(e);
-            return null;
+            LOG.error(e);
+            return Optional.empty();
         }
     }
 
@@ -107,7 +103,7 @@ public class XMLChainBuilder<T extends Object> implements Command<T>, ProcessCom
         try {
             buildChain().executeCommand(parameterObject);
         } catch (final CommandException e) {
-            XMLChainBuilder.LOG.error(e);
+            LOG.error(e);
             return FAILURE;
         }
         return SUCCESS;
@@ -118,7 +114,7 @@ public class XMLChainBuilder<T extends Object> implements Command<T>, ProcessCom
         try {
             buildChain().executeCommandAsChain(parameterObject);
         } catch (final CommandException e) {
-            XMLChainBuilder.LOG.error(e);
+            LOG.error(e);
             return FAILURE;
         }
         return DONE;

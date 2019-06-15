@@ -23,19 +23,20 @@
  */
 package org.mwolff.command.sax;
 
-import static org.mwolff.command.CommandTransition.*;
-import static org.mwolff.command.sax.GlobalCommandConstants.*;
-
-import java.io.InputStream;
-import java.util.List;
-import java.util.Optional;
-
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.CommandTransition;
 import org.mwolff.command.process.Transition;
 import org.xml.sax.InputSource;
+
+import java.io.InputStream;
+import java.util.List;
+import java.util.Optional;
+
+import static org.mwolff.command.CommandTransition.FAILURE;
+import static org.mwolff.command.CommandTransition.SUCCESS;
+import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
 public class SaxParserCommandTest {
 

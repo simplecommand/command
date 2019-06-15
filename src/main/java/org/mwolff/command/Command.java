@@ -23,21 +23,23 @@
  */
 package org.mwolff.command;
 
-/** Command interface for the command framework.
+/**
+ * Command interface for the command framework.
  *
  * Commands may act with generic command context. A context actually is a
  * parameter object which passes information along the whole chain.
  *
- * @author Manfred Wolff */
+ * @author Manfred Wolff
+ */
 @FunctionalInterface
-public interface Command<T extends Object> {
+public interface Command<T> {
 
-    /** Executes the command. The command can have the result SUCCESS if
+    /**
+     * Executes the command. The command can have the result SUCCESS if
      * everything is fine or FAILURE if an error occurred.
      *
-     * @since 1.5.0
-     * @param parameterObject
-     *            The parameter object to pass.
-     * @return FAILURE if something went wrong, SUCCESS otherwise. */
+     * @param parameterObject The parameter object to pass.
+     * @return FAILURE if something went wrong, SUCCESS otherwise.
+     */
     CommandTransition executeCommand(T parameterObject);
 }
