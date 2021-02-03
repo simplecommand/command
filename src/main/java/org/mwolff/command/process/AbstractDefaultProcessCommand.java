@@ -29,13 +29,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/** Default implementation for a process-command. You may use  <code>executeAsProcess</code> for all executions of the
+/**
+ * Default implementation for a process-command. You may use  <code>executeAsProcess</code> for all executions of the
  * <code>command</code> or  <code>commandContainer</code>.
  */
 public abstract class AbstractDefaultProcessCommand<T extends Object> extends AbstractDefaultChainCommand<T>
         implements ProcessCommand<T> {
 
-    protected String           processID;
+    protected String processID;
     protected List<Transition> transitionList = new ArrayList<>();
 
     public AbstractDefaultProcessCommand() {
@@ -53,31 +54,32 @@ public abstract class AbstractDefaultProcessCommand<T extends Object> extends Ab
 
     @Override
     public Optional<String> findNext(final String next) {
-        for (final Transition transition : transitionList) {
-            if (next.equals(transition.getReturnValue())) {
-                return transition.getTarget();
+
+            for (final Transition transition : transitionList) {
+                if (next.equals(transition.getReturnValue())) {
+                    return transition.getTarget();
+                }
             }
+            return Optional.empty();
         }
-        return Optional.empty();
-    }
 
-    @Override
-    public String getProcessID() {
-        return this.processID;
-    }
+        @Override
+        public String getProcessID () {
+            return this.processID;
+        }
 
-    @Override
-    public List<Transition> getTransitionList() {
-        return new ArrayList<>(transitionList);
-    }
+        @Override
+        public List<Transition> getTransitionList () {
+            return new ArrayList<>(transitionList);
+        }
 
-    @Override
-    public void setProcessID(final String processID) {
-        this.processID = processID;
-    }
+        @Override
+        public void setProcessID ( final String processID){
+            this.processID = processID;
+        }
 
-    @Override
-    public Optional<String> executeAsProcess(String startCommand, T context) {
-        return Optional.empty();
+        @Override
+        public Optional<String> executeAsProcess (String startCommand, T context){
+            return Optional.empty();
+        }
     }
-}
