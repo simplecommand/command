@@ -9,4 +9,4 @@ The aim of this framework is to offer mechanism to write software which fits the
 - Interface Segregation Principle
 - Dependency Inversion Principle
 
-Documentation: [Documentation of the Framework(https://mwolff.atlassian.net/wiki/spaces/SCF/overview).
+Documentation of the Framework: https://mwolff.atlassian.net/wiki/spaces/SCF/overview
