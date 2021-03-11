@@ -27,8 +27,10 @@
 
 package org.mwolff.command.parameterobject;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ParameterObjectTest {
 
@@ -39,40 +41,40 @@ public class ParameterObjectTest {
 
     @Test
     public void testContextInterface() throws Exception {
-        Assert.assertNotNull(context);
+        assertNotNull(context);
     }
 
     @Test
     public void testGet() throws Exception {
         context.put(ParameterObjectTest.INTEGER_VALUE, Integer.valueOf(42));
         final Integer integerValue = (Integer) context.get(ParameterObjectTest.INTEGER_VALUE);
-        Assert.assertEquals(Integer.valueOf(42), integerValue);
+        assertEquals(Integer.valueOf(42), integerValue);
     }
 
     @Test
     public void testGetAsString() throws Exception {
         context.put(ParameterObjectTest.STRING_VALUE, ParameterObjectTest.STRING_VALUE);
         final String stringValue = context.getAsString(ParameterObjectTest.STRING_VALUE);
-        Assert.assertEquals(ParameterObjectTest.STRING_VALUE, stringValue);
+        assertEquals(ParameterObjectTest.STRING_VALUE, stringValue);
     }
 
     @Test
     public void testNullContext() throws Exception {
-        final GenericParameterObject nullContext = DefaultParameterObject.NULLCONTEXT;
+        final GenericParameterObject nullContext = new DefaultParameterObject();
         nullContext.put("myKey", "myValue");
-        Assert.assertEquals("myValue", nullContext.getAsString("myKey"));
+        assertEquals("myValue", nullContext.getAsString("myKey"));
     }
 
     @Test
     public void testNullValue() throws Exception {
         final Object value = context.getAsString("null");
-        Assert.assertNotNull(value);
+        assertNotNull(value);
     }
 
     @Test
     public void testPutGetContext() throws Exception {
         context.put(ParameterObjectTest.STRING_VALUE, ParameterObjectTest.STRING_VALUE);
         final String stringValue = (String) context.get(ParameterObjectTest.STRING_VALUE);
-        Assert.assertEquals(ParameterObjectTest.STRING_VALUE, stringValue);
+        assertEquals(ParameterObjectTest.STRING_VALUE, stringValue);
     }
 }

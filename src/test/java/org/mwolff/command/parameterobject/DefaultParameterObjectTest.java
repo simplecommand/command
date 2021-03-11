@@ -27,15 +27,17 @@
 package org.mwolff.command.parameterobject;
 
 import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class DefaultParameterObjectTest {
 
     @Test
     public void getStandardContextTest() throws Exception {
         final GenericParameterObject context = DefaultParameterObject.getStandardContext();
-        Assert.assertNotNull(context);
+        assertNotNull(context);
     }
 
     @Test
@@ -43,13 +45,13 @@ public class DefaultParameterObjectTest {
 
         final GenericParameterObject context = DefaultParameterObject.getStandardContext("file.list", "filelist");
         final String value = context.getAsString("file.list");
-        Assert.assertThat(value, CoreMatchers.is("filelist"));
+        assertThat(value, CoreMatchers.is("filelist"));
     }
 
     @Test
     public void getInstanceTest() throws Exception {
         final GenericParameterObject instance = DefaultParameterObject.getInstance();
-        Assert.assertThat(instance, CoreMatchers.notNullValue());
-        Assert.assertThat(instance, CoreMatchers.instanceOf(DefaultParameterObject.class));
+        assertThat(instance, CoreMatchers.notNullValue());
+        assertThat(instance, CoreMatchers.instanceOf(DefaultParameterObject.class));
     }
 }

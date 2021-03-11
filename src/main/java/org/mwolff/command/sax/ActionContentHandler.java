@@ -26,14 +26,14 @@
  *         USA */
 package org.mwolff.command.sax;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.mwolff.command.process.DefaultTransition;
 import org.mwolff.command.process.Transition;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ActionContentHandler extends DefaultHandler {
 

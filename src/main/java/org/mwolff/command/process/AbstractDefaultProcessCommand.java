@@ -27,10 +27,10 @@
 
 package org.mwolff.command.process;
 
+import org.mwolff.command.chain.AbstractDefaultChainCommand;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.mwolff.command.chain.AbstractDefaultChainCommand;
 
 /** Default implementation for a process-command. You may use  <code>executeAsProcess</code> for all executions of the
  * <code>command</code> or  <code>commandContainer</code>.

@@ -27,28 +27,23 @@
 
 package org.mwolff.command.chain;
 
-import static org.mwolff.command.CommandTransition.*;
-import static org.mwolff.command.sax.GlobalCommandConstants.*;
-
 import org.apache.log4j.Logger;
-import org.mwolff.command.Command;
-import org.mwolff.command.CommandContainer;
-import org.mwolff.command.CommandException;
-import org.mwolff.command.CommandTransition;
-import org.mwolff.command.DefaultCommandContainer;
+import org.mwolff.command.*;
 import org.mwolff.command.process.ProcessCommand;
 import org.mwolff.command.sax.ActionListToCommandContainerCommand;
 import org.mwolff.command.sax.InputSourceReaderCommand;
 import org.mwolff.command.sax.SaxParameterObject;
 import org.mwolff.command.sax.SaxParserCommand;
 
+import static org.mwolff.command.CommandTransition.*;
+import static org.mwolff.command.sax.GlobalCommandConstants.*;
+
 /** Chain builder parsing an XML file for building chains or process chains.
  *
  * @author Manfred Wolff */
 public class XMLChainBuilder<T extends Object> implements Command<T>, ProcessCommand<T>, ChainCommand<T> {
 
-    private static final Logger LOG = Logger.getLogger(XMLChainBuilder.class);
-    private final String        xmlFilename;
+    private final String xmlFilename;
 
     public XMLChainBuilder(final String xmlFilename) {
         this.xmlFilename = xmlFilename;
@@ -59,7 +54,6 @@ public class XMLChainBuilder<T extends Object> implements Command<T>, ProcessCom
         try {
             return buildChain().executeAsProcess(startCommand, context);
         } catch (final CommandException e) {
-            XMLChainBuilder.LOG.error(e);
             return null;
         }
     }
@@ -108,7 +102,6 @@ public class XMLChainBuilder<T extends Object> implements Command<T>, ProcessCom
         try {
             buildChain().executeCommand(parameterObject);
         } catch (final CommandException e) {
-            XMLChainBuilder.LOG.error(e);
             return FAILURE;
         }
         return SUCCESS;
@@ -119,7 +112,6 @@ public class XMLChainBuilder<T extends Object> implements Command<T>, ProcessCom
         try {
             buildChain().executeCommandAsChain(parameterObject);
         } catch (final CommandException e) {
-            XMLChainBuilder.LOG.error(e);
             return FAILURE;
         }
         return DONE;

@@ -29,14 +29,14 @@
 
 package org.mwolff.command.chain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.mwolff.command.Command;
 import org.mwolff.command.CommandContainer;
 import org.mwolff.command.CommandTransition;
 import org.mwolff.command.DefaultCommandContainer;
 import org.mwolff.command.process.ProcessCommand;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class InjectionChainBuilder<T extends Object> implements Command<T>, ProcessCommand<T>, ChainCommand<T> {
 

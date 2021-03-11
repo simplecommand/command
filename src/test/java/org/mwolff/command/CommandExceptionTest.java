@@ -29,18 +29,18 @@ package org.mwolff.command;
 
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
-import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class CommandExceptionTest {
 
     @Test
     @DisplayName("Default construction of CommandException is possible.")
     public void commandExceptionDefaultConstructorTest() throws Exception {
-        Assert.assertThat(new CommandException(), Matchers.notNullValue());
+        assertThat(new CommandException(), Matchers.notNullValue());
     }
 
 
@@ -49,15 +49,15 @@ public class CommandExceptionTest {
     public void commandExceptionWithMessageAndThrowableTest() throws Exception {
         final Throwable throwable = Mockito.mock(Throwable.class);
         final CommandException commandException = new CommandException("message", throwable);
-        Assert.assertThat(commandException.getMessage(), Matchers.is("message"));
-        Assert.assertThat(commandException.getCause(), CoreMatchers.is(throwable));
+        assertThat(commandException.getMessage(), Matchers.is("message"));
+        assertThat(commandException.getCause(), CoreMatchers.is(throwable));
     }
 
     @Test
     @DisplayName("Construction of CommandException with (only) Message is possible")
     public void commandExceptionWithMessageTest() throws Exception {
         final CommandException commandException = new CommandException("message");
-        Assert.assertThat(commandException.getMessage(), Matchers.is("message"));
+        assertThat(commandException.getMessage(), Matchers.is("message"));
     }
 
     @Test
@@ -65,7 +65,7 @@ public class CommandExceptionTest {
     public void commandExceptionWithThrowableTest() throws Exception {
         final Exception exception = new Exception();
         final CommandException commandException = new CommandException(exception);
-        Assert.assertThat(commandException.getCause(), Matchers.is(exception));
+        assertThat(commandException.getCause(), Matchers.is(exception));
     }
 
 }

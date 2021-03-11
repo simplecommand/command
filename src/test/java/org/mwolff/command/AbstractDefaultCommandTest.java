@@ -26,12 +26,13 @@
  *         USA */
 package org.mwolff.command;
 
-import static org.mwolff.command.CommandTransition.*;
-
 import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mwolff.command.CommandTransition.FAILURE;
+import static org.mwolff.command.CommandTransition.SUCCESS;
 
 public class AbstractDefaultCommandTest {
 
@@ -43,7 +44,7 @@ public class AbstractDefaultCommandTest {
     void testDefaultExecuteCommandSuccess() {
         final Testclass testclass = new Testclass();
         final CommandTransition result = testclass.executeCommand("notnull");
-        Assert.assertThat(result, CoreMatchers.is(SUCCESS));
+        assertThat(result, CoreMatchers.is(SUCCESS));
     }
 
     @Test
@@ -51,7 +52,7 @@ public class AbstractDefaultCommandTest {
     void testDefaultExecuteCommandFailed() {
         final Testclass testclass = new Testclass();
         final CommandTransition result = testclass.executeCommand(null);
-        Assert.assertThat(result, CoreMatchers.is(FAILURE));
+        assertThat(result, CoreMatchers.is(FAILURE));
     }
 
 }

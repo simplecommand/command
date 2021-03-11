@@ -1,7 +1,5 @@
 package org.mwolff.command.extensions;
 
-import java.lang.reflect.Parameter;
-
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 import org.junit.jupiter.api.extension.ExtensionContext.Store;
@@ -11,6 +9,8 @@ import org.junit.jupiter.api.extension.TestInstancePostProcessor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+
+import java.lang.reflect.Parameter;
 
 public class MockitoExtension implements TestInstancePostProcessor, ParameterResolver {
 

@@ -26,10 +26,10 @@
  *         USA */
 package org.mwolff.command.sax;
 
+import org.mwolff.command.process.Transition;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.mwolff.command.process.Transition;
 
 public class Action {
 

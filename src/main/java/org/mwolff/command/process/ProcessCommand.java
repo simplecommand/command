@@ -27,11 +27,10 @@
 
 package org.mwolff.command.process;
 
+import org.mwolff.command.chain.ChainCommand;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
-import org.mwolff.command.chain.ChainCommand;
 
 /** Command interface for the command framework. Commands may act with generic
  * command contexts.

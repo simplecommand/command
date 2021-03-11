@@ -28,10 +28,11 @@
 package org.mwolff.command;
 
 import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.process.DefaultTransition;
 import org.mwolff.command.process.Transition;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TransitionTest {
 
@@ -40,8 +41,8 @@ public class TransitionTest {
         final Transition transition = new DefaultTransition();
         transition.setReturnValue("OK");
         transition.setTarget("Next");
-        Assert.assertThat("OK", CoreMatchers.is(transition.getReturnValue()));
-        Assert.assertThat("Next", CoreMatchers.is(transition.getTarget()));
+        assertThat("OK", CoreMatchers.is(transition.getReturnValue()));
+        assertThat("Next", CoreMatchers.is(transition.getTarget()));
     }
 
 }

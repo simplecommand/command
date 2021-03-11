@@ -26,12 +26,6 @@
  *         USA */
 package org.mwolff.command.sax;
 
-import static org.mwolff.command.CommandTransition.*;
-import static org.mwolff.command.sax.GlobalCommandConstants.*;
-
-import java.io.IOException;
-
-import org.apache.log4j.Logger;
 import org.mwolff.command.AbstractDefaultCommand;
 import org.mwolff.command.CommandTransition;
 import org.xml.sax.InputSource;
@@ -39,9 +33,13 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-public class SaxParserCommand extends AbstractDefaultCommand<SaxParameterObject> {
+import java.io.IOException;
 
-    private static final Logger LOG = Logger.getLogger(SaxParserCommand.class);
+import static org.mwolff.command.CommandTransition.FAILURE;
+import static org.mwolff.command.CommandTransition.SUCCESS;
+import static org.mwolff.command.sax.GlobalCommandConstants.*;
+
+public class SaxParserCommand extends AbstractDefaultCommand<SaxParameterObject> {
 
     @Override
     public CommandTransition executeCommand(SaxParameterObject parameterObject) {
@@ -56,7 +54,6 @@ public class SaxParserCommand extends AbstractDefaultCommand<SaxParameterObject>
             parameterObject.put(ACTION_LIST, handler.getActions());
 
         } catch (IOException | SAXException e) {
-            SaxParserCommand.LOG.error(e);
             parameterObject.put(ERROR_STRING, e.getMessage());
             return FAILURE;
         }

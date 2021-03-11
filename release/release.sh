@@ -13,10 +13,10 @@ mv simple-command-sources.jar command-$1-sources.jar
 cp ../pom.xml .
 rm -rf bundle.jar
 
-gpg2 -ab pom.xml
-gpg2 -ab command-$1.jar
-gpg2 -ab command-$1-javadoc.jar
-gpg2 -ab command-$1-sources.jar
+gpg -ab pom.xml
+gpg -ab command-$1.jar
+gpg -ab command-$1-javadoc.jar
+gpg -ab command-$1-sources.jar
 
 jar -cfv bundle.jar command-$1.jar command-$1.jar.asc command-$1-javadoc.jar command-$1-javadoc.jar.asc command-$1-sources.jar command-$1-sources.jar.asc pom.xml pom.xml.asc 
 

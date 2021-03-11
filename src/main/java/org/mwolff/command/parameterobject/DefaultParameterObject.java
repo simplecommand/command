@@ -33,9 +33,6 @@ import java.util.Map;
 /** A simple implementation of a generic context. */
 public class DefaultParameterObject implements GenericParameterObject {
 
-    /** A null context to execute commands without a context. */
-    public static final GenericParameterObject NULLCONTEXT = new DefaultParameterObject();
-
     /** A generic map storing the key/value pairs. */
     private final Map<String, Object>          genericMap  = new HashMap<>();
 

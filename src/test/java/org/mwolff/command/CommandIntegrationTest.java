@@ -27,18 +27,18 @@
 
 package org.mwolff.command;
 
-import static org.mwolff.command.CommandTransition.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.chain.InjectionChainBuilder;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.samplecommands.SimpleTestCommand;
 import org.mwolff.command.testcommand.TestCommand;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mwolff.command.CommandTransition.NEXT;
 
 public class CommandIntegrationTest {
 
@@ -71,7 +71,7 @@ public class CommandIntegrationTest {
         context.put("resultString", "");
         builder.executeCommandAsChain(context);
         final String priorString = context.getAsString("resultString");
-        Assert.assertEquals("1-2-", priorString);
+        assertEquals("1-2-", priorString);
     }
 
     /*
@@ -93,7 +93,7 @@ public class CommandIntegrationTest {
 
         mixedList.executeCommandAsChain(context);
         final String priorString = context.getAsString("resultString");
-        Assert.assertEquals("S-1-2-3-", priorString);
+        assertEquals("S-1-2-3-", priorString);
     }
 
     /*
@@ -109,7 +109,7 @@ public class CommandIntegrationTest {
         container.addCommand(new TestCommand("1-", NEXT));
         container.addCommand(new TestCommand("2-", NEXT));
         container.executeCommand(context);
-        Assert.assertEquals("1-2-", context.getAsString("resultString"));
+        assertEquals("1-2-", context.getAsString("resultString"));
     }
 
     /*
@@ -125,7 +125,7 @@ public class CommandIntegrationTest {
         container.addCommand(2, new TestCommand("1-", NEXT));
         container.addCommand(1, new TestCommand("2-", NEXT));
         container.executeCommand(context);
-        Assert.assertEquals("2-1-3-", context.getAsString("resultString"));
+        assertEquals("2-1-3-", context.getAsString("resultString"));
     }
 
     /*
@@ -146,7 +146,7 @@ public class CommandIntegrationTest {
 
         mixedList.executeCommand(context);
         final String priorString = context.getAsString("resultString");
-        Assert.assertEquals("S-1-2-3-", priorString);
+        assertEquals("S-1-2-3-", priorString);
     }
 
     /*
@@ -159,6 +159,6 @@ public class CommandIntegrationTest {
         final CommandContainer<GenericParameterObject> container = new DefaultCommandContainer<>();
         container.addCommand(new TestCommand("1-", NEXT));
         container.addCommand(new TestCommand("2-", NEXT));
-        container.executeCommand(DefaultParameterObject.NULLCONTEXT);
+        container.executeCommand(new DefaultParameterObject());
     }
 }

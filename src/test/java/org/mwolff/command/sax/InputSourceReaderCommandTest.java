@@ -26,14 +26,15 @@
  *         USA */
 package org.mwolff.command.sax;
 
-import static org.mwolff.command.CommandTransition.*;
-import static org.mwolff.command.sax.GlobalCommandConstants.*;
-
 import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.CommandTransition;
 import org.xml.sax.InputSource;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mwolff.command.CommandTransition.FAILURE;
+import static org.mwolff.command.CommandTransition.SUCCESS;
+import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
 public class InputSourceReaderCommandTest {
 
@@ -43,9 +44,9 @@ public class InputSourceReaderCommandTest {
         final InputSourceReaderCommand inputSourceReaderCommand = new InputSourceReaderCommand();
         context.put(FILE_NAME, "invalidFile.xml");
         final CommandTransition result = inputSourceReaderCommand.executeCommand(context);
-        Assert.assertThat(result, CoreMatchers.is(FAILURE));
+        assertThat(result, CoreMatchers.is(FAILURE));
         final String error = context.getAsString(ERROR_STRING);
-        Assert.assertThat(error, CoreMatchers.is("Error reading resource. Resource not found."));
+        assertThat(error, CoreMatchers.is("Error reading resource. Resource not found."));
     }
 
     @Test
@@ -54,9 +55,9 @@ public class InputSourceReaderCommandTest {
         final InputSourceReaderCommand inputSourceReaderCommand = new InputSourceReaderCommand();
         context.put(FILE_NAME, "commandChainProcess.xml");
         final CommandTransition result = inputSourceReaderCommand.executeCommand(context);
-        Assert.assertThat(result, CoreMatchers.is(SUCCESS));
+        assertThat(result, CoreMatchers.is(SUCCESS));
         final InputSource source = (InputSource) context.get(INPUT_SOURCE);
-        Assert.assertThat(source, CoreMatchers.notNullValue());
+        assertThat(source, CoreMatchers.notNullValue());
     }
 
 }

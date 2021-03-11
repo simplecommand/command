@@ -28,7 +28,6 @@
 package org.mwolff.command;
 
 import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
@@ -37,7 +36,9 @@ import org.mwolff.command.process.ProcessCommand;
 import org.mwolff.command.process.Transition;
 import org.mwolff.command.samplecommands.ProcessTestCommandStart;
 
-import java.util.Optional;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class ProcessCommandTest {
 
@@ -48,8 +49,8 @@ public class ProcessCommandTest {
         final GenericParameterObject context = new DefaultParameterObject();
         final String result = processTestStartCommand.executeAsProcess(context);
         final String processflow = context.getAsString("result");
-        Assert.assertEquals("Start - ", processflow);
-        Assert.assertEquals("OK", result);
+        assertEquals("Start - ", processflow);
+        assertEquals("OK", result);
     }
 
     @Test
@@ -57,7 +58,7 @@ public class ProcessCommandTest {
         final ProcessTestCommandStart<GenericParameterObject> processTestStartCommand = new ProcessTestCommandStart<>(
                 "Start");
         final String result = processTestStartCommand.getProcessID();
-        Assert.assertEquals("Start", result);
+        assertEquals("Start", result);
     }
 
     @Test
@@ -65,9 +66,9 @@ public class ProcessCommandTest {
         final GenericParameterObject context = new DefaultParameterObject();
         final DefaultCommandContainer<GenericParameterObject> container = new DefaultCommandContainer<>();
         String result = container.executeAsProcess("Start", context);
-        Assert.assertNull(result);
+        assertNull(result);
         result = container.getProcessID();
-        Assert.assertNull(result);
+        assertNull(result);
     }
 
     @Test
@@ -104,11 +105,11 @@ public class ProcessCommandTest {
             }
 
         };
-        Assert.assertNull(pc.executeAsProcess("START", DefaultParameterObject.NULLCONTEXT));
-        Assert.assertNull(pc.executeAsProcess(DefaultParameterObject.NULLCONTEXT));
-        Assert.assertThat(pc.getProcessID(), CoreMatchers.is("getProcessID"));
-        Assert.assertThat(pc.getTransitionList(), CoreMatchers.notNullValue());
-        Assert.assertThat(pc.findNext("Hello"), CoreMatchers.is("Hello"));
+        assertNull(pc.executeAsProcess("START", new DefaultParameterObject()));
+        assertNull(pc.executeAsProcess(new DefaultParameterObject()));
+        assertThat(pc.getProcessID(), CoreMatchers.is("getProcessID"));
+        assertThat(pc.getTransitionList(), CoreMatchers.notNullValue());
+        assertThat(pc.findNext("Hello"), CoreMatchers.is("Hello"));
         final Transition transition = new DefaultTransition();
         pc.addTransition(transition);
         pc.setProcessID("");

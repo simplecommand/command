@@ -27,15 +27,17 @@
 
 package org.mwolff.command;
 
-import static org.mwolff.command.CommandTransition.*;
-
 import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.chain.ChainCommand;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.samplecommands.ExceptionCommand;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mwolff.command.CommandTransition.FAILURE;
+import static org.mwolff.command.CommandTransition.SUCCESS;
 
 public class CommandTest {
 
@@ -53,7 +55,7 @@ public class CommandTest {
       };
 
       final CommandTransition transition = command.executeCommand(context);
-      Assert.assertThat(transition, CoreMatchers.is(CommandTransition.SUCCESS));
+      assertThat(transition, CoreMatchers.is(CommandTransition.SUCCESS));
    }
 
    @Test
@@ -73,9 +75,9 @@ public class CommandTest {
       };
 
       CommandTransition transition = command.executeCommand(null);
-      Assert.assertThat(transition, CoreMatchers.is(FAILURE));
-      transition = command.executeCommand(DefaultParameterObject.NULLCONTEXT);
-      Assert.assertThat(transition, CoreMatchers.is(SUCCESS));
+      assertThat(transition, CoreMatchers.is(FAILURE));
+      transition = command.executeCommand(new DefaultParameterObject());
+      assertThat(transition, CoreMatchers.is(SUCCESS));
    }
 
    @Test
@@ -84,7 +86,7 @@ public class CommandTest {
       final DefaultParameterObject context = new DefaultParameterObject();
       command.executeCommandAsChain(context);
       final String result = context.getAsString("executed");
-      Assert.assertEquals("true", result);
+      assertEquals("true", result);
    }
 
 }

@@ -26,15 +26,15 @@
  *         USA */
 package org.mwolff.command.samplecommands;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.CommandTransition;
 import org.mwolff.command.chain.XMLChainBuilder;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class ProcessTestCommandEndTest {
 
@@ -43,7 +43,7 @@ public class ProcessTestCommandEndTest {
         final XMLChainBuilder<Object> xmlChainBuilder = new XMLChainBuilder<>("/commandChainEnd.xml");
         final DefaultParameterObject context = new DefaultParameterObject();
         final String result = xmlChainBuilder.executeAsProcess("END", context);
-        Assert.assertNull(result);
+        assertNull(result);
         final String contextResult = context.getAsString("result");
         assertThat(contextResult, is("END - "));
     }

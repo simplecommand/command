@@ -1,10 +1,10 @@
 package org.mwolff.command.testcommand;
 
-import static org.mwolff.command.CommandTransition.SUCCESS;
-
 import org.mwolff.command.CommandTransition;
 import org.mwolff.command.chain.AbstractDefaultChainCommand;
 import org.mwolff.command.parameterobject.GenericParameterObject;
+
+import static org.mwolff.command.CommandTransition.SUCCESS;
 
 public class TestCommand extends AbstractDefaultChainCommand<GenericParameterObject> {
 

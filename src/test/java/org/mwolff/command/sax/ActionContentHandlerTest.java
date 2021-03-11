@@ -26,10 +26,7 @@
  *         USA */
 package org.mwolff.command.sax;
 
-import java.util.List;
-
 import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,6 +36,11 @@ import org.mwolff.command.extensions.MockitoExtension;
 import org.mwolff.command.process.Transition;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.xml.sax.Attributes;
+
+import java.util.List;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(MockitoExtension.class)
 public class ActionContentHandlerTest {
@@ -57,8 +59,8 @@ public class ActionContentHandlerTest {
         Mockito.when(atts.getValue("name")).thenReturn("OK");
         actionContentHandler.startElement("", "action", "", atts);
         final Action action = (Action) ReflectionTestUtils.getField(actionContentHandler, "action");
-        Assert.assertNotNull(action);
-        Assert.assertThat(action.getClassname(),
+        assertNotNull(action);
+        assertThat(action.getClassname(),
                 CoreMatchers.is("org.mwolff.command.samplecommands.ProcessTestCommandStart"));
     }
 
@@ -70,10 +72,10 @@ public class ActionContentHandlerTest {
         ReflectionTestUtils.setField(actionContentHandler, "action", new Action());
         actionContentHandler.startElement("", "transition", "", atts);
         final Action action = (Action) ReflectionTestUtils.getField(actionContentHandler, "action");
-        Assert.assertNotNull(action);
+        assertNotNull(action);
         final Transition transition = action.getTransitions().get(0);
-        Assert.assertThat(transition.getTarget(), CoreMatchers.is("Next"));
-        Assert.assertThat(transition.getReturnValue(), CoreMatchers.is("OK"));
+        assertThat(transition.getTarget(), CoreMatchers.is("Next"));
+        assertThat(transition.getReturnValue(), CoreMatchers.is("OK"));
     }
 
     @Test
@@ -82,6 +84,6 @@ public class ActionContentHandlerTest {
         ReflectionTestUtils.setField(actionContentHandler, "action", new Action());
         actionContentHandler.endElement("", "action", "");
         final List<Action> actions = actionContentHandler.getActions();
-        Assert.assertThat(actions.size(), CoreMatchers.is(1));
+        assertThat(actions.size(), CoreMatchers.is(1));
     }
 }

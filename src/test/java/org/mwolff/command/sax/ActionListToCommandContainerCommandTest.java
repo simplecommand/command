@@ -26,15 +26,7 @@
  *         USA */
 package org.mwolff.command.sax;
 
-import static org.mwolff.command.CommandTransition.*;
-import static org.mwolff.command.sax.GlobalCommandConstants.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.AbstractDefaultCommand;
@@ -45,6 +37,15 @@ import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.ProcessCommand;
 import org.mwolff.command.process.Transition;
 import org.springframework.test.util.ReflectionTestUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mwolff.command.CommandTransition.FAILURE;
+import static org.mwolff.command.CommandTransition.SUCCESS;
+import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
 public class ActionListToCommandContainerCommandTest {
 
@@ -92,19 +93,19 @@ public class ActionListToCommandContainerCommandTest {
         final CommandTransition result = actionListToCommandContainerCommand.executeCommand(context);
         final CommandContainer<GenericParameterObject> container = (CommandContainer<GenericParameterObject>) context
                 .get(COMMAND_CONTAINER);
-        Assert.assertThat(container, CoreMatchers.notNullValue());
-        Assert.assertThat(result, CoreMatchers.is(SUCCESS));
+        assertThat(container, CoreMatchers.notNullValue());
+        assertThat(result, CoreMatchers.is(SUCCESS));
         final Map<Integer, Command<GenericParameterObject>> commandList = (Map<Integer, Command<GenericParameterObject>>) ReflectionTestUtils
                 .getField(container, "commandList");
-        Assert.assertThat(commandList, CoreMatchers.notNullValue());
-        Assert.assertThat(commandList.size(), CoreMatchers.is(1));
+        assertThat(commandList, CoreMatchers.notNullValue());
+        assertThat(commandList.size(), CoreMatchers.is(1));
         final ProcessCommand<GenericParameterObject> command = (ProcessCommand<GenericParameterObject>) commandList
                 .values().iterator().next();
-        Assert.assertThat(command, CoreMatchers.notNullValue());
-        Assert.assertThat(command, CoreMatchers.instanceOf(AbstractDefaultCommand.class));
+        assertThat(command, CoreMatchers.notNullValue());
+        assertThat(command, CoreMatchers.instanceOf(AbstractDefaultCommand.class));
         final List<Transition> transitions = command.getTransitionList();
-        Assert.assertThat(transitions, CoreMatchers.notNullValue());
-        Assert.assertThat(transitions.size(), CoreMatchers.is(1));
+        assertThat(transitions, CoreMatchers.notNullValue());
+        assertThat(transitions.size(), CoreMatchers.is(1));
     }
 
     @Test
@@ -117,16 +118,16 @@ public class ActionListToCommandContainerCommandTest {
         final SaxParameterObject context = new SaxParameterObject();
         context.put(ACTION_LIST, actionList);
         final CommandTransition result = actionListToCommandContainerCommand.executeCommand(context);
-        Assert.assertThat(result, CoreMatchers.is(FAILURE));
+        assertThat(result, CoreMatchers.is(FAILURE));
         final String error = context.getAsString(ERROR_STRING);
-        Assert.assertThat(error, CoreMatchers.is("Error while instaciating class via reflection"));
+        assertThat(error, CoreMatchers.is("Error while instaciating class via reflection"));
     }
     
     @Test
     void testCoverage() {
         transition.setTarget("");
         transition.setReturnValue("");
-        Assert.assertThat(transition.getTarget(), CoreMatchers.is("target"));
-        Assert.assertThat(transition.getReturnValue(), CoreMatchers.is("START"));
+        assertThat(transition.getTarget(), CoreMatchers.is("target"));
+        assertThat(transition.getReturnValue(), CoreMatchers.is("START"));
     }
 }

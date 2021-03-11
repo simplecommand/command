@@ -28,11 +28,12 @@
 package org.mwolff.command.samplecommands;
 
 import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.CommandTransition;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ExceptionCommandTest {
 
@@ -42,7 +43,7 @@ public class ExceptionCommandTest {
         final ExceptionCommand<GenericParameterObject> exceptionCommand = new ExceptionCommand<>();
         final CommandTransition transition = exceptionCommand.executeCommand(context);
         final String value = context.getAsString("executed");
-        Assert.assertThat(value, Matchers.is("true"));
-        Assert.assertThat(transition, Matchers.is(CommandTransition.FAILURE));
+        assertThat(value, Matchers.is("true"));
+        assertThat(transition, Matchers.is(CommandTransition.FAILURE));
     }
 }

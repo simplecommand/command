@@ -27,11 +27,7 @@
 
 package org.mwolff.command.chain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.Command;
@@ -40,12 +36,15 @@ import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.DefaultTransition;
 import org.mwolff.command.process.Transition;
-import org.mwolff.command.samplecommands.DoneTestCommand;
-import org.mwolff.command.samplecommands.ExceptionCommand;
-import org.mwolff.command.samplecommands.FailureTestCommand;
-import org.mwolff.command.samplecommands.ProcessTestCommandEnd;
-import org.mwolff.command.samplecommands.ProcessTestCommandStart;
+import org.mwolff.command.samplecommands.*;
 import org.mwolff.command.testcommand.TestCommand;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class InjectionChainBuilderTest {
 
@@ -55,7 +54,7 @@ public class InjectionChainBuilderTest {
         context.put("key", "value");
         final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
         builder.executeCommand(context);
-        Assert.assertEquals("value", context.getAsString("key"));
+        assertEquals("value", context.getAsString("key"));
     }
 
     @Test
@@ -67,7 +66,7 @@ public class InjectionChainBuilderTest {
         commandList.add(failureTestCommand);
         builder.setCommands(commandList);
         final CommandTransition result = builder.executeCommandAsChain(context);
-        Assert.assertEquals(CommandTransition.FAILURE, result);
+        assertEquals(CommandTransition.FAILURE, result);
     }
 
     @Test
@@ -79,7 +78,7 @@ public class InjectionChainBuilderTest {
         commandList.add(failureTestCommand);
         builder.setCommands(commandList);
         final CommandTransition result = builder.executeCommandAsChain(context);
-        Assert.assertEquals(CommandTransition.DONE, result);
+        assertEquals(CommandTransition.DONE, result);
     }
 
     @Test
@@ -105,8 +104,8 @@ public class InjectionChainBuilderTest {
         builder.setCommands(commandList);
         builder.executeAsProcess("Start", context);
         final String processflow = context.getAsString("result");
-        Assert.assertEquals("Start - Next - ", processflow);
-        Assert.assertNull(builder.getProcessID());
+        assertEquals("Start - Next - ", processflow);
+        assertNull(builder.getProcessID());
     }
 
     @Test
@@ -121,7 +120,7 @@ public class InjectionChainBuilderTest {
         commandList.add(command);
         builder.setCommands(commandList);
         builder.executeCommand(context);
-        Assert.assertEquals("1-2-", context.getAsString("resultString"));
+        assertEquals("1-2-", context.getAsString("resultString"));
     }
 
     @Test
@@ -130,23 +129,23 @@ public class InjectionChainBuilderTest {
         final Throwable exception = Assertions.assertThrows(UnsupportedOperationException.class, () -> {
             builder.setProcessID("something");
         });
-        Assert.assertThat(exception.getMessage(), CoreMatchers.is("ProcessID cannot be set on Container."));
+        assertThat(exception.getMessage(), CoreMatchers.is("ProcessID cannot be set on Container."));
     }
 
     @Test
     public void testExecuteAsProcess() throws Exception {
         final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
         final Throwable exception = Assertions.assertThrows(UnsupportedOperationException.class, () -> {
-            builder.executeAsProcess(DefaultParameterObject.NULLCONTEXT);
+            builder.executeAsProcess(new DefaultParameterObject());
         });
-        Assert.assertThat(exception.getMessage(), CoreMatchers.is("Use executeAsProcess(String start, T context"));
+        assertThat(exception.getMessage(), CoreMatchers.is("Use executeAsProcess(String start, T context"));
     }
 
     @Test
     public void testExecuteCommand() throws Exception {
         final InjectionChainBuilder<GenericParameterObject> builder = new InjectionChainBuilder<>();
-        final CommandTransition result = builder.executeCommand(DefaultParameterObject.NULLCONTEXT);
-        Assert.assertEquals(result, CommandTransition.SUCCESS);
+        final CommandTransition result = builder.executeCommand(new DefaultParameterObject());
+        assertEquals(result, CommandTransition.SUCCESS);
     }
 
     @Test
@@ -158,6 +157,6 @@ public class InjectionChainBuilderTest {
         commandList.add(command);
         builder.setCommands(commandList);
         final CommandTransition result = builder.executeCommandAsChain(context);
-        Assert.assertEquals(result, CommandTransition.DONE);
+        assertEquals(result, CommandTransition.DONE);
     }
 }

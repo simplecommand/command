@@ -1,10 +1,10 @@
 package org.mwolff.command.sax;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-import static org.mwolff.command.sax.GlobalCommandConstants.*;
-
 import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mwolff.command.sax.GlobalCommandConstants.ERROR_STRING;
 
 public class SaxParameterObjectTest {
 
