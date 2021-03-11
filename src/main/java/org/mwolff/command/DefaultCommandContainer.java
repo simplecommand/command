@@ -1,10 +1,13 @@
-/* Simple Command Framework.
+/** Simple Command Framework.
  *
- *          Framework for easy building software that fits the SOLID principles.
+ * Framework for easy building software that fits the SOLID principles.
  *
- *         @author Manfred Wolff <m.wolff@neusta.de>
+ * @author Manfred Wolff <m.wolff@neusta.de>
  *
- *         Copyright (C) 2018 - 2020 Manfred Wolff and the simple command community
+ *         Download:
+ *         https://github.com/simplecommand/command.git
+ *
+ *         Copyright (C) 2018-2021 Manfred Wolff and the simple command community
  *
  *         This library is free software; you can redistribute it and/or
  *         modify it under the terms of the GNU Lesser General Public
@@ -19,8 +22,8 @@
  *         You should have received a copy of the GNU Lesser General Public
  *         License along with this library; if not, write to the Free Software
  *         Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- *         02110-1301 USA
- */
+ *         02110-1301
+ *         USA */
 
 package org.mwolff.command;
 

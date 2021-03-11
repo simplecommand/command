@@ -5,10 +5,9 @@
  * @author Manfred Wolff <m.wolff@neusta.de>
  *
  *         Download:
- *         https://mwolff.info/bitbucket/scm/scf/simplecommandframework.git
+ *         https://github.com/simplecommand/command.git
  *
- *         Copyright (C) 2012-2018 Manfred Wolff and the simple command
- *         community
+ *         Copyright (C) 2018-2021 Manfred Wolff and the simple command community
  *
  *         This library is free software; you can redistribute it and/or
  *         modify it under the terms of the GNU Lesser General Public
