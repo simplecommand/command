@@ -106,26 +106,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Log4J -->
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.15</version>
-			<exclusions>
-				<exclusion>
-					<groupId>com.sun.jmx</groupId>
-					<artifactId>jmxri</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.sun.jdmk</groupId>
-					<artifactId>jmxtools</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.jms</groupId>
-					<artifactId>jms</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
 	</dependencies>
 
 	<build>
@@ -133,12 +113,12 @@
 			<plugin>
 				<groupId>org.pitest</groupId>
 				<artifactId>pitest-maven</artifactId>
-				<version>1.4.2</version>
+				<version>1.4.10</version>
 				<dependencies>
 					<dependency>
 						<groupId>org.pitest</groupId>
 						<artifactId>pitest-junit5-plugin</artifactId>
-						<version>0.7</version>
+						<version>0.11</version>
 					</dependency>
 				</dependencies>
 			</plugin>
@@ -157,7 +137,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.1</version>
 				<configuration>
-					<release>14</release>
+					<release>11</release>
 				</configuration>
 			</plugin>
 			<plugin>

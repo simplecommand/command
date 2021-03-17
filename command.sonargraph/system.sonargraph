@@ -1,0 +1,310 @@
+<?xml version="1.0" ?>
+<ns2:softwareSystem xmlns:ns2="http://www.hello2morrow.com/sonargraph/core" id="2afa2beaa9cd60ebfb808fcb491e58b5" version="11.1.0.660">
+	<description></description>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="command" id="6eed627154a94f4d7ec123be26f63f7e" language="Java">
+		<description>A framework to build up SOLID-save applications.</description>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="./src/main/java"></rootPath>
+		<rootPath name="./target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="./src/test/java"></rootPath>
+		<rootPath name="./target/test-classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-enums" id="2c0de0e51046ca2567de6475075e3d57" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="d027b3e3e57f4d8e0cb4f12f14d0332c" name="lvmatcher-commons"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-enums/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-enums/target/classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-entities" id="ae27511c9959e034e0f1e13fab3eaf50" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="2c0de0e51046ca2567de6475075e3d57" name="lvmatcher-enums"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="d027b3e3e57f4d8e0cb4f12f14d0332c" name="lvmatcher-commons"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-entities/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-entities/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-entities/src/test/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-entities/target/test-classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-entities/target/generated-sources/annotations"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-dao" id="b73505fb85f91526facd2d9a69929888" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="ae27511c9959e034e0f1e13fab3eaf50" name="lvmatcher-entities"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-dao/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-dao/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-dao/src/test/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-dao/target/test-classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-gaeb" id="1a3213f74de9cce22f313c7a15c0f297" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="d027b3e3e57f4d8e0cb4f12f14d0332c" name="lvmatcher-commons"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-gaeb/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-gaeb/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-gaeb/src/test/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-gaeb/target/test-classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-core" id="2e71965498e3d01806979f4981452442" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="ae27511c9959e034e0f1e13fab3eaf50" name="lvmatcher-entities"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="48c2d5a75e1f51b4e9711a2403995a0c" name="lvmatcher-authentication"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="c99f0afb1e526ef4833e79f9275e5f20" name="lvmatcher-i18n"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="b73505fb85f91526facd2d9a69929888" name="lvmatcher-dao"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="423f8fd22e71e15ef26d773706e1cb71" name="lvmatcher-dto"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="1a3213f74de9cce22f313c7a15c0f297" name="lvmatcher-gaeb"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="39bc5d8163f9b642d8bffa6eb463333a" name="lvmatcher-onorm"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="a94206ebb7dfe095db82b1e966e5ae98" name="lvmatcher-converter"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="d027b3e3e57f4d8e0cb4f12f14d0332c" name="lvmatcher-commons"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="41fadbc0ac1d278e189169485ef7892d" name="lvmatcher-util"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="127e577ee4e1a4817163732835627888" name="lvmatcher-document"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="fabef28db1523575f48f2626a6bd28d3" name="lvmatcher-solr"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="c47b76d4a8dc3bdd83367cdd05b98b4a" name="lvmatcher-mail"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="e628ebf47d2370ddab00b43ecf5aa186" name="lvmatcher-pdf"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="ccb0d3a0a29c62cf951ab7ec2b1783a6" name="lvmatcher-ugl"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="d22e7f3a0277494ba93682eea44fda18" name="lvmatcher-evaluation"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="9ea04d5807046adc0b9a8fd7d7b9a627" name="lvmatcher-specification"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="d8f523f7ff1a6272d2573b61131d2741" name="lvmatcher-json"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-core/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-core/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-core/src/test/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-core/target/test-classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-facade" id="d1a652f81e437ae7f6476dc870fb9784" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="2e71965498e3d01806979f4981452442" name="lvmatcher-core"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="48c2d5a75e1f51b4e9711a2403995a0c" name="lvmatcher-authentication"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="ae27511c9959e034e0f1e13fab3eaf50" name="lvmatcher-entities"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="b73505fb85f91526facd2d9a69929888" name="lvmatcher-dao"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="423f8fd22e71e15ef26d773706e1cb71" name="lvmatcher-dto"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="1a3213f74de9cce22f313c7a15c0f297" name="lvmatcher-gaeb"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="a94206ebb7dfe095db82b1e966e5ae98" name="lvmatcher-converter"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="d027b3e3e57f4d8e0cb4f12f14d0332c" name="lvmatcher-commons"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="e628ebf47d2370ddab00b43ecf5aa186" name="lvmatcher-pdf"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="c47b76d4a8dc3bdd83367cdd05b98b4a" name="lvmatcher-mail"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-facade/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-facade/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-facade/src/test/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-facade/target/test-classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-document" id="127e577ee4e1a4817163732835627888" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="423f8fd22e71e15ef26d773706e1cb71" name="lvmatcher-dto"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="a94206ebb7dfe095db82b1e966e5ae98" name="lvmatcher-converter"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="d027b3e3e57f4d8e0cb4f12f14d0332c" name="lvmatcher-commons"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-document/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-document/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-document/src/test/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-document/target/test-classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-solr" id="fabef28db1523575f48f2626a6bd28d3" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="9ea04d5807046adc0b9a8fd7d7b9a627" name="lvmatcher-specification"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="b73505fb85f91526facd2d9a69929888" name="lvmatcher-dao"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="c99f0afb1e526ef4833e79f9275e5f20" name="lvmatcher-i18n"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="41fadbc0ac1d278e189169485ef7892d" name="lvmatcher-util"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-solr/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-solr/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-solr/src/test/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-solr/target/test-classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-web" id="85d9de1d8280bdc5654f1c760674db09" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="d1a652f81e437ae7f6476dc870fb9784" name="lvmatcher-facade"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="7bc478f062602a6a730ce949080dee15" name="lvmatcher-masterdata-entities"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-web/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-web/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-web/src/test/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-web/target/test-classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-dto" id="423f8fd22e71e15ef26d773706e1cb71" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="2c0de0e51046ca2567de6475075e3d57" name="lvmatcher-enums"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="d027b3e3e57f4d8e0cb4f12f14d0332c" name="lvmatcher-commons"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-dto/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-dto/target/classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-history" id="2fc67db7771c30c0a098ff117268dac9" language="Java">
+		<description></description>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-history/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-history/target/classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-dbunit" id="f18c6bee4f57df08c0fdf314ef7af7d8" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="ae27511c9959e034e0f1e13fab3eaf50" name="lvmatcher-entities"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-dbunit/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-dbunit/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-dbunit/src/test/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-dbunit/target/test-classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-solr-server" id="548d16b071e61ca9c04ac322cd85ddc1" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="f18c6bee4f57df08c0fdf314ef7af7d8" name="lvmatcher-dbunit"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-solr-server/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-solr-server/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-solr-server/src/test/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-solr-server/target/test-classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-converter" id="a94206ebb7dfe095db82b1e966e5ae98" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="41fadbc0ac1d278e189169485ef7892d" name="lvmatcher-util"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="423f8fd22e71e15ef26d773706e1cb71" name="lvmatcher-dto"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="b73505fb85f91526facd2d9a69929888" name="lvmatcher-dao"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="1a3213f74de9cce22f313c7a15c0f297" name="lvmatcher-gaeb"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="48c2d5a75e1f51b4e9711a2403995a0c" name="lvmatcher-authentication"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="0f9a67bdaec9e227b78b632d08f6caff" name="lvmatcher-ugl-data"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="d8f523f7ff1a6272d2573b61131d2741" name="lvmatcher-json"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="fabef28db1523575f48f2626a6bd28d3" name="lvmatcher-solr"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-converter/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-converter/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-converter/src/test/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-converter/target/test-classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-ugl" id="ccb0d3a0a29c62cf951ab7ec2b1783a6" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="c99f0afb1e526ef4833e79f9275e5f20" name="lvmatcher-i18n"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="48c2d5a75e1f51b4e9711a2403995a0c" name="lvmatcher-authentication"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="0f9a67bdaec9e227b78b632d08f6caff" name="lvmatcher-ugl-data"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="b73505fb85f91526facd2d9a69929888" name="lvmatcher-dao"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="a94206ebb7dfe095db82b1e966e5ae98" name="lvmatcher-converter"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-ugl/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-ugl/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-ugl/src/test/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-ugl/target/test-classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-ugl-data" id="0f9a67bdaec9e227b78b632d08f6caff" language="Java">
+		<description></description>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-ugl-data/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-ugl-data/target/classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-ugl-auto-import" id="c763a16183e85a8948d8c2b781ab6f66" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="d1a652f81e437ae7f6476dc870fb9784" name="lvmatcher-facade"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="ccb0d3a0a29c62cf951ab7ec2b1783a6" name="lvmatcher-ugl"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-ugl-auto-import/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-ugl-auto-import/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-ugl-auto-import/src/test/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-ugl-auto-import/target/test-classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-commons" id="d027b3e3e57f4d8e0cb4f12f14d0332c" language="Java">
+		<description></description>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-commons/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-commons/target/classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-util" id="41fadbc0ac1d278e189169485ef7892d" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="ae27511c9959e034e0f1e13fab3eaf50" name="lvmatcher-entities"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="b73505fb85f91526facd2d9a69929888" name="lvmatcher-dao"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="423f8fd22e71e15ef26d773706e1cb71" name="lvmatcher-dto"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-util/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-util/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-util/src/test/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-util/target/test-classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-pdf" id="e628ebf47d2370ddab00b43ecf5aa186" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="41fadbc0ac1d278e189169485ef7892d" name="lvmatcher-util"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="423f8fd22e71e15ef26d773706e1cb71" name="lvmatcher-dto"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="b73505fb85f91526facd2d9a69929888" name="lvmatcher-dao"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-pdf/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-pdf/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-pdf/src/test/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-pdf/target/test-classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-mail" id="c47b76d4a8dc3bdd83367cdd05b98b4a" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="423f8fd22e71e15ef26d773706e1cb71" name="lvmatcher-dto"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-mail/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-mail/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-mail/src/test/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-mail/target/test-classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-evaluation" id="d22e7f3a0277494ba93682eea44fda18" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="a94206ebb7dfe095db82b1e966e5ae98" name="lvmatcher-converter"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="b73505fb85f91526facd2d9a69929888" name="lvmatcher-dao"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="9ea04d5807046adc0b9a8fd7d7b9a627" name="lvmatcher-specification"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-evaluation/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-evaluation/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-evaluation/src/test/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-evaluation/target/test-classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-i18n" id="c99f0afb1e526ef4833e79f9275e5f20" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="423f8fd22e71e15ef26d773706e1cb71" name="lvmatcher-dto"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="b73505fb85f91526facd2d9a69929888" name="lvmatcher-dao"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="ae27511c9959e034e0f1e13fab3eaf50" name="lvmatcher-entities"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="41fadbc0ac1d278e189169485ef7892d" name="lvmatcher-util"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-i18n/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-i18n/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-i18n/src/test/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-i18n/target/test-classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-masterdata-entities" id="7bc478f062602a6a730ce949080dee15" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="d027b3e3e57f4d8e0cb4f12f14d0332c" name="lvmatcher-commons"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="ae27511c9959e034e0f1e13fab3eaf50" name="lvmatcher-entities"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-masterdata-entities/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-masterdata-entities/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-masterdata-entities/target/generated-sources/annotations"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-masterdata-dao" id="2b60ffd642632bf0880c7e72c9d20ce7" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="7bc478f062602a6a730ce949080dee15" name="lvmatcher-masterdata-entities"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="d027b3e3e57f4d8e0cb4f12f14d0332c" name="lvmatcher-commons"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="ae27511c9959e034e0f1e13fab3eaf50" name="lvmatcher-entities"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-masterdata-dao/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-masterdata-dao/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-masterdata-dao/src/test/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-masterdata-dao/target/test-classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-masterdata-import" id="e977b3959444e642ee97c62cacdbbb44" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="2e71965498e3d01806979f4981452442" name="lvmatcher-core"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="127e577ee4e1a4817163732835627888" name="lvmatcher-document"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="c47b76d4a8dc3bdd83367cdd05b98b4a" name="lvmatcher-mail"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="7bc478f062602a6a730ce949080dee15" name="lvmatcher-masterdata-entities"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="2b60ffd642632bf0880c7e72c9d20ce7" name="lvmatcher-masterdata-dao"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="a94206ebb7dfe095db82b1e966e5ae98" name="lvmatcher-converter"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="ae27511c9959e034e0f1e13fab3eaf50" name="lvmatcher-entities"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="fabef28db1523575f48f2626a6bd28d3" name="lvmatcher-solr"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="d8f523f7ff1a6272d2573b61131d2741" name="lvmatcher-json"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-masterdata-import/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-masterdata-import/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-masterdata-import/src/test/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-masterdata-import/target/test-classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-specification" id="9ea04d5807046adc0b9a8fd7d7b9a627" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="d027b3e3e57f4d8e0cb4f12f14d0332c" name="lvmatcher-commons"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="b73505fb85f91526facd2d9a69929888" name="lvmatcher-dao"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="423f8fd22e71e15ef26d773706e1cb71" name="lvmatcher-dto"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-specification/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-specification/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-specification/src/test/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-specification/target/test-classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-json" id="d8f523f7ff1a6272d2573b61131d2741" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="d027b3e3e57f4d8e0cb4f12f14d0332c" name="lvmatcher-commons"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-json/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-json/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-json/src/test/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-json/target/test-classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-onorm" id="39bc5d8163f9b642d8bffa6eb463333a" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="1a3213f74de9cce22f313c7a15c0f297" name="lvmatcher-gaeb"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="41fadbc0ac1d278e189169485ef7892d" name="lvmatcher-util"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-onorm/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-onorm/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-onorm/src/test/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-onorm/target/test-classes"></rootPath>
+	</module>
+	<module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="lvmatcher-authentication" id="48c2d5a75e1f51b4e9711a2403995a0c" language="Java">
+		<description></description>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="ae27511c9959e034e0f1e13fab3eaf50" name="lvmatcher-entities"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="d027b3e3e57f4d8e0cb4f12f14d0332c" name="lvmatcher-commons"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="b73505fb85f91526facd2d9a69929888" name="lvmatcher-dao"></dependsOn>
+		<dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="d8f523f7ff1a6272d2573b61131d2741" name="lvmatcher-json"></dependsOn>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-authentication/src/main/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-authentication/target/classes"></rootPath>
+		<rootPath xsi:type="ns4:xsdSourceRootPath" name="../../LVMatcher/lvmatcher/projects/lvmatcher-authentication/src/test/java"></rootPath>
+		<rootPath name="../../LVMatcher/lvmatcher/projects/lvmatcher-authentication/target/test-classes"></rootPath>
+	</module>
+</ns2:softwareSystem>

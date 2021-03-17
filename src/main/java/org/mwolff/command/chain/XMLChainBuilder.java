@@ -27,7 +27,6 @@
 
 package org.mwolff.command.chain;
 
-import org.apache.log4j.Logger;
 import org.mwolff.command.*;
 import org.mwolff.command.process.ProcessCommand;
 import org.mwolff.command.sax.ActionListToCommandContainerCommand;
