@@ -32,8 +32,10 @@ import org.mwolff.command.CommandTransition;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.XMLReaderFactory;
 
+import javax.xml.XMLConstants;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
 import java.io.IOException;
 
 import static org.mwolff.command.CommandTransition.FAILURE;
@@ -48,13 +50,17 @@ public class SaxParserCommand extends AbstractDefaultCommand<SaxParameterObject>
         try {
             final InputSource inputSource = (InputSource) parameterObject.get(INPUT_SOURCE);
 
-            final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
+            SAXParserFactory parserFactory = SAXParserFactory.newInstance();
+            parserFactory.setNamespaceAware(true);
+            final XMLReader xmlReader = parserFactory.newSAXParser().getXMLReader();
+            xmlReader.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, ""); // Compliant
+            xmlReader.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, ""); // compliant
             final ActionContentHandler handler = new ActionContentHandler();
             xmlReader.setContentHandler(handler);
             xmlReader.parse(inputSource);
             parameterObject.put(ACTION_LIST, handler.getActions());
 
-        } catch (IOException | SAXException e) {
+        } catch (IOException | SAXException | ParserConfigurationException e) {
             parameterObject.put(ERROR_STRING, e.getMessage());
             return FAILURE;
         }

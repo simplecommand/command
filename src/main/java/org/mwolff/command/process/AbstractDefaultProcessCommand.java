@@ -42,7 +42,7 @@ public abstract class AbstractDefaultProcessCommand<T extends Object> extends Ab
     protected List<Transition> transitionList = new ArrayList<>();
 
     /** Default constructor */
-    public AbstractDefaultProcessCommand() {
+    protected AbstractDefaultProcessCommand() {
         super();
     }
 
@@ -50,7 +50,7 @@ public abstract class AbstractDefaultProcessCommand<T extends Object> extends Ab
      * 
      * @param processID
      *            The process id for this command. */
-    public AbstractDefaultProcessCommand(final String processID) {
+    protected AbstractDefaultProcessCommand(final String processID) {
         this.processID = processID;
     }
 

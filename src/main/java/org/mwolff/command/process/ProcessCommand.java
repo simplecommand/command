@@ -38,7 +38,7 @@ import java.util.List;
  * @author Manfred Wolff */
 public interface ProcessCommand<T extends Object> extends ChainCommand<T> {
 
-    final static String END = "END";
+    static final String END = "END";
 
     default void addTransition(final Transition transition) {
     }

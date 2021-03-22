@@ -34,6 +34,7 @@ import org.mwolff.command.DefaultCommandContainer;
 import org.mwolff.command.process.AbstractDefaultProcessCommand;
 import org.mwolff.command.process.Transition;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import static org.mwolff.command.CommandTransition.FAILURE;
@@ -54,11 +55,11 @@ public class ActionListToCommandContainerCommand extends AbstractDefaultCommand<
         for (final Action action : actionList) {
 
             final String classname = action.getClassname();
-            Command<Object> command;
+            Command<Object> command = null;
             try {
-                command = (Command<Object>) Class.forName(classname).newInstance();
+                command = (Command<Object>) Class.forName(classname).getDeclaredConstructor().newInstance();
                 defaultCommandContainer.addCommand(command);
-            } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException e) {
                 parameterObject.put(ERROR_STRING.toString(), "Error while instaciating class via reflection");
                 return FAILURE;
             }
