@@ -25,16 +25,16 @@
  *         02110-1301
  *         USA */
 
-package org.mwolff.command.chain;
+package org.mwolff.command.builder;
 
 import org.mwolff.command.*;
-import org.mwolff.command.process.ProcessCommand;
+import org.mwolff.command.interfaces.*;
 import org.mwolff.command.sax.ActionListToCommandContainerCommand;
 import org.mwolff.command.sax.InputSourceReaderCommand;
 import org.mwolff.command.sax.SaxParameterObject;
 import org.mwolff.command.sax.SaxParserCommand;
 
-import static org.mwolff.command.CommandTransition.*;
+import static org.mwolff.command.interfaces.CommandTransition.*;
 import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
 /** Chain builder parsing an XML file for building chains or process chains.
@@ -78,22 +78,17 @@ public class XMLChainBuilder<T extends Object> implements Command<T>, ProcessCom
         final SaxParameterObject context = new SaxParameterObject();
         context.put(FILE_NAME.toString(), this.xmlFilename);
 
-        final InputSourceReaderCommand inputSourceReaderCommand = new InputSourceReaderCommand();
-        final SaxParserCommand commandSaxParser = new SaxParserCommand();
-        final ActionListToCommandContainerCommand actionListToCommandContainerCommand = new ActionListToCommandContainerCommand();
-        final CommandContainer<SaxParameterObject> defaultCommandContainer = new DefaultCommandContainer<>();
-        defaultCommandContainer.addCommand(1, inputSourceReaderCommand);
-        defaultCommandContainer.addCommand(2, commandSaxParser);
-        defaultCommandContainer.addCommand(3, actionListToCommandContainerCommand);
-
-        final CommandTransition result = defaultCommandContainer.executeCommand(context);
+        final CommandTransition result = new DefaultCommandContainer<SaxParameterObject>()
+        .addCommand(1, new InputSourceReaderCommand())
+        .addCommand(2, new SaxParserCommand())
+        .addCommand(3, new ActionListToCommandContainerCommand())
+        .executeCommand(context);
 
         if (result == FAILURE) {
             throw new CommandException(context.getAsString(ERROR_STRING.toString()));
         }
 
         return (CommandContainer<T>) context.get(COMMAND_CONTAINER.toString());
-
     }
 
     @Override

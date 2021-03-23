@@ -25,10 +25,7 @@
  *         02110-1301
  *         USA */
 
-package org.mwolff.command.chain;
-
-import org.mwolff.command.Command;
-import org.mwolff.command.CommandTransition;
+package org.mwolff.command.interfaces;
 
 /** ChainCommand interface for the command framework. The behavior of this
  * method

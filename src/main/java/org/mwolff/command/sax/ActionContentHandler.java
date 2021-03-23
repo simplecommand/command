@@ -28,7 +28,7 @@
 package org.mwolff.command.sax;
 
 import org.mwolff.command.process.DefaultTransition;
-import org.mwolff.command.process.Transition;
+import org.mwolff.command.interfaces.Transition;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;

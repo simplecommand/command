@@ -27,6 +27,8 @@
 
 package org.mwolff.command.process;
 
+import org.mwolff.command.interfaces.Transition;
+
 public class DefaultTransition implements Transition {
 
     private String returnValue;

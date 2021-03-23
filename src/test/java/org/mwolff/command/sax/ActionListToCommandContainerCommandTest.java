@@ -31,12 +31,12 @@ import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.AbstractDefaultCommand;
-import org.mwolff.command.Command;
-import org.mwolff.command.CommandContainer;
-import org.mwolff.command.CommandTransition;
+import org.mwolff.command.interfaces.Command;
+import org.mwolff.command.interfaces.CommandContainer;
+import org.mwolff.command.interfaces.CommandTransition;
 import org.mwolff.command.parameterobject.GenericParameterObject;
-import org.mwolff.command.process.ProcessCommand;
-import org.mwolff.command.process.Transition;
+import org.mwolff.command.interfaces.ProcessCommand;
+import org.mwolff.command.interfaces.Transition;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
@@ -44,8 +44,8 @@ import java.util.List;
 import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mwolff.command.CommandTransition.FAILURE;
-import static org.mwolff.command.CommandTransition.SUCCESS;
+import static org.mwolff.command.interfaces.CommandTransition.FAILURE;
+import static org.mwolff.command.interfaces.CommandTransition.SUCCESS;
 import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
 public class ActionListToCommandContainerCommandTest {

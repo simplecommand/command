@@ -25,10 +25,7 @@
  *         02110-1301
  *         USA */
 
-package org.mwolff.command;
-
-import org.mwolff.command.chain.ChainCommand;
-import org.mwolff.command.process.ProcessCommand;
+package org.mwolff.command.interfaces;
 
 /** Interface of a command container. A command container implements all command
  * interfaces. So you can execute commandContainer as usual commands. Actually

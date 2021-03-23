@@ -25,21 +25,25 @@
  *         02110-1301
  *         USA */
 
-package org.mwolff.command;
+package org.mwolff.command.interfaces;
 
-public enum CommandTransition {
+/** Interface for a transition used for the process mode of the framework.
+ *
+ * @author Manfred Wolff */
+public interface Transition {
 
-    /** @since 1.5.0
-     *        Transition for an execute Method.
-     *
-     *        State can be:
-     *
-     *        SUCCESS : Execution was Successfully done. Used for Command-Mode
-     *        DONE : For CoR: The work is successfully done, the chain can be aborted.
-     *        NEXT : For CoR: The work is not done, next chain should overtake.
-     *        FAILURE : An fatal error has occurred. The chain should be aborted
-     *
-     * @since 1.5.0 */
-    SUCCESS, FAILURE, NEXT, DONE
+    /** @return The return value of the transition. */
+    String getReturnValue();
+
+    /** @return The target of the transition */
+    String getTarget();
+
+    /** @param returnValue
+     *            The return value of the transition. */
+    void setReturnValue(final String returnValue);
+
+    /** @param target
+     *            The target of the transition. */
+    void setTarget(final String target);
 
 }

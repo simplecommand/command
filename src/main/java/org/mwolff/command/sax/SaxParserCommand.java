@@ -28,7 +28,7 @@
 package org.mwolff.command.sax;
 
 import org.mwolff.command.AbstractDefaultCommand;
-import org.mwolff.command.CommandTransition;
+import org.mwolff.command.interfaces.CommandTransition;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -38,8 +38,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.IOException;
 
-import static org.mwolff.command.CommandTransition.FAILURE;
-import static org.mwolff.command.CommandTransition.SUCCESS;
+import static org.mwolff.command.interfaces.CommandTransition.FAILURE;
+import static org.mwolff.command.interfaces.CommandTransition.SUCCESS;
 import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
 public class SaxParserCommand extends AbstractDefaultCommand<SaxParameterObject> {

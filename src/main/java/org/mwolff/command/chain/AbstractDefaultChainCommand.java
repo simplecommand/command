@@ -28,7 +28,8 @@
 package org.mwolff.command.chain;
 
 import org.mwolff.command.AbstractDefaultCommand;
-import org.mwolff.command.CommandTransition;
+import org.mwolff.command.interfaces.ChainCommand;
+import org.mwolff.command.interfaces.CommandTransition;
 
 /** Default implementation for a chain-command. You may use
  * <code>executeAsChain</code> for all executions of the <code>command</code> or
@@ -36,7 +37,7 @@ import org.mwolff.command.CommandTransition;
 public abstract class AbstractDefaultChainCommand<T extends Object> extends AbstractDefaultCommand<T>
         implements ChainCommand<T> {
 
-    /** @see org.mwolff.command.chain.ChainCommand#executeCommandAsChain(java.lang.Object) */
+    /** @see ChainCommand#executeCommandAsChain(java.lang.Object) */
     @Override
     public CommandTransition executeCommandAsChain(T parameterObject) {
         final CommandTransition result = executeCommand(parameterObject);

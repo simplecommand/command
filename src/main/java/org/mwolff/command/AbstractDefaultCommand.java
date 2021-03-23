@@ -27,8 +27,11 @@
 
 package org.mwolff.command;
 
-import static org.mwolff.command.CommandTransition.FAILURE;
-import static org.mwolff.command.CommandTransition.SUCCESS;
+import org.mwolff.command.interfaces.Command;
+import org.mwolff.command.interfaces.CommandTransition;
+
+import static org.mwolff.command.interfaces.CommandTransition.FAILURE;
+import static org.mwolff.command.interfaces.CommandTransition.SUCCESS;
 
 /** Default implementation for a command. The command interface offers only the
  * executeCommand method which returns as a default SUSSESS. Event the paramter

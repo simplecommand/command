@@ -27,14 +27,13 @@
 
 package org.mwolff.command;
 
-import org.mwolff.command.chain.ChainCommand;
-import org.mwolff.command.process.ProcessCommand;
+import org.mwolff.command.interfaces.*;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
 
-import static org.mwolff.command.CommandTransition.*;
+import static org.mwolff.command.interfaces.CommandTransition.*;
 
 /**
  * CommandContainer that holds Command-objects. Should have the same behavior
@@ -55,7 +54,7 @@ public class DefaultCommandContainer<T> implements CommandContainer<T> {
             });
 
     /**
-     * @see org.mwolff.command.CommandContainer#addCommand(org.mwolff.command.Command)
+     * @see CommandContainer#addCommand(Command)
      */
     @Override
     public CommandContainer<T> addCommand(final Command<T> command) {
@@ -64,8 +63,8 @@ public class DefaultCommandContainer<T> implements CommandContainer<T> {
     }
 
     /**
-     * @see org.mwolff.command.CommandContainer#addCommand(int,
-     * org.mwolff.command.Command)
+     * @see CommandContainer#addCommand(int,
+     * Command)
      */
     @Override
     public CommandContainer<T> addCommand(final int priority, final Command<T> command) {
@@ -87,7 +86,7 @@ public class DefaultCommandContainer<T> implements CommandContainer<T> {
     }
 
     /**
-     * @see org.mwolff.command.process.ProcessCommand#executeAsProcess(java.lang.String,
+     * @see ProcessCommand#executeAsProcess(java.lang.String,
      * java.lang.Object)
      */
     @Override

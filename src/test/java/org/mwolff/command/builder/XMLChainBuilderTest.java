@@ -25,19 +25,19 @@
  *         02110-1301
  *         USA */
 
-package org.mwolff.command.chain;
+package org.mwolff.command.builder;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mwolff.command.CommandTransition;
+import org.mwolff.command.interfaces.CommandTransition;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.mwolff.command.CommandTransition.*;
+import static org.mwolff.command.interfaces.CommandTransition.*;
 
 public class XMLChainBuilderTest {
 

@@ -28,7 +28,9 @@
 package org.mwolff.command;
 
 import org.junit.jupiter.api.Test;
-import org.mwolff.command.chain.InjectionChainBuilder;
+import org.mwolff.command.builder.InjectionChainBuilder;
+import org.mwolff.command.interfaces.Command;
+import org.mwolff.command.interfaces.CommandContainer;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.samplecommands.SimpleTestCommand;
@@ -38,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mwolff.command.CommandTransition.NEXT;
+import static org.mwolff.command.interfaces.CommandTransition.NEXT;
 
 public class CommandIntegrationTest {
 

@@ -29,11 +29,12 @@ package org.mwolff.command;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
+import org.mwolff.command.interfaces.CommandTransition;
+import org.mwolff.command.interfaces.ProcessCommand;
+import org.mwolff.command.interfaces.Transition;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.DefaultTransition;
-import org.mwolff.command.process.ProcessCommand;
-import org.mwolff.command.process.Transition;
 import org.mwolff.command.samplecommands.ProcessTestCommandStart;
 
 import static org.hamcrest.MatcherAssert.assertThat;

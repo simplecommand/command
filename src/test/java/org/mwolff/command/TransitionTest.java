@@ -29,8 +29,8 @@ package org.mwolff.command;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
+import org.mwolff.command.interfaces.Transition;
 import org.mwolff.command.process.DefaultTransition;
-import org.mwolff.command.process.Transition;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 

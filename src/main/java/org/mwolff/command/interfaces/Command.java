@@ -25,7 +25,7 @@
  *         02110-1301
  *         USA */
 
-package org.mwolff.command;
+package org.mwolff.command.interfaces;
 
 /** Command interface for the command framework.
  *

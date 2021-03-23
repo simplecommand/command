@@ -27,6 +27,8 @@
 
 package org.mwolff.command.process;
 
+import org.mwolff.command.interfaces.ProcessCommand;
+import org.mwolff.command.interfaces.Transition;
 import org.mwolff.command.chain.AbstractDefaultChainCommand;
 
 import java.util.ArrayList;
@@ -54,13 +56,13 @@ public abstract class AbstractDefaultProcessCommand<T extends Object> extends Ab
         this.processID = processID;
     }
 
-    /** @see org.mwolff.command.process.ProcessCommand#addTransition(org.mwolff.command.process.Transition) */
+    /** @see ProcessCommand#addTransition(Transition) */
     @Override
     public void addTransition(final Transition transition) {
         transitionList.add(transition);
     }
 
-    /** @see org.mwolff.command.process.ProcessCommand#findNext(java.lang.String) */
+    /** @see ProcessCommand#findNext(java.lang.String) */
     @Override
     public String findNext(final String next) {
         for (final Transition transition : transitionList) {
@@ -71,19 +73,19 @@ public abstract class AbstractDefaultProcessCommand<T extends Object> extends Ab
         return null;
     }
 
-    /** @see org.mwolff.command.process.ProcessCommand#getProcessID() */
+    /** @see ProcessCommand#getProcessID() */
     @Override
     public String getProcessID() {
         return this.processID;
     }
 
-    /** @see org.mwolff.command.process.ProcessCommand#getTransitionList() */
+    /** @see ProcessCommand#getTransitionList() */
     @Override
     public List<Transition> getTransitionList() {
         return new ArrayList<>(transitionList);
     }
 
-    /** @see org.mwolff.command.process.ProcessCommand#setProcessID(java.lang.String) */
+    /** @see ProcessCommand#setProcessID(java.lang.String) */
     @Override
     public void setProcessID(final String processID) {
         this.processID = processID;

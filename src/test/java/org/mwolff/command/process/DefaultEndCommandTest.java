@@ -30,7 +30,7 @@ package org.mwolff.command.process;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.DefaultCommandContainer;
-import org.mwolff.command.chain.XMLChainBuilder;
+import org.mwolff.command.builder.XMLChainBuilder;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 

@@ -34,7 +34,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mwolff.command.extensions.MockitoExtension;
-import org.mwolff.command.process.Transition;
+import org.mwolff.command.interfaces.Transition;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.xml.sax.Attributes;
 

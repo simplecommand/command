@@ -25,13 +25,10 @@
  *         02110-1301
  *         USA */
 
-package org.mwolff.command.chain;
+package org.mwolff.command.builder;
 
-import org.mwolff.command.Command;
-import org.mwolff.command.CommandContainer;
-import org.mwolff.command.CommandTransition;
-import org.mwolff.command.DefaultCommandContainer;
-import org.mwolff.command.process.ProcessCommand;
+import org.mwolff.command.*;
+import org.mwolff.command.interfaces.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,13 +42,12 @@ public class InjectionChainBuilder<T extends Object> implements Command<T>, Proc
         return buildChain().executeCommand(parameterObject);
     }
 
-    /** @see org.mwolff.command.chain.ChainCommand#executeCommandAsChain(java.lang.Object) */
     @Override
     public CommandTransition executeCommandAsChain(T parameterObject) {
         return buildChain().executeCommandAsChain(parameterObject);
     }
 
-    /** @see org.mwolff.command.process.ProcessCommand#executeAsProcess(java.lang.String,
+    /** @see ProcessCommand#executeAsProcess(java.lang.String,
      *      java.lang.Object) */
     @Override
     public String executeAsProcess(final String startCommand, final T context) {
@@ -67,7 +63,7 @@ public class InjectionChainBuilder<T extends Object> implements Command<T>, Proc
         return commandContainer;
     }
 
-    /** @see org.mwolff.command.process.ProcessCommand#getProcessID() */
+    /** @see ProcessCommand#getProcessID() */
     @Override
     public String getProcessID() {
         return null;
@@ -81,13 +77,13 @@ public class InjectionChainBuilder<T extends Object> implements Command<T>, Proc
         this.commands = commands;
     }
 
-    /** @see org.mwolff.command.process.ProcessCommand#setProcessID(java.lang.String) */
+    /** @see ProcessCommand#setProcessID(java.lang.String) */
     @Override
     public void setProcessID(final String processID) {
         throw new UnsupportedOperationException("ProcessID cannot be set on Container.");
     }
 
-    /** @see org.mwolff.command.process.ProcessCommand#executeAsProcess(java.lang.Object) */
+    /** @see ProcessCommand#executeAsProcess(java.lang.Object) */
     @Override
     public String executeAsProcess(T context) {
         throw new UnsupportedOperationException("Use executeAsProcess(String start, T context");

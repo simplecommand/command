@@ -25,9 +25,7 @@
  *         02110-1301
  *         USA */
 
-package org.mwolff.command.process;
-
-import org.mwolff.command.chain.ChainCommand;
+package org.mwolff.command.interfaces;
 
 import java.util.ArrayList;
 import java.util.List;

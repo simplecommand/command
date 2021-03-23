@@ -28,17 +28,17 @@
 package org.mwolff.command.sax;
 
 import org.mwolff.command.AbstractDefaultCommand;
-import org.mwolff.command.Command;
-import org.mwolff.command.CommandTransition;
+import org.mwolff.command.interfaces.Command;
+import org.mwolff.command.interfaces.CommandTransition;
 import org.mwolff.command.DefaultCommandContainer;
 import org.mwolff.command.process.AbstractDefaultProcessCommand;
-import org.mwolff.command.process.Transition;
+import org.mwolff.command.interfaces.Transition;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import static org.mwolff.command.CommandTransition.FAILURE;
-import static org.mwolff.command.CommandTransition.SUCCESS;
+import static org.mwolff.command.interfaces.CommandTransition.FAILURE;
+import static org.mwolff.command.interfaces.CommandTransition.SUCCESS;
 import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
 public class ActionListToCommandContainerCommand extends AbstractDefaultCommand<SaxParameterObject> {

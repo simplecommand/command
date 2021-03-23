@@ -28,6 +28,7 @@
 package org.mwolff.command;
 
 import org.junit.jupiter.api.Test;
+import org.mwolff.command.interfaces.CommandTransition;
 
 public class CommandTransitionTest {
 

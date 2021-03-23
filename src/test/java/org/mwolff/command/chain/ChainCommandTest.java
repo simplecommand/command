@@ -29,13 +29,14 @@ package org.mwolff.command.chain;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
-import org.mwolff.command.CommandTransition;
+import org.mwolff.command.interfaces.ChainCommand;
+import org.mwolff.command.interfaces.CommandTransition;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mwolff.command.CommandTransition.NEXT;
-import static org.mwolff.command.CommandTransition.SUCCESS;
+import static org.mwolff.command.interfaces.CommandTransition.NEXT;
+import static org.mwolff.command.interfaces.CommandTransition.SUCCESS;
 
 public class ChainCommandTest {
 

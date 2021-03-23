@@ -29,16 +29,16 @@ package org.mwolff.command.sax;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
-import org.mwolff.command.CommandTransition;
-import org.mwolff.command.process.Transition;
+import org.mwolff.command.interfaces.CommandTransition;
+import org.mwolff.command.interfaces.Transition;
 import org.xml.sax.InputSource;
 
 import java.io.InputStream;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mwolff.command.CommandTransition.FAILURE;
-import static org.mwolff.command.CommandTransition.SUCCESS;
+import static org.mwolff.command.interfaces.CommandTransition.FAILURE;
+import static org.mwolff.command.interfaces.CommandTransition.SUCCESS;
 import static org.mwolff.command.sax.GlobalCommandConstants.*;
 
 public class SaxParserCommandTest {
