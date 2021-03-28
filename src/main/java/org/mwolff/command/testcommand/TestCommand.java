@@ -27,8 +27,8 @@
 
 package org.mwolff.command.testcommand;
 
-import org.mwolff.command.interfaces.CommandTransition;
 import org.mwolff.command.chain.AbstractDefaultChainCommand;
+import org.mwolff.command.interfaces.CommandTransition;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
 import static org.mwolff.command.interfaces.CommandTransition.SUCCESS;

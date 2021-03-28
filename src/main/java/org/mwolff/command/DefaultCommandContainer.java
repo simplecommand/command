@@ -54,18 +54,17 @@ public class DefaultCommandContainer<T> implements CommandContainer<T> {
             });
 
     /**
-     * @see CommandContainer#addCommand(Command)
-     */
-    @Override
+     * @inheritDoc
+     **/
+     @Override
     public CommandContainer<T> addCommand(final Command<T> command) {
         commandList.put(0, command);
         return this;
     }
 
     /**
-     * @see CommandContainer#addCommand(int,
-     * Command)
-     */
+     * @inheritDoc
+     **/
     @Override
     public CommandContainer<T> addCommand(final int priority, final Command<T> command) {
         commandList.put(priority, command);

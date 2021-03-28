@@ -27,8 +27,8 @@
 
 package org.mwolff.command.samplecommands;
 
-import org.mwolff.command.interfaces.CommandTransition;
 import org.mwolff.command.chain.AbstractDefaultChainCommand;
+import org.mwolff.command.interfaces.CommandTransition;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 
 public class SimpleTestCommand<T extends GenericParameterObject> extends AbstractDefaultChainCommand<T> {

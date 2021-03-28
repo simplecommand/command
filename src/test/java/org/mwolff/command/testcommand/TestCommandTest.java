@@ -29,8 +29,8 @@ package org.mwolff.command.testcommand;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mwolff.command.interfaces.CommandTransition;
 import org.mwolff.command.DefaultCommandContainer;
+import org.mwolff.command.interfaces.CommandTransition;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 

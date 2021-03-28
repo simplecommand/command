@@ -27,7 +27,8 @@
 
 package org.mwolff.command.builder;
 
-import org.mwolff.command.*;
+import org.mwolff.command.CommandException;
+import org.mwolff.command.DefaultCommandContainer;
 import org.mwolff.command.interfaces.*;
 import org.mwolff.command.sax.ActionListToCommandContainerCommand;
 import org.mwolff.command.sax.InputSourceReaderCommand;

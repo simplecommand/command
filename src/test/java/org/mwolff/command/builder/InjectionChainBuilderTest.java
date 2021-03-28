@@ -32,10 +32,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.interfaces.Command;
 import org.mwolff.command.interfaces.CommandTransition;
+import org.mwolff.command.interfaces.Transition;
 import org.mwolff.command.parameterobject.DefaultParameterObject;
 import org.mwolff.command.parameterobject.GenericParameterObject;
 import org.mwolff.command.process.DefaultTransition;
-import org.mwolff.command.interfaces.Transition;
 import org.mwolff.command.samplecommands.*;
 import org.mwolff.command.testcommand.TestCommand;
 

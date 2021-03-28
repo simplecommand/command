@@ -31,12 +31,8 @@ import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mwolff.command.AbstractDefaultCommand;
-import org.mwolff.command.interfaces.Command;
-import org.mwolff.command.interfaces.CommandContainer;
-import org.mwolff.command.interfaces.CommandTransition;
+import org.mwolff.command.interfaces.*;
 import org.mwolff.command.parameterobject.GenericParameterObject;
-import org.mwolff.command.interfaces.ProcessCommand;
-import org.mwolff.command.interfaces.Transition;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;

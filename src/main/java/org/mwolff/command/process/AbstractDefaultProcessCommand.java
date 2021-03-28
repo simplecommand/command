@@ -27,9 +27,9 @@
 
 package org.mwolff.command.process;
 
+import org.mwolff.command.chain.AbstractDefaultChainCommand;
 import org.mwolff.command.interfaces.ProcessCommand;
 import org.mwolff.command.interfaces.Transition;
-import org.mwolff.command.chain.AbstractDefaultChainCommand;
 
 import java.util.ArrayList;
 import java.util.List;

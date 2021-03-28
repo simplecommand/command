@@ -28,11 +28,11 @@
 package org.mwolff.command.sax;
 
 import org.mwolff.command.AbstractDefaultCommand;
+import org.mwolff.command.DefaultCommandContainer;
 import org.mwolff.command.interfaces.Command;
 import org.mwolff.command.interfaces.CommandTransition;
-import org.mwolff.command.DefaultCommandContainer;
-import org.mwolff.command.process.AbstractDefaultProcessCommand;
 import org.mwolff.command.interfaces.Transition;
+import org.mwolff.command.process.AbstractDefaultProcessCommand;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
