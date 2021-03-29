@@ -1,29 +1,31 @@
-/** Simple Command Framework.
- *
+/**
+ * Simple Command Framework.
+ * <p>
  * Framework for easy building software that fits the SOLID principles.
  *
  * @author Manfred Wolff <m.wolff@neusta.de>
- *
- *         Download:
- *         https://github.com/simplecommand/command.git
- *
- *         Copyright (C) 2018-2021 Manfred Wolff and the simple command community
- *
- *         This library is free software; you can redistribute it and/or
- *         modify it under the terms of the GNU Lesser General Public
- *         License as published by the Free Software Foundation; either
- *         version 2.1 of the License, or (at your option) any later version.
- *
- *         This library is distributed in the hope that it will be useful,
- *         but WITHOUT ANY WARRANTY; without even the implied warranty of
- *         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- *         Lesser General Public License for more details.
- *
- *         You should have received a copy of the GNU Lesser General Public
- *         License along with this library; if not, write to the Free Software
- *         Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- *         02110-1301
- *         USA */
+ * <p>
+ * Download:
+ * https://github.com/simplecommand/command.git
+ * <p>
+ * Copyright (C) 2018-2021 Manfred Wolff and the simple command community
+ * <p>
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ * <p>
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301
+ * USA
+ */
 
 package org.mwolff.command.builder;
 
@@ -79,16 +81,13 @@ public class XMLChainBuilder<T extends Object> implements Command<T>, ProcessCom
         final SaxParameterObject context = new SaxParameterObject();
         context.put(FILE_NAME.toString(), this.xmlFilename);
 
-        final CommandTransition result = new DefaultCommandContainer<SaxParameterObject>()
-        .addCommand(1, new InputSourceReaderCommand())
-        .addCommand(2, new SaxParserCommand())
-        .addCommand(3, new ActionListToCommandContainerCommand())
-        .executeCommand(context);
-
-        if (result == FAILURE) {
+        if (new DefaultCommandContainer<SaxParameterObject>()
+                .addCommand(1, new InputSourceReaderCommand())
+                .addCommand(2, new SaxParserCommand())
+                .addCommand(3, new ActionListToCommandContainerCommand())
+                .executeCommand(context) == FAILURE) {
             throw new CommandException(context.getAsString(ERROR_STRING.toString()));
         }
-
         return (CommandContainer<T>) context.get(COMMAND_CONTAINER.toString());
     }
 
